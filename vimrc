@@ -105,6 +105,12 @@ if has("gui_running")
   vmap <C-s> <Esc><C-s>gv
   imap <C-s> <C-o><C-s>
 endif
+if has("gui")
+  set guioptions-=T
+  set guioptions-=r
+  set guioptions+=c " Use console dialogs where possible"
+  "set guioptions-=m
+endif
 nnoremap <silent> <Tab><space> :update<CR>
 " using TAB instead of ^W is easier
 nnoremap <silent> <Tab>l <C-W>l
@@ -741,13 +747,6 @@ endfunction
 
 autocmd BufWritePost ~/.vim/** Helptags
 "autocmd BufWritePost ~/.vim/doc/* helptags ~/.vim/doc
-
-if has("gui")
-  set guioptions-=T
-  set guioptions-=r
-  set guioptions+=c " Use console dialogs where possible"
-  "set guioptions-=m
-endif
 
 set background=dark
 " bandit lucius solarized badwolf
