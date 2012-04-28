@@ -2,6 +2,9 @@ GIT WRESTLING
 
 clone, branch, checkout, status, pull, fetch, diff, add, commit, rebase, format-patch
 
+git commit
+git push -u origin master
+
 http://www.ralfebert.de/tutorials/git/
 --------------------------------------
 1* make changes to working directory

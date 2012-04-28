@@ -8,7 +8,7 @@
 # hlsearch on (H) or off (h):
 ~h
 # Last Search Pattern:
-~MSle0~/RC
+~MSle0~/origin
 
 # Last Substitute Search Pattern:
 ~MSle0&\<C-R>="
@@ -17,6 +17,7 @@
 $
 
 # Command Line History (newest to oldest):
+:Note GIT WRESTLING.txt
 :colorscheme murphy
 :colorscheme
 :e ~/.vim
@@ -466,9 +467,9 @@ $
 :RecoverPluginHelp
 :0
 :wincmd p
-:w
 
 # Search String History (newest to oldest):
+?/origin
 ? ^$
 ?/netrw
 ?/unite
@@ -918,7 +919,6 @@ $
 ?/rc-loc
 ?/ser
 ? \<\.\.\/\>
-? \<\.\./\>
 
 # Expression History (newest to oldest):
 ="s\x6fme\tt\x65xt\n\"Sa\155ba\u201d: \\\\net\\share\x73\x75\x70\x65\x72\x63\x61\x6c\x69\x66\x72\x61\x67\x69\x6c\x69\x73\x74\x69\x63\x65\x78\x70\x69\x61\x6c\x69\x64\x6f\x63\x69\x6f\x75\x73"
@@ -1381,7 +1381,7 @@ $
 # Input Line History (newest to oldest):
 
 # Registers:
-""0	LINE	0
+"0	LINE	0
 	../
 	AutoFenc.vim
 	DirDiff.vim
@@ -1577,25 +1577,44 @@ $
 	<<>>
 "z	CHAR	0
 	ZkkjkkkZZkj:TS ZqZqZ
-"-	CHAR	0
-	lucius
+""-	CHAR	0
+	*
+
+# global variables:
+!I	NUM	0
+!ST_UNIX	NUM	2
+!VSUTIL	NUM	1
+!VCSCOMMAND_IDENTIFY_EXACT	NUM	1
+!VSUTILMIN	NUM	4
+!ST_WIN_SH	NUM	1
+!VIKIBACKREFS	DIC	{}
+!VCSCOMMAND_IDENTIFY_INEXACT	NUM	-1
+!ST_WIN_CMD	NUM	0
+!LIST	NUM	0
+!VSUTILMAJ	NUM	1
 
 # File marks:
 'B  5  0  ~/PYTHON/part05.py
 'M  76  0  ~/ANDROID_OSP/android-lighthouse/AA.txt
 'Z  1  0  ~/SRC/CSS_HTML_THEME
-'0  31  0  ~/.vim/plugin
-'1  27  0  ~/.vim
-'2  1  0  ~/%F
-'3  1  0  ~/.vim/fuf-data/mrufile/itemdirs
-'4  1  0  ~/.vim/.tmp
-'5  123  0  ~/C/TDD/led-driver-check/led-driverTest.c
-'6  106  0  ~/C/TDD/led-driver-check/led-driverTest.c
-'7  778  29  ~/.vimrc
-'8  778  0  ~/.vimrc
-'9  214  0  ~/.vim/bundle/statline-umt/plugin/ctags.vim
+'0  6  24  ~/.vim/var/notes/GIT WRESTLING.txt
+'1  1  3  ~/.vim/.gitignore
+'2  3  38  ~/.vim/README.md
+'3  31  0  ~/.vim/plugin
+'4  27  0  ~/.vim
+'5  1  0  ~/%F
+'6  1  0  ~/.vim/fuf-data/mrufile/itemdirs
+'7  1  0  ~/.vim/.tmp
+'8  123  0  ~/C/TDD/led-driver-check/led-driverTest.c
+'9  106  0  ~/C/TDD/led-driver-check/led-driverTest.c
 
 # Jumplist (newest first):
+-'  6  24  ~/.vim/var/notes/GIT WRESTLING.txt
+-'  2  0  ~/.vim/var/notes/GIT WRESTLING.txt
+-'  1  0  ~/.vim/var/notes/GIT WRESTLING.txt
+-'  1  3  ~/.vim/.gitignore
+-'  3  38  ~/.vim/README.md
+-'  1  0  ~/.vim/README.md
 -'  31  0  ~/.vim/plugin
 -'  764  0  ~/.vim/vimrc
 -'  1  0  ~/.vim/vimrc
@@ -1687,13 +1706,26 @@ $
 -'  30  0  ~/C/TDD/led-driver-check/led-driver.c
 -'  79  1  ~/C/TDD/led-driver-check/led-driver.c
 -'  68  1  ~/C/TDD/led-driver-check/led-driver.c
--'  69  1  ~/C/TDD/led-driver-check/led-driver.c
--'  42  0  ~/C/TDD/led-driver-check/led-driver.c
--'  35  1  ~/C/TDD/led-driver-check/led-driver.c
--'  126  0  ~/C/TDD/led-driver-check/led-driverTest.c
--'  139  0  ~/C/TDD/led-driver-check/led-driverTest.c
 
 # History of marks within files (newest to oldest):
+
+> ~/.vim/var/notes/GIT WRESTLING.txt
+	"	6	24
+	^	6	25
+	.	6	24
+	+	6	24
+
+> ~/.vim/.gitignore
+	"	1	3
+	^	1	6
+	.	1	3
+	+	1	3
+
+> ~/.vim/README.md
+	"	3	38
+	^	3	39
+	.	3	38
+	+	3	38
 
 > ~/.vim/vimrc
 	"	764	0
@@ -3126,15 +3158,3 @@ $
 
 > ~/SRC/kupfer/kupfer-v206/kupfer/ui/listen.py
 	"	8	0
-
-> /etc/shells
-	"	1	0
-
-> /etc/bash.bashrc
-	"	7	0
-
-> /etc/exports
-	"	17	0
-	^	17	1
-	.	17	0
-	+	17	0
