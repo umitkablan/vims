@@ -1,0 +1,13 @@
+Arch Linux
+
+# remove old entries from package cache.
+sudo pacman -Sc
+# rank fresh mirrors by speed and save them.
+sudo reflector -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+# After changing mirrors it is good to
+sudo pacman -Syy
+
+
+$ obkey ~/.config/openbox/lxde-rc.xml
+lxterminal --geometry=154x35 -e "vim"
+

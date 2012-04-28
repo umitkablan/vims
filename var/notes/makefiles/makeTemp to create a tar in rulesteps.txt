@@ -1,0 +1,9 @@
+# makeTemp to create a tar in rule-steps
+# ======================================
+
+out.tar : 
+    $(eval $@_TMP := $(shell mktemp -d))
+    @echo hi $($@_TMP)/hi.txt
+    tar -C $($@_TMP) cf $@ .
+    rm -rf $($@_TMP)
+

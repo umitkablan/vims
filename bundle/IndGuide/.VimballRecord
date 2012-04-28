@@ -1,0 +1,1 @@
+IndGuide.vba: call delete('/home/arch/.vim/bundle/IndGuide/plugin/IndGuidePlugin.vim')|call delete('/home/arch/.vim/bundle/IndGuide/doc/IndGuide.txt')|call delete('/home/arch/.vim/bundle/IndGuide/autoload/IndGuide.vim')

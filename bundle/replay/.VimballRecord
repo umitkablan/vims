@@ -1,0 +1,1 @@
+Replay-0.3.vba: call delete('/home/arch/.vim/bundle/replay/plugin/ReplayPlugin.vim')|call delete('/home/arch/.vim/bundle/replay/autoload/Replay.vim')|call delete('/home/arch/.vim/bundle/replay/doc/Replay.txt')

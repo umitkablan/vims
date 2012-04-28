@@ -1,0 +1,11 @@
+Scientific Calculator with Python
+http://vim.wikia.com/wiki/VimTip1235
+------------------------------------
+
+command! -nargs=+ Calc :!python -c "from math import *; print <args>"
+
+Usage:
+:Calc 2**10,2**16,2**128
+:Calc sin(pi/2),log(10)
+:Calc sum(range(1,100+1)),
+

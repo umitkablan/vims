@@ -1,0 +1,51 @@
+skeleton for check c unit testing
+=================================
+
+#include <stdlib.h>
+#include <check.h>
+
+START_TEST (test_money_create)
+{
+  Money *m;
+  m = money_create (5, "USD" );
+  fail_unless (money_amount (m) == 5, 
+          "Amount not set correctly on creation" );
+  fail_unless (strcmp (money_currency (m), "USD" ) == 0,
+          "Currency not set correctly on creation" );
+  money_free (m);
+}
+END_TEST
+
+void setup(void)
+{
+}
+void teardown(void)
+{
+}
+
+Suite *
+create_suite (void)
+{
+  Suite *suite = suite_create ("Money");
+
+  TCase *tc_core = tcase_create ("Core");
+  /*tcase_add_checked_fixture(tc_core, setup, teardown);*/
+  tcase_add_test (tc_core, test_money_create );
+  suite_add_tcase (suite, tc_core );
+
+  return suite;
+}
+
+int
+main (void)
+{
+  int number_failed;
+  Suite *s = create_suite ();
+  SRunner *sr = srunner_create (s);
+  srunner_set_fork_status(sr, CK_NOFORK);
+  srunner_run_all (sr, CK_NORMAL );
+  number_failed = srunner_ntests_failed (sr);
+  srunner_free (sr);
+  return (number_failed == 0 ) ? EXIT_SUCCESS : EXIT_FAILURE;
+}
+

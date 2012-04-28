@@ -1,0 +1,14 @@
+un-C-escape string
+http://vimgolf.com/challenges/4f6144f46938f20001000061
+
+Start file
+s\x6fme\tt\x65xt\n\"Sa\155ba\u201d: \\\\net\\share
+\x73\x75\x70\x65\x72\x63\x61\x6c\x69\x66\x72\x61\x67\x69\x6c\x69\x73\x74\x69\x63\x65\x78\x70\x69\x61\x6c\x69\x64\x6f\x63\x69\x6f\x75\x73
+
+End file
+some    text
+"Samba”: \\net\share
+supercalifragilisticexpialidocious"
+
+Tim Chase's solution (12)
+c)<C-R>="<C-R>""<CR><Esc>ZZ

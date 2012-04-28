@@ -1,0 +1,19 @@
+A Better gm command
+-------------------
+http://vim.wikia.com/wiki/A_better_gm_command
+
+Typing gm moves you to the middle of the screen-line. If the text line wraps multiple screen line then it will still work for screen which may not be what you want. So:
+
+function! s:Gm()
+  execute 'normal! ^'
+  let first_col = virtcol('.')
+  execute 'normal! g_'
+  let last_col  = virtcol('.')
+  execute 'normal! ' . (first_col + last_col) / 2 . '|'
+endfunction
+nnoremap <silent> gm :call <SID>Gm()<CR>
+
+Note that this is removed for not finding a suitable use:
+
+onoremap <silent> gm :call <SID>Gm()<CR>
+" xmap <silent> gm :call <SID>Gm()<CR>

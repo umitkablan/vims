@@ -1,0 +1,18 @@
+remote-gdb
+
+start the binary at remote host:
+  remote$ gdbserver :10000 ./test_program_g
+that binary might be stripped but shall be -g compiled
+
+non-stripped binary should be resident at PC:
+   PC$ arm-none-linux-gnueabi-gdb 
+   #$ file test_program_g
+   #$ target remote 192.168.2.77:10000
+   #$ set solib-absolute-prefix ~/ANDROID/buildroot/output/images/rootfs
+   #$ break main
+   #$ continue
+
+set solib-search-path /home/filesys/lib
+set sysroot /home/target/filesys 
+target remote 192.168.2.77:10000
+

@@ -1,0 +1,2 @@
+unicode-0.8.vba: call delete('/home/arch/.vim/bundle/unicode/plugin/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/autoload/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/doc/unicode.txt')
+unicode-0.12.vmb: call delete('/home/arch/.vim/bundle/unicode/plugin/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/autoload/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/doc/unicode.txt')

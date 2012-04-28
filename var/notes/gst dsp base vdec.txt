@@ -1,0 +1,73 @@
+
+gst dsp base vdec
+
+gst_dsp_base_get_type:
+	class_size    = sizeof GstDspBaseClass
+	class_init    = class_init
+	instance_size = sizeof GstDspBase
+	instance_init = instance_init
+
+class_init:
+	gstelement_class->change_state = change_state
+	gobject_class->finalize        = finalize
+	class->sink_event              = sink_event
+	class->src_event               = src_event
+
+finalize:
+	g_sem_free
+	g_mutex_free
+	du_port_free
+
+instance_init:
+	self->ports[.. = du_port_new
+	self->sinkpad = gst_pad_from_template(...
+	
+	gst_pad_set_chain_function(.., pad_chain)
+	gst_pad_set_event_function(.., base_sink_event)
+
+	self->srcpad = gst_pad_new_from_template(...
+	gst_element_use_fixed_caps(srcpad)
+	gst_pad_set_event_function(self->srcpad, base_src_event)
+
+	gst_element_add_pad(self, self->sinkpad)
+	gst_element_add_pad(self, self->srcpad)
+
+	self->ts_mutex = g_mutex_new()
+	self->flush = g_sem_new()
+
+instance_init gstdspvdec.c:
+	base->create_node = create_node
+	gst_pad_set_setcaps_function(base->sinkpad, sink_setcaps)
+
+sink_setcaps gstdspvdec.c:
+	decide on which algorithm you gonna use: h264, moeg, jpeg
+	out_caps = gst_caps_new_empty();
+	configure_caps(self, caps, out_caps);
+	base->tmp_caps = out_caps;
+	ret = gst_pad_set_caps(pad, caps);
+	handle_codec_data(self, in_struc);
+
+handle_codec_data gstdspvdec.c:
+	codec_data = gst_structure_get_value(in_struc, "codec_data");
+	buf = gst_value_get_buffer(codec_data);
+	buf = h264dec_transform_codec_data(self, buf);
+	gstdsp_send_codec_data(base, buf);
+
+gstdsp_send_codec_data gstdspbase.c:
+	if !self->node:
+		init_node
+	
+
+init_node:
+	gst_pad_set_caps(self->srcpad, self->tmp_caps)
+	self->create_node()
+	gst_dsp_start:
+		# alloc dmm data, subscribe to dsp events..
+		dsp_thread:
+		gst_pad_start_task(self->srcpad, output_loop, self->srcpad)
+
+change_state:
+	dsp_init:
+		dsp_open
+		dsp_attach
+	dsp_deinit

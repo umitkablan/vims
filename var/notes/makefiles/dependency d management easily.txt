@@ -1,0 +1,10 @@
+dependency .d management easily
+============================
+
+DEPS := $(COBJS:.o=.d)
+
+-include $(DEPS)
+
+%.o: %.c
+    $(CC) -c $(CFLAGS) -MM -MF $(patsubst %.o,%.d,$@) -o $@ $<
+

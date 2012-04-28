@@ -1,0 +1,1 @@
+ConflictMotions.vba: call delete('/home/arch/.vim/ipi/ConflictMotions/plugin/ConflictMotions.vim')|call delete('/home/arch/.vim/ipi/ConflictMotions/doc/ConflictMotions.txt')

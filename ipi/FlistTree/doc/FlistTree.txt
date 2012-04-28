@@ -1,0 +1,74 @@
+*flisttree.txt*	Flist Tree				Oct 20, 2010
+
+Authors:  Charles E. Campbell, Jr.  <cec@NgrOyphSon.gPsfAc.nMasa.gov>
+	  (remove NOSPAM from Dr. Campbell's email before using)
+Copyright: (c) 2004-2010 by Charles E. Campbell, Jr.	*flisttree-copyright*
+           The VIM LICENSE applies to flisttree.vim and flisttree.txt
+           (see |copyright|) except use "flisttree" instead of "Vim"
+	   No warranty, express or implied.  Use At-Your-Own-Risk.
+
+==============================================================================
+1. Contents						*flisttree-contents*
+
+	1. Contents...................................: |flisttree-contents|
+	2. Flist Tree Manual..........................: |flisttree|
+
+==============================================================================
+2. Flist Tree Manual					*flisttree*
+							*flisttree-manual*
+
+    :FlistTree [filename(s)]  Will (re)generate a <tags> file using the
+                              the program in the variable g:flist_tags.
+                              Will analyze the file(s) with flist -Tg -asx
+                              to generate the graphical function-usage
+                              tree.  To override the -asx option, use
+                              g:flist_options.
+
+    On GraphTree side:~
+    <cr>                      use tags to go to associated function in source
+    <2-leftmouse>             use tags to go to associated function in source
+
+    \[[                       go to previous   function called at same depth
+    \]]                       go to succeeding function called at same depth
+    \[.                       go up   one function level
+    \].                       go down one function level
+
+    <up>                      go to previous   function called at same depth
+    <down>                    go to succeeding function called at same depth
+    <s-up>                    go up   one function level
+    <s-down>                  go down one function level
+
+    On Source side:~
+    \[[                       go to previous   function called at same depth
+    \]]                       go to succeeding function called at same depth
+
+    (see |g:FlistTree_hasmapto| for availability of following maps)
+    <c-up>                    go to previous   function called at same depth
+    <c-down>                  go to succeeding function called at same depth
+    <s-up>                    go up   one function level
+    <s-down>                  go down one function level
+                              appropriately
+
+  g:DrChipTopLvlMenu:         by default its "DrChip"; you may set this to
+                              whatever you like in your <.vimrc>.  This
+                              variable controls where DrawIt's menu items
+                              are placed.
+
+  *g:FlistTree_hasmapto*      The ctrl-up/down and shift-up/down arrows are
+                              mapped for FlistTree's use if:
+
+                              * g:FlistTree_hasmapto does not exist or is zero
+                                (unconditionally mapped)
+                              * g:FlistTree_hasmapto exists and is one and the
+                                control/shift up/down keys are not otherwise
+                                mapped (conditionally mapped)
+
+==============================================================================
+3. History						*flisttree-history*
+	
+	 9 : Jan  2, 2008	: v9b was released to my website
+	     Oct 20, 2010	: v9c using glob() instead of expand, so things
+				  like  :FlistTree *.c   will work properly
+
+ ---------------------------------------------------------------------
+vim:tw=78:ts=8:ft=help

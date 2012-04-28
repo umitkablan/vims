@@ -1,0 +1,9 @@
+Double Dispatch
+http://c2.com/cgi/wiki?DoubleDispatch
+---------------
+
+Say you have three kinds of figures that you want to print on four kinds of printers. The message
+
+circleFigure printOn: laserPrinter
+
+must dispatch on both the Figure and the Printer hierarchies. One does this by defining methods like

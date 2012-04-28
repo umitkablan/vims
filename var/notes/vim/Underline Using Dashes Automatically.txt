@@ -1,0 +1,19 @@
+Underline Using Dashes Automatically
+http://vim.wikia.com/wiki/Underline_using_dashes_automatically
+
+to convert:
+A Very Important Tip
+
+to:
+A Very Important Tip
+--------------------
+
+"Underline the current line with dashes automatically
+nnoremap <F5> yyp<C-V>$r-
+nnoremap <F5> yypv$r-
+inoremap <F5> <Esc>yyp<C-V>$r-A
+
+To do the Same Thing With Substitute and g
+
+:g /^Chapter/t.|s/./-g
+"This adds a dashed line under lines starting with "Chapter"

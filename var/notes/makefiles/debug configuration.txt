@@ -1,0 +1,39 @@
+
+# debug configuration
+# ===================
+# $@: the name of the target
+# $<: the name of the first (or only) prerequisite file
+# $^: the names of all prerequisite files seeperated by spaces
+# $*: the stem (the bit which matches the % in wildcard in the rule definition
+
+# call with: make DEBUG=1
+
+DEBUG ?= 1
+ifeq (DEBUG, 1)
+    CFLAGS = -g3 -gdwarf2 -DDEBUG
+else
+    CFLAGS = -DNDEBUG
+endif
+
+CXX = g++ $(CFLAGS)
+CC  = gcc $(CFLAGS)
+
+EXECUTABLE = output
+OBJECTS = CommandParser.tab.o CommandParser.yy.o Command.o
+LIBRARIES = -lfl
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CXX) -o $@ $^ $(LIBRARIES)
+
+%.yy.o: %.l 
+	flex -o $*.yy.c $<
+	$(CC) -c $*.yy.c
+
+%.tab.o: %.y
+	bison -d $<
+	$(CC) -c $*.tab.c
+
+%.o: %.cpp
+	$(CXX) -c $<

@@ -1,0 +1,9 @@
+Variable Scope
+
+b:something     local to a buffer
+g:something     global to all Vim
+l:something     local to a function
+s:something     local to a script
+t:something     local to a tab page
+v:something     predefined at compile-time
+w:something     local to a window

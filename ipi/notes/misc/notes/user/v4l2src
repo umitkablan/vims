@@ -1,0 +1,5 @@
+v4l2src
+
+PROP_DEF_QUEUE_SIZE is edited as 4 in gstv4l2src.c
+   DECIMATE??
+

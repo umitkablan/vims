@@ -1,0 +1,1 @@
+libview.vba: call delete('/home/arch/.vim/bundle/libview/plugin/libviewPlugin.vim')|call delete('/home/arch/.vim/bundle/libview/doc/libview.txt')|call delete('/home/arch/.vim/bundle/libview/autoload/libview.vim')

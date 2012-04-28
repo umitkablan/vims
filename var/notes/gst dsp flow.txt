@@ -1,0 +1,44 @@
+gst dsp flow
+
+
+sink_setcaps:
+=============
+    decide on base->alg
+    base->tmp_caps = configure_caps(...)
+    handle_codec_data
+
+
+handle_codec_data:
+==================
+    call appropriate *_transform function
+    gstdsp_send_codec_data(...)
+
+pad_chain:
+==========
+    if !self->node, init_node
+    if state is ok
+    send_buffer
+
+gstdsp_send_codec_data:
+=======================
+    if !self->node, init_node
+    send_buffer
+
+    
+
+init_node:
+==========
+    self->parse_func
+    gst_pad_set_caps(self->srcpad, self->tmp_caps)
+    self->create_node(..) // called from subclass
+    gstdsp_start()
+
+gstdsp_start:
+=============
+    for all ports(2) and all ports's num_buffers dmm_buffer_new & dmm_buffer_allocate & dmm_buffer_map
+    dsp_node_register_notify( DSP_NODEMESSAGEREADY & DSP_MMUFAULT & DSP_SYSERROR.)
+    g_thread_create(dsp_thread, ...)
+    gst_pad_start_task(self->srcpad, output_loop..)
+    dsp_send_message(....) send message to start playing
+    setup_buffers
+

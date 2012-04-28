@@ -1,0 +1,49 @@
+
+"Autocapitalize the start of every sentence
+"==========================================
+"http://vim.wikia.com/wiki/Autocapitalize_the_start_of_every_sentence
+
+let g:AlreadyChecked=0 "So startinsert won't trigger autocmd
+function! WaitForKey(prev)
+echo "-- AUTOCAP --"
+    let input=nr2char(getchar())
+    if a:prev=~'\s'
+        exe "normal! a" . toupper(input)
+    elseif a:prev=~"\r"
+        exe "normal! i" . toupper(input)
+    else 
+        exe "normal! a" . input
+    endif
+    redraw
+if input=~'[.?!]\|\s\|\r' "punctuation or spaces
+        call WaitForKey(input)
+    else
+        normal! l
+        let g:AlreadyChecked=1
+if col(".")==col("$")-1 "if at end of line
+startinsert! "normal A
+        else
+startinsert "normal i
+        endif
+    endif
+endfu
+
+function! CheckCap() "Capitalize depending on preceding chars
+    if g:AlreadyChecked
+        let g:AlreadyChecked=0
+    elseif col(".")==1
+        call WaitForKey("\r")
+    else
+        let trunc=strpart(getline("."),0,col("."))
+if trunc=~'[?!.]\s*$' "for example, "abcd?   "
+            call WaitForKey(trunc[len(trunc)-1])
+        endif
+    endif
+endfu
+
+inoremap <silent> . .<Esc>:call WaitForKey(".")<CR>
+inoremap <silent> ? ?<Esc>:call WaitForKey("?")<CR>
+inoremap <silent> ! !<Esc>:call WaitForKey("!")<CR>
+inoremap <silent> <CR> <CR><Esc>:call WaitForKey("<C-V><C-M>")<CR>
+autocmd InsertEnter * redraw | call CheckCap()
+"vim:ft=vim

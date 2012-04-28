@@ -1,0 +1,20 @@
+unsorted vim opinions
+
+FOLDING FOR JAVA OR OTHERS
+==========================
+http://vim.wikia.com/wiki/Use_of_Vim_folds_for_javadocs
+
+fdm=/**,*/
+autocmd FileType java :set fmr=/**,*/ fdm=marker fdc=1
+
+if, in java.vim, changed to:
+    syn region javaDocComment start="/\*\*" end="\*/" transparent fold keepend contains=javaCommentTitle,@javaHtml,javaDoc,javaTodo,@Spell
+set foldmethod=syntax
+
+PYTHON """ STYLE DOCS
+======================
+May be putting this into after/syntax/python is better than putting it in syntax/python.vim default
+syn region pythonComment
+      \ start=+\(:\n[\t ]*\)\@<=\z('''\|"""\)+ end=+\z1+ keepend
+      \ contains=pythonEscape,pythonTodo,@Spell
+

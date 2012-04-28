@@ -1,0 +1,13 @@
+<Plug>(ResizeWinMaxH)	resizewin.txt	/*<Plug>(ResizeWinMaxH)*
+<Plug>(ResizeWinMaxHV)	resizewin.txt	/*<Plug>(ResizeWinMaxHV)*
+<Plug>(ResizeWinMaxV)	resizewin.txt	/*<Plug>(ResizeWinMaxV)*
+<Plug>(ResizeWinMinH)	resizewin.txt	/*<Plug>(ResizeWinMinH)*
+<Plug>(ResizeWinMinHV)	resizewin.txt	/*<Plug>(ResizeWinMinHV)*
+<Plug>(ResizeWinMinV)	resizewin.txt	/*<Plug>(ResizeWinMinV)*
+resizewin-changelog	resizewin.txt	/*resizewin-changelog*
+resizewin-commands	resizewin.txt	/*resizewin-commands*
+resizewin-contents	resizewin.txt	/*resizewin-contents*
+resizewin-examples	resizewin.txt	/*resizewin-examples*
+resizewin-introduction	resizewin.txt	/*resizewin-introduction*
+resizewin-keymap	resizewin.txt	/*resizewin-keymap*
+resizewin.txt	resizewin.txt	/*resizewin.txt*

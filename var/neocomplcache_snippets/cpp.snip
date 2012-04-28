@@ -1,0 +1,44 @@
+# #include <...>
+snippet inc
+alias   #inc, #include
+    #include <${1:iostream}>${0}
+
+snippet     cppunit_header
+abbr        cppunit header defs
+    #include <cppunit/TestFixture.h>
+    #include <cppunit/extensions/HelperMacros.h>
+
+    #include "${1:headerToTest}.h"
+
+    class ${2}Test : public CppUnit::TestFixture
+    {
+        CPPUNIT_TEST_SUITE($2Test);
+        CPPUNIT_TEST(returns1For1);
+        CPPUNIT_TEST_SUITE_END();
+    public:
+        void setUp();
+        void tearDown();
+        void returns1For1();
+    private:
+    };${0}
+
+snippet     cppunit_body
+abbr        cppunit test methods' bodies
+    #include "${1:TestHeader}.h"
+
+    CPPUNIT_TEST_SUITE_REGISTRATION(${2});
+
+    void $2::setUp()
+    {
+    }
+
+    void $2::tearDown()
+    {
+    }
+
+    void $2::returns1For1()
+    {
+        // False assertion!
+        CPPUNIT_ASSERT_EQUAL(1, 0);
+    }${0}
+

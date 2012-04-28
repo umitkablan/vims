@@ -1,0 +1,10 @@
+:ListRecords	Replay.txt	/*:ListRecords*
+:Replay	Replay.txt	/*:Replay*
+:StartRecord	Replay.txt	/*:StartRecord*
+:StopRecord	Replay.txt	/*:StopRecord*
+Replay-config	Replay.txt	/*Replay-config*
+Replay-feedback	Replay.txt	/*Replay-feedback*
+Replay-history	Replay.txt	/*Replay-history*
+Replay-manual	Replay.txt	/*Replay-manual*
+Replay.txt	Replay.txt	/*Replay.txt*
+ReplayPlugin	Replay.txt	/*ReplayPlugin*

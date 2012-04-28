@@ -1,0 +1,1 @@
+visualrepeat.vba: call delete('/home/arch/.vim/bundle/repeat-visual/autoload/visualrepeat.vim')|call delete('/home/arch/.vim/bundle/repeat-visual/plugin/visualrepeat.vim')|call delete('/home/arch/.vim/bundle/repeat-visual/doc/visualrepeat.txt')

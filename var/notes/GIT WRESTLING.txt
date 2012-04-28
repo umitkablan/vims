@@ -1,0 +1,93 @@
+GIT WRESTLING
+
+clone, branch, checkout, status, pull, fetch, diff, add, commit, rebase, format-patch
+
+http://www.ralfebert.de/tutorials/git/
+--------------------------------------
+1* make changes to working directory
+    you may check status with git status
+2* add these changes to the index using git add
+3* create a new commit from the index using git commit
+4* see log with git log
+    git log --pretty=oneline --abbrev-commit
+
+THROWING CHANGES AWAY
+*) If you haven't added it to stage index:
+    git checkout somefile.txt
+   or for whole:
+    git checkout
+*) If you have added it to index:
+    git reset HEAD somefile.txt
+    git reset HEAD
+*) REVERTING COMMITS: If you have also commited your index
+    git revert 0637435 # that will execute a second commit which undoes the changes of the given commit
+   you can revert any commit previously made, just be careful for the conflicts and resolve
+
+SEEING THE DIFF BETWEEN COMMITS
+To see one of the commit changes compared to its parent, issue:
+git show 3723847
+To see the diff between any commit:
+git diff 2344587..0934521
+
+TAGGING COMMITS
+git tag working 2348297
+or you can tag your last commit easily:
+git tag broken
+Hence,
+git diff working..broken
+git tag v1.0.3
+
+BRANCHES
+So far we have been working linear.
+>git branch -v
+ *master 0674732 the 3rd commit
+
+git branch <name> <commit>
+git branch newfeature <will use last commit as a default>
+
+>git branch -v
+ *master 2345799 the 3rd commit
+ newfeature
+
+Symbol * shows the active branch. And you change active branch with:
+git checkout newfeature
+
+MERGING
+If you have completed the new feature and want to merge it to the master branch:
+git merge newfeature
+If conflict occurs you have to manually change the lines marked to be conflicting
+git add conflicted.txt
+git commit
+
+Finally, if you want to delete the branch you were using:
+git branch -d newfeature
+
+http://gitcasts.com/
+--------------------
+ruby newproject
+cd newproject
+
+git init
+git add .
+git ls-files  --cache
+git ls-files  --staged
+git status
+git commit
+git status
+git log
+you can also clone from remote repositories from github or gitorious with git http or ssh
+being the most efficient one is the git protocol itself.
+
+cat .gitignore
+log/*.log
+tmp/**/*
+.lvimrc
+...
+
+git commit -a #automatically adds the changed files (git add ...)
+
+ALIAS FOR TIME SAVING
+git config --global alias.co "checkout"
+git config --global alias.chp "cherry-pick"
+git config --global alias.b "branch"
+git config --global alias.rf "checkout HEAD"

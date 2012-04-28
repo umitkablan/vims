@@ -1,0 +1,14 @@
+:TextobjDatetimeDefaultKeyMappings	textobj-datetime.txt	/*:TextobjDatetimeDefaultKeyMappings*
+<Plug>(textobj-datetime-auto)	textobj-datetime.txt	/*<Plug>(textobj-datetime-auto)*
+<Plug>(textobj-datetime-date)	textobj-datetime.txt	/*<Plug>(textobj-datetime-date)*
+<Plug>(textobj-datetime-full)	textobj-datetime.txt	/*<Plug>(textobj-datetime-full)*
+<Plug>(textobj-datetime-time)	textobj-datetime.txt	/*<Plug>(textobj-datetime-time)*
+<Plug>(textobj-datetime-tz)	textobj-datetime.txt	/*<Plug>(textobj-datetime-tz)*
+g:textobj_datetime_no_default_key_mappings	textobj-datetime.txt	/*g:textobj_datetime_no_default_key_mappings*
+textobj-datetime-bugs	textobj-datetime.txt	/*textobj-datetime-bugs*
+textobj-datetime-changelog	textobj-datetime.txt	/*textobj-datetime-changelog*
+textobj-datetime-contents	textobj-datetime.txt	/*textobj-datetime-contents*
+textobj-datetime-customizing	textobj-datetime.txt	/*textobj-datetime-customizing*
+textobj-datetime-introduction	textobj-datetime.txt	/*textobj-datetime-introduction*
+textobj-datetime-key-mappings	textobj-datetime.txt	/*textobj-datetime-key-mappings*
+textobj-datetime.txt	textobj-datetime.txt	/*textobj-datetime.txt*

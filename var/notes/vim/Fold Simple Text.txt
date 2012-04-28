@@ -1,0 +1,13 @@
+Fold Simple Text
+----------------
+
+fun! FoldSimpleText()
+  " extract the section header
+  let section_match = matchlist(getline(v:lnum), '^\s*\(\%(\d\+\.\)\+\)')
+  if !len(section_match)
+    return '='
+  end
+  " start a fold with the count of the '.'s in the section header
+  return '>'.len(filter(split(section_match[1], '\zs'), 'v:val == "."'))
+endf
+setl fdm=expr fde=FoldSimpleText()

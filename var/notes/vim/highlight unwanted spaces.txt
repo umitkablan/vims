@@ -1,0 +1,36 @@
+highlight unwanted spaces
+
+* highlight with search 
+    "Show all tabs
+    /\t
+    "Show trailing spaces
+    /\s\+$
+    "Show spaces before a tab
+    / \+\ze\t
+
+* highlight with the match command
+    :highlight ExtraWhiteSpace ctermbg=red guibg=red
+    :highlight ExtraWhiteSpace ctermbg=darkgreen guibg=lightgreen
+    :highlight ExtraWhiteSpace ctermbg=darkgreen guibg=darkgreen
+
+    :autocmd ColorScheme * highlight ExtraWhiteSpace ctermbg=red guibg=red
+
+    "Show trailing whitespace
+    :match ExtraWhiteSpace /\s\+$/
+    "Show trailing spaces before a tab
+    :match ExtraWhiteSpace /\s\+$\| \+\ze\t/
+    "Show tabs that are not at the start of a line
+    :match ExtraWhiteSpace /[^\t]\zs\t\+/
+    "Show spaces used for indenting (so you use only tabs for indenting
+    :match ExtraWhiteSpace /^\t*\zs \+/
+    "Switch off match highlighting
+    :match
+
+    "Alternatively the following pattern will match trailing whitespace except when typing at the end of line
+    :match ExtraWhiteSpace /\s\+\%#\@<!$/
+
+    :autocmd InsertLeave * redraw!
+
+    "Or alternatively the following prevents screen flash
+    :au InsertEnter * match ExtraWhiteSpace /\s\+\%#\@<!$/
+    :au InsertLeave * match ExtraWhiteSpace /\s\+$/

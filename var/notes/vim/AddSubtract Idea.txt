@@ -1,0 +1,29 @@
+AddSubtract Idea
+----------------
+
+function! AddSubtract(operation, direction) "{{{
+  if &nrformats =~ 'alpha'
+    let pattern = '[[:alpha:][:digit:]]'
+  else
+    let pattern = '[[:digit:]]'
+  endif
+  if 'b' == a:direction
+    call search(pattern, 'bcw')
+  else
+    call search(pattern, 'cw')
+  endif
+  if 'a' == a:operation
+    execute 'normal! ' . v:count1 . "\<C-a>"
+    silent! call
+        \ repeat#set(":\<C-u>call AddSubtract('a', '" .a:direction. "')\<CR>")
+  else
+  execute 'normal! ' . v:count1 . "\<C-x>"
+    silent! call
+        \ repeat#set(":\<C-u>call AddSubtract('s', '" .a:direction. "')\<CR>")
+  endif
+endfunction "}}}
+nnoremap <silent>         <C-a> :<C-u>call AddSubtract('a', 'f')<CR>
+nnoremap <silent> <Leader><C-a> :<C-u>call AddSubtract('a', 'b')<CR>
+nnoremap <silent>         <C-x> :<C-u>call AddSubtract('s', 'f')<CR>
+nnoremap <silent> <Leader><C-x> :<C-u>call AddSubtract('s', 'b')<CR>
+
