@@ -1,6 +1,0 @@
-
-build flat
-
-BUILDROOT_PATH="/home/arch/ANDROID_OSP/buildroot-2011.11"
-export PATH=/usr/local/codesourcery/arm-2009q3/bin:$BUILDROOT_PATH/output/host/usr/bin:$PATH
-./build pc

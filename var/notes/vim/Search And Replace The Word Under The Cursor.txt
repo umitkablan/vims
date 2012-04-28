@@ -1,9 +1,0 @@
-Search And Replace The Word Under The Cursor
-============================================
-http://vim.wikia.com/wiki/VimTip464
-
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/gI<Left><Left><Left>
-*> Use cursor position to get the word under it.
-    :%s/\k*\%#\k*/my_pattern/
-
