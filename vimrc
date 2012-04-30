@@ -751,27 +751,8 @@ autocmd BufWritePost ~/.vim/** Helptags
 
 set background=dark
 " bandit lucius solarized badwolf
-" colorscheme asu1dark
+colorscheme asu1dark
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
-
-function SetColors()
-  if exists('b:colors_name')
-    exe 'colorscheme' b:colors_name
-    return
-  endif
-  if winnr('$') > 1
-    colorscheme murphy
-  elseif &ft == 'c'
-    colorscheme badwolf
-  else
-    colorscheme asu1dark
-  endif
-  let b:colors_name = g:colors_name
-endfunction
-
-augroup filetype_colorscheme
-  au BufEnter * call SetColors()
-augroup END
 
 "vim:fdm=marker
