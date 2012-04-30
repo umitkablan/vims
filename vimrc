@@ -151,7 +151,7 @@ au FileType c,cpp,java,javascript,python nmap <silent> <buffer> <CR> :Tselect <C
 au FileType c,cpp,java,javascript,python nmap <buffer> <Backspace> <C-T>
 " au FileType c,cpp,java,javascript,python nmap <buffer> <CR> UniteWithCursorWord -immediately tag<CR>
 " au FileType * if stridx("c,cpp,java", &ft)>=0| call CSyntaxAfter()|endif
-au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
+" au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
 au FileType help :set nonumber
 
 " submode didn't work for my aim
@@ -189,31 +189,31 @@ nnoremap <silent> ĞĞCD :FufDirWithFullCwd<CR>
 nnoremap <silent> <Leader>sc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
+nnoremap '! :Clam<space>
 " nmap <silent> <C-z> <Plug>QAnotherWin
 " nmap <Leader>t :Shell make test<CR><CR>
 " nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
 " nnoremap <silent> <Leader>b  :FufBuffer<CR>
 " nmap <silent> <unique> <Leader>b <Plug>SelectBuf
 nmap <silent> <Tab><Tab> :call ToggleIndGuides_RC()<CR>
-nmap <silent> CAL <Plug>CalendarV
-nmap <silent> HCAL  <Plug>CalendarH
-nmap <silent> VCAL <Plug>CalendarV
-vmap <silent> <Space>  <Plug>MarkSet
-nmap <silent> <Space>  <Plug>MarkSet
-nmap <silent> <Space>*  <Plug>MarkSearchNext
-nmap <silent> <Space>#  <Plug>MarkSearchPrev
-nmap <silent> NOTUSED<Leader># <Plug>MarkSearchCurrentPrev
-nmap <silent> NOTUSED<Leader>* <Plug>MarkSearchCurrentNext
-nmap <silent> NOTUSED?  <Plug>MarkSearchAnyPrev
-nmap <silent> NOTUSED/  <Plug>MarkSearchAnyNext
-nmap <silent> <Space>nn <Plug>MarkAllClear
-nmap <silent> <Space>n  <Plug>MarkClear
-nmap <silent> <Space>r <Plug>MarkRegex
-vmap <silent> <Space>r <Plug>MarkRegex
+nmap CAL  <Plug>CalendarV
+nmap HCAL <Plug>CalendarH
+nmap VCAL <Plug>CalendarV
+vmap <Space>  <Plug>MarkSet
+nmap <Space>  <Plug>MarkSet
+nmap <Space>*  <Plug>MarkSearchNext
+nmap <Space>#  <Plug>MarkSearchPrev
+nmap NOTUSED<Leader># <Plug>MarkSearchCurrentPrev
+nmap NOTUSED<Leader>* <Plug>MarkSearchCurrentNext
+nmap NOTUSED?  <Plug>MarkSearchAnyPrev
+nmap NOTUSED/  <Plug>MarkSearchAnyNext
+nmap <Space>nn <Plug>MarkAllClear
+nmap <Space>n  <Plug>MarkClear
+nmap <Space>r <Plug>MarkRegex
+vmap <Space>r <Plug>MarkRegex
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
 vmap gr  <Plug>ReplaceVisual
-nnoremap '! :Clam<space>
 " fallback to speeddating when SwapIt cannot success
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
