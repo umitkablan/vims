@@ -134,7 +134,8 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-j> @='jojo'<cr>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
-" vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
+inoremap <C-j> <C-X><C-O>
+vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
 
 call pathogen#infect()
 call ipi#inspect()
