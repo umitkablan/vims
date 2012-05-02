@@ -1,3 +1,4 @@
 SudoEdit-0.11.vmb: call delete('/home/arch/.vim/bundle/SudoEdit/autoload/SudoEdit.vim')|call delete('/home/arch/.vim/bundle/SudoEdit/doc/SudoEdit.txt')|call delete('/home/arch/.vim/bundle/SudoEdit/plugin/SudoEdit.vim')
 SudoEdit-0.12.vmb: call delete('/home/arch/.vim/bundle/SudoEdit/autoload/SudoEdit.vim')|call delete('/home/arch/.vim/bundle/SudoEdit/doc/SudoEdit.txt')|call delete('/home/arch/.vim/bundle/SudoEdit/plugin/SudoEdit.vim')
 SudoEdit-0.13.vmb: call delete('/home/arch/.vim/bundle/SudoEdit/autoload/SudoEdit.vim')|call delete('/home/arch/.vim/bundle/SudoEdit/doc/SudoEdit.txt')|call delete('/home/arch/.vim/bundle/SudoEdit/plugin/SudoEdit.vim')
+SudoEdit-0.14.vmb: call delete('/home/arch/.vim/bundle/SudoEdit/autoload/SudoEdit.vim')|call delete('/home/arch/.vim/bundle/SudoEdit/doc/SudoEdit.txt')|call delete('/home/arch/.vim/bundle/SudoEdit/plugin/SudoEdit.vim')
