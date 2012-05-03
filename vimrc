@@ -218,6 +218,8 @@ vmap gr  <Plug>ReplaceVisual
 " fallback to speeddating when SwapIt cannot success
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
+imap <C-k> <Plug>(neocomplcache_snippets_expand)
+smap <C-k> <Plug>(neocomplcache_snippets_expand)
 " Disable Luc Hermitte's maps
 vmap <unique> NOTUSED<c-x>v <Plug>RefactorExtractVariable
 vmap <unique> NOTUSED<c-x>t <Plug>RefactorExtractType
@@ -374,6 +376,10 @@ let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_snippets_dir = '~/.vim/var/neocomplcache_snippets'
 "let g:neocomplcache_enable_cursor_hold_i = 1
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 "autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
