@@ -220,6 +220,9 @@ nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
+imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
+      \  "\<Plug>(neocomplcache_snippets_expand)"
+      \  : pumvisible() ? "\<C-n>" : "\<Plug>SuperTabForward"
 " Disable Luc Hermitte's maps
 vmap <unique> NOTUSED<c-x>v <Plug>RefactorExtractVariable
 vmap <unique> NOTUSED<c-x>t <Plug>RefactorExtractType
@@ -375,7 +378,6 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_snippets_dir = '~/.vim/var/neocomplcache_snippets'
 "let g:neocomplcache_enable_cursor_hold_i = 1
-imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -509,6 +511,11 @@ let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 "function! g:vimprj#dHooks['SetDefaultOptions']['main_options'](dParams)
   "call <SID>SetMainDefaults()
 "endfunction
+"------------------------------------------
+let g:SuperTabMappingForward = '<c-space>'
+let g:SuperTabMappingBackward = '<s-c-space>'
+" let g:SuperTabMappingForward = '<nul>'
+" let g:SuperTabMappingBackward = '<s-nul>'
 "************************ }}}
 
 "let g:vimmp_server_type="mpd"
