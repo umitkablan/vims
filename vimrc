@@ -124,7 +124,7 @@ nnoremap <silent> <c-l> :redraw!<CR>
 nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
-nnoremap <silent> ĞRC :tabnew ~/.vimrc<CR>
+nnoremap <silent> ĞRC :tabnew ~/.vim/vimrc<CR>
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <Leader>> >a}
