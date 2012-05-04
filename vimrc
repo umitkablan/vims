@@ -221,8 +221,7 @@ nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
-      \  "\<Plug>(neocomplcache_snippets_expand)"
-      \  : pumvisible() ? "\<C-n>" : "\<Plug>SuperTabForward"
+      \  "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
 " Disable Luc Hermitte's maps
 vmap <unique> NOTUSED<c-x>v <Plug>RefactorExtractVariable
 vmap <unique> NOTUSED<c-x>t <Plug>RefactorExtractType
