@@ -18,7 +18,7 @@ function! s:CommandOutputToBuffer(cmd,...)
         let cmd = 'autocmd'
     else
         let cmd = a:cmd
-        
+
     endif
     exec 'new '.cmd.(a:0? '\ '.a:1 : '')
     setlocal buftype=nofile
@@ -44,9 +44,10 @@ function! s:CommandOutputToBuffer(cmd,...)
     echomsg 'cmd: '.cmd
     let &ft=cmd.'_cmd'
     setlocal nomodifiable
+    nmap <buffer> <silent> <F7> :RandomLine<CR>
 endf
 function! ParseHi(hi)
-    return filter(map(split(a:hi,'\n'), 'matchlist(v:val, ''\(^\w\+\)\s\+xxx\s\+\(cleared\)\?\(links to \)\?\(.*\)'')'), 'len(v:val) && v:val[2] == ""') 
+    return filter(map(split(a:hi,'\n'), 'matchlist(v:val, ''\(^\w\+\)\s\+xxx\s\+\(cleared\)\?\(links to \)\?\(.*\)'')'), 'len(v:val) && v:val[2] == ""')
 endf
 function! ApplyHi(hi)
     let hi = ParseHi(a:hi)
@@ -67,7 +68,7 @@ function! OpenFunc(...)
     for name in a:000
         let name = substitute(name, '^\('.s:funcPrefixRe.'\w\+\>\).*', '\1', '')
         if name =~ '^s:'
-            let name = matchstr(CommandOutput('function'), s:funcPrefixRe.substitute(name, '^s:', '', '')) 
+            let name = matchstr(CommandOutput('function'), s:funcPrefixRe.substitute(name, '^s:', '', ''))
             if name == ''
                 return
             endif
@@ -92,9 +93,9 @@ function! GotoFunction(line, col)
         return
     endif
     let id = synID(a:line, a:col, 0)
-   if synIDtrans(id) == hlID('Statement') || id == hlID('vimAutoEvent')
-       exec 'help '.name
-   endif
+    if synIDtrans(id) == hlID('Statement') || id == hlID('vimAutoEvent')
+        exec 'help '.name
+    endif
 endf
 command! GoToFunction  call GotoFunction(line('.'), col('.'))
 
