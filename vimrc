@@ -72,7 +72,7 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " set notimeout ttimeout ttimeoutlen=200
 " keep cursor always at the middle
 " set scrolloff=9999
-autocmd FileType text set nowrap linebreak
+autocmd FileType text set wrap linebreak
 autocmd TabLeave * stopinsert
 "**************** }}}
 
