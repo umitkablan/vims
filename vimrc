@@ -275,7 +275,10 @@ imap <unique> NOTUSED<C-S> <Plug>Isurround
 "******************** {{{
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
+" Also have non-smart mundane paste's just in case
 let g:smartput = 1
+nnoremap ğp p
+nnoremap ĞP P
 " use SwapIt to interface C-X/A rather than speeddating. speeddating is
 " called from SwapIt as a fallback method.
 let g:speeddating_no_mappings = 1
