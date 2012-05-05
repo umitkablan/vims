@@ -82,6 +82,8 @@ nmap <silent> ZZ :q<CR>
 nmap <silent> ZZA :qa<CR>
 nnoremap Q gQ
 nnoremap qq <Nop>
+" Always falling to that typo while commanding to edit.
+cmap E<Space> e<Space>
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
