@@ -173,7 +173,7 @@ nnoremap <silent> <Leader>p2 :ConqueTermSplit ipython<CR>
 nnoremap <silent> <Leader>p3 :ConqueTermSplit python3<CR>
 nnoremap <silent> ĞĞE :Exp<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
-nnoremap <silent> <Leader>e :LustyFilesystemExplorerFromHere<CR>
+nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
 " nnoremap <silent> <Leader>e :CommandT<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
