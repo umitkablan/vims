@@ -83,7 +83,7 @@ nmap <silent> ZZA :qa<CR>
 nnoremap Q gQ
 nnoremap qq <Nop>
 " Always falling to that typo while commanding to edit.
-cmap E<Space> e<Space>
+cnoremap <expr> E<Space> getcmdtype() == ':' ? 'e ' : 'E '
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
