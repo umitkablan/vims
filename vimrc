@@ -267,6 +267,7 @@ map <unique> UNUSED<LocalLeader>s <Plug>JavagetsetInsertSetterOnly
 map <unique> UNUSED<LocalLeader>b <Plug>JavagetsetInsertBothGetterSetter
 nmap <unique> NOTUSED<Leader>a <Plug>ToggleAutoCloseMappings
 imap <unique> NOTUSED<C-S> <Plug>Isurround
+nmap <unique> NOTUSED<Leader>st <plug>SmartputToggle
 "************* }}}
 
 "plugin configuration
