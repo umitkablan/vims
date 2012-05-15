@@ -139,6 +139,8 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
 inoremap <C-j> <C-X><C-O>
 
+au FileType qf nnoremap <buffer> o <CR><C-W>p
+
 call pathogen#infect()
 call ipi#inspect()
 
