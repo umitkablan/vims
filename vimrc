@@ -292,7 +292,10 @@ let g:LustyExplorerDefaultMappings = -1
 let g:tcommentMapLeader1="_"
 let g:tcommentMapLeader2 = '<Leader>-_0'
 "------------------------------------------
-let g:AutoPairsMapCR=0
+let g:AutoPairsMapCR = 0
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<M-b>'
+"------------------------------------------
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:local_vimrc=".lvimrc"
 " let g:vimprj_changeCurDirIfVimprjFound = 1
