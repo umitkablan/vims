@@ -165,6 +165,7 @@ au FileType help :set nonumber
 " call submode#map('window-walk', 'n', '', 'k', '<C-W>k')
 " call submode#map('window-walk', 'n', '', 'h', '<C-W>h')
 " call submode#map('window-walk', 'n', '', 'l', '<C-W>l')
+let g:loaded_fonts=1
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space> :ResizeWinMaxHV<CR>
