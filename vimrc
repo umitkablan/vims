@@ -36,7 +36,7 @@ set backspace=indent,eol,start
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 "i am a software craftsman. want to see line numbers!
 set number
-set rnu "relativenumber
+set relativenumber
 " highlight current line
 set cul "cursorline
 set wmw=0 "minimum window height
