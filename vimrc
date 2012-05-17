@@ -777,4 +777,6 @@ colorscheme asu1dark
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
 
+winsize 170 46
+
 "vim:fdm=marker
