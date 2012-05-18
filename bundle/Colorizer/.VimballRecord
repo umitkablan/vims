@@ -1,1 +1,2 @@
 Colorizer-0.5.vmb: call delete('/home/arch/.vim/bundle/Colorizer/plugin/ColorizerPlugin.vim')|call delete('/home/arch/.vim/bundle/Colorizer/doc/Colorizer.txt')|call delete('/home/arch/.vim/bundle/Colorizer/autoload/Colorizer.vim')
+Colorizer-0.6.vmb: call delete('/home/arch/.vim/bundle/Colorizer/plugin/ColorizerPlugin.vim')|call delete('/home/arch/.vim/bundle/Colorizer/doc/Colorizer.txt')|call delete('/home/arch/.vim/bundle/Colorizer/autoload/Colorizer.vim')
