@@ -501,7 +501,7 @@ endfunction
 "------------------------------------------
 let g:SrcExpl_refreshTime = 400
 "------------------------------------------
-let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim/pullproto.pl")
+let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 "------------------------------------------
 let g:indentconsistencycop_filetypes = 'ant,c,cpp,cs,csh,css,dosbatch,html,java,javascript,jsp,lisp,pascal,perl,php,python,ruby,scheme,sh,sql,tcsh,vb,vbs,vim,wsh,xhtml,xml,xsd,xslt,zsh'
 let g:indentconsistencycop_filetypes .= ',perl6'
