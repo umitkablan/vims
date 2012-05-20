@@ -166,7 +166,7 @@ au FileType help :set nonumber
 " call submode#map('window-walk', 'n', '', 'h', '<C-W>h')
 " call submode#map('window-walk', 'n', '', 'l', '<C-W>l')
 let g:loaded_fonts=1
-nnoremap <silent> <Leader>a :A<CR>
+nnoremap <silent> <Leader>a :FSHere<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space> :ResizeWinMaxHV<CR>
 nnoremap <silent> ĞSH :VimShellPop<CR>
@@ -772,8 +772,8 @@ autocmd BufWritePost ~/.vim/** Helptags
 "autocmd BufWritePost ~/.vim/doc/* helptags ~/.vim/doc
 
 set background=dark
-" bandit lucius solarized badwolf asu1dark
-colorscheme burnttoast256
+" bandit lucius solarized badwolf asu1dark burnttoast256
+colorscheme rastafari
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
 
