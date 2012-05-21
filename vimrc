@@ -795,8 +795,8 @@ autocmd BufWritePost ~/.vim/** Helptags
 "autocmd BufWritePost ~/.vim/doc/* helptags ~/.vim/doc
 
 set background=dark
-" bandit lucius solarized badwolf asu1dark burnttoast256
-colorscheme rastafari
+" bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
+colorscheme getafe
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
 
