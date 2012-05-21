@@ -74,6 +74,7 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " set scrolloff=9999
 autocmd FileType text set wrap linebreak
 autocmd TabLeave * stopinsert
+au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 "**************** }}}
 
 "personal maps: maps that does not need plugins
@@ -83,7 +84,7 @@ nmap <silent> ZZA :qa<CR>
 nnoremap Q gQ
 nnoremap qq <Nop>
 " Always falling to that typo while commanding to edit.
-cnoremap <expr> E<Space> getcmdtype() == ':' ? 'e ' : 'E '
+cnoremap <expr> E<Space> (getcmdtype()==':' && getcmdpos()==1) ? 'e ' : 'E '
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
@@ -142,6 +143,7 @@ inoremap <C-j> <C-X><C-O>
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
 call pathogen#infect()
+autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
 " personal plugin maps
@@ -790,9 +792,6 @@ function! s:NextTextObject(motion, dir)
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
 "******************************************** }}}
-
-autocmd BufWritePost ~/.vim/** Helptags
-"autocmd BufWritePost ~/.vim/doc/* helptags ~/.vim/doc
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
