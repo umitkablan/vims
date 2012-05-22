@@ -149,17 +149,21 @@ call ipi#inspect()
 " personal plugin maps
 " --------------------
 " Adjust maps according to language: some languages are semicolon driven.
-au FileType c,cpp,java,javascript imap <buffer> <space><space> ;
-" Adjust maps according to tags status: some filetypes are tags-driven.
-" Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
-" <CR>        --:> :TS <C-R><C-W><CR>
-" <Backspace> --:> :PopTagStack<CR>
-au FileType c,cpp,java,javascript,python nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-au FileType c,cpp,java,javascript,python nmap <buffer> <Backspace> <C-T>
-" au FileType c,cpp,java,javascript,python nmap <buffer> <CR> UniteWithCursorWord -immediately tag<CR>
-" au FileType * if stridx("c,cpp,java", &ft)>=0| call CSyntaxAfter()|endif
-" au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
-au FileType help :set nonumber
+augroup semicolon_langs
+  au!
+
+  au FileType c,cpp,java,javascript imap <buffer> <space><space> ;
+  " Adjust maps according to tags status: some filetypes are tags-driven.
+  " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
+  " <CR>        --:> :TS <C-R><C-W><CR>
+  " <Backspace> --:> :PopTagStack<CR>
+  au FileType c,cpp,java,javascript,python nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
+  au FileType c,cpp,java,javascript,python nmap <buffer> <Backspace> <C-T>
+  " au FileType c,cpp,java,javascript,python nmap <buffer> <CR> UniteWithCursorWord -immediately tag<CR>
+  " au FileType * if stridx("c,cpp,java", &ft)>=0| call CSyntaxAfter()|endif
+  " au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
+  au FileType help :set nonumber
+augroup END
 
 " submode didn't work for my aim
 " call submode#enter_with('window-walk', 'n', '', '<C-W><C-W>', '<C-W><C-W>')
