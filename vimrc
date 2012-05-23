@@ -23,7 +23,7 @@ let maplocalleader = ","
 set t_Co=256
 "show statusbar all the time
 set laststatus=2
-set ruler
+set noruler
 "set the terminal title
 set title
 " highlight the search, don't start from beginning when you reach end.
