@@ -1,0 +1,10 @@
+vimtips is a project to use fortune software to view vimtips.
+
+The vimtips file is a text file with the format of fortune command.
+To generate a index file and install:
+
+    $ cd fortunes
+    $ sudo ./install.sh
+
+And install the plugin in your .vim directory.
+
