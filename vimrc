@@ -114,7 +114,7 @@ if has("gui")
   set guioptions+=c " Use console dialogs where possible"
   "set guioptions-=m
 endif
-nnoremap <silent> <Tab><space> :update<CR>
+nnoremap <silent> <Tab><space> :update!<CR>
 " using TAB instead of ^W is easier
 nnoremap <silent> <Tab>l <C-W>l
 nnoremap <silent> <Tab>h <C-W>h
@@ -174,7 +174,7 @@ augroup END
 let g:loaded_fonts=1
 nnoremap <silent> <Leader>a :FSHere<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
-nnoremap <silent> <space><space> :ResizeWinMaxHV<CR>
+nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
 nnoremap <silent> ĞSH :VimShellPop<CR>
 nnoremap <silent> <Leader>sh :ConqueTermSplit bash<CR>
 nnoremap <silent> <Leader><Leader>sh :ConqueTerm bash<CR>
@@ -211,8 +211,8 @@ nmap <silent> <Tab><Tab> :call ToggleIndGuides_RC()<CR>
 nmap CAL  <Plug>CalendarV
 nmap HCAL <Plug>CalendarH
 nmap VCAL <Plug>CalendarV
-vmap <Space>  <Plug>MarkSet
-nmap <Space>  <Plug>MarkSet
+vmap <Space><Space>  <Plug>MarkSet
+nmap <Space><Space>  <Plug>MarkSet
 nmap <Space>*  <Plug>MarkSearchNext
 nmap <Space>#  <Plug>MarkSearchPrev
 nmap NOTUSED<Leader># <Plug>MarkSearchCurrentPrev
