@@ -139,6 +139,8 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-k> @='koko'<cr>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
 inoremap <C-j> <C-X><C-O>
+inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
@@ -151,7 +153,6 @@ call ipi#inspect()
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-
   au FileType c,cpp,java,javascript imap <buffer> <space><space> ;
   " Adjust maps according to tags status: some filetypes are tags-driven.
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
@@ -442,7 +443,7 @@ let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
 let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
 let g:SingleCompile_showquickfixiferror = 1
-let g:SingleCompile_showresultafterrun = 1
+let g:SingleCompile_showresultafterrun = 0
 "------------------------------------------
 let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_CloseOnEnd = 1
