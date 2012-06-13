@@ -91,6 +91,8 @@ imap <C-BS> <C-W>
 " swap comma (,) and semicolon (;) because my keyboard is comma-privileged
 noremap , ;
 noremap ; ,
+onoremap , ;
+onoremap ; ,
 " behave like C and D counterparts (default is yy, which yanks line(s))
 map Y y$
 " nnoremap / q/i
@@ -114,7 +116,8 @@ if has("gui")
   set guioptions+=c " Use console dialogs where possible"
   "set guioptions-=m
 endif
-nnoremap <silent> <Tab><space> :update!<CR>
+nnoremap <silent> <Tab><space> :update<CR>
+nnoremap <silent> <Tab><space> :w<CR>
 " using TAB instead of ^W is easier
 nnoremap <silent> <Tab>l <C-W>l
 nnoremap <silent> <Tab>h <C-W>h
@@ -166,6 +169,11 @@ augroup semicolon_langs
   au FileType help :set nonumber
 augroup END
 
+augroup preprocessor_langs
+  au!
+  au FileType c,cpp vmap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>
+augroup END
+
 " submode didn't work for my aim
 " call submode#enter_with('window-walk', 'n', '', '<C-W><C-W>', '<C-W><C-W>')
 " call submode#map('window-walk', 'n', '', 'j', '<C-W>j')
@@ -173,14 +181,15 @@ augroup END
 " call submode#map('window-walk', 'n', '', 'h', '<C-W>h')
 " call submode#map('window-walk', 'n', '', 'l', '<C-W>l')
 let g:loaded_fonts=1
-nnoremap <silent> <Leader>a :FSHere<CR>
+nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
 nnoremap <silent> ĞSH :VimShellPop<CR>
 nnoremap <silent> <Leader>sh :ConqueTermSplit bash<CR>
 nnoremap <silent> <Leader><Leader>sh :ConqueTerm bash<CR>
-nnoremap <silent> <Leader>p2 :ConqueTermSplit ipython<CR>
+nnoremap <silent> <Leader>p2 :ConqueTermSplit ipython2<CR>
 nnoremap <silent> <Leader>p3 :ConqueTermSplit python3<CR>
+nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
 nnoremap <silent> ĞĞE :Exp<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
@@ -231,7 +240,7 @@ vmap gr  <Plug>ReplaceVisual
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
-      \  "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
+          \ "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
 " Disable Luc Hermitte's maps
 vmap <unique> NOTUSED<c-x>v <Plug>RefactorExtractVariable
 vmap <unique> NOTUSED<c-x>t <Plug>RefactorExtractType
@@ -278,6 +287,7 @@ map <unique> UNUSED<LocalLeader>b <Plug>JavagetsetInsertBothGetterSetter
 nmap <unique> NOTUSED<Leader>a <Plug>ToggleAutoCloseMappings
 imap <unique> NOTUSED<C-S> <Plug>Isurround
 nmap <unique> NOTUSED<Leader>st <plug>SmartputToggle
+nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "************* }}}
 
 "plugin configuration
