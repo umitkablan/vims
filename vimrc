@@ -809,7 +809,8 @@ endfunction
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-colorscheme badwolf
+" oh-là-là
+colorscheme gentooish
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
 
