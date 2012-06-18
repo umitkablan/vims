@@ -114,7 +114,7 @@ function! Get_Statusline_Normal()
     endif
 
     if g:statline_show_tagname == 1
-        let statusline_tmp = statusline_tmp . "%2*<%{StatlineGetTagName(line(\".\"))}>%*"
+        let statusline_tmp = statusline_tmp . "%2*%{tagbar#currenttag('<%s> ', '')}%*"
     endif
 
     " separation between left/right aligned items

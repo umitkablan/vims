@@ -73,6 +73,7 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " keep cursor always at the middle
 " set scrolloff=9999
 autocmd FileType text set wrap linebreak
+autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 "**************** }}}
@@ -809,8 +810,8 @@ endfunction
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-" oh-là-là
-colorscheme gentooish
+" oh-là-là ubloh
+colorscheme ubloh
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
 
