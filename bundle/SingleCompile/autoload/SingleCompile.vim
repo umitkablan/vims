@@ -979,6 +979,16 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     endif
     let l:compile_args = s:Expand(l:compile_flags)
 
+    if exists("b:syntastic_cpp_cflags")
+        let l:compile_args .= ' ' . b:syntastic_cpp_cflags
+    endif
+    if exists("b:syntastic_c_cflags")
+        let l:compile_args .= ' ' . b:syntastic_c_cflags
+    endif
+    if exists("b:SC_ld_flags")
+        let l:compile_args .= ' ' . b:SC_ld_flags
+    endif
+
     " call the pre-do function if set
     if has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler],
                 \ 'pre-do')
@@ -1114,7 +1124,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " show the quickfix window if error occurs, quickfix is used and
     " g:SingleCompile_showquickfixiferror is set to nonzero
     if (l:toret == 1 || l:toret == 3) &&
-                \ g:SingleCompile_showquickfixiferror && 
+                \ g:SingleCompile_showquickfixiferror &&
                 \ s:ShouldQuickfixBeUsed()
         cope
     endif
