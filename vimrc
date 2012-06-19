@@ -293,6 +293,8 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
+"------------------------------------------
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
