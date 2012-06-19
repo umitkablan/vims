@@ -142,9 +142,6 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
-inoremap <C-j> <C-X><C-O>
-inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
@@ -240,6 +237,12 @@ vmap gr  <Plug>ReplaceVisual
 " fallback to speeddating when SwapIt cannot success
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
+" NeoComplCache
+inoremap <C-j> <C-X><C-O>
+inoremap <expr> <C-y> neocomplcache#close_popup()
+inoremap <expr> <C-e> neocomplcache#cancel_popup()
+imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
           \ "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
 " Disable Luc Hermitte's maps
