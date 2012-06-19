@@ -407,7 +407,7 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_min_keyword_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_enable_auto_select = 1
+let g:neocomplcache_enable_auto_select = 0
 let g:neocomplcache_snippets_dir = '~/.vim/var/neocomplcache_snippets'
 "let g:neocomplcache_enable_cursor_hold_i = 1
 " For snippet_complete marker.
