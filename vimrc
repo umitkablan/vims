@@ -101,8 +101,10 @@ map Y y$
 " nnoremap ? q?i
 " autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
-noremap <Down> <C-E>
-noremap <Up>   <C-Y>
+" <Down> <C-E>
+" <Up>   <C-Y>
+noremap <Down> Lzz
+noremap <Up>   Hzz
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
 nnoremap <silent> \ :let @/=""<CR>
 nnoremap <silent> y@ :let @"=expand("%:p")<CR>
@@ -143,6 +145,7 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
+nnoremap <silent> nn /<CR>
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
@@ -824,8 +827,8 @@ endfunction
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-" oh-là-là ubloh
-colorscheme oh-là-là
+" oh-là-là ubloh hickop neverness django
+colorscheme neverness
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
 
