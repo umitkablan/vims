@@ -8,14 +8,14 @@
 " This plugin provides cursor motion by syntax highlighting groups in normal
 " and visual mode:
 "
-" - Press  \<right>  (actually <Leader><right>) to move the cursor forward to 
+" - Press  \<right>  (actually <Leader><right>) to move the cursor forward to
 "   the end of the syntax group where cursor is located.
 "
-" - Press  \<left>  (actually <Leader><right>) to move the cursor forward to 
+" - Press  \<left>  (actually <Leader><right>) to move the cursor forward to
 "   the beginning of the syntax group where cursor is located.
 "
-" For example, when inside a string, pressing  \<right>  moves to the end of 
-" the string.  When inside a comment, pressing  \<left>  moves to the 
+" For example, when inside a string, pressing  \<right>  moves to the end of
+" the string.  When inside a comment, pressing  \<left>  moves to the
 " beginning of the comment.  You can extrapolate this behavior for any other
 " of syntax group.
 "
@@ -37,19 +37,19 @@
 " Plugin also provides a way to select text visually around the position
 " of the cursor with the same syntax group as where cursor is located:
 "
-" - type  va<right>  to visually select the text with the same syntax as 
+" - type  va<right>  to visually select the text with the same syntax as
 "   where cursor is located, and move the cursor to the end of the selected
 "   text.
 "
-" - type  va<left>  to visually select the text with the same syntax as 
-"   where cursor is located, and move the cursor to the beginning of the 
+" - type  va<left>  to visually select the text with the same syntax as
+"   where cursor is located, and move the cursor to the beginning of the
 "   selected text.
 "
 " Syntax highlighting must be enabled for the plugin to work.
 "
 " License: The VIM LICENSE applies to SyntaxMotion.vim (see ":help copyright"
 " except use "SyntaxMotion.vim" instead of "Vim").
-" 
+"
 " ToDo:
 " - write a proper help page
 " - provide mapping in operator pending mode
@@ -58,9 +58,9 @@
 " This function moves by cursor by syntax.
 " - a:dir is 'f' or 'b' to move cursor (f)orward or (b)ackward to the
 "   end or beginning of current syntax block, 'F' or 'B' to move
-"   cursor (F)ordward or (B)ackward & to the next syntax block when at 
-"   the end of beginning of current syntax block (this allows to move 
-"   through multiple syntax blocks when calling SyntaxMotion('F', ...) 
+"   cursor (F)ordward or (B)ackward & to the next syntax block when at
+"   the end of beginning of current syntax block (this allows to move
+"   through multiple syntax blocks when calling SyntaxMotion('F', ...)
 "   or SyntaxMotion('B', ...) multiple times.
 " - a:mode is either 'v' when in (v)isual mode or 'n' when in (n)ormal mode.
 " - a:count is the repeat count.
@@ -110,7 +110,7 @@ function! SyntaxVisualSelect(dir)
   normal v
   " Using setpos() is not strictly required, but it speeds up moving to the
   " other side of the text.
-  call setpos('.', l:save_cursor) 
+  call setpos('.', l:save_cursor)
   call SyntaxMotion(a:dir, 'n', 1)
 endfunction
 
@@ -119,12 +119,12 @@ endfunction
 "   where cursor is located.
 " - use  \<right>  to move the end of text with same syntax as
 "   where cursor is located.
-nnoremap <silent> <Leader><left>  :<c-u>call SyntaxMotion('B', 'n', v:count1)<cr>
-vnoremap <silent> <Leader><left>  :<c-u>call SyntaxMotion('B', 'v', v:count1)<cr>
-nnoremap <silent> <Leader><right> :<c-u>call SyntaxMotion('F', 'n', v:count1)<cr>
-vnoremap <silent> <Leader><right> :<c-u>call SyntaxMotion('F', 'v', v:count1)<cr>
+nnoremap <silent> <C-h>  :<c-u>call SyntaxMotion('B', 'n', v:count1)<cr>
+vnoremap <silent> <C-h>  :<c-u>call SyntaxMotion('B', 'v', v:count1)<cr>
+nnoremap <silent> <C-l> :<c-u>call SyntaxMotion('F', 'n', v:count1)<cr>
+vnoremap <silent> <C-l> :<c-u>call SyntaxMotion('F', 'v', v:count1)<cr>
 
-" Visual selection by syntax:  
+" Visual selection by syntax:
 " - use  va<left>  to make a visual selection by syntax, and move the
 "   cursor to the end of the selection.
 " - use  va<right>  to make visual selection by syntax, and move the
