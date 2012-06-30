@@ -72,6 +72,7 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " set notimeout ttimeout ttimeoutlen=200
 " keep cursor always at the middle
 " set scrolloff=9999
+let &showtabline=2
 autocmd FileType text set wrap linebreak
 autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
@@ -82,8 +83,9 @@ au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p
 "************* {{{
 nmap <silent> ZZ :q<CR>
 nmap <silent> ZZA :qa<CR>
-nnoremap Q gQ
+nnoremap Qq gQ
 nnoremap qq <Nop>
+nnoremap QQ <Nop>
 " Always falling to that typo while commanding to edit.
 cnoremap <expr> E<Space> (getcmdtype()==':' && getcmdpos()==1) ? 'e ' : 'E '
 nnoremap oo o<Esc>o
@@ -573,6 +575,38 @@ let g:SuperTabLongestHighlight = 1
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+function! GuiTabLabel()
+  let label = ''
+  let bufnrlist = tabpagebuflist(v:lnum)
+  " Add '+' if one of the buffers in the tab page is modified
+  for bufnr in bufnrlist
+    if getbufvar(bufnr, "&modified")
+      let label = '+'
+      break
+    endif
+  endfor
+  " Append the tab number
+  let label .= v:lnum.': '
+  " Append the buffer name
+  let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
+  if name == ''
+    " give a name to no-name documents
+    if &buftype=='quickfix'
+      let name = '[Quickfix List]'
+    else
+      let name = '[No Name]'
+    endif
+  else
+    " get only the file name
+    let name = fnamemodify(name,":t")
+  endif
+  let label .= name
+  " Append the number of windows in the tab page
+  let wincount = tabpagewinnr(v:lnum, '$')
+  return label . '  [' . wincount . ']'
+endfunction
+set guitablabel=%{GuiTabLabel()}
+
 function! OpenExplore() "{{{
   if bufname(bufnr("%")) ==? ""
     silent! Explore
@@ -804,14 +838,14 @@ endfunction
 " Next and Last {{{
 " Motion for "next/last object". For example, "din(" would go to the next "()" pair
 " and delete its contents.
-onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
-xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+onoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+xnoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+onoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+xnoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+onoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+xnoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+onoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+xnoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
 function! s:NextTextObject(motion, dir)
   let c = nr2char(getchar())
   if c ==# "b"
