@@ -83,9 +83,12 @@ au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p
 "************* {{{
 nmap <silent> ZZ :q<CR>
 nmap <silent> ZZA :qa<CR>
+" disable all _accidental touches_
+nnoremap QQ <Nop>
 nnoremap Qq gQ
 nnoremap qq <Nop>
-nnoremap QQ <Nop>
+nnoremap Q <Nop>
+nnoremap qQ Q
 " Always falling to that typo while commanding to edit.
 cnoremap <expr> E<Space> (getcmdtype()==':' && getcmdpos()==1) ? 'e ' : 'E '
 nnoremap oo o<Esc>o
