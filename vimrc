@@ -865,7 +865,7 @@ endfunction
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-là-là ubloh hickop neverness django
-colorscheme neverness
+colorscheme ubloh
 " set background=dark
 " hi CursorLine term=none cterm=none ctermbg=3
 
