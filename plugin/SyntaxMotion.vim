@@ -119,10 +119,10 @@ endfunction
 "   where cursor is located.
 " - use  \<right>  to move the end of text with same syntax as
 "   where cursor is located.
-nnoremap <silent> <C-h>  :<c-u>call SyntaxMotion('B', 'n', v:count1)<cr>
-vnoremap <silent> <C-h>  :<c-u>call SyntaxMotion('B', 'v', v:count1)<cr>
-nnoremap <silent> <C-l> :<c-u>call SyntaxMotion('F', 'n', v:count1)<cr>
-vnoremap <silent> <C-l> :<c-u>call SyntaxMotion('F', 'v', v:count1)<cr>
+nnoremap <silent> <C-j>  :<c-u>call SyntaxMotion('B', 'n', v:count1)<cr>
+vnoremap <silent> <C-j>  :<c-u>call SyntaxMotion('B', 'v', v:count1)<cr>
+nnoremap <silent> <C-k> :<c-u>call SyntaxMotion('F', 'n', v:count1)<cr>
+vnoremap <silent> <C-k> :<c-u>call SyntaxMotion('F', 'v', v:count1)<cr>
 
 " Visual selection by syntax:
 " - use  va<left>  to make a visual selection by syntax, and move the
