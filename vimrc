@@ -35,8 +35,7 @@ set smartcase
 set backspace=indent,eol,start
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 "i am a software craftsman. want to see line numbers!
-set number
-set relativenumber
+set number "relativenumber
 " highlight current line
 set cul "cursorline
 set wmw=0 "minimum window height
@@ -255,6 +254,8 @@ imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
           \ "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+nnoremap [d :call ShowBlockName('[d')<CR>
+nnoremap [i :call ShowBlockName('[i')<CR>
 " Disable Luc Hermitte's maps
 vmap <unique> NOTUSED<c-x>v <Plug>RefactorExtractVariable
 vmap <unique> NOTUSED<c-x>t <Plug>RefactorExtractType
@@ -354,7 +355,7 @@ let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
 autocmd VimEnter * :IndentGuidesDisable
 "------------------------------------------
-let g:mwDefaultHighlightingPalette = 'extended'
+let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
@@ -857,6 +858,8 @@ function! s:NextTextObject(motion, dir)
       let c = "{"
   elseif c ==# "d"
       let c = "["
+  elseif c ==# "q"
+      let c = "\""
   endif
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
