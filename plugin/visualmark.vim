@@ -13,21 +13,21 @@ if exists("loaded_VisualMark")
 endif
 let loaded_VisualMark = 1
 if !has("signs")
- echoerr "***sorry*** [".expand("%")."] your vim doesn't support signs"
- finish
+  echoerr "***sorry*** [".expand("%")."] your vim doesn't support signs"
+  finish
 endif
 
 if &bg == "dark"
- highlight SignColor ctermfg=white ctermbg=blue guifg=white guibg=RoyalBlue3
+  highlight SignColor ctermfg=white ctermbg=blue guifg=white guibg=RoyalBlue3
 else
- highlight SignColor ctermbg=white ctermfg=blue guibg=grey guifg=RoyalBlue3
+  highlight SignColor ctermbg=white ctermfg=blue guibg=grey guifg=RoyalBlue3
 endif
 
 " ---------------------------------------------------------------------
 "  Public Interface:
 if !hasmapto('<Plug>Vm_toggle_sign')
   map <unique> <c-F2> <Plug>Vm_toggle_sign
-  map <silent> <unique> mm <Plug>Vm_toggle_sign 
+  map <silent> <unique> mm <Plug>Vm_toggle_sign
 endif
 nnoremap <silent> <script> <Plug>Vm_toggle_sign	:call Vm_toggle_sign()<cr>
 
@@ -52,7 +52,7 @@ fun! s:GetVimCmdOutput(cmd)
   let old_lang = v:lang
 
   " Set the language to English
-  exec ":lan mes en_US"
+  " exec ":lan mes en_US"
 
   let v:errmsg = ''
   let output   = ''
@@ -72,7 +72,7 @@ fun! s:GetVimCmdOutput(cmd)
   endtry
 
   " Restore the original locale
-  exec ":lan mes " . old_lang
+  " exec ":lan mes " . old_lang
 
 "  call Dret("GetVimCmdOutput <".output.">")
   return output
@@ -200,7 +200,7 @@ fun! s:Vm_get_next_sign_line(curr_line_number)
   let is_no_sign  = 1
   let min_line_number = -1
   let min_line_number_diff = 0
-  
+
   while 1
     let line_number = s:Vm_get_line_number(sign_list)
     if line_number < 0
@@ -208,7 +208,7 @@ fun! s:Vm_get_next_sign_line(curr_line_number)
     endif
 
     " Record the very first line that has a sign
-    if is_no_sign != 0 
+    if is_no_sign != 0
       let min_line_number = line_number
     elseif line_number < min_line_number
       let min_line_number = line_number
@@ -219,7 +219,7 @@ fun! s:Vm_get_next_sign_line(curr_line_number)
     let tmp_diff = line_number - curr_line_number
     if tmp_diff > 0
       " line_number is below curr_line_number
-      if min_line_number_diff > 0 
+      if min_line_number_diff > 0
         if tmp_diff < min_line_number_diff
           let min_line_number_diff = tmp_diff
         endif
@@ -257,7 +257,7 @@ fun! s:Vm_get_prev_sign_line(curr_line_number)
   let is_no_sign  = 1
   let max_line_number = -1
   let max_line_number_diff = 0
-  
+
   while 1
     let line_number = s:Vm_get_line_number(sign_list)
     if line_number < 0
@@ -265,9 +265,9 @@ fun! s:Vm_get_prev_sign_line(curr_line_number)
     endif
 
     " Record the very first line that has a sign
-    if is_no_sign != 0 
+    if is_no_sign != 0
       let max_line_number = line_number
-    elseif line_number > max_line_number 
+    elseif line_number > max_line_number
       let max_line_number = line_number
     endif
     let is_no_sign = 0
@@ -275,8 +275,8 @@ fun! s:Vm_get_prev_sign_line(curr_line_number)
     let tmp_diff = curr_line_number - line_number
     if tmp_diff > 0
       " line_number is below curr_line_number
-      if max_line_number_diff > 0 
-        if tmp_diff < max_line_number_diff 
+      if max_line_number_diff > 0
+        if tmp_diff < max_line_number_diff
           let max_line_number_diff = tmp_diff
         endif
       else
@@ -288,12 +288,12 @@ fun! s:Vm_get_prev_sign_line(curr_line_number)
     " call Decho("[DBG] Tmp Diff: #" . tmp_diff)
   endwhile
 
-  let line_number = curr_line_number - max_line_number_diff 
+  let line_number = curr_line_number - max_line_number_diff
   " call Decho("[DBG] Line Diff: #" . max_line_number_diff)
   " call Decho("[DBG] Line Num: #" . line_number)
 
   if is_no_sign != 0 || max_line_number_diff <= 0
-    let line_number = max_line_number 
+    let line_number = max_line_number
   endif
 
   " call Dret("Vm_get_prev_sign_line ".line_number . " XXX")
@@ -327,7 +327,7 @@ fun! Vm_goto_prev_sign()
 "  call Decho("Previous sign line #:  " . prev_sign_line_number)
 
   if prev_sign_line_number >= 0
-    exe prev_sign_line_number 
+    exe prev_sign_line_number
   endif
 
   " call Dret("Vm_goto_prev_sign")
