@@ -867,9 +867,8 @@ endfunction
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-" oh-là-là ubloh hickop neverness django
-colorscheme ubloh
-" set background=dark
+" oh-là-là ubloh hickop neverness django wombat256
+colorscheme wombat256
 " hi CursorLine term=none cterm=none ctermbg=3
 
 winsize 170 46
