@@ -19,7 +19,7 @@
 " Installation:	Just drop this file in your plugin directory.
 "
 " Usage:		Command :YATE toggles visibility of search buffer.
-" 				Parameter g:YATE_window_height sets height of search buffer. Default = 15
+" 				Parameter g:YATE_window_height sets height of search buffer. Default = 15.
 " 				Parameter g:YATE_strip_long_paths enables(1)/disables(0) cutting of long file paths. Default = 1.
 " 				Parameter g:YATE_enable_real_time_search enables(1)/disables(0) as-you-type search. Default = 1.
 " 				Parameter g:YATE_min_symbols_to_search sets search string length threshold after
@@ -45,9 +45,11 @@
 " 				search string. Autocompletion using history also works by
 " 				<Ctrl-X><Ctrl-U>.
 "
-" Version:		1.2.2
+" Version:		1.2.4
 "
-" ChangeLog:	1.2.2:	Fixed cleaning of search string in some cases.
+" ChangeLog:	1.2.4:	Fixed leaving of insert mode after leaving YATE buffer.
+" 				1.2.3:	Insert mode is default in YATE buffer.
+"				1.2.2:	Fixed cleaning of search string in some cases.
 "
 " 				1.2.1:	History menu (<Ctrl-H>) also works in normal mode.
 "
@@ -355,6 +357,19 @@ fun <SID>GotoTagE()
 	cal <SID>GotoTag('e')
 endfun
 
+fun <SID>OnBufLeave()
+	if s:prev_mode != 'i'
+		exe 'stopinsert'
+	endif
+endfun
+
+fun <SID>OnBufEnter()
+	let s:prev_mode = mode()
+	exe 'startinsert'
+
+	call <SID>PrintTagsList()
+endfun
+
 fun! <SID>ToggleTagExplorerBuffer()
 	if !exists("s:yate_winnr") || s:yate_winnr==-1
 		exe "bo".g:YATE_window_height."sp YATE"
@@ -396,15 +411,19 @@ fun! <SID>ToggleTagExplorerBuffer()
 		setlocal buftype=nofile
 		setlocal noswapfile
 
+		let s:prev_mode = mode()
+		exe 'startinsert'
+
 		if !exists("s:first_time")
 			let s:user_line=''
 			let s:first_time=1
 
 			autocmd BufUnload <buffer> exe 'let s:yate_winnr=-1'
+			autocmd BufLeave <buffer> call <SID>OnBufLeave()
 			autocmd CursorMoved <buffer> call <SID>OnCursorMoved()
 			autocmd CursorMovedI <buffer> call <SID>OnCursorMovedI()
 			autocmd VimResized <buffer> call <SID>PrintTagsList()
-			autocmd BufEnter <buffer> call <SID>PrintTagsList()
+			autocmd BufEnter <buffer> call <SID>OnBufEnter()
 		endif
 		
 		cal <SID>PrintTagsList()
