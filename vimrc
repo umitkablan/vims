@@ -180,12 +180,12 @@ augroup preprocessor_langs
   au FileType c,cpp vmap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>
 augroup END
 
-" submode didn't work for my aim
-" call submode#enter_with('window-walk', 'n', '', '<C-W><C-W>', '<C-W><C-W>')
-" call submode#map('window-walk', 'n', '', 'j', '<C-W>j')
-" call submode#map('window-walk', 'n', '', 'k', '<C-W>k')
-" call submode#map('window-walk', 'n', '', 'h', '<C-W>h')
-" call submode#map('window-walk', 'n', '', 'l', '<C-W>l')
+" submode didn't work for my aim,
+" try tinymode
+call tinymode#EnterMap("winsize", "<C-W>+", "+")
+call tinymode#EnterMap("winsize", "<C-W>-", "-")
+call tinymode#Map("winsize", "+", "wincmd +")
+call tinymode#Map("winsize", "-", "wincmd -")
 let g:loaded_fonts=1
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
