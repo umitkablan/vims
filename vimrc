@@ -55,7 +55,7 @@ set shiftwidth=4
 set expandtab
 " clear tags n path; use some other technique to decide
 set tags=
-set path=
+set path=.
 set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*.obj,*.bak,*.exe
