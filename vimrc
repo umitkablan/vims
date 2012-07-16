@@ -149,7 +149,7 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
-" nnoremap <silent> nn /<CR>
+nnoremap <silent> nn /<CR>
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
