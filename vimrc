@@ -99,6 +99,8 @@ noremap , ;
 noremap ; ,
 onoremap , ;
 onoremap ; ,
+nnoremap g; g,
+nnoremap g, g;
 " behave like C and D counterparts (default is yy, which yanks line(s))
 map Y y$
 " nnoremap / q/i
