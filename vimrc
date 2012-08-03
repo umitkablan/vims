@@ -37,7 +37,6 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 "i am a software craftsman. want to see line numbers!
 set number "relativenumber
 " highlight current line
-set cul "cursorline
 set wmw=0 "minimum window height
 set cmdheight=2
 set history=450
@@ -76,6 +75,8 @@ autocmd FileType text set wrap linebreak
 autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
+au InsertEnter * set nocursorline
+au InsertLeave * set cursorline
 "**************** }}}
 
 "personal maps: maps that does not need plugins
@@ -867,8 +868,8 @@ endfunction
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-" oh-là-là ubloh hickop neverness django wombat256
-colorscheme wombat256
+" oh-la-la ubloh hickop neverness django wombat256 fnaqevan
+colorscheme oh-la-la
 " hi CursorLine term=none cterm=none ctermbg=3
 
 winsize 170 46
