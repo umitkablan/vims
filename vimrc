@@ -75,8 +75,9 @@ autocmd FileType text set wrap linebreak
 autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
-au InsertEnter * set nocursorline
-au InsertLeave * set cursorline
+set cursorline nocursorcolumn
+au InsertEnter * set nocursorline cursorcolumn
+au InsertLeave * set cursorline nocursorcolumn
 "**************** }}}
 
 "personal maps: maps that does not need plugins
@@ -871,7 +872,7 @@ endfunction
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan
-colorscheme oh-la-la
+colorscheme badwolf
 " hi CursorLine term=none cterm=none ctermbg=3
 
 winsize 170 46
