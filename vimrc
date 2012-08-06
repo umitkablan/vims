@@ -184,6 +184,8 @@ augroup preprocessor_langs
   au FileType c,cpp vmap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>
 augroup END
 
+nmap <silent> <F5> :mak %<CR>
+
 " submode didn't work for my aim,
 " try tinymode
 call tinymode#EnterMap("winsize", "<C-W>+", "+")
