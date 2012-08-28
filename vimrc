@@ -193,6 +193,7 @@ call tinymode#EnterMap("winsize", "<C-W>-", "-")
 call tinymode#Map("winsize", "+", "wincmd +")
 call tinymode#Map("winsize", "-", "wincmd -")
 let g:loaded_fonts=1
+au syntax * cal rainbow#activate()
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
