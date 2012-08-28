@@ -187,15 +187,15 @@ syn match   javaScriptLogicSymbols "\(&&\)\|\(||\)"
 
 " JavaScriptFold Function {{{
 
-function! JavaScriptFold()
-	setl foldmethod=syntax
-	setl foldlevelstart=1
-	syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-
-	setl foldtext=FoldText()
-endfunction
-
-au FileType javascript call JavaScriptFold()
+" function! JavaScriptFold()
+" 	setl foldmethod=syntax
+" 	setl foldlevelstart=1
+" 	syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+"
+" 	setl foldtext=FoldText()
+" endfunction
+"
+" au FileType javascript call JavaScriptFold()
 
 " }}}
 
