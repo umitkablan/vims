@@ -6,7 +6,7 @@
 " Version:     1.2.0
 " Licence: This program is free software; you can redistribute it and/or
 "          modify it under the terms of the GNU General Public License.
-"          See http://www.gnu.org/copyleft/gpl.txt 
+"          See http://www.gnu.org/copyleft/gpl.txt
 " Acknowledgements:
 " Download From:
 "     http://www.vim.org//script.php?script_id=1282
@@ -354,6 +354,7 @@ function! s:SetupBuf() " {{{
   setlocal winfixheight
 
   nnoremap <silent> <buffer> q :TSQuit<CR>
+  nnoremap <silent> <buffer> <Backspace> :TSQuit<CR>
   nnoremap <silent> <buffer> <CR> :TSSelect<CR>
   nnoremap <silent> <buffer> <2-LeftMouse> :TSSelect<CR>
 
