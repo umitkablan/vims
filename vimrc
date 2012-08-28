@@ -76,8 +76,8 @@ autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 set cursorline nocursorcolumn
-au InsertEnter * set nocursorline cursorcolumn
-au InsertLeave * set cursorline nocursorcolumn
+" au InsertEnter * set nocursorline cursorcolumn
+" au InsertLeave * set cursorline nocursorcolumn
 "**************** }}}
 
 "personal maps: maps that does not need plugins
