@@ -100,8 +100,10 @@ noremap , ;
 noremap ; ,
 onoremap , ;
 onoremap ; ,
-nnoremap g; g,
-nnoremap g, g;
+noremap g; g,
+noremap g, g;
+noremap gl $
+noremap gh ^
 " behave like C and D counterparts (default is yy, which yanks line(s))
 map Y y$
 " nnoremap / q/i
@@ -154,6 +156,8 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-k> @='koko'<cr>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
 nnoremap <silent> nn /<CR>
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
@@ -314,6 +318,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 "------------------------------------------
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
