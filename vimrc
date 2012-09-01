@@ -170,7 +170,7 @@ call ipi#inspect()
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript imap <buffer> <space><space> ;
+  au FileType c,cpp,java,javascript,css imap <buffer> <space><space> ;
   " Adjust maps according to tags status: some filetypes are tags-driven.
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
   " <CR>        --:> :TS <C-R><C-W><CR>
