@@ -175,8 +175,8 @@ augroup semicolon_langs
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
-  au FileType c,cpp,java,javascript,python nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python nmap <buffer> <Backspace> <C-T>
+  au FileType c,cpp,java,javascript,python,qf nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
+  au FileType c,cpp,java,javascript,python,qf nmap <buffer> <Backspace> <C-T>
   " au FileType c,cpp,java,javascript,python nmap <buffer> <CR> UniteWithCursorWord -immediately tag<CR>
   " au FileType * if stridx("c,cpp,java", &ft)>=0| call CSyntaxAfter()|endif
   " au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
@@ -190,6 +190,7 @@ augroup END
 
 nmap <silent> <F5> :mak %<CR>
 
+nnoremap GL :call EchoLocationPath()<CR>
 " submode didn't work for my aim,
 " try tinymode
 call tinymode#EnterMap("winsize", "<C-W>+", "+")
