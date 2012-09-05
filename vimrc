@@ -76,8 +76,8 @@ autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 set cursorline nocursorcolumn
-" au InsertEnter * set nocursorline cursorcolumn
-" au InsertLeave * set cursorline nocursorcolumn
+au InsertEnter * set nocursorline
+au InsertLeave * set cursorline
 "**************** }}}
 
 "personal maps: maps that does not need plugins
@@ -131,7 +131,6 @@ if has("gui")
   "set guioptions-=m
 endif
 nnoremap <silent> <Tab><space> :update<CR>
-nnoremap <silent> <Tab><space> :w<CR>
 " using TAB instead of ^W is easier
 nnoremap <silent> <Tab>l <C-W>l
 nnoremap <silent> <Tab>h <C-W>h
