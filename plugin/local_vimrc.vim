@@ -149,7 +149,7 @@ function! s:SourceLocal(path)
         endif
         let g:local_vimrc_path = a:path
         exe 'source '.escape(a:path.'/'.s:local_vimrc, ' \$,')
-        exe 'cd '.a:path
+        exe 'silent! cd '.a:path
     elseif &verbose >= 2
         echo 'Check '.a:path.' for '.s:local_vimrc.' ... none!'
     endif
@@ -166,7 +166,7 @@ function! s:Main(path)
     if !s:CheckForbiddenPath(a:path)
         return
     else
-        cd %:p:h
+        silent! cd %:p:h
         call s:SourceLocal(a:path)
     endif
 endfunction

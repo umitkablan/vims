@@ -76,8 +76,8 @@ autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 set cursorline nocursorcolumn
-" au InsertEnter * set nocursorline cursorcolumn
-" au InsertLeave * set cursorline nocursorcolumn
+au InsertEnter * set nocursorline
+au InsertLeave * set cursorline
 "**************** }}}
 
 "personal maps: maps that does not need plugins
@@ -131,7 +131,6 @@ if has("gui")
   "set guioptions-=m
 endif
 nnoremap <silent> <Tab><space> :update<CR>
-nnoremap <silent> <Tab><space> :w<CR>
 " using TAB instead of ^W is easier
 nnoremap <silent> <Tab>l <C-W>l
 nnoremap <silent> <Tab>h <C-W>h
@@ -358,7 +357,7 @@ let g:Tdd_makeprg='make'
 let g:exTS_backto_editbuf = 0
 let g:exTS_close_when_selected = 1
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc'
-let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj'
+let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:EasyMotion_leader_key = '<Tab>'
@@ -881,7 +880,7 @@ endfunction
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan
-colorscheme badwolf
+colorscheme fnaqevan
 " hi CursorLine term=none cterm=none ctermbg=3
 
 winsize 170 46
