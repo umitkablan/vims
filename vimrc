@@ -102,6 +102,7 @@ onoremap , ;
 onoremap ; ,
 noremap g; g,
 noremap g, g;
+" not to press shift key
 noremap gl $
 noremap gh ^
 " behave like C and D counterparts (default is yy, which yanks line(s))
@@ -111,10 +112,9 @@ map Y y$
 " nnoremap ? q?i
 " autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
-" <Down> <C-E>
-" <Up>   <C-Y>
-noremap <Down> Lzz
-noremap <Up>   Hzz
+"   <C-E>/<C-Y> or Lzz/Hzz may also be used for Up/Down
+noremap <Down> <C-F>
+noremap <Up>   <C-B>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
 nnoremap <silent> \ :let @/=""<CR>
 nnoremap <silent> y@ :let @"=expand("%:p")<CR>
@@ -209,7 +209,7 @@ nnoremap <silent> <Leader>p3 :ConqueTermSplit python3<CR>
 nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
 nnoremap <silent> ĞĞE :Exp<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
-nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
+nnoremap <silent> <Leader>e :UniteWithBufferDir -start-insert file<CR>
 " nnoremap <silent> <Leader>e :CommandT<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
@@ -221,7 +221,7 @@ nnoremap <silent> ĞTT :ExtsStackToggle<CR>
 nnoremap <silent> <C-P> :Unite -start-insert source<CR>
 nnoremap <silent> <Leader>b :Unite -start-insert bookmark<CR>
 nnoremap <silent> <C-B> :Unite -start-insert buffer<CR>
-nnoremap <silent> MRU :Unite -start-insert file_mru directory_mru<CR>
+nnoremap <silent> MRU :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <Leader>t  :FufBufferTag<CR>
 nnoremap <silent> <Leader><Leader>cd :FufDirWithCurrentBufferDir<CR>
 nnoremap <silent> ĞĞCD :FufDirWithFullCwd<CR>

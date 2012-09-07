@@ -158,7 +158,7 @@ function! s:StartCopBasedOnFiletype( filetype )
 
 	" Check both indent consistency and consistency with buffer indent
 	" settings when a file is loaded.
-	call s:InstallAutoCmd(g:indentconsistencycop_AutoRunCmd, ['CursorHold'], 1)
+	" call s:InstallAutoCmd(g:indentconsistencycop_AutoRunCmd, ['CursorHold'], 1)
 	if g:indentconsistencycop_CheckAfterWrite
 	    " Only check indent consistency after a write of the buffer. The
 	    " user already was alerted to inconsistent buffer settings when the
