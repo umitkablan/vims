@@ -76,8 +76,8 @@ autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 set cursorline nocursorcolumn
-au InsertEnter * set nocursorline
-au InsertLeave * set cursorline
+" au InsertEnter * set nocursorline
+" au InsertLeave * set cursorline
 "**************** }}}
 
 "personal maps: maps that does not need plugins
@@ -187,7 +187,8 @@ augroup preprocessor_langs
   au FileType c,cpp vmap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>
 augroup END
 
-nmap <silent> <F5> :mak %<CR>
+nmap <silent> <F5> :update<CR>:mak %<CR>
+nmap <silent> <F9> :QFix<CR>
 
 nnoremap GL :call EchoLocationPath()<CR>
 " submode didn't work for my aim,
@@ -591,6 +592,19 @@ let g:SuperTabLongestHighlight = 1
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+" used to track the quickfix window: open/closed
+function! QFixToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 15
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+" Use :QFix! if you want to keep the qf window open, out of toggling
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+
 function! GuiTabLabel()
   let label = ''
   let bufnrlist = tabpagebuflist(v:lnum)
@@ -879,8 +893,8 @@ endfunction
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-" oh-la-la ubloh hickop neverness django wombat256 fnaqevan
-colorscheme fnaqevan
+" oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin
+colorscheme ubloh
 " hi CursorLine term=none cterm=none ctermbg=3
 
 winsize 170 46
