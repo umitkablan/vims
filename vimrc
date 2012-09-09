@@ -407,6 +407,7 @@ let VCSCommandVCSTypePreference = 'git'
 let g:tar_nomax = 1
 let g:zip_nomax = 1
 "------------------------------------------
+let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
 let g:netrw_use_noswf = 0
 let g:netrw_keepdir = 0
 let g:netrw_home = $HOME . '/.vim/var'
