@@ -112,9 +112,9 @@ map Y y$
 " nnoremap ? q?i
 " autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
-"   <C-E>/<C-Y> or Lzz/Hzz may also be used for Up/Down
-noremap <Down> <C-F>
-noremap <Up>   <C-B>
+"   <C-E>/<C-Y>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
+noremap <Down> <C-D>
+noremap <Up>   <C-U>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
 nnoremap <silent> \ :let @/=""<CR>
 nnoremap <silent> y@ :let @"=expand("%:p")<CR>
