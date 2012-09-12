@@ -103,8 +103,8 @@ onoremap ; ,
 noremap g; g,
 noremap g, g;
 " not to press shift key
-noremap gl $
-noremap gh ^
+map gl $
+map gh ^
 " behave like C and D counterparts (default is yy, which yanks line(s))
 map Y y$
 " nnoremap / q/i
@@ -357,7 +357,7 @@ let g:local_vimrc=".lvimrc"
 let g:Tdd_makeprg='make'
 let g:exTS_backto_editbuf = 0
 let g:exTS_close_when_selected = 1
-let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc'
+let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:yankring_history_dir = expand('$HOME/.vim')
