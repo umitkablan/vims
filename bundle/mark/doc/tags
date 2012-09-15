@@ -1,6 +1,7 @@
 :Mark	mark.txt	/*:Mark*
 :MarkClear	mark.txt	/*:MarkClear*
 :MarkLoad	mark.txt	/*:MarkLoad*
+:MarkPalette	mark.txt	/*:MarkPalette*
 :MarkSave	mark.txt	/*:MarkSave*
 :Marks	mark.txt	/*:Marks*
 <Leader>#	mark.txt	/*<Leader>#*
@@ -29,6 +30,8 @@ mark-installation	mark.txt	/*mark-installation*
 mark-known-problems	mark.txt	/*mark-known-problems*
 mark-limitations	mark.txt	/*mark-limitations*
 mark-mappings	mark.txt	/*mark-mappings*
+mark-palette	mark.txt	/*mark-palette*
+mark-palette-define	mark.txt	/*mark-palette-define*
 mark-persistence	mark.txt	/*mark-persistence*
 mark-searching	mark.txt	/*mark-searching*
 mark-todo	mark.txt	/*mark-todo*

@@ -1,1 +1,2 @@
 mark.vba: call delete('/home/arch/.vim/bundle/mark/autoload/mark.vim')|call delete('/home/arch/.vim/bundle/mark/plugin/mark.vim')|call delete('/home/arch/.vim/bundle/mark/doc/mark.txt')
+mark-2.7.1.vmb: call delete('~/.vim/bundle/mark/autoload/mark.vim')|call delete('~/.vim/bundle/mark/autoload/mark/palettes.vim')|call delete('~/.vim/bundle/mark/plugin/mark.vim')|call delete('~/.vim/bundle/mark/doc/mark.txt')
