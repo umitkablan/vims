@@ -9,6 +9,7 @@ headlights-performance	headlights.txt	/*headlights-performance*
 headlights-tips	headlights.txt	/*headlights-tips*
 headlights.txt	headlights.txt	/*headlights.txt*
 headlights_debug_mode	headlights.txt	/*headlights_debug_mode*
+headlights_run_on_startup	headlights.txt	/*headlights_run_on_startup*
 headlights_show_abbreviations	headlights.txt	/*headlights_show_abbreviations*
 headlights_show_commands	headlights.txt	/*headlights_show_commands*
 headlights_show_files	headlights.txt	/*headlights_show_files*
@@ -17,4 +18,5 @@ headlights_show_highlights	headlights.txt	/*headlights_show_highlights*
 headlights_show_load_order	headlights.txt	/*headlights_show_load_order*
 headlights_show_mappings	headlights.txt	/*headlights_show_mappings*
 headlights_smart_menus	headlights.txt	/*headlights_smart_menus*
+headlights_spillover_menus	headlights.txt	/*headlights_spillover_menus*
 headlights_use_plugin_menu	headlights.txt	/*headlights_use_plugin_menu*
