@@ -246,10 +246,10 @@ vmap <Space><Space>  <Plug>MarkSet
 nmap <Space><Space>  <Plug>MarkSet
 nmap <Space>*  <Plug>MarkSearchNext
 nmap <Space>#  <Plug>MarkSearchPrev
-nmap NOTUSED<Leader># <Plug>MarkSearchCurrentPrev
-nmap NOTUSED<Leader>* <Plug>MarkSearchCurrentNext
-nmap NOTUSED?  <Plug>MarkSearchAnyPrev
-nmap NOTUSED/  <Plug>MarkSearchAnyNext
+nmap <Space><Leader>* <Plug>MarkSearchCurrentNext
+nmap <Space><Leader># <Plug>MarkSearchCurrentPrev
+nmap <Space>?  <Plug>MarkSearchAnyPrev
+nmap <Space>/  <Plug>MarkSearchAnyNext
 nmap <Space>nn <Plug>MarkAllClear
 nmap <Space>n  <Plug>MarkClear
 nmap <Space>r <Plug>MarkRegex
