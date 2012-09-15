@@ -1,8 +1,8 @@
 " Insert or delete brackets, parens, quotes in pairs.
 " Maintainer:	JiangMiao <jiangfriend@gmail.com>
 " Contributor: camthompson
-" Last Change:  2012-07-15
-" Version: 1.2.3
+" Last Change:  2012-09-15
+" Version: 1.2.5
 " Homepage: http://www.vim.org/scripts/script.php?script_id=3599
 " Repository: https://github.com/jiangmiao/auto-pairs
 
@@ -261,13 +261,19 @@ function! AutoPairsToggle()
 endfunction
 
 function! AutoPairsReturn()
+  if b:autopairs_enabled == 0
+    return ''
+  end
   let line = getline('.')
   let pline = getline(line('.')-1)
   let prev_char = pline[strlen(pline)-1]
   let cmd = ''
   let cur_char = line[col('.')-1]
   if has_key(g:AutoPairs, prev_char) && g:AutoPairs[prev_char] == cur_char
-    if g:AutoPairsCenterLine && winline() * 1.5 >= winheight(0)
+    if g:AutoPairsCenterLine && winline() * 3 >= winheight(0) * 2
+      " Use \<BS> instead of \<ESC>cl will cause the placeholder deleted
+      " incorrect. because <C-O>zz won't leave Normal mode.
+      " Use \<DEL> is a bit wierd. the character before cursor need to be deleted.
       let cmd = " \<C-O>zz\<ESC>cl"
     end
     " conflict with javascript and coffee
