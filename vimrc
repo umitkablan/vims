@@ -322,12 +322,14 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:SignaturePeriodicRefresh = 0
 let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 "------------------------------------------
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
+let g:pasta_disabled_filetypes = ["coffee", "markdown"]
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
