@@ -107,6 +107,9 @@ map gl $
 map gh ^
 " behave like C and D counterparts (default is yy, which yanks line(s))
 map Y y$
+" i need the 'dot' at reverse side of comma/n, which i mainly use for
+" search-replace (<comma_or_n><dot>)
+nmap <Bar> .
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
