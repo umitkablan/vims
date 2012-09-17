@@ -11,11 +11,16 @@ g:tlib#cache#purge_days	tlib.txt	/*g:tlib#cache#purge_days*
 g:tlib#cache#purge_every_days	tlib.txt	/*g:tlib#cache#purge_every_days*
 g:tlib#cache#run_script	tlib.txt	/*g:tlib#cache#run_script*
 g:tlib#cache#script_encoding	tlib.txt	/*g:tlib#cache#script_encoding*
+g:tlib#cache#silent	tlib.txt	/*g:tlib#cache#silent*
+g:tlib#vcs#check	tlib.txt	/*g:tlib#vcs#check*
+g:tlib#vcs#def	tlib.txt	/*g:tlib#vcs#def*
+g:tlib#vcs#executables	tlib.txt	/*g:tlib#vcs#executables*
 g:tlib#vim#simalt_maximize	tlib.txt	/*g:tlib#vim#simalt_maximize*
 g:tlib#vim#simalt_restore	tlib.txt	/*g:tlib#vim#simalt_restore*
 g:tlib#vim#use_vimtweak	tlib.txt	/*g:tlib#vim#use_vimtweak*
 g:tlib#vim#use_wmctrl	tlib.txt	/*g:tlib#vim#use_wmctrl*
 g:tlib_cache	tlib.txt	/*g:tlib_cache*
+g:tlib_debug	tlib.txt	/*g:tlib_debug*
 g:tlib_filename_sep	tlib.txt	/*g:tlib_filename_sep*
 g:tlib_handlers_EditList	tlib.txt	/*g:tlib_handlers_EditList*
 g:tlib_inputlist_and	tlib.txt	/*g:tlib_inputlist_and*
@@ -31,6 +36,7 @@ g:tlib_inputlist_width_filename	tlib.txt	/*g:tlib_inputlist_width_filename*
 g:tlib_keyagents_InputList_m	tlib.txt	/*g:tlib_keyagents_InputList_m*
 g:tlib_keyagents_InputList_s	tlib.txt	/*g:tlib_keyagents_InputList_s*
 g:tlib_numeric_chars	tlib.txt	/*g:tlib_numeric_chars*
+g:tlib_persistent	tlib.txt	/*g:tlib_persistent*
 g:tlib_pick_last_item	tlib.txt	/*g:tlib_pick_last_item*
 g:tlib_scratch_pos	tlib.txt	/*g:tlib_scratch_pos*
 g:tlib_scroll_lines	tlib.txt	/*g:tlib_scroll_lines*
@@ -43,7 +49,6 @@ standard-paragraph	tlib.txt	/*standard-paragraph*
 tlib#Filter_cnf#New()	tlib.txt	/*tlib#Filter_cnf#New()*
 tlib#Filter_cnfd#New()	tlib.txt	/*tlib#Filter_cnfd#New()*
 tlib#Filter_fuzzy#New()	tlib.txt	/*tlib#Filter_fuzzy#New()*
-tlib#Filter_seq#New()	tlib.txt	/*tlib#Filter_seq#New()*
 tlib#Object#Methods()	tlib.txt	/*tlib#Object#Methods()*
 tlib#Object#New()	tlib.txt	/*tlib#Object#New()*
 tlib#World#New()	tlib.txt	/*tlib#World#New()*
@@ -174,6 +179,10 @@ tlib#notify#Echo()	tlib.txt	/*tlib#notify#Echo()*
 tlib#notify#TrimMessage()	tlib.txt	/*tlib#notify#TrimMessage()*
 tlib#paragraph#GetMetric()	tlib.txt	/*tlib#paragraph#GetMetric()*
 tlib#paragraph#Move()	tlib.txt	/*tlib#paragraph#Move()*
+tlib#persistent#Dir()	tlib.txt	/*tlib#persistent#Dir()*
+tlib#persistent#Filename()	tlib.txt	/*tlib#persistent#Filename()*
+tlib#persistent#Get()	tlib.txt	/*tlib#persistent#Get()*
+tlib#persistent#Save()	tlib.txt	/*tlib#persistent#Save()*
 tlib#progressbar#Display()	tlib.txt	/*tlib#progressbar#Display()*
 tlib#progressbar#Init()	tlib.txt	/*tlib#progressbar#Init()*
 tlib#progressbar#Restore()	tlib.txt	/*tlib#progressbar#Restore()*
@@ -219,6 +228,9 @@ tlib#var#EGet()	tlib.txt	/*tlib#var#EGet()*
 tlib#var#Get()	tlib.txt	/*tlib#var#Get()*
 tlib#var#Let()	tlib.txt	/*tlib#var#Let()*
 tlib#var#List()	tlib.txt	/*tlib#var#List()*
+tlib#vcs#Diff()	tlib.txt	/*tlib#vcs#Diff()*
+tlib#vcs#FindVCS()	tlib.txt	/*tlib#vcs#FindVCS()*
+tlib#vcs#Ls()	tlib.txt	/*tlib#vcs#Ls()*
 tlib#vim#Maximize()	tlib.txt	/*tlib#vim#Maximize()*
 tlib#vim#RestoreWindow()	tlib.txt	/*tlib#vim#RestoreWindow()*
 tlib#win#GetLayout()	tlib.txt	/*tlib#win#GetLayout()*
