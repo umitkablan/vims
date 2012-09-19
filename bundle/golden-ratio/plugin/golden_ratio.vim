@@ -57,7 +57,7 @@ if !exists("g:golden_ratio_autocommand") ||
       \ (exists("g:golden_ratio_autocommand") &&
       \  g:golden_ratio_autocommand)
 
-  au WinEnter,BufEnter * call <SID>ResizeToGoldenRatio()
+  au WinEnter,BufWinEnter * call <SID>ResizeToGoldenRatio()
 endif
 
 let &cpo = s:save_cpo
