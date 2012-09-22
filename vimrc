@@ -232,7 +232,8 @@ nnoremap <silent> ĞĞCD :FufDirWithFullCwd<CR>
 nnoremap <silent> <Leader>sc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
-nnoremap '! :Clam<space>
+nnoremap '! :Clam <Space>
+vnoremap '! :ClamVisual <Space>
 " nmap <silent> <C-z> <Plug>QAnotherWin
 " nmap <Leader>t :Shell make test<CR><CR>
 " nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
@@ -422,6 +423,16 @@ let g:netrw_banner = 0
 "------------------------------------------
 let utl_opt_verbose=0
 "------------------------------------------
+let g:CoremoSearch_setDefaultMap = 0
+nnoremap  X         :CoremoSearchAdd<CR>
+xnoremap  X         :CoremoSearchAddV<CR>
+nnoremap  <Leader>X :CoremoSearchRemove<CR>
+xnoremap  <Leader>X :CoremoSearchRemoveV<CR>
+"------------------------------------------
+command! SDP call Svndiff("prev")
+command! SDN call Svndiff("next")
+command! SDC call Svndiff("clear")
+"------------------------------------------
 let g:xptemplate_key = '<Tab>'
 let g:xptemplate_nav_prev = '<S-Tab>'
 let g:xptemplate_bundle = 'javascript_jquery'
@@ -498,7 +509,7 @@ let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showresultafterrun = 0
 "------------------------------------------
 let g:ConqueTerm_ReadUnfocused = 0
-let g:ConqueTerm_CloseOnEnd = 0
+let g:ConqueTerm_CloseOnEnd = 1
 let g:ConqueTerm_CWInsert = 0
 let g:ConqueTerm_ToggleKey = '<F8>'
 let g:ConqueTerm_SendVisKey = '<F9>'
