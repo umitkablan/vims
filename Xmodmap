@@ -1,0 +1,21 @@
+
+remove mod2 = Num_Lock
+remove mod1 = Alt_L
+remove mod5 = ISO_Level3_Shift
+keysym Alt_L = ISO_Level3_Shift
+keysym ISO_Level3_Shift = Alt_L
+add mod1 = Alt_L
+add mod5 = ISO_Level3_Shift
+
+clear Lock
+keysym Caps_Lock = Escape
+keysym BackSpace = idotless Iabovedot
+keysym i = BackSpace
+keysym scedilla = Return
+keysym Return = scedilla Scedilla
+keysym idotless = i I
+keysym h = h H agrave Agrave Left
+keysym j = j J aring Aring Down
+keysym k = k K ampersand ampersand Up
+keysym l = l L ccedilla Ccedilla Right
+
