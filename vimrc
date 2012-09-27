@@ -580,6 +580,7 @@ let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pull
 "------------------------------------------
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
+let g:indentconsistencycop_CheckOnLoad = 0
 let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 "------------------------------------------
 "function! <SID>SetMainDefaults()
