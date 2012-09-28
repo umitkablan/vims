@@ -119,7 +119,7 @@ nmap <Bar> .
 noremap <Down> <C-D>
 noremap <Up>   <C-U>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
-nnoremap <silent> \ :let @/=""<CR>
+nnoremap <silent> \ :let @/=""<CR>:echo "Cleared Search Pattern"<CR>
 nnoremap <silent> y@ :let @"=expand("%:p")<CR>
 " saving stuff
 if has("gui_running")
