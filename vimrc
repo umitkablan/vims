@@ -193,15 +193,27 @@ augroup END
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
-nnoremap GL :call EchoLocationPath()<CR>
-" submode didn't work for my aim,
-" try tinymode
-call tinymode#EnterMap("winsize", "<C-W>+", "+")
-call tinymode#EnterMap("winsize", "<C-W>-", "-")
-call tinymode#Map("winsize", "+", "wincmd +")
-call tinymode#Map("winsize", "-", "wincmd -")
+" submode didn't work; tinymode and tinykeymap is good
+call tinykeymap#EnterMap("winsize", "<C-W>", {"name": "Tabs mode"})
+call tinykeymap#Map("winsize", ">", "exe 'wincmd >'")
+call tinykeymap#Map("winsize", "<", "exe 'wincmd <'")
+call tinykeymap#Map("winsize", "+", "exe 'wincmd +'")
+call tinykeymap#Map("winsize", "-", "exe 'wincmd -'")
+call tinykeymap#Map("winsize", "=", "exe 'wincmd ='")
+call tinykeymap#Map("winsize", "_", "exe 'wincmd _'")
+call tinykeymap#Map("winsize", "|", "exe 'wincmd |'")
+
+call tinykeymap#EnterMap('tabs', 'gt', {'name': 'Tabs mode'})
+call tinykeymap#Map('tabs', 'l', 'norm! gt')
+call tinykeymap#Map('tabs', 'h', 'norm! gT')
+call tinykeymap#Map("tabs", "H", "tabfirst")
+call tinykeymap#Map("tabs", "L", "tablast")
+call tinykeymap#Map('tabs', 'n', 'tabnew')
+call tinykeymap#Map("tabs", "q", "tabclose")
+
 let g:loaded_fonts=1
 au syntax * cal rainbow#activate()
+nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
