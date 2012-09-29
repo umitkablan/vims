@@ -207,7 +207,7 @@ call tinykeymap#Map("winops", "j", "exe 'wincmd j'")
 call tinykeymap#Map("winops", "k", "exe 'wincmd k'")
 call tinykeymap#Map("winops", "l", "exe 'wincmd l'")
 
-call tinykeymap#EnterMap('tabs', 'gt', {'name': 'Tabs mode'})
+call tinykeymap#EnterMap('tabs', 'gt', {'name': 'Tab Operations'})
 call tinykeymap#Map('tabs', 'l', 'norm! gt')
 call tinykeymap#Map('tabs', 'h', 'norm! gT')
 call tinykeymap#Map("tabs", "H", "tabfirst")
