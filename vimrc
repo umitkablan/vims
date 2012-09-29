@@ -147,10 +147,10 @@ nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/vimrc<CR>
-vnoremap < <gv
-vnoremap > >gv
-nnoremap <Leader>> >a}
-nnoremap <Leader>< <a}
+vmap < <gv
+vmap > >gv
+nmap <Leader>> >a}
+nmap <Leader>< <a}
 "nnoremap <silent> gf :sp <cfile><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-j> @='jojo'<cr>
@@ -194,14 +194,18 @@ nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
 " submode didn't work; tinymode and tinykeymap is good
-call tinykeymap#EnterMap("winsize", "<C-W>", {"name": "Tabs mode"})
-call tinykeymap#Map("winsize", ">", "exe 'wincmd >'")
-call tinykeymap#Map("winsize", "<", "exe 'wincmd <'")
-call tinykeymap#Map("winsize", "+", "exe 'wincmd +'")
-call tinykeymap#Map("winsize", "-", "exe 'wincmd -'")
-call tinykeymap#Map("winsize", "=", "exe 'wincmd ='")
-call tinykeymap#Map("winsize", "_", "exe 'wincmd _'")
-call tinykeymap#Map("winsize", "|", "exe 'wincmd |'")
+call tinykeymap#EnterMap("winops", "gw", {"name": "Window Operations"})
+call tinykeymap#Map("winops", ">", "exe 'wincmd >'")
+call tinykeymap#Map("winops", "<", "exe 'wincmd <'")
+call tinykeymap#Map("winops", "+", "exe 'wincmd +'")
+call tinykeymap#Map("winops", "-", "exe 'wincmd -'")
+call tinykeymap#Map("winops", "=", "exe 'wincmd ='")
+call tinykeymap#Map("winops", "_", "exe 'wincmd _'")
+call tinykeymap#Map("winops", "|", "exe 'wincmd |'")
+call tinykeymap#Map("winops", "h", "exe 'wincmd h'")
+call tinykeymap#Map("winops", "j", "exe 'wincmd j'")
+call tinykeymap#Map("winops", "k", "exe 'wincmd k'")
+call tinykeymap#Map("winops", "l", "exe 'wincmd l'")
 
 call tinykeymap#EnterMap('tabs', 'gt', {'name': 'Tabs mode'})
 call tinykeymap#Map('tabs', 'l', 'norm! gt')
