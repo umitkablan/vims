@@ -632,10 +632,15 @@ let g:SuperTabLongestHighlight = 1
 "FUNCTIONS / COMMANDS
 "********* {{{
 " used to track the quickfix window: open/closed
+augroup QFixToggle
+  autocmd!
+  autocmd BufWinEnter qf let g:qfix_win = bufnr("$")
+  autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
+augroup END
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose
-    unlet g:qfix_win
+    unlet! g:qfix_win
   else
     copen 15
     let g:qfix_win = bufnr("$")
