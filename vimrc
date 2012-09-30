@@ -191,28 +191,6 @@ augroup END
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
-" submode didn't work; tinymode and tinykeymap is good
-call tinykeymap#EnterMap("winops", "gw", {"name": "Window Operations"})
-call tinykeymap#Map("winops", ">", "exe 'wincmd >'")
-call tinykeymap#Map("winops", "<", "exe 'wincmd <'")
-call tinykeymap#Map("winops", "+", "exe 'wincmd +'")
-call tinykeymap#Map("winops", "-", "exe 'wincmd -'")
-call tinykeymap#Map("winops", "=", "exe 'wincmd ='")
-call tinykeymap#Map("winops", "_", "exe 'wincmd _'")
-call tinykeymap#Map("winops", "|", "exe 'wincmd |'")
-call tinykeymap#Map("winops", "h", "exe 'wincmd h'")
-call tinykeymap#Map("winops", "j", "exe 'wincmd j'")
-call tinykeymap#Map("winops", "k", "exe 'wincmd k'")
-call tinykeymap#Map("winops", "l", "exe 'wincmd l'")
-
-call tinykeymap#EnterMap('tabs', 'gt', {'name': 'Tab Operations'})
-call tinykeymap#Map('tabs', 'l', 'norm! gt')
-call tinykeymap#Map('tabs', 'h', 'norm! gT')
-call tinykeymap#Map("tabs", "H", "tabfirst")
-call tinykeymap#Map("tabs", "L", "tablast")
-call tinykeymap#Map('tabs', 'n', 'tabnew')
-call tinykeymap#Map("tabs", "q", "tabclose")
-
 let g:loaded_fonts=1
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
@@ -339,6 +317,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:tinykeymap#map#windows#map = "gw"
 let g:SignaturePeriodicRefresh = 0
 let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
