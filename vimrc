@@ -90,8 +90,6 @@ nnoremap Qq gQ
 nnoremap qq <Nop>
 nnoremap Q <Nop>
 nnoremap qQ Q
-" Always falling to that typo while commanding to edit.
-cnoremap <expr> E<Space> (getcmdtype()==':' && getcmdpos()==1) ? 'e ' : 'E '
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
@@ -216,6 +214,8 @@ call tinykeymap#Map('tabs', 'n', 'tabnew')
 call tinykeymap#Map("tabs", "q", "tabclose")
 
 let g:loaded_fonts=1
+autocmd VimEnter * Alias gst Gstatus
+autocmd VimEnter * Alias E e
 au syntax * cal rainbow#activate()
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
