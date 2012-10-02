@@ -613,7 +613,7 @@ let g:SuperTabLongestHighlight = 1
 " used to track the quickfix window: open/closed
 augroup QFixToggle
   autocmd!
-  autocmd BufWinEnter qf let g:qfix_win = bufnr("$")
+  autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
   autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 function! QFixToggle(forced)
