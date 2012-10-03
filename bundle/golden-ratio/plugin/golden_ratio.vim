@@ -129,8 +129,8 @@ function! s:initiate_golden_ratio()
   if s:gr_auto
     aug GoldenRatioAug
       au!
-      au WinEnter,BufEnter * call <SID>resize_to_golden_ratio()
-      au BufLeave * let b:golden_ratio_saved_wrap = &wrap
+      au WinEnter,BufWinEnter * call <SID>resize_to_golden_ratio()
+      au BufWinLeave * let b:golden_ratio_saved_wrap = &wrap
     aug END
   endif
 endfunction
