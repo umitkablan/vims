@@ -192,6 +192,7 @@ nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
 let g:loaded_fonts=1
+autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
 au syntax * cal rainbow#activate()
