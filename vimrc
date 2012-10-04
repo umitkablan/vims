@@ -207,7 +207,7 @@ nnoremap <silent> <Leader>p3 :ConqueTermSplit python3<CR>
 nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
 nnoremap <silent> ĞĞE :Exp<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
-nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
+nnoremap <silent> <Leader>e :lcd %:h<CR>:Unite -start-insert file<CR>
 " nnoremap <silent> <Leader>e :CommandT<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
@@ -916,8 +916,8 @@ endfunction
 
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-" oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin
-colorscheme fruity
+" oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
+colorscheme candycode
 " hi CursorLine term=none cterm=none ctermbg=3
 
 winsize 170 46
