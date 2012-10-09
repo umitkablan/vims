@@ -52,6 +52,7 @@ set matchpairs+=<:>
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set incsearch
 " clear tags n path; use some other technique to decide
 set tags=
 set path=.
