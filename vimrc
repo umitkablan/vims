@@ -71,7 +71,13 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " set notimeout ttimeout ttimeoutlen=200
 " keep cursor always at the middle
 " set scrolloff=9999
-let &showtabline=2
+" fixing arrow keys on terminal Vim
+inoremap <Esc>D <Left>
+inoremap <Esc>A <Up>
+inoremap <Esc>B <Down>
+inoremap <Esc>C <Right>
+" show tabline every now and then
+set showtabline=2
 autocmd FileType text set wrap linebreak
 autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
