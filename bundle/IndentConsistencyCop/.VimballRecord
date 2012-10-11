@@ -1,1 +1,2 @@
 IndentConsistencyCop.vba: call delete('/home/arch/.vim/bundle/IndentConsistencyCop/autoload/IndentConsistencyCop.vim')|call delete('/home/arch/.vim/bundle/IndentConsistencyCop/plugin/IndentConsistencyCop.vim')|call delete('/home/arch/.vim/bundle/IndentConsistencyCop/doc/IndentConsistencyCop.txt')
+IndentConsistencyCop-1.40.vmb: call delete('~/.vim/bundle/IndentConsistencyCop/autoload/IndentConsistencyCop.vim')|call delete('~/.vim/bundle/IndentConsistencyCop/plugin/IndentConsistencyCop.vim')|call delete('~/.vim/bundle/IndentConsistencyCop/doc/IndentConsistencyCop.txt')
