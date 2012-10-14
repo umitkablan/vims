@@ -1,12 +1,12 @@
 " Vim colorscheme
 " Author:  Gary Willoughby (originally by Georg Dahn)
-" Version: 2.1
-" Date:    24th September 2012
+" Version: 2.2
+" Date:    13th October 2012
 
 set background=dark
 hi clear
 if exists("syntax_on")
-    syntax reset
+	syntax reset
 endif
 let colors_name = "Freya"
 
@@ -15,16 +15,16 @@ hi Blank                           guibg=#2A2A2A guifg=#2A2A2A gui=none
 hi Normal                          guibg=#2A2A2A guifg=#DCDCCC gui=none
 hi Cursor                          guibg=fg      guifg=bg      gui=none
 hi CursorLine                      guibg=#202020               gui=none
-hi CursorLineNr                    guibg=#1F1F1F guifg=#9F8F80 gui=none
+hi CursorLineNr                    guibg=#1F1F1F guifg=#595959 gui=none
 hi Directory                       guibg=bg      guifg=#D4B064 gui=none
 hi FoldColumn                      guibg=#1F1F1F guifg=#C2B680 gui=none
 hi Folded                          guibg=bg      guifg=#E0AF91 gui=none
-hi LineNr                          guibg=#1F1F1F guifg=#9F8F80 gui=none
-hi VertSplit                       guibg=#564D43 guifg=#F7F7F1 gui=none
+hi LineNr                          guibg=#1F1F1F guifg=#595959 gui=none
+hi VertSplit                       guibg=#333333 guifg=#595959 gui=none
 hi ErrorMsg                        guibg=bg      guifg=#F07070 gui=none
 hi MatchParen                      guibg=#111111 guifg=#FFFF00 gui=none
-hi StatusLine                      guibg=#736559 guifg=#F7F7F1 gui=none
-hi StatusLineNC                    guibg=#564d43 guifg=#F7F7F1 gui=italic
+hi StatusLine                      guibg=#333333 guifg=#999999 gui=none
+hi StatusLineNC                    guibg=#333333 guifg=#777777 gui=none
 hi Title                           guifg=#F7F7F1               gui=none
 hi Visual                          guibg=#5F5F5F guifg=fg      gui=none
 hi WarningMsg                      guibg=bg      guifg=#F07070 gui=none
@@ -180,7 +180,7 @@ hi! link NERDTreeDir               Directory
 hi! link NERDTreeUp                Type
 hi! link NERDTreeCWD               Comment
 hi! link NERDTreeLink              Normal
-hi! link NERDTreeOpenable          Type
+hi! link NERDTreeOpenable          NonText
 hi! link NERDTreeFlag              Blank
 hi! link NERDTreeRO                Normal
 hi! link NERDTreeCurrentNode       Normal
