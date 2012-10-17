@@ -175,8 +175,13 @@ hi default link User3 Error
 " fugitive
 hi default link User4 Special
 
-"set statusline=%!Get_Statline_Main()
-set statusline=%!Get_Statusline_Normal()
+augroup StatlineUmt
+    autocmd!
+    autocmd BufWinEnter * setl statusline=%!Get_Statusline_Normal()
+    autocmd WinEnter * setl statusline=%!Get_Statusline_Normal()
+    autocmd BufWinLeave * setl statusline="%1*[%t]%*"
+    autocmd WinLeave * setl statusline="%1*[%t]%*"
+augroup END
 
 function! Get_Statline_Main()
     let statusline_tmp = ""
