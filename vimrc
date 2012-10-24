@@ -947,7 +947,9 @@ set background=dark
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight
 colorscheme candycode
-au ColorScheme * hi CursorLine term=none cterm=none ctermbg=cyan
+if !has("gui_running")
+  au ColorScheme * hi CursorLine term=none cterm=none ctermbg=cyan
+endif
 
 winsize 170 46
 
