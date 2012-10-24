@@ -945,9 +945,9 @@ endfunction
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
-" candycode
-colorscheme southernlights
-" hi CursorLine term=none cterm=none ctermbg=3
+" candycode southernlight
+colorscheme candycode
+au ColorScheme * hi CursorLine term=none cterm=none ctermbg=yellow
 
 winsize 170 46
 
