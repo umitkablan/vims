@@ -202,7 +202,6 @@ let g:loaded_fonts=1
 autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
-au syntax * cal rainbow#activate()
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
@@ -325,6 +324,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:rainbow_activate=1
 let g:tinykeymap#map#windows#map = "gw"
 let g:SignaturePeriodicRefresh = 0
 let g:locator_disable_mappings = 1
