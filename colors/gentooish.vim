@@ -3,8 +3,6 @@
 " Author:  Brian Carper<brian@briancarper.net>
 " Version: 0.3
 
-let g:colors_name = "gentooish"
-
 set background=dark
 hi clear
 if exists("syntax_on")

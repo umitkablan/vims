@@ -33,7 +33,6 @@ hi WarningMsg   term=NONE cterm=NONE ctermfg=Blue        ctermbg=Yellow
 hi Error        term=NONE cterm=NONE ctermfg=DarkRed     ctermbg=Gray
 hi Cursor                            ctermfg=Black       ctermbg=Cyan
 hi LineNr       term=NONE cterm=NONE ctermfg=Red         ctermbg=Black
-hi Pmenu                             ctermfg=DarkGreen   ctermbg=Black
 
 " GUI Color Scheme
 hi Normal       gui=NONE     guifg=White   guibg=#110022
