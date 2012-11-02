@@ -25,7 +25,8 @@
 "
 "				to you Vundle config to install yate.
 "
-" Usage:		Command :YATE toggles visibility of search buffer.
+" Usage:		Command :YATE toggles visibility of search buffer which will be closed after tag was selected.
+"				Command :YATEStationary toggles visibility of search buffer which will not be closed after tag is selected, instead cursor remains in YATE buffer to allow select another tag.
 " 				Parameter g:YATE_window_height sets height of search buffer. Default = 15.
 " 				Parameter g:YATE_strip_long_paths enables(1)/disables(0) cutting of long file paths. Default = 1.
 " 				Parameter g:YATE_enable_real_time_search enables(1)/disables(0) as-you-type search. Default = 1.
@@ -53,9 +54,19 @@
 " 				search string. Autocompletion using history also works by
 " 				<Ctrl-X><Ctrl-U>.
 "
-" Version:		1.3.0
+" Version:		1.4.1
 "
-" ChangeLog:	1.3.0:	Added parameter g:YATE_clear_search_string to control
+" ChangeLog:	1.4.1:	Fixed issue with TabBar plugin.
+" 						Removed yate buffer from buffers list.
+"						Better work with history popup menu.
+"
+" 				1.4.0:	Added command YATEStationary to look into several tags
+"						without reopen YATE buffer.
+" 						Fixed conflict if already there is mapping on Q.
+"
+" 				1.3.1:	Disabled work of AutoComplPop plugin in YATE buffer.
+"
+" 				1.3.0:	Added parameter g:YATE_clear_search_string to control
 "						clearing of search string on next YATE buffer invocation.
 "						Pressing <Enter> in search string if length of search
 "						string is more or equal g:YATE_min_symbols_to_search
@@ -142,21 +153,22 @@ if !exists("g:YATE_max_matches_to_show")
 	let g:YATE_max_matches_to_show = -1
 endif
 
-if !exists("g:YATE_history_size")
-	let g:YATE_history_size = 10
-endif
-
 if !exists("g:YATE_clear_search_string")
 	let g:YATE_clear_search_string = 1
+endif
+
+if !exists("g:YATE_history_size")
+	let g:YATE_history_size = 10
 endif
 
 if !exists("s:yate_history")
 	let s:yate_history = []
 endif
 
-command! -bang YATE :call <SID>ToggleTagExplorerBuffer()
+command! -bang YATE :call <SID>ToggleTagExplorerBuffer(0)
+command! -bang YATEStationary :call <SID>ToggleTagExplorerBuffer(1)
 
-fun <SID>GotoTag(open_command)
+fun <SID>GotoTag(open_command, stationary)
 	let str=getline('.')
 
 	if !exists("s:tags_list") || !len(s:tags_list)
@@ -181,20 +193,34 @@ fun <SID>GotoTag(open_command)
 	endif
 
 	let index=str2nr(str)
-	
-	exe ':wincmd p'
-	exe ':'.s:yate_winnr.'bd!'
-	let s:yate_winnr=-1
 
-	exe ':'.a:open_command.' '.s:tags_list[index]['filename']
+	let pos_in_yate = getpos(".") " save cursor position may halp later
+
+	call <SID>GoToPrevWindow()
+
+	"exe ':wincmd p'
+	if !a:stationary
+		exe ':'.s:yate_winnr.'bd!'
+		let s:yate_winnr=-1
+	endif
+
+	exe ':silent '.a:open_command.' '.s:tags_list[index]['filename']
 	let str=substitute(s:tags_list[index]['cmd'],"\*","\\\\*","g")
 	let str=substitute(str,"\[","\\\\[","g")
 	let str=substitute(str,"\]","\\\\]","g")
 	let str=substitute(str,"\\~","\\\\~","g")
 	let str=substitute(str,"\$/","*$/","g")
 	exe str
-	" Without it you should press Enter once again some times.
-	exe 'normal Q'
+
+	" Without it you should press Enter to suppress error mesage if there are
+	" no matches of corresponding regexp.
+	exe ':redraw'
+
+	if a:stationary
+		" return to yate
+		exe ':wincmd p'
+		call setpos('.', pos_in_yate)
+	endif
 endfun
 
 fun <SID>AutoCompleteString(str)
@@ -247,7 +273,7 @@ fun <SID>PrintTagsList()
 	exe 'normal dd$'
 
 	if (!exists("s:tags_list")) || (!len(s:tags_list))
-		autocmd CursorMovedI <buffer> call <SID>OnCursorMovedI()
+		autocmd CursorMovedI <buffer> call <SID>OnCursorMoved(1, 0)
 		return
 	endif
 
@@ -293,7 +319,7 @@ fun <SID>PrintTagsList()
 		cal append(counter,str)
 	endfor
 
-	autocmd CursorMovedI <buffer> call <SID>OnCursorMovedI()
+	autocmd CursorMovedI <buffer> call <SID>OnCursorMoved(1, 0)
 endfun
 
 fun! <SID>ShowHistory()
@@ -341,9 +367,8 @@ fun <SID>GenerateTagsListCB()
 	cal <SID>GenerateTagsList(getline('.'),1)
 endfun
 
-fun <SID>OnCursorMoved()
-	let l = getpos(".")[1]
-	if l > 1
+fun <SID>OnCursorMoved(ins_mode, force_update)
+	if line('.') > 1
 		setlocal cul
 		setlocal noma
 		
@@ -353,25 +378,14 @@ fun <SID>OnCursorMoved()
 		setlocal ma
 		
 		setlocal completefunc=CompleteYATEHistory
-	endif
-endfun
 
-fun <SID>OnCursorMovedI()
-	let l = getpos(".")[1]
-	if l > 1
-		setlocal cul
-		setlocal noma
-		
-		setlocal completefunc=''
-	else
-		setlocal nocul
-		setlocal ma
-
-		setlocal completefunc=CompleteYATEHistory
+		if a:ins_mode == 0
+			return
+		endif
 
 		if g:YATE_enable_real_time_search
 			let str=getline('.')
-			if s:user_line!=str 
+			if s:user_line!=str || a:force_update
 				if strlen(str)>=g:YATE_min_symbols_to_search
 					let save_cursor = winsaveview()
 					cal <SID>GenerateTagsList(str,0)
@@ -384,43 +398,126 @@ fun <SID>OnCursorMovedI()
 	endif
 endfun
 
-fun <SID>GotoTagE()
-	cal <SID>GotoTag('e')
+fun <SID>GotoTagE(stationary)
+	cal <SID>GotoTag('e', a:stationary)
 endfun
 
 fun <SID>OnBufLeave()
+	" Enable acp.vim plugin.
+	if exists(':AcpUnlock')
+		exe 'AcpUnlock'
+	endif
 	if s:prev_mode != 'i'
-		exe 'stopinsert'
+		stopinsert
 	endif
 endfun
 
 fun <SID>OnBufEnter()
+	" Disable acp.vim plugin as cursor callbacks doesn't work if popup menu is
+	" shown.
+	if exists(':AcpLock')
+		exe 'AcpLock'
+	endif
 	let s:prev_mode = mode()
-	exe 'startinsert'
+	startinsert
 
 	call <SID>PrintTagsList()
 endfun
 
-fun! <SID>ToggleTagExplorerBuffer()
+" This function is taken from NERD_tree.vim
+fun <SID>FirstUsableWindow()
+	let i = 1
+	while i <= winnr("$")
+		let bnum = winbufnr(i)
+		if bnum != -1 && getbufvar(bnum, '&buftype') ==# ''
+					\ && !getwinvar(i, '&previewwindow')
+					\ && (!getbufvar(bnum, '&modified') || &hidden)
+			return i
+		endif
+
+		let i += 1
+	endwhile
+	return -1
+endfun
+
+" This function is taken from NERD_tree.vim
+fun <SID>IsWindowUsable(winnumber)
+	"gotta split if theres only one window (i.e. the NERD tree)
+	if winnr("$") ==# 1
+		return 0
+	endif
+
+	let oldwinnr = winnr()
+	exe a:winnumber . "wincmd p"
+	let specialWindow = getbufvar("%", '&buftype') != '' || getwinvar('%', '&previewwindow')
+	let modified = &modified
+	exe oldwinnr . "wincmd p"
+
+	"if its a special window e.g. quickfix or another explorer plugin then we
+	"have to split
+	if specialWindow
+		return 0
+	endif
+
+	if &hidden
+		return 1
+	endif
+
+	return !modified || <SID>BufInWindows(winbufnr(a:winnumber)) >= 2
+endfun
+
+" This function is taken from NERD_tree.vim
+fun <SID>BufInWindows(bnum)
+	let cnt = 0
+	let winnum = 1
+	while 1
+		let bufnum = winbufnr(winnum)
+		if bufnum < 0
+			break
+		endif
+		if bufnum ==# a:bnum
+			let cnt = cnt + 1
+		endif
+		let winnum = winnum + 1
+	endwhile
+
+	return cnt
+endfun
+
+" This function is taken from NERD_tree.vim
+fun <SID>GoToPrevWindow()
+	if !<SID>IsWindowUsable(winnr("#"))
+		exe <SID>FirstUsableWindow() . "wincmd w"
+	else
+		exe 'wincmd p'
+	endif
+endfun
+
+fun! <SID>ToggleTagExplorerBuffer(stationary)
 	if !exists("s:yate_winnr") || s:yate_winnr==-1
-		exe "bo".g:YATE_window_height."sp YATE"
+		let buffer_name = 'YATE'
+		if a:stationary
+			let buffer_name = 'YATE (stationary)'
+		endif
+
+		exe "bo".g:YATE_window_height."sp ".buffer_name
 
 		exe "inoremap <silent> <buffer> <Tab> <C-O>:cal <SID>GenerateTagsListCB()<CR>"
 
-		exe "inoremap <expr> <buffer> <Enter> pumvisible() ? '<CR><C-O>:cal <SID>GotoTagE()<CR>' : '<C-O>:cal <SID>GotoTagE()<CR>'"
-		exe "noremap <silent> <buffer> <Enter> :cal <SID>GotoTag('e')<CR>"
+		exe printf("inoremap <expr> <buffer> <Enter> pumvisible() ? '<CR><Up><End><C-O>:call <SID>OnCursorMoved(1, 1)<CR>' : '<C-O>:cal <SID>GotoTagE(%d)<CR>'", a:stationary)
+		exe printf("noremap <silent> <buffer> <Enter> :cal <SID>GotoTag('e', %d)<CR>", a:stationary)
 
-		exe "noremap <silent> <buffer> <2-leftmouse> :cal <SID>GotoTag('e')<CR>"
-		exe "inoremap <silent> <buffer> <2-leftmouse> <C-O>:cal <SID>GotoTag('e')<CR>"
+		exe printf("noremap <silent> <buffer> <2-leftmouse> :cal <SID>GotoTag('e', %d)<CR>", a:stationary)
+		exe printf("inoremap <silent> <buffer> <2-leftmouse> <C-O>:cal <SID>GotoTag('e', %d)<CR>", a:stationary)
 
-		exe "inoremap <silent> <buffer> <C-Enter> <C-O>:cal <SID>GotoTag('tabnew')<CR>"
-		exe "noremap <silent> <buffer> <C-Enter> :cal <SID>GotoTag('tabnew')<CR>"
+		exe printf("inoremap <silent> <buffer> <C-Enter> <C-O>:cal <SID>GotoTag('tabnew', %d)<CR>", a:stationary)
+		exe printf("noremap <silent> <buffer> <C-Enter> :cal <SID>GotoTag('tabnew', %d)<CR>", a:stationary)
 
-		exe "inoremap <silent> <buffer> <S-Enter> <C-O>:cal <SID>GotoTag('sp')<CR>"
-		exe "noremap <silent> <buffer> <S-Enter> :cal <SID>GotoTag('sp')<CR>"
+		exe printf("inoremap <silent> <buffer> <S-Enter> <C-O>:cal <SID>GotoTag('sp', %d)<CR>", a:stationary)
+		exe printf("noremap <silent> <buffer> <S-Enter> :cal <SID>GotoTag('sp', %d)<CR>", a:stationary)
 
-		exe "inoremap <silent> <buffer> <C-S-Enter> <C-O>:cal <SID>GotoTag('vs')<CR>"
-		exe "noremap <silent> <buffer> <C-S-Enter> :cal <SID>GotoTag('vs')<CR>"
+		exe printf("inoremap <silent> <buffer> <C-S-Enter> <C-O>:cal <SID>GotoTag('vs', %d)<CR>", a:stationary)
+		exe printf("noremap <silent> <buffer> <C-S-Enter> :cal <SID>GotoTag('vs', %d)<CR>", a:stationary)
 		
 		exe "inoremap <silent> <buffer> <C-H> <C-R>=<SID>ShowHistory()<CR>"
 		exe "noremap <silent> <buffer> <C-H> I<C-R>=<SID>ShowHistory()<CR>"
@@ -437,14 +534,13 @@ fun! <SID>ToggleTagExplorerBuffer()
 		hi def link YATE_tag_kind Type
 		hi def link YATE_tag_filename Directory
 			
-		let s:yate_winnr=bufnr("YATE")
+		let s:yate_winnr=bufnr(buffer_name)
 		
 		setlocal buftype=nofile
+		setlocal bufhidden=wipe
+		setlocal nobuflisted
 		setlocal noswapfile
 		setlocal nonumber
-
-		let s:prev_mode = mode()
-		exe 'startinsert'
 
 		if g:YATE_clear_search_string
 			let s:user_line = ''
@@ -457,13 +553,13 @@ fun! <SID>ToggleTagExplorerBuffer()
 
 			autocmd BufUnload <buffer> exe 'let s:yate_winnr=-1'
 			autocmd BufLeave <buffer> call <SID>OnBufLeave()
-			autocmd CursorMoved <buffer> call <SID>OnCursorMoved()
-			autocmd CursorMovedI <buffer> call <SID>OnCursorMovedI()
+			autocmd CursorMoved <buffer> call <SID>OnCursorMoved(0, 0)
+			autocmd CursorMovedI <buffer> call <SID>OnCursorMoved(1, 0)
 			autocmd VimResized <buffer> call <SID>PrintTagsList()
 			autocmd BufEnter <buffer> call <SID>OnBufEnter()
 		endif
 		
-		cal <SID>PrintTagsList()
+		cal <SID>OnBufEnter()
 	else
 		exe ':wincmd p'
 		exe ':'.s:yate_winnr.'bd!'
