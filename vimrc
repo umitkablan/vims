@@ -821,7 +821,6 @@ function! s:PrintWithSearchHighlighted(line1,line2,arg)
 endfunction
 command! -nargs=? -range -bar PP :call s:PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
 
-nnoremap <C-n> :call VimLock(1)<CR>i
 function! VimLock(enable)
   if a:enable
     inoremap a 1
@@ -948,7 +947,7 @@ set background=dark
 " candycode southernlight
 colorscheme candycode
 if !has("gui_running")
-  au ColorScheme * hi CursorLine term=none cterm=none ctermbg=cyan
+  au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkgrey
 endif
 
 winsize 170 46
