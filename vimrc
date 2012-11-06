@@ -165,6 +165,7 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap <silent> nn /<CR>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
+nnoremap GV `[1v
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
