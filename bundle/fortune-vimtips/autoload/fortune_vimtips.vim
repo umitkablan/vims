@@ -1,4 +1,5 @@
 let s:fortunesdir = expand("<sfile>:p:h:h") . "/fortunes/"
+let s:fortunesdir = "/usr/share/games" . "/fortunes/"
 let s:fortunesfile = s:fortunesdir . g:fortune_vimtips_file
 let s:fortunes = readfile(s:fortunesfile)
 let s:fortunecount = count(s:fortunes, "%") + 1
