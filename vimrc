@@ -100,6 +100,8 @@ nnoremap qQ Q
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
+" escape under my fingers
+inoremap jk <Esc>
 " swap comma (,) and semicolon (;) because my keyboard is comma-privileged
 noremap , ;
 noremap ; ,
