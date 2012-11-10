@@ -325,7 +325,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
-let g:fortune_vimtips_file = "fortunes2"
+let g:fortune_vimtips_file = "wisdom"
 let g:rainbow_activate=1
 let g:tinykeymap#map#windows#map = "gw"
 let g:SignaturePeriodicRefresh = 0
