@@ -178,9 +178,11 @@ hi default link User4 Special
 augroup StatlineUmt
     autocmd!
     autocmd BufWinEnter * setl statusline=%!Get_Statusline_Normal()
-    autocmd WinEnter * setl statusline=%!Get_Statusline_Normal()
+    autocmd WinEnter    * setl statusline=%!Get_Statusline_Normal()
+    autocmd TabEnter    * setl statusline=%!Get_Statusline_Normal()
     autocmd BufWinLeave * setl statusline="%1*[%F]%*"
-    autocmd WinLeave * setl statusline="%1*[%F]%*"
+    autocmd WinLeave    * setl statusline="%1*[%F]%*"
+    autocmd TabLeave    * setl statusline="%1*[%F]%*"
 augroup END
 
 function! Get_Statline_Main()

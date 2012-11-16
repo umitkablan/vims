@@ -72,8 +72,8 @@ endfunction
 let s:cursorline = &g:cursorline
 augroup CursorLine
     autocmd!
-    autocmd VimEnter,WinEnter * call <SID>CursorLineOnEnter()
-    autocmd WinLeave          * call <SID>CursorLineOnLeave()
+    autocmd VimEnter,WinEnter,TabEnter * call <SID>CursorLineOnEnter()
+    autocmd WinLeave,TabLeave          * call <SID>CursorLineOnLeave()
 augroup END
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
