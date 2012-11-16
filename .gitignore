@@ -2,3 +2,4 @@ var/
 tags
 .VimballRecord
 vimperator/info
+*.pyc
