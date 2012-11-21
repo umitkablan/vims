@@ -180,7 +180,7 @@ augroup StatlineUmt
     autocmd BufWinEnter * setl statusline=%!Get_Statusline_Normal()
     autocmd WinEnter    * setl statusline=%!Get_Statusline_Normal()
     autocmd TabEnter    * setl statusline=%!Get_Statusline_Normal()
-    autocmd BufWinLeave * setl statusline="%1*[%F]%*"
+    autocmd BufWinLeave * if expand("<abuf>") == expand("%") |  setl statusline="%1*[%F]%*" | endif
     autocmd WinLeave    * setl statusline="%1*[%F]%*"
     autocmd TabLeave    * setl statusline="%1*[%F]%*"
 augroup END
