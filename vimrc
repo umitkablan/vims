@@ -122,9 +122,9 @@ nmap <Bar> .
 " nnoremap ? q?i
 " autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
-"   <C-E>/<C-Y>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
-noremap <Down> <C-D>
-noremap <Up>   <C-U>
+"   <C-D>/<C-U>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
+noremap <Down> 4<C-E>
+noremap <Up>   4<C-Y>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
 nnoremap <silent> \ :let @/=""<CR>:echo "Cleared Search Pattern"<CR>
 nnoremap <silent> y@ :let @"=expand("%:p")<CR>
@@ -173,6 +173,8 @@ cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
 call pathogen#infect()
@@ -205,6 +207,7 @@ augroup END
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
+imap jj <Esc><Plug>SuperTabForward
 let g:loaded_fonts=1
 autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
@@ -953,7 +956,7 @@ set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight
-colorscheme candycode
+colorscheme harlequin
 if !has("gui_running")
   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkgrey
 endif
