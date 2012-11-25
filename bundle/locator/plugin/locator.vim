@@ -48,15 +48,31 @@ let s:dItem_java_class = {
          \     'flags'   : 'C',
          \  }
 
+
+         "\        'start_regexp' : '\v^(\s*([a-z]))*\s*[_a-zA-Z0-9*.\[\]:<>]+[ \t\n]+[_a-zA-Z0-9*:]+[ \t\n]*\([^{]+[ \t\n]*\{',
+         "\        'start_regexp' : '\v^(\s*([a-z]))*\s*[_a-zA-Z0-9*.\[\]:<>]+[ \t\n]+[_a-zA-Z0-9*:]+[ \t\n]*\(([^{;]|[\n])+[ \t\n]*\{',
 let s:dItem_C_func = {
          \     'detect_type' : 'matchable',
          \     'detect_data' : {
-         \        'start_regexp' : '\v^(\s*([a-z]))*\s*[_a-zA-Z0-9*.\[\]:<>]+[ \t\n]+[_a-zA-Z0-9*:]+[ \t\n]*\([^{]+[ \t\n]*\{',
+         \        'start_regexp' : '\v^(\s*([a-z]))*\s*[_a-zA-Z0-9*.\[\]:<>]+(\/\*.*\*\/)*[ \t\n]+[_a-zA-Z0-9*:]+[ \t\n]*\(([^{;]|[\n])+[ \t\n]*\{',
          \        'get_end__eval' : 'call search("\\v\\{", "cW") | normal %',
          \     },
          \     'echo_type'   : 'func',
          \     'echo_data' : {
          \        'func_name' : 'Locator_EchoItem_C_Func',
+         \     },
+         \     'flags'   : 'C',
+         \  }
+
+let s:dItem_Cpp_constr_destr = {
+         \     'detect_type' : 'matchable',
+         \     'detect_data' : {
+         \        'start_regexp' : '\v^\s*([a-zA-Z0-9_]+)[ \t\n]*\:\:[ \t\n]*\~{0,1}[ \t\n]*\1[ \t\n]*\(([^{;]|[\n])+[ \t\n]*\{',
+         \        'get_end__eval' : 'call search("\\v\\{", "cW") | normal %',
+         \     },
+         \     'echo_type'   : 'func',
+         \     'echo_data' : {
+         \        'func_name' : 'Locator_EchoItem_Cpp_ConstrDestr',
          \     },
          \     'flags'   : 'C',
          \  }
@@ -74,16 +90,55 @@ let s:dItem_vim_function = {
          \     'flags'   : 'C',
          \  }
 
+" section like
+"
+" /******************************************************************************************
+"  * METHODS
+"  *//**************************************************************************************/
+"
 let s:dItem_asterisk_section = {
          \     'detect_type' : 'section',
          \     'detect_data' : {
-         \        'regexp' : '\v\s{0,5}\*{10,}\n[^{]+\n\s*\"*\s*\*\s{0,5}\*{10,}',
+         \        'regexp'   : '\v\s{0,5}\*{10,}\n[^{]+\n\s*\"*\s*\*\s{0,5}\*{10,}',
          \     },
          \     'echo_type'   : 'func',
          \     'echo_data' : {
          \        'func_name' : 'Locator_EchoItem_AsteriskSection',
          \     },
+         \     'flags'       : 'c',
+         \     'priority'    : 0,
+         \  }
+
+" section like:
+"
+" /* private       */
+let s:dItem_access_mode_section = {
+         \     'detect_type' : 'section',
+         \     'detect_data' : {
+         \        'regexp' : '\v^\/\*\s*(public|protected|private|friendly)\s*\*\/',
+         \     },
+         \     'echo_type'   : 'func',
+         \     'echo_data' : {
+         \        'func_name' : 'Locator_EchoItem_AccessModeSection',
+         \     },
          \     'flags'   : 'c',
+         \     'priority'    : 10,
+         \  }
+
+" section like:
+"
+" private:
+let s:dItem_access_mode_real_section = {
+         \     'detect_type' : 'section',
+         \     'detect_data' : {
+         \        'regexp' : '\v^\s*(public|protected|private|friendly|slots|signals)(\s+(slots|signals)){0,1}\s*\:',
+         \     },
+         \     'echo_type'   : 'func',
+         \     'echo_data' : {
+         \        'func_name' : 'Locator_EchoItem_AccessModeRealSection',
+         \     },
+         \     'flags'   : 'C',
+         \     'priority'    : -1,
          \  }
 
 let s:dItem_dash_1line_section = {
@@ -108,6 +163,10 @@ let g:locator_items = {
          \           {
          \              'name' : 'asterisk_section',
          \              'data' : s:dItem_asterisk_section,
+         \           },
+         \           {
+         \              'name' : 'access_mode_section',
+         \              'data' : s:dItem_access_mode_section,
          \           },
          \        ]
          \     },
@@ -141,6 +200,14 @@ let g:locator_items = {
          \              'name' : 'func',
          \              'data' : s:dItem_C_func,
          \           },
+         \           {
+         \              'name' : 'access_mode_real_section',
+         \              'data' : s:dItem_access_mode_real_section,
+         \           },
+         \           {
+         \              'name' : 'constr_destr',
+         \              'data' : s:dItem_Cpp_constr_destr,
+         \           },
          \        ]
          \     },
          \     'vim' : {
@@ -161,6 +228,9 @@ let g:locator_items = {
 
 
 let s:cur_items = []
+
+let g:iLocatorVersion = 130
+let g:loaded_locator  = 1
 
 
 " **********************************************************************************
@@ -230,12 +300,65 @@ function! Locator_EchoItem_C_Func(iLineNum)
    let myMatch = matchlist(sLine, '\v(\s*)(.*\s+)(\S+\s*)(\(.*)')
 
    if len(myMatch) > 0
-      call <SID>SetHL(g:locator_hl_func_the_rest)
+      if myMatch[3] =~ '\:\:'
+         " C++ function-member
+         let myMatch = matchlist(sLine, '\v(\s*)(.*\s+)([^:]+\s*)(\:\:\s*){0,1}(\S+\s*){0,1}(\(.*)')
+
+         if len(myMatch) > 0
+            call <SID>SetHL(g:locator_hl_func_the_rest)
+            echon myMatch[2]
+            call <SID>SetHL(g:locator_hl_class)
+            echon myMatch[3]
+            call <SID>SetHL(g:locator_hl_func_the_rest)
+            echon myMatch[4]
+            call <SID>SetHL(g:locator_hl_func_name)
+            echon myMatch[5]
+            call <SID>SetHL(g:locator_hl_func_the_rest)
+            echon myMatch[6]
+            call <SID>SetHL("None")
+
+         endif
+      else
+         " usual function
+         call <SID>SetHL(g:locator_hl_func_the_rest)
+         echon myMatch[2]
+         call <SID>SetHL(g:locator_hl_func_name)
+         echon myMatch[3]
+         call <SID>SetHL(g:locator_hl_func_the_rest)
+         echon myMatch[4]
+         call <SID>SetHL("None")
+
+      endif
+   endif
+
+
+
+   "echon substitute(
+   "\     sLine,
+   "\     '\v\s*(.*)',
+   "\     '\1',
+   "\     ''
+   "\  )
+   "call <SID>SetHL("None")
+endfunction
+
+function! Locator_EchoItem_Cpp_ConstrDestr(iLineNum)
+   "call <SID>SetHL("WarningMsg")
+   let sLine = getline(a:iLineNum)
+
+   let myMatch = matchlist(sLine, '\v(\s*)(\S+\s*)(\:\:\s*)(\S+\s*)(\(.*)')
+
+   if len(myMatch) > 0
+      "call <SID>SetHL(g:locator_hl_func_the_rest)
+      "echon myMatch[2]
+      call <SID>SetHL(g:locator_hl_class)
       echon myMatch[2]
-      call <SID>SetHL(g:locator_hl_func_name)
-      echon myMatch[3]
       call <SID>SetHL(g:locator_hl_func_the_rest)
+      echon myMatch[3]
+      call <SID>SetHL(g:locator_hl_func_name)
       echon myMatch[4]
+      call <SID>SetHL(g:locator_hl_func_the_rest)
+      echon myMatch[5]
       call <SID>SetHL("None")
 
    endif
@@ -267,6 +390,12 @@ function! Locator_EchoItem_VimFunc(iLineNum)
 
 endfunction
 
+" section like
+"
+" /******************************************************************************************
+"  * METHODS
+"  *//**************************************************************************************/
+"
 function! Locator_EchoItem_AsteriskSection(iLineNum)
    let iLineNum = a:iLineNum + 1
    let sLine = getline(iLineNum)
@@ -276,11 +405,99 @@ function! Locator_EchoItem_AsteriskSection(iLineNum)
    call <SID>SetHL("None")
 endfunction
 
+" section like  /* private       */
+function! Locator_EchoItem_AccessModeSection(iLineNum)
+   let iLineNum = a:iLineNum
+   let sLine = getline(iLineNum)
+   let sSectName = substitute(sLine, '\v^\s*\/\*\s*([A-Za-z0-9_]+)(.*)', '\1', '')
+   call <SID>SetHL(g:locator_hl_access_mode_section)
+   echon ""."--- [ ".sSectName." ] ---"
+   call <SID>SetHL("None")
+endfunction
+
+" section like    private:
+function! Locator_EchoItem_AccessModeRealSection(iLineNum)
+   let iLineNum = a:iLineNum
+   let sLine = getline(iLineNum)
+   let sSectName = substitute(sLine, '\v^\s*([^:]+)\:', '\1', '')
+   call <SID>SetHL(g:locator_hl_access_mode_section)
+   echon ""."-- [ ".sSectName." ] --"
+   call <SID>SetHL("None")
+endfunction
+
 
 
 " **********************************************************************************
 "  UTILITY FUNCTIONS
 " **********************************************************************************
+
+" -------------- folds ---------------
+
+" returns list with found folds:
+"
+" [
+"  0:{
+"     'line': <linenum>,
+"     'closed': 1 or 0
+"    },
+"  1:{
+"     'line': <linenum>,
+"     'closed': 1 or 0
+"    },
+"    ...
+" ]
+"
+function! <SID>GetFoldsState(iStartLine, iEndLine)
+   let lRet = []
+
+   let lSrcPos = getpos('.')
+
+   let iPrevLineNum = -1
+
+   call <SID>SetCursor(a:iStartLine, 0)
+   while 1
+
+      silent! normal! zj
+
+      let lCurPos = getpos('.')
+      if lCurPos[1] > a:iEndLine || lCurPos[1] == iPrevLineNum
+         break
+      endif
+
+      let dCurItem = {
+               \     'line' : lCurPos[1],
+               \     'closed' : (foldclosed(lCurPos[1]) != -1 ? 1 : 0)
+               \  }
+
+      call add(lRet, dCurItem)
+
+      let iPrevLineNum = lCurPos[1]
+
+   endwhile
+
+   call setpos('.', lSrcPos)
+
+   return lRet
+endfunction
+
+function! <SID>RestoreFoldsState(lState)
+   for dCurItem in a:lState
+      call <SID>SetCursor(dCurItem['line'], 0)
+
+      if dCurItem['closed']
+         if foldclosed('.') == -1
+            normal! zc
+         endif
+      else
+         if foldclosed('.') != -1
+            normal! zo
+         endif
+      endif
+      "call confirm(1)
+   endfor
+endfunction
+
+" ------------------------------------
 
 function! <SID>SetHL(sHL)
    exe "echohl ".a:sHL
@@ -418,15 +635,15 @@ function! <SID>MoveToNextChar()
    "exe "normal! \<space>"
 endfunction
 
-function! <SID>SetCursor(lineNum, col, boolNextChar)
+function! <SID>SetCursor(lineNum, col)
    let lTmpPos    = getpos('.')
    let lTmpPos[1] = a:lineNum " lnum
    let lTmpPos[2] = a:col     " col
    call setpos('.', lTmpPos)
 
-   if a:boolNextChar
-      call <SID>MoveToNextChar()
-   endif
+   "if a:boolNextChar
+      "call <SID>MoveToNextChar()
+   "endif
 
 endfunction
 
@@ -480,7 +697,7 @@ function! <SID>SearchPosFields(sPattern, sFlags, iStopLine, lFields)
 
       while lRet[0] == 0 && ((!boolBackward && iFieldIndex < len(a:lFields)) || (boolBackward && iFieldIndex >= 0))
          if !boolFirst
-            call <SID>SetCursor(a:lFields[iFieldIndex][ iFieldStartIdx ], 0, 0)
+            call <SID>SetCursor(a:lFields[iFieldIndex][ iFieldStartIdx ], 0)
          endif
 
          if a:iStopLine > 0
@@ -519,7 +736,7 @@ function! <SID>SearchPosFields(sPattern, sFlags, iStopLine, lFields)
    endif
 
    if boolDontMoveCursor
-      call <SID>SetCursor(lSrcPos[1], lSrcPos[2], 0)
+      call <SID>SetCursor(lSrcPos[1], lSrcPos[2])
    endif
 
    return lRet
@@ -532,7 +749,7 @@ function! <SID>GetMatchablesList(lFields, iStopLine)
    let lSrcPos = getpos('.')
    let lFields = a:lFields
 
-   call <SID>SetCursor(0, 0, 0)
+   call <SID>SetCursor(0, 0)
 
    let lRet = []
 
@@ -571,7 +788,7 @@ function! <SID>GetMatchablesList(lFields, iStopLine)
                            "\     'end_pos'  : [ lLowerPos[1], lLowerPos[2] ],
                   call add(lRet, dFoundItem)
 
-                  call <SID>SetCursor(lCurSearchPos[0], lCurSearchPos[1], 0)
+                  call <SID>SetCursor(lCurSearchPos[0], lCurSearchPos[1])
                   call searchpos(dItemType['data']['detect_data']['start_regexp'], 'ceW')
                   normal! j
                   "call <SID>MoveToNextChar()
@@ -593,7 +810,10 @@ function! <SID>GetMatchablesList(lFields, iStopLine)
    endfor
 
    " sort lRet
-   let lRet = sort(lRet, "<SID>ItemsCompare") " not use 'function(..)' to not to break %
+   " commented, because sort is now done in GetLocationPathList(), when
+   " all the items are got.
+   "
+   "let lRet = sort(lRet, "<SID>ItemsCompare") " not use 'function(..)' to not to break %
 
    call setpos('.', lSrcPos)
    return lRet
@@ -611,7 +831,7 @@ function! <SID>GetSectionsForOneRegion(lItems, iIndex, iLineNum, iCol, iStopLine
 
       if dItemType['data']['detect_type'] == 'section'
 
-         call <SID>SetCursor( a:iLineNum, a:iCol, 0 )
+         call <SID>SetCursor( a:iLineNum, a:iCol)
 
          "let lCurSearchPos = searchpos(dItemType['data']['detect_data']['regexp'], 'bnW', a:iStopLine)
          let lCurSearchPos = <SID>SearchPosFields(dItemType['data']['detect_data']['regexp'], 'bnW', a:iStopLine, a:lFields)
@@ -632,6 +852,7 @@ function! <SID>GetSectionsForOneRegion(lItems, iIndex, iLineNum, iCol, iStopLine
 
                let dFoundItem['pos'][0] = lCurSearchPos[0]
 
+               "echo dFoundItem
 
                call insert(a:lItems, dFoundItem, a:iIndex)
                let iAddedCnt = iAddedCnt + 1
@@ -679,8 +900,9 @@ function! <SID>GetLocationPathList()
 
    let lSrcPos = getpos('.')
    let iSrcFirstVisibleLine = line('w0')
+   let lSrcFoldsState = <SID>GetFoldsState(1, lSrcPos[1])
 
-   call <SID>SetCursor(0, 0, 0)
+   call <SID>SetCursor(0, 0)
 
    let lFields = [ [1, lSrcPos[1] ] ]
 
@@ -695,23 +917,58 @@ function! <SID>GetLocationPathList()
       call <SID>GetSections(lItems, lSrcPos[1], lFields)
    endif
 
-   call setpos('.', lSrcPos)
+   " sort lItems
+   let lItems = sort(lItems, "<SID>ItemsCompare") " not use 'function(..)' to not to break %
 
-   " restore scroll position
-   let iCurFirstVisibleLine = line('w0')
-   "echo "cur_vis_line: ".line('w0')
-   "echo "needed: ".iSrcFirstVisibleLine
-   if iCurFirstVisibleLine > iSrcFirstVisibleLine
-      exe "normal! ".(iCurFirstVisibleLine - iSrcFirstVisibleLine)."\<C-Y>"
-      "echo "normal! ".(iCurFirstVisibleLine - iSrcFirstVisibleLine)."\<C-Y>"
-   elseif iCurFirstVisibleLine < iSrcFirstVisibleLine
-      exe "normal! ".(iSrcFirstVisibleLine - iCurFirstVisibleLine)."\<C-E>"
-      "echo "normal! ".(iSrcFirstVisibleLine - iCurFirstVisibleLine)."\<C-E>"
-   endif
-   "echo "cur_vis_line: ".line('w0')
+   " remove superfluous sections (using priority)
+
+   let iItemNum = len(lItems) - 1
+   let iCurPriority = 99999   " lowest priority
+
+   while iItemNum >= 0
+
+      if lItems[ iItemNum ]["edgeType"] == "section_start" && exists('lItems[iItemNum]["dItemType"]["data"]["priority"]') && lItems[ iItemNum ]["dItemType"]["data"]["priority"] >= 0
+         " this is section, and it has priority
+
+         if lItems[ iItemNum ]["dItemType"]["data"]["priority"] > iCurPriority
+            " need to remove this item, because its priority lower than
+            " current one
+            call remove(lItems, iItemNum)
+            let iItemNum -= 1
+         elseif lItems[ iItemNum ]["dItemType"]["data"]["priority"] < iCurPriority
+            let iCurPriority = lItems[ iItemNum ]["dItemType"]["data"]["priority"]
+         endif
+      endif
+
+      let iItemNum -= 1
+   endwhile
+
+
+   " restore folds state
+   call <SID>RestoreFoldsState(lSrcFoldsState)
 
    " restore cursor position
    call setpos('.', lSrcPos)
+
+   " restore scroll position
+
+   "let iCurFirstVisibleLine = line('w0')
+   "if iCurFirstVisibleLine > iSrcFirstVisibleLine
+      "exe "normal! ".(iCurFirstVisibleLine - iSrcFirstVisibleLine)."\<C-Y>"
+   "elseif iCurFirstVisibleLine < iSrcFirstVisibleLine
+      "exe "normal! ".(iSrcFirstVisibleLine - iCurFirstVisibleLine)."\<C-E>"
+   "endif
+
+   let iCurFirstVisibleLine = line('w0')
+   let sCommand = (iCurFirstVisibleLine > iSrcFirstVisibleLine ? "\<C-Y>" : "\<C-E>")
+   while line('w0') != iSrcFirstVisibleLine
+      "call confirm( "normal! ".(iCurFirstVisibleLine > iSrcFirstVisibleLine ? "<C-Y>" : "<C-E>"))
+      exe "normal! ".sCommand
+   endwhile
+
+   " restore cursor position again (buggy without this)
+   call setpos('.', lSrcPos)
+
 
    return lItems
 
@@ -790,6 +1047,10 @@ endif
 
 if !exists('g:locator_hl_section')
    let g:locator_hl_section = "ModeMsg"
+endif
+
+if !exists('g:locator_hl_access_mode_section')
+   let g:locator_hl_access_mode_section = "Folded"
 endif
 
 if !exists('g:locator_disable_mappings')

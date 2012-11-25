@@ -40,7 +40,7 @@ function that cursor is currently in, but I want to see full "path" to the
 cursor, including folds, classes, and maybe comment sections.
 Currently the following filetypes are supported: 
 
-      c, java, vim, cpp (last one is not carefully tested, but seems to work too)
+      c, java, vim, cpp
 
 
 By "comment section" I mean something like that: >
@@ -67,12 +67,14 @@ You can check out several screenshots:
    http://goo.gl/GRMAB (test C file with comment sections, folds and functions)
    http://goo.gl/9rVfJ (Java file with sections, functions and nested classes)
    http://goo.gl/fTjpF (C file with folds, sections and functions)
+   http://goo.gl/lbgSh (C++ class declaration, i.e. header file)
+   http://goo.gl/G7O7U (C++ source file)
 
 This plugin is extremely helpful in large files, especially in Java classes
 with nested classes, etc. Hope you like it too.
 
 This plugin is completely usable, but just keep in mind it is still in
-development stage. See |locator-known-issues|.
+development stage.
 
 ========================================================================
 OPTIONS                                                  *locator-options*
@@ -112,21 +114,13 @@ g:locator_disable_mappings (default: 0)
 MAPPINGS                                                *locator-mappings*
 
 Currently just one mapping is available:  gl  (from "get location"). Type it
-in normal mode and locator will show you where currently are your cursor.
+in normal mode and locator will show you where currently is your cursor.
 
 
 ========================================================================
 KNOWN ISSUES                                        *locator-known-issues*
 
-1) If your file contains folds, then after   gl   command some of your closed
-   folds might become opened. Too bad that Vim doesn't have good method to
-   save/restore folds state. I have an idea how to workaround that, but I'm not
-   sure when I have time.
-
-2) Again for files contains folds: after   gl   command your buffer might become
-   scrolled up to several lines. Cursor position won't change anyway. Actually
-   this is consequence from previous issue, so, when I fix it, this one will be
-   fixed too.
+   Since Locator 1.2 there's no known issues. Let me know if you found any.
 
 
  vim:ft=help:tw=78:  
