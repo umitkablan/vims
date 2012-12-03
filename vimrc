@@ -186,8 +186,9 @@ function YieldSemicolonIfAppropriate()
   " Write a regex which will execute faster
   " Reckon empty line cases while implemeting a regex
   " Think about plugin extraction of the idea
-  let lastchar = getline(".")[col("$")-2]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}"
+  let lastchar  = getline(".")[col("$")-2]
+  let firstchar = getline(".")[0]
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && firstchar != "#"
     return ';'
   endif
   return ''
