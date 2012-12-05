@@ -1,0 +1,121 @@
+*UnconditionalPaste.txt* Force character-/line-/block-wise paste, regardless of how it was yanked.
+
+		    UNCONDITIONAL PASTE    by Ingo Karkat
+						      *UnconditionalPaste.vim*
+description			|UnconditionalPaste-description|
+usage				|UnconditionalPaste-usage|
+installation			|UnconditionalPaste-installation|
+configuration			|UnconditionalPaste-configuration|
+limitations			|UnconditionalPaste-limitations|
+known problems			|UnconditionalPaste-known-problems|
+todo				|UnconditionalPaste-todo|
+history				|UnconditionalPaste-history|
+
+==============================================================================
+DESCRIPTION				      *UnconditionalPaste-description*
+
+If you're like me, you occasionally do a linewise yank, and then want to
+insert that yanked text in the middle of some other line (or vice versa).
+The mappings defined by this plugin will allow you to do a character-, line-,
+or block-wise paste no matter how you yanked the text.
+
+SOURCE									     *
+
+Based on vimtip #1199 by cory,
+    http://vim.wikia.com/wiki/Unconditional_linewise_or_characterwise_paste
+
+==============================================================================
+USAGE						    *UnconditionalPaste-usage*
+					   *gcp* *gcP* *glp* *glP* *gbp* *gbP*
+["x]gcp			Paste characterwise (newline characters are flattened
+["x]gcP			to spaces) [count] times.
+["x]glp			Paste linewise (even if yanked text is not a complete
+["x]glP			line) [count] times.
+["x]gbp			Paste blockwise (inserting multiple lines in-place,
+["x]gbP			pushing existing text further to the right) [count]
+			times.
+
+
+==============================================================================
+INSTALLATION				     *UnconditionalPaste-installation*
+
+This script is packaged as a |vimball|. If you have the "gunzip" decompressor
+in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
+the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
+vimball or via the |:UseVimball| command. >
+    vim UnconditionalPaste*.vmb.gz
+    :so %
+To uninstall, use the |:RmVimball| command.
+
+DEPENDENCIES				     *UnconditionalPaste-dependencies*
+
+- Requires Vim 7.0 or higher.
+- repeat.vim (vimscript #2136) plugin (optional)
+
+==============================================================================
+CONFIGURATION				    *UnconditionalPaste-configuration*
+
+If you want to use different mappings (e.g. starting with <Leader>), map your
+keys to the <Plug>UnconditionalPaste... mapping targets _before_ sourcing this
+script (e.g. in your |vimrc|): >
+    nmap <Leader>Pc <Plug>UnconditionalPasteCharBefore
+    nmap <Leader>pc <Plug>UnconditionalPasteCharAfter
+    nmap <Leader>Pl <Plug>UnconditionalPasteLineBefore
+    nmap <Leader>pl <Plug>UnconditionalPasteLineAfter
+    nmap <Leader>Pb <Plug>UnconditionalPasteBlockBefore
+    nmap <Leader>pb <Plug>UnconditionalPasteBlockAfter
+<
+==============================================================================
+LIMITATIONS				      *UnconditionalPaste-limitations*
+
+KNOWN PROBLEMS				   *UnconditionalPaste-known-problems*
+
+TODO						     *UnconditionalPaste-todo*
+
+IDEAS						    *UnconditionalPaste-ideas*
+
+==============================================================================
+HISTORY						  *UnconditionalPaste-history*
+
+1.22	04-Dec-2012
+- BUG: When repeat.vim is not installed, the mappings do nothing. Need to
+  :execute the :silent! call of repeat.vim to avoid that the remainder of the
+  command line is aborted together with the call.
+- Using separate autoload script to help speed up Vim startup.
+
+1.21	02-Dec-2011
+- ENH: When pasting a blockwise register as lines, strip all trailing
+  whitespace. This is useful when cutting a block of text from a column-like
+  text and pasting as new lines.
+- ENH: When pasting a blockwise register as characters, flatten and shrink all
+  trailing whitespace to a single space.
+
+1.20	30-Sep-2011
+BUG: Repeat always used the unnamed register. Add register registration to
+enhanced repeat.vim plugin. This also handles repetition when used together
+with the expression register "=. Requires a so far inofficial update to
+repeat.vim version 1.0 (that hopefully makes it into upstream), which is
+available at https://github.com/inkarkat/vim-repeat/zipball/1.0ENH1
+
+1.11	06-Jun-2011
+ENH: Support repetition of mappings through repeat.vim.
+
+1.10	12-Jan-2011
+Incorporated suggestions by Peter Rincker (thanks for the patch!):
+- Made mappings configurable via the customary <Plug> mappings.
+- Added mappings gbp, gbP for blockwise pasting.
+- Now requires Vim version 7.0 or higher.
+
+1.00	10-Dec-2010
+Published, prompted by a related question on reddit.
+
+0.01	10-Apr-2006
+Started development, based on vimtip #1199 by cory.
+
+==============================================================================
+Copyright: (C) 2006-2012 Ingo Karkat
+The VIM LICENSE applies to this script; see |copyright|.
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
