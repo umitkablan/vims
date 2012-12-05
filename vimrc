@@ -215,7 +215,7 @@ augroup END
 
 augroup preprocessor_langs
   au!
-  au FileType c,cpp vmap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>
+  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
 augroup END
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
