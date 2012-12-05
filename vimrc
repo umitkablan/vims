@@ -181,12 +181,26 @@ call pathogen#infect()
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
+function YieldSemicolonIfAppropriate()
+  " TODO:
+  " Write a regex which will execute faster
+  " Reckon empty line cases while implemeting a regex
+  " Think about plugin extraction of the idea
+  let lastchar  = getline(".")[col("$")-2]
+  let firstchar = getline(".")[0]
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && firstchar != "#"
+    return ';'
+  endif
+  return ''
+endfunction
+
 " personal plugin maps
 " --------------------
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
   au FileType c,cpp,java,javascript,css imap <buffer> <space><space> ;
+  au FileType c,cpp,java,javascript,css inoremap <expr> <buffer> jk YieldSemicolonIfAppropriate()
   " Adjust maps according to tags status: some filetypes are tags-driven.
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
   " <CR>        --:> :TS <C-R><C-W><CR>
@@ -201,7 +215,7 @@ augroup END
 
 augroup preprocessor_langs
   au!
-  au FileType c,cpp vmap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>
+  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
 augroup END
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
