@@ -969,7 +969,7 @@ endfunction
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
-" candycode southernlight
+" candycode southernlight lucid kolor
 colorscheme harlequin
 if !has("gui_running")
   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkgrey
