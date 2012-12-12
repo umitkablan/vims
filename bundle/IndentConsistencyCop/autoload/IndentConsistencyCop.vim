@@ -8,6 +8,30 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS  {{{1
+"   1.42.027	10-Dec-2012	When a perfect or authoritative rating didn't
+"				pass the majority rule (inside
+"				s:NormalizeRatings()), try to turn around the
+"				verdict by checking consistency with buffer
+"				settings
+"				(s:IsBufferConsistentWithBufferSettings()), as
+"				is done for small indents only. For example,
+"				this avoids a wrong verdict of inconsistent spc8
+"				when there are more spc8 than spc4. Cp.
+"				test068-test070. Thanks to Marcelo Montu for
+"				reporting this issue.
+"   1.41.026	07-Dec-2012	Change the behavior of
+"				:IndentRangeConsistencyCop to consider the
+"				buffer settings to turn around the verdict of
+"				"inconsistent indent" (but still not report
+"				inconsistent buffer settings alone). Otherwise,
+"				together with the IndentConsistencyCopAutoCmds
+"				triggers, it can happen that on opening (i.e.
+"				:IndentConsistencyCop), the file is judged okay
+"				(considering the buffer settings), but on
+"				writing the buffer (:IndentRangeConsistencyCop),
+"				a potential inconsistency due to too small
+"				indent is reported. Thanks to Marcelo Montu for
+"				reporting this issue.
 "   1.40.025	10-Oct-2012	The cop can often do a solid assessment when the
 "				maximum indent is 8. Only when there are no
 "				smaller indents, a higher indent is needed to
@@ -945,8 +969,10 @@ function! s:NormalizeRatings() " {{{2
 "* INPUTS:
 "   none
 "* RETURN VALUES:
-"   none
+"   Flag whether any perfect or authoritative rating was cleared.
 "*******************************************************************************
+    let l:hadPerfectOrAuthoritativeRating = 0
+
     " A perfect or authoritative rating (i.e. an indent setting that is
     " consistent throughout the entire buffer / range) is only accepted if its
     " absolute rating number is also the maximum rating. Without this
@@ -962,12 +988,17 @@ function! s:NormalizeRatings() " {{{2
 	call s:NormalizeAuthoritativeRating()
     else
 	" Any perfect or authoritative ratings didn't pass the majority rule, so
-	" clear them here to signal a definite inconsistency.
+	" clear them here to signal a definite inconsistency, but return a flag
+	" to allow s:IsBufferConsistentWithBufferSettings() to later turn around
+	" this verdict by examining the buffer settings.
+	let l:hadPerfectOrAuthoritativeRating = (! empty(s:perfectIndentSetting) || ! empty(s:authoritativeIndentSetting))
 	let s:perfectIndentSetting = ''
 	let s:authoritativeIndentSetting = ''
 
 	call s:NormalizeNonPerfectRating()
     endif
+
+    return l:hadPerfectOrAuthoritativeRating
 endfunction
 
 " }}}1
@@ -1018,7 +1049,7 @@ function! s:CheckBufferConsistency( startLineNum, endLineNum ) " {{{1
 
     " No need to continue if no indents were found.
     if s:indentMax == 0
-	return -1
+	return [-1, 0]
     endif
 
     " s:tabstops need not be evaluated into occurrences, as there are no
@@ -1066,7 +1097,7 @@ function! s:CheckBufferConsistency( startLineNum, endLineNum ) " {{{1
 "****D echo 'Raw   Ratings:' . string( s:ratings )
 "****D let l:debugIndentSettings = s:perfectIndentSetting . s:authoritativeIndentSetting | if ! empty(l:debugIndentSettings) | echo 'Found' (empty(s:perfectIndentSetting) ? 'authoritative' : 'perfect') 'indent setting before normalization. ' | endif
 
-    call s:NormalizeRatings()
+    let l:hadPerfectOrAuthoritativeRating = s:NormalizeRatings()
 "****D echo 'Norm. Ratings:' . string( s:ratings )
 "****D let l:debugIndentSettings = s:perfectIndentSetting . s:authoritativeIndentSetting | if ! empty(l:debugIndentSettings) | echo '  ...' (empty(s:perfectIndentSetting) ? 'authoritative' : 'perfect') 'indent setting after normalization. ' | endif
 "****D call confirm('debug')
@@ -1083,7 +1114,7 @@ function! s:CheckBufferConsistency( startLineNum, endLineNum ) " {{{1
 
     let l:isConsistent = ! empty( s:perfectIndentSetting )
     if l:isConsistent && (count( s:ratings, 100 ) != 1) | throw 'ASSERT: If consistent, there should be a 100% rating. ' | endif
-    return l:isConsistent
+    return [l:isConsistent, l:hadPerfectOrAuthoritativeRating]
 endfunction
 
 
@@ -2106,8 +2137,6 @@ function! s:IsBufferConsistentWithBufferSettings( startLineNum, endLineNum ) " {
 "   small maximum indents.
 "* ASSUMPTIONS / PRECONDITIONS:
 "   A potential buffer inconsistency has been detected (s:CheckBufferConsistency() == 0).
-"   Consistency with the buffer settings should also be checked
-"	(a:isBufferSettingsCheck == 1).
 "* EFFECTS / POSTCONDITIONS:
 "	? List of the procedure's effect on each external variable, control, or other element.
 "* INPUTS:
@@ -2118,21 +2147,19 @@ function! s:IsBufferConsistentWithBufferSettings( startLineNum, endLineNum ) " {
 "	"consistent" by examining the buffer settings.
 "   0 if the verdict is still "inconsistent".
 "*******************************************************************************
-    if ! s:IsEnoughIndentForSolidAssessment()
-	let l:bufferIndentSetting = s:GetIndentSettingForBufferSettings()
-	if ! s:IsBadIndentSetting( l:bufferIndentSetting )
-	    let l:lineNumbers = s:GetInconsistentIndents( a:startLineNum, a:endLineNum, l:bufferIndentSetting )
-	    if len( l:lineNumbers ) == 0
-		" All lines conform to the buffer indent setting, nothing is
-		" inconsistent.
-		return 1
-	    endif
-	    " Inconsistent lines found.
+    let l:bufferIndentSetting = s:GetIndentSettingForBufferSettings()
+    if ! s:IsBadIndentSetting( l:bufferIndentSetting )
+	let l:lineNumbers = s:GetInconsistentIndents( a:startLineNum, a:endLineNum, l:bufferIndentSetting )
+	if len( l:lineNumbers ) == 0
+	    " All lines conform to the buffer indent setting, nothing is
+	    " inconsistent.
+	    return 1
 	endif
-	" The buffer settings are of no help, because they are inconsistent,
-	" too.
+	" Inconsistent lines found.
     endif
-    " We definitely have inconsistencies.
+    " The buffer settings are of no help, because they are inconsistent,
+    " too.
+
     return 0
 endfunction
 
@@ -2159,7 +2186,7 @@ function! IndentConsistencyCop#IndentConsistencyCop( startLineNum, endLineNum, i
 
     let s:occurrences = {}
     let s:ratings = {}
-    let l:isConsistent = s:CheckBufferConsistency( a:startLineNum, a:endLineNum )
+    let [l:isConsistent, l:hadPerfectOrAuthoritativeRating] = s:CheckBufferConsistency( a:startLineNum, a:endLineNum )
     call s:ReportConsistencyResult( l:isEntireBuffer, l:isConsistent, '' )
     call s:ReportBufferSettingsConsistency('')
 
@@ -2168,10 +2195,10 @@ function! IndentConsistencyCop#IndentConsistencyCop( startLineNum, endLineNum, i
 	call s:UnindentedBufferConsistencyCop( l:isEntireBuffer, a:isBufferSettingsCheck )
 	call s:ReportConsistencyWithBufferSettingsResult( l:isEntireBuffer, 1 )
     elseif l:isConsistent == 0
-	if a:isBufferSettingsCheck
+	if l:hadPerfectOrAuthoritativeRating || ! s:IsEnoughIndentForSolidAssessment()
 	    let l:isConsistent = s:IsBufferConsistentWithBufferSettings( a:startLineNum, a:endLineNum )
-	    call s:ReportConsistencyWithBufferSettingsResult( l:isEntireBuffer, l:isConsistent )
 	endif
+	call s:ReportConsistencyWithBufferSettingsResult( l:isEntireBuffer, l:isConsistent )
 	if l:isConsistent
 	    call IndentConsistencyCop#ClearHighlighting()
 
