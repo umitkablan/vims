@@ -437,7 +437,7 @@ let no_multiselect_maps = 1
 "------------------------------------------
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
-let VCSCommandSVNDiffOpt = "-ignore-all-space"
+" let VCSCommandSVNDiffOpt = "-ignore-all-space"
 "------------------------------------------
 let g:tar_nomax = 1
 let g:zip_nomax = 1
