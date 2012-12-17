@@ -1,10 +1,10 @@
 " Plugin:       Highlight Colornames and Values
 " Maintainer:   Christian Brabandt <cb@256bit.org>
 " URL:          http://www.github.com/chrisbra/color_highlight
-" Last Change: Thu, 17 May 2012 21:03:52 +0200
+" Last Change: Fri, 14 Dec 2012 22:34:20 +0100
 " Licence:      Vim License (see :h License)
-" Version:      0.6
-" GetLatestVimScripts: 3963 6 :AutoInstall: Colorizer.vim
+" Version:      0.8
+" GetLatestVimScripts: 3963 8 :AutoInstall: Colorizer.vim
 "
 " This plugin was inspired by the css_color.vim plugin from Nikolaus Hofer.
 " Changes made: - make terminal colors work more reliably and with all
@@ -916,9 +916,11 @@ function! s:DidColor(clr, pat) "{{{1
 endfu
 
 function! s:DoHlGroup(clr) "{{{1
+    let group = 'Color_'. a:clr
     if !s:force_hl 
-        let syn = synIDattr(hlID(a:clr), 'fg')
+        let syn = synIDattr(hlID(group), 'fg')
         if !empty(syn) && syn > -1
+            " highlighting already exists
             return
         endif
     endif
@@ -934,7 +936,7 @@ function! s:DoHlGroup(clr) "{{{1
         let bg  = t
         unlet t
     endif
-    let hi  = printf('hi %s guifg=#%s', clr, fg)
+    let hi  = printf('hi %s guifg=#%s', group, fg)
     let hi .= printf(' guibg=%s', (bg != 'NONE' ? '#'.bg : bg))
     if !has("gui_running")
         let fg = s:Rgb2xterm(fg)
@@ -953,12 +955,13 @@ function! s:DoHlGroup(clr) "{{{1
 endfunction
 
 function! s:SetMatcher(clr, pattern) "{{{1
+    let clr = 'Color_'. a:clr
     call s:DoHlGroup(a:clr)
-    if s:DidColor(a:clr, a:pattern)
+    if s:DidColor(clr, a:pattern)
         return
     endif
     " let 'hls' overrule our syntax highlighting
-    call matchadd(a:clr, a:pattern, -1)
+    call matchadd(clr, a:pattern, -1)
     call add(s:match_list, a:pattern)
 endfunction
 
@@ -1136,7 +1139,7 @@ function! s:PreviewColorHex(match) "{{{1
             let color = list[idx]
         endif
     endif
-    call s:SetMatcher(color, '#'.pattern.'\>\c')
+    call s:SetMatcher(color, s:hex_pattern[0]. pattern. s:hex_pattern[2])
     return a:match
 endfunction
 
@@ -1147,7 +1150,7 @@ endfunction
 
 function! s:GetMatchList() "{{{1
     " this is buffer-local!
-    return filter(getmatches(), 'v:val.group =~ ''^\x\{6}$''')
+    return filter(getmatches(), 'v:val.group =~ ''^Color_\x\{6}$''')
 endfunction
 
 function! s:Init(...) "{{{1
@@ -1220,6 +1223,12 @@ function! s:Init(...) "{{{1
         let s:color_names = 1
     endif
 
+    if exists("g:colorizer_syntax") && g:colorizer_syntax
+        let s:color_syntax = 1
+    else
+        let s:color_syntax = 0
+    endif
+
     if !s:force_hl && s:old_fgcontrast != g:colorizer_fgcontrast
                 \ && s:swap_fg_bg == 0
         " Doesn't work with swapping fg bg colors
@@ -1252,6 +1261,13 @@ function! s:Init(...) "{{{1
     elseif s:force_hl
         call Colorizer#ColorOff()
     endif
+
+    if !exists("g:colorizer_hex_pattern")
+        let s:hex_pattern = ['#', '\%(\x\{3}\|\x\{6}\)', '\%(\>\|[-_]\)\@=']
+    else
+        let s:hex_pattern = g:colorizer_hex_pattern
+    endif
+
     if has("gui_running") || &t_Co >= 8 || s:HasColorPattern()
 	" The list of available match() patterns
 	let s:match_list = s:GetMatchList()
@@ -1281,7 +1297,12 @@ function! s:SaveRestoreOptions(save, dict, list) "{{{1
         return s:SaveOptions(a:list)
     else
 	for [key, value] in items(a:dict)
-	    call setbufvar('', '&'. key, value)
+            if key !~ '@'
+                call setbufvar('', '&'. key, value)
+            else
+                call call('setreg', [key[1]] + value)
+            endif
+            unlet value
 	endfor
     endif
 endfun
@@ -1289,20 +1310,30 @@ endfun
 function! s:SaveOptions(list) "{{{1
     let save = {}
     for item in a:list
-        exe "let save.". item. " = &l:". item
+        if item !~ '^@'
+            exe "let save.". item. " = &l:". item
+        else
+            let save[item] = []
+            call add(save[item], getreg(item[1]))
+            call add(save[item], getregtype(item))
+        endif
 	if item == 'ma' && !&l:ma
 	    setl ma
 	elseif item == 'ro' && &l:ro
 	    setl noro
 	elseif item == 'lz' && &l:lz
 	    setl lz
+        elseif item == 'ed' && &g:ed
+            setl noed
+        elseif item == 'gd' && &g:gd
+            setl nogd
 	endif
     endfor
     return save
 endfunction
 
 function! s:StripParentheses(val) "{{{1
-    return split(matchstr(a:val, '^\(hsl\|rgb\)a\?\s*(\zs[^)]*\ze)'), '\s*,')
+    return split(matchstr(a:val, '^\(hsl\|rgb\)a\?\s*(\zs[^)]*\ze)'), '\s*,\s*')
 endfunction
 
 function! s:ColorRGBValues(val) "{{{1
@@ -1503,6 +1534,25 @@ function! s:PrepareHSLArgs(list) "{{{1
     let hsl[2] = (matchstr(hsl[2], '\d\+') + 0.0)/100
     return s:HSL2RGB(hsl[0], hsl[1], hsl[2])
 endfu
+function! s:SyntaxMatcher(enable) "{{{1
+    let did_clean = {}
+    for hi in s:GetMatchList()
+        if !get(did_clean, hi.group, 0)
+            let did_clean[hi.group] = 1
+            exe "sil! syn clear" hi.group
+        endif
+        if a:enable
+            exe "syn match" hi.group "excludenl /". hi.pattern. "/ display containedin=ALL"
+            " We have syntax highlighting, can clear the matching
+            " ignore errors (just in case)
+            sil! call matchdelete(hi.id)
+        endif
+    endfor
+"    if a:enable
+"        unlet s:match_list
+"    endif
+endfu
+
 function! Colorizer#ColorToggle() "{{{1
     if !exists("s:match_list") || empty(s:match_list)
         call Colorizer#DoColor(0, 1, line('$'))
@@ -1518,10 +1568,13 @@ function! Colorizer#ColorOff() "{{{1
     unlet! s:match_list
 endfu
 
-function! Colorizer#DoColor(force, line1, line2) "{{{1
+function! Colorizer#DoColor(force, line1, line2, ...) "{{{1
     " initialize plugin
     try
         call s:Init(a:force)
+        if exists("a:1") && !empty(a:1)
+            let s:color_syntax = ( a:1 =~# '^\%(syntax\|nomatch\)$' )
+        endif
     catch /nocolor/
         " nothing to do
         call s:Warn("Your terminal doesn't support colors or no colors". 
@@ -1539,7 +1592,10 @@ function! Colorizer#DoColor(force, line1, line2) "{{{1
     "    call s:ColorMatchingLines(line)
     "endfor
     let _a   = winsaveview()
-    let save = s:SaveRestoreOptions(1, {}, ['mod', 'ro', 'ma', 'lz'])
+    let save = s:SaveRestoreOptions(1, {},
+            \ ['mod', 'ro', 'ma', 'lz', 'ed', 'gd', '@/'])
+
+    let n_flag = v:version > 703 || ( v:version == 703 && has("patch627"))
     " highlight Hex Codes:
     "
     " The :%s command is a lot faster than this:
@@ -1547,9 +1603,12 @@ function! Colorizer#DoColor(force, line1, line2) "{{{1
     " Should color #FF0000
     "              #F0F
     "              #FFF
-    "call s:ColorMatchingLines()
-    let cmd = printf(':sil %d,%ds/#\%(\x\{3}\|\x\{6}\)\>/'.
-        \ '\=s:PreviewColorHex(submatch(0))/egi', a:line1, a:line2)
+    "
+    " Hexcodes should be word-bounded, but could also be delimited by [-_], so
+    " allow those to delimit the end of the pattern
+    let cmd = printf(':sil %d,%ds/%s/'.
+        \ '\=s:PreviewColorHex(submatch(0))/egi%s', a:line1, a:line2,
+        \ join(s:hex_pattern, ''), n_flag ? 'n' : '')
     exe cmd
     if &t_Co > 16 || has("gui_running")
     " Also support something like
@@ -1564,20 +1623,29 @@ function! Colorizer#DoColor(force, line1, line2) "{{{1
     " highlight rgb(X,X,X) values
         let pat = '\s*(\s*\%%(\d\+%%\?[^0-9)]*\)\{3,4})'
         let cmd = printf(':sil %d,%ds/rgba\='. pat. '/'. 
-            \ '\=s:ColorRGBValues(submatch(0))/egi', a:line1, a:line2)
+            \ '\=s:ColorRGBValues(submatch(0))/egi%s', a:line1, a:line2,
+            \ n_flag ? 'n' : '')
         exe cmd
         " highlight hsl(X,X,X) values
         let cmd = printf(':sil %d,%ds/hsla\='. pat. '/'.
-            \'\=s:ColorHSLValues(submatch(0))/egi', a:line1, a:line2)
+            \'\=s:ColorHSLValues(submatch(0))/egi%s', a:line1, a:line2,
+            \ n_flag ? 'n' : '')
         exe cmd
     endif
     " highlight Colornames
     if exists("s:color_names") && s:color_names
         let s_cmd =
-            \ printf(':sil %d,%ds/%s/\=s:PreviewColorName(submatch(0))/egi',
-            \ a:line1, a:line2, s:GetColorPattern(keys(s:colors)))
+            \ printf(':sil %d,%ds/%s/\=s:PreviewColorName(submatch(0))/egi%s',
+            \ a:line1, a:line2, s:GetColorPattern(keys(s:colors)),
+            \ n_flag ? 'n' : '')
         exe s_cmd
+        " Somehow, when performing above search, the pattern remains in the
+        " search history and this can be disturbing, so delete it from there.
+        call histdel('/', -1)
     endif
+    " convert matches into synatx highlighting, so TOhtml can display it
+    " correctly
+    call s:SyntaxMatcher(s:color_syntax)
     call s:SaveRestoreOptions(0, save, [])
     call winrestview(_a)
 endfu
