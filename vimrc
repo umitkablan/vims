@@ -164,7 +164,7 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
-nnoremap <silent> nn /<CR>
+nnoremap <silent> gn /<CR>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 " ease cmdline 0/$ movement
