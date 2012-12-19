@@ -236,7 +236,7 @@ nnoremap <silent> <Leader><Leader>sh :ConqueTerm bash<CR>
 nnoremap <silent> <Leader>p2 :ConqueTermSplit ipython2<CR>
 nnoremap <silent> <Leader>p3 :ConqueTermSplit python3<CR>
 nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
-nnoremap <silent> ĞĞE :Exp<CR>
+nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>e :lcd %:h<CR>:Unite -start-insert file<CR>
 " nnoremap <silent> <Leader>e :CommandT<CR>
