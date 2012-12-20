@@ -180,9 +180,14 @@ augroup StatlineUmt
     autocmd BufWinEnter * setl statusline=%!Get_Statusline_Normal()
     autocmd WinEnter    * setl statusline=%!Get_Statusline_Normal()
     autocmd TabEnter    * setl statusline=%!Get_Statusline_Normal()
+    " autocmd BufLeave    * echoerr " ".expand("<abuf>").&ft
+    " autocmd BufEnter    * echoerr " ".expand("<abuf>").&ft
+    autocmd BufWinLeave * if &ft=="fuf"|echoerr " ".expand("<abuf>").&ft.expand("%")|endif
+    " autocmd BufLeave * echoerr " r..".expand("<abuf>").&ft.expand("%")
+    " autocmd BufWinEnter * echoerr " ".expand("<abuf>").&ft
     autocmd BufWinLeave * if expand("<abuf>") == expand("%") |  setl statusline="%1*[%F]%*" | endif
     autocmd WinLeave    * setl statusline="%1*[%F]%*"
-    autocmd TabLeave    * setl statusline="%1*[%F]%*"
+    " autocmd TabLeave    * setl statusline="%1*[%F]%*"
 augroup END
 
 function! Get_Statline_Main()
