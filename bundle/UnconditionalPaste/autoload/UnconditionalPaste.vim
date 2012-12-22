@@ -11,6 +11,35 @@
 "	  http://vim.wikia.com/wiki/Unconditional_linewise_or_characterwise_paste
 "
 " REVISION	DATE		REMARKS
+"   2.10.019	21-Dec-2012	FIX: For characterwise pastes with a [count],
+"				the multiplied pastes must be joined with the
+"				desired separator, not just plainly
+"				concatenated.
+"				ENH: Add mappings to paste with one number
+"				(which depending on the current cursor position)
+"				incremented / decremented.
+"				Handle repeat of gpp with the last used offset
+"				and the same number position by introducing a
+"				special ".p" paste type.
+"				FIX: Don't lose the original [count] given when
+"				repeating the mapping. As
+"				UnconditionalPaste#Paste() executes a normal
+"				mode command, we need to store v:count and make
+"				it available to the <Plug>-mapping via the new
+"				UnconditionalPaste#GetCount() getter.
+"   2.00.018	07-Dec-2012	FIX: Differentiate between pasteType and a:how
+"				argument, as setregtype() only understands the
+"				former.
+"   2.00.017	06-Dec-2012	CHG: Flatten all whitespace and newlines before,
+"				after, and around lines when pasting
+"				characterwise or joined.
+"   2.00.016	05-Dec-2012	ENH: Add mappings to insert register contents
+"				characterwise (flattened) from insert mode.
+"				ENH: Add mappings to paste lines flattened with
+"				comma, queried, or recalled last used delimiter.
+"				ENH: Add mappings to paste unjoined register
+"				with queried or recalled last used delimiter
+"				pattern.
 "   1.22.015	04-Dec-2012	Split off functions into autoload script.
 "   1.22.014	28-Nov-2012	BUG: When repeat.vim is not installed, the
 "				mappings do nothing. Need to :execute the
@@ -65,16 +94,47 @@ function! UnconditionalPaste#HandleExprReg( exprResult )
     let s:exprResult = a:exprResult
 endfunction
 
-function! s:Flatten( text )
-    " Remove newline characters at the end of the text, convert all other
-    " newlines to a single space.
-    return substitute(substitute(a:text, '\n\+$', '', 'g'), '\n\+', ' ', 'g')
+function! s:Flatten( text, separator )
+    " Remove newlines and whitespace at the begin and end of the text, convert
+    " all other newlines (plus leading and trailing whitespace) to the passed
+    " separator.
+    return substitute(substitute(a:text, '^\s*\%(\n\s*\)*\|\s*\%(\n\s*\)*$', '', 'g'), '\s*\%(\n\s*\)\+', a:separator, 'g')
 endfunction
 function! s:StripTrailingWhitespace( text )
     return substitute(a:text, '\s\+\ze\(\n\|$\)', '', 'g')
 endfunction
+function! s:Unjoin( text, separatorPattern )
+    let l:text = substitute(a:text, a:separatorPattern, '\n', 'g')
 
-function! UnconditionalPaste#Paste( regName, pasteType, pasteCmd )
+    " A (single!) trailing separator is automatically swallowed by the linewise
+    " pasting. For consistency, do the same for a single leading separator.
+    return (l:text =~# '^\n' ? l:text[1:] : l:text)
+endfunction
+function! s:Increment( text, vcol, offset )
+    let l:replacement = '\=submatch(0) + ' . a:offset
+
+    if a:vcol == -1 || a:vcol == 0 && col('.') + 1 == col('$')
+	return [-1, substitute(a:text, '\d\+\ze\D*$', l:replacement, '')]
+    endif
+
+    let l:text = a:text
+    let l:vcol = (a:vcol == 0 ? virtcol('.') : a:vcol)
+    if l:vcol > 1
+	let l:text = substitute(a:text, '\d*\%>' . (l:vcol - 1) . 'v\d\+', l:replacement, '')
+    endif
+    if l:text ==# a:text
+	return [1, substitute(a:text, '\d\+', l:replacement, '')]
+    else
+	return [l:vcol, l:text]
+    endif
+endfunction
+
+function! UnconditionalPaste#GetCount()
+    return s:count
+endfunction
+function! UnconditionalPaste#Paste( regName, how, ... )
+    let l:count = v:count
+    let s:count = v:count
     let l:regType = getregtype(a:regName)
     let l:regContent = getreg(a:regName, 1) " Expression evaluation inside function context may cause errors, therefore get unevaluated expression when a:regName ==# '='.
 
@@ -97,19 +157,107 @@ function! UnconditionalPaste#Paste( regName, pasteType, pasteCmd )
 
     try
 	let l:pasteContent = l:regContent
-	if a:pasteType ==# 'c'
+	let l:pasteType = 'l'
+
+	if a:how ==# 'b'
+	    let l:pasteType = 'b'
+	elseif a:how =~# '^[c,qQ]$'
+	    let l:pasteType = 'c'
+
 	    if l:regType[0] ==# "\<C-v>"
-		let l:pasteContent = s:Flatten(s:StripTrailingWhitespace(l:regContent))
+		let l:pasteContent = s:StripTrailingWhitespace(l:regContent)
 	    else
-		let l:pasteContent = s:Flatten(l:regContent)
+		let l:pasteContent = l:regContent
 	    endif
-	elseif a:pasteType ==# 'l' && l:regType[0] ==# "\<C-v>"
+
+	    if a:how ==# 'c'
+		let l:separator = ' '
+	    elseif a:how ==# ','
+		let l:separator = ', '
+	    elseif a:how ==# 'q'
+		let l:separator = input('Enter separator string: ')
+		if empty(l:separator)
+		    execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
+		    return ''
+		endif
+		let g:UnconditionalPaste_JoinSeparator = l:separator
+	    elseif a:how ==# 'Q'
+		let l:separator = g:UnconditionalPaste_JoinSeparator
+	    else
+		throw 'ASSERT: Invalid how: ' . string(a:how)
+	    endif
+
+	    if l:count > 1
+		" To join the multiplied pastes with the desired separator, we
+		" need to process the multiplication on our own.
+		let l:pasteContent = repeat(l:pasteContent . "\n", l:count)
+		let l:count = 0
+	    endif
+
+	    let l:pasteContent = s:Flatten(l:pasteContent, l:separator)
+	elseif a:how ==? 'u'
+	    if a:how ==# 'u'
+		let l:separatorPattern = input('Enter separator pattern: ')
+		if empty(l:separatorPattern)
+		    execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
+		    return ''
+		endif
+		let g:UnconditionalPaste_UnjoinSeparatorPattern = l:separatorPattern
+	    endif
+
+	    let l:pasteContent = s:Unjoin(l:pasteContent, g:UnconditionalPaste_UnjoinSeparatorPattern)
+	    if l:pasteContent ==# l:regContent
+		" No unjoining took place; this is probably not what the user
+		" intended (maybe wrong register?), so don't just insert the
+		" contents unchanged, but rather alert the user.
+		execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
+		return ''
+	    endif
+	elseif a:how ==# 'l' && l:regType[0] ==# "\<C-v>"
 	    let l:pasteContent = s:StripTrailingWhitespace(l:regContent)
+	elseif a:how ==# 'p' || a:how ==# '.p'
+	    let l:pasteType = l:regType " Keep the original paste type.
+	    let l:offset = (a:1 ==# 'p' ? 1 : -1)
+	    if a:how ==# 'p'
+		let l:baseCount = 1
+		let l:vcol = 0
+	    elseif a:how ==# '.p'
+		" Continue increasing with the last used (saved) offset, and at
+		" the same number position (after the first paste, the cursor
+		" will have jumped to the beginning of the pasted text).
+		let l:baseCount = s:lastCount + 1
+		let l:vcol = s:lastVcol
+	    else
+		throw 'ASSERT: Invalid how: ' . string(a:how)
+	    endif
+	    let s:lastCount = l:baseCount
+
+	    let [s:lastVcol, l:pasteContent] = s:Increment(l:regContent, l:vcol, l:offset * l:baseCount)
+	    if l:pasteContent ==# l:regContent
+		" No number was found in the register; this is probably not what
+		" the user intended (maybe wrong register?), so don't just
+		" insert the contents unchanged, but rather alert the user.
+		execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
+		return ''
+	    endif
+
+	    if l:count > 1
+		" To increment each multiplied paste one more, we need to
+		" process the multiplication on our own.
+		let l:numbers = (l:offset > 0 ? range(l:baseCount, l:baseCount + l:count - 1) : range(-1 * (l:baseCount + l:count - 1), -1 * l:baseCount))
+		let l:pasteContent = join(map(l:numbers, 's:Increment(l:regContent, l:vcol, v:val)[1]'), (l:regType[0] ==# "\<C-v>" ? "\n" : ''))
+		let s:lastCount = l:baseCount + l:count - 1
+		let l:count = 0
+	    endif
 	endif
 
-	call setreg(l:regName, l:pasteContent, a:pasteType)
-	    execute 'normal! "' . l:regName . (v:count ? v:count : '') . a:pasteCmd
-	call setreg(l:regName, l:regContent, l:regType)
+	if a:0
+	    call setreg(l:regName, l:pasteContent, l:pasteType)
+		execute 'normal! "' . l:regName . (l:count ? l:count : '') . a:1
+	    call setreg(l:regName, l:regContent, l:regType)
+	else
+	    return l:pasteContent
+	endif
     catch /^Vim\%((\a\+)\)\=:E/
 	" v:exception contains what is normally in v:errmsg, but with extra
 	" exception source info prepended, which we cut away.
@@ -123,6 +271,17 @@ function! UnconditionalPaste#Paste( regName, pasteType, pasteCmd )
 	    let &clipboard = l:save_clipboard
 	endif
     endtry
+endfunction
+function! UnconditionalPaste#Insert( regName, how )
+    if a:regName !~? '[0-9a-z"%#*+:.-]'
+	" Note the lack of "="; we don't support the expression register here,
+	" because we would need to do the querying and evaluation all by
+	" ourselves.
+	execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
+	return ''
+    endif
+
+    return UnconditionalPaste#Paste(a:regName, a:how)
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
