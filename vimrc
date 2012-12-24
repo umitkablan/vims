@@ -199,14 +199,14 @@ endfunction
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css imap <buffer> <space><space> ;
-  au FileType c,cpp,java,javascript,css inoremap <expr> <buffer> jk YieldSemicolonIfAppropriate()
+  au FileType c,cpp,java,javascript,css,actionscript imap <buffer> <space><space> ;
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonIfAppropriate()
   " Adjust maps according to tags status: some filetypes are tags-driven.
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
-  au FileType c,cpp,java,javascript,python nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python nmap <buffer> <Backspace> <C-T>
+  au FileType c,cpp,java,javascript,python,actionscript nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
+  au FileType c,cpp,java,javascript,python,actionscript nmap <buffer> <Backspace> <C-T>
   " au FileType c,cpp,java,javascript,python nmap <buffer> <CR> UniteWithCursorWord -immediately tag<CR>
   " au FileType * if stridx("c,cpp,java", &ft)>=0| call CSyntaxAfter()|endif
   " au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
@@ -359,6 +359,7 @@ let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
 let g:pasta_disabled_filetypes = ["coffee", "markdown"]
+let g:pasta_enabled_filetypes = ['actionscript']
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
