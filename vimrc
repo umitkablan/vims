@@ -181,18 +181,19 @@ call pathogen#infect()
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
-function YieldSemicolonIfAppropriate()
+function! YieldSemicolonIfAppropriate()
   " TODO:
   " Write a regex which will execute faster
-  " Reckon empty line cases while implemeting a regex
   " Think about plugin extraction of the idea
-  let lastchar  = getline(".")[col("$")-2]
-  let firstchar = getline(".")[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && firstchar != "#"
+  let cline = getline(".")
+  let lastchar  = cline[col("$")-2]
+  let firstchar = cline[0]
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && firstchar != "#" && cline !~ '^\s*$'
     return ';'
   endif
   return ''
 endfunction
+
 
 " personal plugin maps
 " --------------------
