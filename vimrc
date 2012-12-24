@@ -184,7 +184,6 @@ call ipi#inspect()
 function! YieldSemicolonIfAppropriate()
   " TODO:
   " Write a regex which will execute faster
-  " Reckon empty line cases while implemeting a regex
   " Think about plugin extraction of the idea
   let cline = getline(".")
   let lastchar  = cline[col("$")-2]
