@@ -248,11 +248,11 @@ nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
 nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-nnoremap <silent> <C-P> :Unite -start-insert source<CR>
+nnoremap <silent> <C-P><C-P> :Unite -start-insert source<CR>
 nnoremap <silent> <Leader>b :Unite -start-insert bookmark<CR>
 nnoremap <silent> <C-B> :Unite -start-insert buffer<CR>
 nnoremap <silent> MRU :Unite -no-split -start-insert file_mru directory_mru<CR>
-nnoremap <silent> <Leader>t  :FufBufferTag<CR>
+nnoremap <silent> <Leader>t  :CtrlPBufTag<CR>
 nnoremap <silent> <Leader><Leader>cd :FufDirWithCurrentBufferDir<CR>
 nnoremap <silent> ĞĞCD :FufDirWithFullCwd<CR>
 nnoremap <silent> <Leader>sc :SingleCompile<CR>
@@ -349,6 +349,9 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_match_window_bottom = 0
 let g:fortune_vimtips_file = "wisdom"
 let g:rainbow_activate=1
 let g:tinykeymap#map#windows#map = "gw"
