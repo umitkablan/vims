@@ -292,7 +292,7 @@ inoremap <C-j> <C-X><C-O>
 inoremap <expr> <C-y> neocomplcache#close_popup()
 inoremap <expr> <C-e> neocomplcache#cancel_popup()
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+" imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
           \ "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
