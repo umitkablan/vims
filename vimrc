@@ -175,23 +175,39 @@ cnoremap <C-e> <End>
 
 nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
 call pathogen#infect()
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
-function! YieldSemicolonIfAppropriate()
+function! IsSemicolonAppropriate(cline)
   " TODO:
   " Write a regex which will execute faster
   " Think about plugin extraction of the idea
-  let cline = getline(".")
-  let lastchar  = cline[col("$")-2]
-  let firstchar = cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && firstchar != "#" && cline !~ '^\s*$'
+  let lastchar  = a:cline[col("$")-2]
+  let firstchar = a:cline[0]
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && firstchar != "#" && a:cline !~ '^\s*$'
+    return 1
+  endif
+  return 0
+endfunction
+
+function! YieldSemicolonIfAppropriate()
+  if IsSemicolonAppropriate(getline("."))
     return ';'
   endif
   return ''
+endfunction
+
+function! SemicolonEnterIfOk()
+  if IsSemicolonAppropriate(getline("."))
+    return ';'
+  endif
+  return ''
 endfunction
 
 
@@ -202,6 +218,7 @@ augroup semicolon_langs
   au!
   au FileType c,cpp,java,javascript,css,actionscript imap <buffer> <space><space> ;
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonIfAppropriate()
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> SemicolonEnterIfOk()
   " Adjust maps according to tags status: some filetypes are tags-driven.
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
   " <CR>        --:> :TS <C-R><C-W><CR>
@@ -291,8 +308,6 @@ nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 inoremap <C-j> <C-X><C-O>
 inoremap <expr> <C-y> neocomplcache#close_popup()
 inoremap <expr> <C-e> neocomplcache#cancel_popup()
-imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-" imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
           \ "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
