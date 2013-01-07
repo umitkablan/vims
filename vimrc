@@ -204,7 +204,7 @@ function! YieldSemicolonIfAppropriate()
 endfunction
 
 function! SemicolonEnterIfOk()
-  if IsSemicolonAppropriate(getline("."))
+  if !pumvisible() && IsSemicolonAppropriate(getline("."))
     return ';'
   endif
   return ''
