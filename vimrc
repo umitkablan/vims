@@ -177,6 +177,7 @@ nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
@@ -190,14 +191,21 @@ function! IsSemicolonAppropriate(cline)
   " Think about plugin extraction of the idea
   let lastchar  = a:cline[col("$")-2]
   let firstchar = a:cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && firstchar != "#" && a:cline !~ '^\s*$'
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && a:cline !~ '^\s*$'
     return 1
   endif
   return 0
 endfunction
 
-function! YieldSemicolonIfAppropriate()
-  if IsSemicolonAppropriate(getline("."))
+function! YieldSemicolonEscIfAppropriate()
+  let isappr = IsSemicolonAppropriate(getline("."))
+  if pumvisible()
+    if isappr
+      return ';'
+    endif
+    return ''
+  endif
+  if isappr
     return ';'
   endif
   return ''
@@ -217,7 +225,7 @@ endfunction
 augroup semicolon_langs
   au!
   au FileType c,cpp,java,javascript,css,actionscript imap <buffer> <space><space> ;
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonIfAppropriate()
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonEscIfAppropriate()
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> SemicolonEnterIfOk()
   " Adjust maps according to tags status: some filetypes are tags-driven.
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
@@ -225,16 +233,16 @@ augroup semicolon_langs
   " <Backspace> --:> :PopTagStack<CR>
   au FileType c,cpp,java,javascript,python,actionscript nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
   au FileType c,cpp,java,javascript,python,actionscript nmap <buffer> <Backspace> <C-T>
-  " au FileType c,cpp,java,javascript,python nmap <buffer> <CR> UniteWithCursorWord -immediately tag<CR>
-  " au FileType * if stridx("c,cpp,java", &ft)>=0| call CSyntaxAfter()|endif
+  " au FileType c,cpp,java,javascript,python,actionscript nmap <buffer> <CR> :UniteWithCursorWord -immediately tag<CR>
   " au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
-  au FileType help :set nonumber
 augroup END
 
 augroup preprocessor_langs
   au!
   au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
 augroup END
+
+au FileType help :set nonumber
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
@@ -310,7 +318,7 @@ inoremap <expr> <C-y> neocomplcache#close_popup()
 inoremap <expr> <C-e> neocomplcache#cancel_popup()
 imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
           \ "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
-autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" show block name maps
 nnoremap [d :call ShowBlockName('[d')<CR>
 nnoremap [i :call ShowBlockName('[i')<CR>
 " Disable Luc Hermitte's maps
@@ -367,6 +375,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
+let g:loaded_fortune_vimtips = 1
 let g:fortune_vimtips_file = "wisdom"
 let g:rainbow_activate=1
 let g:tinykeymap#map#windows#map = "gw"
@@ -648,7 +657,8 @@ let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 "------------------------------------------
 let g:SuperTabMappingForward = '<c-space>'
 let g:SuperTabMappingBackward = '<s-c-space>'
-let g:SuperTabLongestHighlight = 1
+let g:SuperTabLongestEnhanced = 1
+let g:SuperTabCrMapping = 0
 " let g:SuperTabMappingForward = '<nul>'
 " let g:SuperTabMappingBackward = '<s-nul>'
 "************************ }}}
@@ -992,7 +1002,7 @@ set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor
-colorscheme harlequin
+colorscheme candycode
 if !has("gui_running")
   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkgrey
 endif
