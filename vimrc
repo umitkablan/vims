@@ -505,18 +505,17 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_min_keyword_length = 3
+let g:neocomplcache_min_syntax_length = 2
+let g:neocomplcache_min_keyword_length = 2
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_enable_auto_select = 1
-let g:neocomplcache_max_list = 35
+let g:neocomplcache_enable_auto_select = 0
+let g:neocomplcache_max_list = 25
 let g:neocomplcache_enable_ignore_case = 0
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_cursor_hold_i = 1
-let g:neocomplcache_enable_auto_delimiter = 1
+let g:neocomplcache_enable_auto_delimiter = 0
 let g:neocomplcache_snippets_dir = '~/.vim/var/neocomplcache_snippets'
 let g:neocomplcache_temporary_dir = $HOME . '/.vim/var/neocomplcache_tmp'
-"let g:neocomplcache_enable_cursor_hold_i = 1
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -657,7 +656,7 @@ let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 "------------------------------------------
 let g:SuperTabMappingForward = '<c-space>'
 let g:SuperTabMappingBackward = '<s-c-space>'
-let g:SuperTabLongestEnhanced = 1
+let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
 " let g:SuperTabMappingForward = '<nul>'
 " let g:SuperTabMappingBackward = '<s-nul>'
