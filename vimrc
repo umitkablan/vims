@@ -181,7 +181,7 @@ autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
-call pathogen#infect()
+call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
