@@ -227,6 +227,10 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript imap <buffer> <space><space> ;
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonEscIfAppropriate()
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> SemicolonEnterIfOk()
+augroup END
+
+augroup tag_langs
+  au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
   " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
   " <CR>        --:> :TS <C-R><C-W><CR>
