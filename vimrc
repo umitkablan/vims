@@ -153,7 +153,7 @@ nnoremap <silent> <c-l> :redraw!<CR>
 nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
-nnoremap <silent> ĞRC :tabnew ~/.vim/vimrc<CR>
+nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
 vmap < <gv
 vmap > >gv
 nmap <Leader>> >a}
@@ -252,6 +252,7 @@ let g:loaded_fonts=1
 autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
+autocmd VimEnter * Alias Tabe tabe
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
@@ -387,7 +388,7 @@ let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
 let g:pasta_disabled_filetypes = ["coffee", "markdown"]
-let g:pasta_enabled_filetypes = ['actionscript']
+let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp']
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
