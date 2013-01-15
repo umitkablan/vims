@@ -63,6 +63,8 @@ set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc
 set hidden
 " backup and temp dirs
 set backup
+set undofile
+set undodir=~/.vim/var/backup
 set backupdir=~/.vim/var/backup
 set directory=~/.vim/var/tmp
 set updatetime=5000
