@@ -99,6 +99,7 @@ nnoremap Qq gQ
 nnoremap qq <Nop>
 nnoremap Q <Nop>
 nnoremap qQ Q
+nnoremap <Leader>q gqip
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
