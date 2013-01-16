@@ -380,6 +380,12 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+augroup no_sticky_buffers
+  au!
+  " TODO: can g:local_vimrc variable be used inside au?
+  au BufEnter .lvimrc nnoremap <buffer> ZZ :bd!<CR>
+  au FileType conque_term nnoremap <buffer> ZZ :bd!<CR>
+augroup END
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
@@ -1008,8 +1014,8 @@ endfunction
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
-" candycode southernlight lucid kolor
-colorscheme kingtop
+" candycode southernlight lucid kolor kingtop
+colorscheme neverness
 if !has("gui_running")
   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkgrey
 endif
