@@ -383,8 +383,8 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
-  au BufEnter .lvimrc nnoremap <buffer> ZZ :bd!<CR>
-  au FileType conque_term,svnrevert nnoremap <buffer> ZZ :bd!<CR>
+  au BufEnter .lvimrc,fugitive://* nnoremap <buffer> ZZ :bd!<CR>
+  au FileType conque_term,svnrevert,svnannotate,svnupdate nnoremap <buffer> ZZ :bd!<CR>
 augroup END
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
