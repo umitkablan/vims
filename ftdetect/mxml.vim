@@ -1,2 +1,2 @@
 
-au BufNewFile,BufRead *.mxml set ft=mxml
+au BufNewFile,BufRead *.mxml setf mxml
