@@ -384,7 +384,8 @@ augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
   au BufEnter .lvimrc,fugitive://* nnoremap <buffer> ZZ :bd!<CR>
-  au FileType conque_term,svnrevert,svnannotate,svnupdate nnoremap <buffer> ZZ :bd!<CR>
+  au FileType conque_term nnoremap <buffer> ZZ :bd!<CR>
+  au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit nnoremap <buffer> ZZ :bd!<CR>
 augroup END
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
@@ -401,7 +402,7 @@ let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
 let g:pasta_disabled_filetypes = ["coffee", "markdown"]
-let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp']
+let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript']
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
@@ -1014,10 +1015,10 @@ endfunction
 set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
-" candycode southernlight lucid kolor kingtop
-colorscheme kingtop
+" candycode southernlight lucid kolor kingtop getafe
+colorscheme badwolf
 if !has("gui_running")
-  au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkgrey
+  au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkblue
 endif
 
 winsize 170 46
