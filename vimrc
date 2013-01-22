@@ -96,6 +96,8 @@ nnoremap QQ <Nop>
 nnoremap Qq gQ
 nnoremap qq <Nop>
 nnoremap Q <Nop>
+nnoremap u <Nop>
+nnoremap U u
 nnoremap qQ Q
 nnoremap <Leader>q gqip
 nnoremap oo o<Esc>o
