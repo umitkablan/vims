@@ -48,10 +48,8 @@ set viminfo+=n~/.vim/var/viminfo
 " set formatprg=uncrustify
 set matchpairs+=<:>
 " those indent values will be overridden by an automatic indent finder. (like
-" yaifa)
-set tabstop=4
-set shiftwidth=4
-set expandtab
+" sleuth, yaifa): sleuth now almost never makes use of these settings.
+set tabstop=4 shiftwidth=4 expandtab
 set incsearch
 " clear tags n path; use some other technique to decide
 set tags=
@@ -1018,7 +1016,7 @@ set background=dark
 " candycode southernlight lucid kolor kingtop getafe
 colorscheme badwolf
 if !has("gui_running")
-  au ColorScheme * hi CursorLine term=none cterm=none ctermbg=darkblue
+  au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001522
 endif
 
 winsize 170 46
