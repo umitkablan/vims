@@ -8,11 +8,16 @@ if exists("g:loaded_sleuth") || v:version < 700 || &cp
 endif
 let g:loaded_sleuth = 1
 
+let g:default_tabstop = &tabstop
+let g:default_shiftwidth = &shiftwidth
+
 function! s:guess(lines) abort
   let options = {}
   let heuristics = {'spaces': 0, 'hard': 0, 'soft': 0}
   let ccomment = 0
   let podcomment = 0
+
+  let options.shiftwidth = g:default_shiftwidth
 
   for line in a:lines
 
@@ -61,7 +66,7 @@ function! s:guess(lines) abort
   elseif heuristics.soft != heuristics.hard
     let options.expandtab = heuristics.soft > heuristics.hard
     if heuristics.hard
-      let options.tabstop = 8
+      let options.tabstop = g:default_tabstop
     endif
   endif
 
