@@ -151,6 +151,8 @@ nnoremap <silent> <Tab>j <C-W>j
 nnoremap <silent> <Tab>k <C-W>k
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
+nnoremap <silent> <Tab><Tab>j <Nop>
+nnoremap <silent> <Tab><Tab>k <Nop>
 " full redraw
 nnoremap <silent> <c-l> :redraw!<CR>
 nnoremap <silent> HH :hide<CR>
@@ -380,6 +382,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
@@ -1016,7 +1019,7 @@ set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe
-colorscheme molokai
+colorscheme ubloh
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
