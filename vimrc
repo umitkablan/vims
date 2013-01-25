@@ -151,8 +151,8 @@ nnoremap <silent> <Tab>j <C-W>j
 nnoremap <silent> <Tab>k <C-W>k
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
-nnoremap <silent> <Tab><Tab>j <Nop>
-nnoremap <silent> <Tab><Tab>k <Nop>
+nnoremap <silent> <Tab><Tab>j :<Esc>
+nnoremap <silent> <Tab><Tab>k :<Esc>
 " full redraw
 nnoremap <silent> <c-l> :redraw!<CR>
 nnoremap <silent> HH :hide<CR>
