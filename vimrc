@@ -145,14 +145,10 @@ if has("gui")
 endif
 nnoremap <silent> <Tab><space> :update<CR>
 " using TAB instead of ^W is easier
-nnoremap <silent> <Tab>l <C-W>l
-nnoremap <silent> <Tab>h <C-W>h
-nnoremap <silent> <Tab>j <C-W>j
-nnoremap <silent> <Tab>k <C-W>k
+nmap <Tab> <C-W>
+nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
-nnoremap <silent> <Tab><Tab>j :<Esc>
-nnoremap <silent> <Tab><Tab>k :<Esc>
 " full redraw
 nnoremap <silent> <c-l> :redraw!<CR>
 nnoremap <silent> HH :hide<CR>
@@ -300,7 +296,7 @@ vnoremap '! :ClamVisual <Space>
 " nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
 " nnoremap <silent> <Leader>b  :FufBuffer<CR>
 " nmap <silent> <unique> <Leader>b <Plug>SelectBuf
-nmap <silent> <Tab><Tab> :call ToggleIndGuides_RC()<CR>
+nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
 nmap CAL  <Plug>CalendarV
 nmap HCAL <Plug>CalendarH
 nmap VCAL <Plug>CalendarV
