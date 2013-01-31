@@ -384,6 +384,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
+let g:syntastic_c_compiler_options = "-Wall -std=gnu99"
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
@@ -1020,7 +1021,7 @@ set background=dark
 " bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe
-colorscheme ubloh
+colorscheme fnaqevan
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
