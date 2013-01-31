@@ -186,13 +186,18 @@ call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
+function! IsCurAComment()
+  let syn = synIDtrans(synID(line("."), col(".")-1, 1))
+  return syn == hlID("Comment")
+endfunction
+
 function! IsSemicolonAppropriate(cline)
   " TODO:
   " Write a regex which will execute faster
   " Think about plugin extraction of the idea
   let lastchar  = a:cline[col("$")-2]
   let firstchar = a:cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && a:cline !~ '^\s*$'
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && a:cline !~ '^\s*$' && !IsCurAComment()
     return 1
   endif
   return 0
