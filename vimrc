@@ -197,7 +197,7 @@ function! IsSemicolonAppropriate(cline)
   " Think about plugin extraction of the idea
   let lastchar  = a:cline[col("$")-2]
   let firstchar = a:cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && a:cline !~ '^\s*$' && !IsCurAComment()
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && a:cline !~ '^\s*$' && lastchar != "\\" && !IsCurAComment()
     return 1
   endif
   return 0
