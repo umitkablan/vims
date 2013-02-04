@@ -390,7 +390,7 @@ augroup no_sticky_buffers
   " TODO: can g:local_vimrc variable be used inside au?
   au BufEnter .lvimrc,fugitive://* nnoremap <buffer> ZZ :bd!<CR>
   au FileType conque_term nnoremap <buffer> ZZ :bd!<CR>
-  au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit nnoremap <buffer> ZZ :bd!<CR>
+  au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit,svnstatus,svninfo nnoremap <buffer> ZZ :bd!<CR>
 augroup END
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
@@ -1018,7 +1018,7 @@ endfunction
 "******************************************** }}}
 
 set background=dark
-" bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
+" hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe
 colorscheme fnaqevan
