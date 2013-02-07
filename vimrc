@@ -383,6 +383,10 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
+call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-Wall -std=gnu99"
 augroup no_sticky_buffers
@@ -1020,8 +1024,8 @@ endfunction
 set background=dark
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
-" candycode southernlight lucid kolor kingtop getafe
-colorscheme fnaqevan
+" candycode southernlight lucid kolor kingtop getafe phonzia
+colorscheme phonzia
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
