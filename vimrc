@@ -103,8 +103,6 @@ nnoremap <Leader>q gqip
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
-" escape under my fingers
-inoremap jk <Esc>
 " swap comma (,) and semicolon (;) because my keyboard is comma-privileged
 noremap , ;
 noremap ; ,
@@ -234,6 +232,15 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonEscIfAppropriate()
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> SemicolonEnterIfOk()
 augroup END
+
+function! SelectPumAndEsc()
+  if pumvisible()
+    return ''
+  endif
+  return ''
+endfunction
+
+imap <expr> jk SelectPumAndEsc()
 
 augroup tag_langs
   au!
@@ -383,6 +390,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:dbext_default_SQLITE_bin = 'sqlite3'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
@@ -1019,6 +1027,16 @@ function! s:NextTextObject(motion, dir)
   endif
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
+
+" Source a range of visually selected vim
+function! SourceRange() range
+  let tmp = tempname()
+  call writefile(getline(a:firstline,
+\                    a:lastline), l:tmp)
+  execute "source " . l:tmp
+  call delete(l:tmp)
+endfunction
+command! -range Source <line1>,<line2>call SourceRange()
 "******************************************** }}}
 
 set background=dark
