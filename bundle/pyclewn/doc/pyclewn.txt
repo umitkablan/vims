@@ -538,7 +538,7 @@ terminal associated with pyclewn. The|inferiortty|command provides the same
 functionality as above and spawns the controlling terminal (using the
 --terminal option, default xterm) of the debuggee and sets accordingly gdb
 'inferior-tty' variable and the TERM environment variable. The gdb
-'inferior-tty' variable *MUST* be set *BEFORE* the inferior is started.
+'inferior-tty' variable MUST be set BEFORE the inferior is started.
 
 One can also do step by step what the above command does automatically: start
 the "inferior_tty.py" script installed with pyclewn. This script creates a
