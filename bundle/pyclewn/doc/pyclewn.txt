@@ -434,7 +434,7 @@ menu.
 
 Note:
 The gdb debugger cannot handle requests asynchronously, so the
-|async-option|must be set, when mapping a key to a sequence of commands.
+|async-option| must be set, when mapping a key to a sequence of commands.
 With this option set, one can build for example the following mapping: >
 
     :map <F8> :Cfile /path/to/foobar <Bar> Cbreak main <Bar> Crun <CR>
@@ -738,8 +738,8 @@ commands that are listed here:
                                                     *inferiortty*
     * Cinferiortty  spawn the controlling terminal (default xterm) of the
                     debuggee and sets accordingly gdb 'inferior-tty' variable
-                    and the TERM environment variable; this command  *MUST* be
-                    issued *BEFORE* starting the inferior.
+                    and the TERM environment variable; this command  MUST be
+                    issued BEFORE starting the inferior.
 
     * Cloglevel      print or set the log level dynamically from inside Vim
 
