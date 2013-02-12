@@ -270,6 +270,8 @@ autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
+autocmd VimEnter * Alias rg Rgrep
+autocmd VimEnter * Alias a Ack!
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
