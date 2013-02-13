@@ -215,32 +215,16 @@ function! YieldSemicolonEscIfAppropriate()
   return ''
 endfunction
 
-function! SemicolonEnterIfOk()
-  if !pumvisible() && IsSemicolonAppropriate(getline("."))
-    return ';'
-  endif
-  return ''
-endfunction
-
-
 " personal plugin maps
 " --------------------
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript imap <buffer> <space><space> ;
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonEscIfAppropriate()
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> SemicolonEnterIfOk()
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriate(getline(".")) ? ";\<CR>" : "\<CR>"
 augroup END
 
-function! SelectPumAndEsc()
-  if pumvisible()
-    return ''
-  endif
-  return ''
-endfunction
-
-imap <expr> jk SelectPumAndEsc()
+imap <expr> jk pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 
 augroup tag_langs
   au!
