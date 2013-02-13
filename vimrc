@@ -269,7 +269,6 @@ nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>e :lcd %:h<CR>:Unite -start-insert file<CR>
-" nnoremap <silent> <Leader>e :CommandT<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
 nnoremap ĞUU :Underline<space>
