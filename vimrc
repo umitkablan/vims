@@ -257,6 +257,7 @@ autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias rg Rgrep
 autocmd VimEnter * Alias a Ack!
+autocmd VimEnter * Alias aa AckAdd!
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
