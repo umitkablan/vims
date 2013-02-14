@@ -1,7 +1,7 @@
 
 --smart-case
 --follow
---ignore-dir=\.*
+--ignore-dir=neocomplcache_tmp
 --type-set=csv=.csv,.tsv
 --type-set=gettext=.pot,.po
 # this type is produced by makefile in my system
