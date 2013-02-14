@@ -258,6 +258,7 @@ autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias rg Rgrep
 autocmd VimEnter * Alias a Ack!
 autocmd VimEnter * Alias aa AckAdd!
+autocmd VimEnter * Alias u Underline
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
@@ -273,7 +274,6 @@ nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>e :lcd %:h<CR>:Unite -start-insert file<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
-nnoremap ĞUU :Underline<space>
 nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
