@@ -176,6 +176,7 @@ nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Esc><Esc> "\<Esc>"
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
