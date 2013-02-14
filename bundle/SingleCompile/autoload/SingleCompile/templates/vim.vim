@@ -1,4 +1,4 @@
-" Copyright (C) 2010-2012 Hong Xu
+" Copyright (C) 2012 Hong Xu
 
 " This file is part of SingleCompile.
 
@@ -17,13 +17,9 @@
 
 " check doc/SingleCompile.txt for more information
 
-function! SingleCompile#templates#dosbatch#Initialize()
-    if has('win32')
-        let l:cmd_path = $SYSTEMROOT . '\System32\cmd.exe'
-
-        call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch',
-                    \'DOS Batch', l:cmd_path, '/C', '')
-    endif
+function! SingleCompile#templates#vim#Initialize()
+    call SingleCompile#SetCompilerTemplate('vim', 'vim', 'Vim',
+                \'vim', '-u NONE -U NONE -e -N -n -S', '')
 endfunction
 
 "vim703: cc=78

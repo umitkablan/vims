@@ -17,13 +17,10 @@
 
 " check doc/SingleCompile.txt for more information
 
-function! SingleCompile#templates#dosbatch#Initialize()
-    if has('win32')
-        let l:cmd_path = $SYSTEMROOT . '\System32\cmd.exe'
-
-        call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch',
-                    \'DOS Batch', l:cmd_path, '/C', '')
-    endif
+function! SingleCompile#templates#go#Initialize()
+    call SingleCompile#SetCompilerTemplate('go', 'go', 'Go',
+                \ 'go', 'build -o $(FILE_TITLE)$', g:SingleCompile_common_run_command)
+    call SingleCompile#SetPriority('go', 'Go', 20)
 endfunction
 
 "vim703: cc=78
