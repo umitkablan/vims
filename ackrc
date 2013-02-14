@@ -1,0 +1,17 @@
+
+--smart-case
+--follow
+--ignore-dir=\.*
+--type-set=csv=.csv,.tsv
+--type-set=gettext=.pot,.po
+# this type is produced by makefile in my system
+--type-set=deps=.cmd,.cmd
+
+# types to ignore by default
+--nogettext
+--nodeps
+
+#-G^.*$
+#--type-set=xlf=.xlf
+#--type-add=jsp=.tag
+#--type=noxlf
