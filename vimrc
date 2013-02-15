@@ -384,12 +384,13 @@ call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-Wall -std=gnu99"
+let g:syntastic_c_checkers=['make', 'gcc']
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
   au BufEnter .lvimrc,fugitive://* nnoremap <buffer> ZZ :bd!<CR>
   au FileType conque_term nnoremap <buffer> ZZ :bd!<CR>
-  au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit,svnstatus,svninfo nnoremap <buffer> ZZ :bd!<CR>
+  au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit,svnstatus,svninfo,svnadd nnoremap <buffer> ZZ :bd!<CR>
 augroup END
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
@@ -809,7 +810,7 @@ function! DecAndHex(number)
     echo "NaN"
   endif
 endfunction
-nnoremap <silent> ĞN :call DecAndHex(expand("<cWORD>"))<CR>
+nnoremap <silent> ĞN :redir @n<cr>:call DecAndHex(expand("<cWORD>"))<CR>:redir END<cr>
 
 function! VimProcMake()
   let sub = vimproc#popen2(':make')
