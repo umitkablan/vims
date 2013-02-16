@@ -274,6 +274,7 @@ nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>e :lcd %:h<CR>:Unite -start-insert file<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
+nnoremap ĞUU :Underline<CR>
 nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
