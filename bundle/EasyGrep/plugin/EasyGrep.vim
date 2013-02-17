@@ -155,7 +155,7 @@ endfunction
 function! s:GetVisibleBuffers()
     let tablist = []
     for i in range(tabpagenr('$'))
-       call extend(tablist, tabpagebuflist(i + 1))
+        call extend(tablist, tabpagebuflist(i + 1))
     endfor
     let tablist = s:unique(tablist)
     return tablist
@@ -1538,7 +1538,7 @@ function! s:ParseFileAssociationList()
     endif
 
     if !filereadable(lst)
-        call s:Error("Grep Pattern file list can't be read")
+        " call s:Error("Grep Pattern file list can't be read")
         return
     endif
 
@@ -3113,7 +3113,7 @@ function! s:GetFileAssociationList()
         endif
     endfor
 
-    call s:Error("Grep Pattern file list can't be read")
+    " call s:Error("Grep Pattern file list can't be read")
     let g:EasyGrepFileAssociations=""
     return ""
 endfunction
@@ -3157,9 +3157,9 @@ else
 \   && w != "belowright"
 \   && w != "topleft"
 \   && w != "botright"
-       call s:Error("Invalid position specified in g:EasyGrepWindowPosition")
-       let g:EasyGrepWindowPosition=""
-   endif
+        call s:Error("Invalid position specified in g:EasyGrepWindowPosition")
+        let g:EasyGrepWindowPosition=""
+    endif
 endif
 
 if !exists("g:EasyGrepFilesToExclude")
