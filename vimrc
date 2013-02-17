@@ -172,11 +172,13 @@ cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+nnoremap <Space> za
 nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Esc><Esc> "\<Esc>"
+inoremap ll ;
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
@@ -1032,7 +1034,7 @@ set background=dark
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia
-colorscheme phonzia
+colorscheme detailed
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
