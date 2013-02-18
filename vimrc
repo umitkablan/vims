@@ -155,8 +155,8 @@ nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
 vmap < <gv
 vmap > >gv
-nmap <Leader>> >a}
-nmap <Leader>< <a}
+nmap <Leader>> >i}
+nmap <Leader>< <i}
 "nnoremap <silent> gf :sp <cfile><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-j> @='jojo'<cr>
@@ -166,20 +166,13 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap <silent> gn /<CR>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
+nnoremap <Space> za
+nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 " ease cmdline 0/$ movement
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-
-nnoremap <Space> za
-nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Esc><Esc> "\<Esc>"
-inoremap ll ;
-autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
@@ -228,7 +221,17 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriate(getline(".")) ? ";\<CR>" : "\<CR>"
 augroup END
 
+augroup hide_pum
+  au!
+  autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+augroup END
+
 imap <expr> jk pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+imap lk ;
+" prevent escape to cancel previous escape
+inoremap <expr> <Esc><Esc> "\<Esc>"
 
 augroup tag_langs
   au!
