@@ -155,8 +155,8 @@ nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
 vmap < <gv
 vmap > >gv
-nmap <Leader>> >a}
-nmap <Leader>< <a}
+nmap <Leader>> >i}
+nmap <Leader>< <i}
 "nnoremap <silent> gf :sp <cfile><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-j> @='jojo'<cr>
@@ -166,20 +166,13 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap <silent> gn /<CR>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
+nnoremap <Space> za
+nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 " ease cmdline 0/$ movement
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-
-nnoremap <Space> za
-nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Esc><Esc> "\<Esc>"
-inoremap ll ;
-autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 
@@ -187,25 +180,26 @@ call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
-function! IsCurAComment()
+function! IsHereAComment()
   let syn = synIDtrans(synID(line("."), col(".")-1, 1))
   return syn == hlID("Comment")
 endfunction
 
-function! IsSemicolonAppropriate(cline)
+function! IsSemicolonAppropriateHere()
   " TODO:
   " Write a regex which will execute faster
   " Think about plugin extraction of the idea
-  let lastchar  = a:cline[col("$")-2]
-  let firstchar = a:cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && a:cline !~ '^\s*$' && lastchar != "\\" && !IsCurAComment()
+  let cline = getline(".")
+  let lastchar  = cline[col("$")-2]
+  let firstchar = cline[0]
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && cline !~ '^\s*$' && lastchar != "\\" && !IsHereAComment()
     return 1
   endif
   return 0
 endfunction
 
 function! YieldSemicolonEscIfAppropriate()
-  let isappr = IsSemicolonAppropriate(getline("."))
+  let isappr = IsSemicolonAppropriateHere()
   if pumvisible()
     if isappr
       return ';'
@@ -224,10 +218,20 @@ endfunction
 augroup semicolon_langs
   au!
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonEscIfAppropriate()
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriate(getline(".")) ? ";\<CR>" : "\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+augroup END
+
+augroup hide_pum
+  au!
+  autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 augroup END
 
 imap <expr> jk pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+imap lk ;
+" prevent escape to cancel previous escape
+inoremap <expr> <Esc><Esc> "\<Esc>"
 
 augroup tag_langs
   au!
@@ -252,7 +256,6 @@ nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
 imap jj <Esc><Plug>SuperTabForward
-let g:loaded_fonts=1
 autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
@@ -261,6 +264,9 @@ autocmd VimEnter * Alias rg Rgrep
 autocmd VimEnter * Alias a Ack!
 autocmd VimEnter * Alias aa AckAdd!
 autocmd VimEnter * Alias u Underline
+autocmd VimEnter * Alias vcc VCSCommit
+autocmd VimEnter * Alias vcd VCSDiff
+autocmd VimEnter * Alias er Errors
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
@@ -276,7 +282,7 @@ nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>e :lcd %:h<CR>:Unite -start-insert file<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
-nnoremap ĞUU :Underline<CR>
+nnoremap <silent> ĞUU :Underline<CR>
 nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
@@ -380,6 +386,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:loaded_fonts=1
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
@@ -387,7 +394,7 @@ call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-Wall -std=gnu99"
-let g:syntastic_c_checkers=['make', 'gcc']
+let g:syntastic_c_checkers=['gcc'] " , 'make'
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
