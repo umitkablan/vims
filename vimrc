@@ -218,7 +218,7 @@ endfunction
 augroup semicolon_langs
   au!
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonEscIfAppropriate()
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriate(getline(".")) ? ";\<CR>" : "\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 
 augroup hide_pum
@@ -393,7 +393,7 @@ call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-Wall -std=gnu99"
-let g:syntastic_c_checkers=['make', 'gcc']
+let g:syntastic_c_checkers=['gcc'] " , 'make'
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
