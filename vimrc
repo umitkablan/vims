@@ -266,6 +266,7 @@ autocmd VimEnter * Alias aa AckAdd!
 autocmd VimEnter * Alias u Underline
 autocmd VimEnter * Alias vcc VCSCommit
 autocmd VimEnter * Alias vcd VCSDiff
+autocmd VimEnter * Alias er Errors
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
