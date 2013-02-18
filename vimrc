@@ -187,25 +187,26 @@ call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
-function! IsCurAComment()
+function! IsHereAComment()
   let syn = synIDtrans(synID(line("."), col(".")-1, 1))
   return syn == hlID("Comment")
 endfunction
 
-function! IsSemicolonAppropriate(cline)
+function! IsSemicolonAppropriateHere()
   " TODO:
   " Write a regex which will execute faster
   " Think about plugin extraction of the idea
-  let lastchar  = a:cline[col("$")-2]
-  let firstchar = a:cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && a:cline !~ '^\s*$' && lastchar != "\\" && !IsCurAComment()
+  let cline = getline(".")
+  let lastchar  = cline[col("$")-2]
+  let firstchar = cline[0]
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && cline !~ '^\s*$' && lastchar != "\\" && !IsHereAComment()
     return 1
   endif
   return 0
 endfunction
 
 function! YieldSemicolonEscIfAppropriate()
-  let isappr = IsSemicolonAppropriate(getline("."))
+  let isappr = IsSemicolonAppropriateHere()
   if pumvisible()
     if isappr
       return ';'
@@ -252,7 +253,6 @@ nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
 imap jj <Esc><Plug>SuperTabForward
-let g:loaded_fonts=1
 autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
@@ -380,6 +380,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:loaded_fonts=1
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
