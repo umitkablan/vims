@@ -255,7 +255,6 @@ au FileType help :set nonumber
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
-imap jj <Esc><Plug>SuperTabForward
 autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
@@ -684,12 +683,10 @@ let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
   "call <SID>SetMainDefaults()
 "endfunction
 "------------------------------------------
-let g:SuperTabMappingForward = '<c-space>'
-let g:SuperTabMappingBackward = '<s-c-space>'
+let g:SuperTabMappingForward = '<C-Space>'
+let g:SuperTabMappingBackward = '<S-C-Space>'
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
-" let g:SuperTabMappingForward = '<nul>'
-" let g:SuperTabMappingBackward = '<s-nul>'
 "************************ }}}
 
 "let g:vimmp_server_type="mpd"
