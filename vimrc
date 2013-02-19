@@ -229,9 +229,11 @@ augroup END
 imap <expr> jk pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
-imap lk ;
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
+
+imap lk ;
+imap <expr> lkk ";\<Esc>"
 
 augroup tag_langs
   au!
@@ -265,7 +267,9 @@ autocmd VimEnter * Alias aa AckAdd!
 autocmd VimEnter * Alias u Underline
 autocmd VimEnter * Alias vcc VCSCommit
 autocmd VimEnter * Alias vcd VCSDiff
+autocmd VimEnter * Alias vcr VCSRevert
 autocmd VimEnter * Alias er Errors
+autocmd VimEnter * Alias Er Errors
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
@@ -392,7 +396,14 @@ call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
-let g:syntastic_c_compiler_options = "-Wall -std=gnu99"
+let g:syntastic_c_compiler_options = "-std=gnu99
+                                  \  -Wall -Wextra -Wshadow -Wpointer-arith
+                                  \  -Wcast-align -Wwrite-strings -Wmissing-prototypes
+                                  \  -Wmissing-declarations -Wredundant-decls -Wnested-externs
+                                  \  -Winline -Wno-long-long -Wuninitialized -Wconversion
+                                  \  -Wstrict-prototypes"
+"-pedantic
+
 let g:syntastic_c_checkers=['gcc'] " , 'make'
 augroup no_sticky_buffers
   au!
