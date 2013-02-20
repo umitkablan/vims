@@ -226,14 +226,12 @@ augroup hide_pum
   autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 augroup END
 
+imap hj ;
 imap <expr> jk pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
-
-imap lk ;
-imap <expr> lkk ";\<Esc>"
 
 augroup tag_langs
   au!
