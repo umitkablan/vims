@@ -8,6 +8,7 @@
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/
+
 --langdef=actionscript
 --langmap=actionscript:.as
 --regex-actionscript=/^[ \t]*[(protected|private|public|static)( \t)]*package[ \t]*([A-Za-z0-9_.]+)[ \t]*/\1/p,package/
