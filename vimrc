@@ -255,19 +255,21 @@ au FileType help :set nonumber
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 
-autocmd VimEnter * Alias git Git
-autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
+autocmd VimEnter * Alias un Underline
+autocmd VimEnter * Alias git Git
+autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias rg Rgrep
-autocmd VimEnter * Alias a Ack!
-autocmd VimEnter * Alias aa AckAdd!
-autocmd VimEnter * Alias u Underline
-autocmd VimEnter * Alias vcc VCSCommit
-autocmd VimEnter * Alias vcd VCSDiff
-autocmd VimEnter * Alias vcr VCSRevert
+autocmd VimEnter * Alias ag LAg!
+autocmd VimEnter * Alias agg LAgAdd!
+autocmd VimEnter * Alias ac Ack!
+autocmd VimEnter * Alias acc AckAdd!
+autocmd VimEnter * Alias vc VCSCommit
+autocmd VimEnter * Alias vd VCSDiff
+autocmd VimEnter * Alias vr VCSRevert
+autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias er Errors
-autocmd VimEnter * Alias Er Errors
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
@@ -388,11 +390,13 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 let g:loaded_fonts=1
+let g:agprg = "ag --nocolor --nogroup --column --ignore=tags"
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
+" syntastic ------------------------------------------------- {{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-std=gnu99
                                   \  -Wall -Wextra -Wshadow -Wpointer-arith
@@ -403,6 +407,7 @@ let g:syntastic_c_compiler_options = "-std=gnu99
 "-pedantic
 
 let g:syntastic_c_checkers=['gcc'] " , 'make'
+" ----------------------------------------------------------- }}
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
