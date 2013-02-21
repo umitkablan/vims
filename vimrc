@@ -260,16 +260,17 @@ autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
 autocmd VimEnter * Alias git Git
 autocmd VimEnter * Alias gst Gstatus
+autocmd VimEnter * Alias er Errors
 autocmd VimEnter * Alias rg Rgrep
-autocmd VimEnter * Alias ag LAg!
-autocmd VimEnter * Alias agg LAgAdd!
+autocmd VimEnter * Alias ag LAck!
+autocmd VimEnter * Alias agg LAckAdd!
 autocmd VimEnter * Alias ac Ack!
 autocmd VimEnter * Alias acc AckAdd!
 autocmd VimEnter * Alias vc VCSCommit
 autocmd VimEnter * Alias vd VCSDiff
 autocmd VimEnter * Alias vr VCSRevert
 autocmd VimEnter * Alias vb VCSBlame
-autocmd VimEnter * Alias er Errors
+autocmd VimEnter * Alias vu VCSUpdate
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
@@ -390,7 +391,11 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 let g:loaded_fonts=1
-" let g:ackprg = 'ag --nogroup --nocolor --column'
+if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
+  let g:ackprg = 'ag --nocolor --nogroup --column'
+else
+  let g:ackprg = 'ack -H --nocolor --nogroup --column'
+endif
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
