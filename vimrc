@@ -108,8 +108,12 @@ noremap , ;
 noremap ; ,
 onoremap , ;
 onoremap ; ,
+xnoremap , ;
+xnoremap ; ,
 noremap g; g,
 noremap g, g;
+" Handy, go to last edit. It is frequently done twice.
+nmap g,, g,g,
 " not to press shift key
 map gl $
 map gh ^
