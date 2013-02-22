@@ -617,15 +617,15 @@ let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
 let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showresultafterrun = 0
-"------------------------------------------
+" ConqueTerm ------------------------------ {{
 let g:ConqueTerm_ReadUnfocused = 0
 let g:ConqueTerm_CloseOnEnd = 1
 let g:ConqueTerm_CWInsert = 0
-let g:ConqueTerm_ToggleKey = '<F8>'
-let g:ConqueTerm_SendVisKey = '<F9>'
-let g:ConqueTerm_SendFileKey = '<F10>'
-let g:ConqueTerm_ExecFileKey = '<F11>'
-"------------------------------------------
+let g:ConqueTerm_ToggleKey   = '<C-F8>'
+let g:ConqueTerm_SendVisKey  = '<C-F9>'
+let g:ConqueTerm_SendFileKey = '<C-F10>'
+let g:ConqueTerm_ExecFileKey = '<C-F11>'
+" ----------------------------------------- }}
 let g:no_tagselect_maps = 1
 "------------------------------------------
 let g:ctags_path = '/usr/bin/ctags'
