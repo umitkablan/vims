@@ -414,8 +414,15 @@ let g:syntastic_c_compiler_options = "-std=gnu99
                                   \  -Winline -Wno-long-long -Wuninitialized -Wconversion
                                   \  -Wstrict-prototypes"
 "-pedantic
-
 let g:syntastic_c_checkers=['gcc'] " , 'make'
+let g:syntastic_stl_format = '[=> ln:%F (%t)]'
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_auto_loc_list=1
+let g:syntastic_c_no_include_search = 1
+let g:syntastic_c_auto_refresh_includes = 1
+let g:syntastic_c_check_header = 1
 " ----------------------------------------------------------- }}
 augroup no_sticky_buffers
   au!
@@ -424,6 +431,7 @@ augroup no_sticky_buffers
   au FileType conque_term nnoremap <buffer> ZZ :bd!<CR>
   au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit,svnstatus,svninfo,svnadd nnoremap <buffer> ZZ :bd!<CR>
 augroup END
+"------------------------------------------
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
@@ -494,15 +502,6 @@ let g:Signs_QFList = 1
 let g:Signs_Alternate = 0
 " SignExpression getline(v:lnum)=~'TODO'
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] "'marks', 'cursor', 'rel'
-"------------------------------------------
-let g:syntastic_stl_format = '[=> ln:%F (%t)]'
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_auto_loc_list=2
-let g:syntastic_c_no_include_search = 1
-let g:syntastic_c_auto_refresh_includes = 1
-let g:syntastic_c_check_header = 0
 "------------------------------------------
 let g:loaded_easytags = "disable_"
 let g:easytags_file = "~/.vim/easytags_TAGS"
