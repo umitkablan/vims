@@ -263,6 +263,7 @@ autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
 autocmd VimEnter * Alias git Git
+autocmd VimEnter * Alias gt Git
 autocmd VimEnter * Alias gst Gstatus
 autocmd VimEnter * Alias er Errors
 autocmd VimEnter * Alias rg Rgrep
