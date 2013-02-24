@@ -112,6 +112,7 @@ if !has("gui_running")
   call Allmap(' <ESC>]     ]')
   call Allmap(' <ESC>~     ~')
   call Allmap(' <Esc>@     @')
+  call Allmap(' <Esc>#     #')
 else
   call Allmap(' <M-Left>  <Left>')
   call Allmap(' <M-Right> <Right>')
@@ -119,6 +120,7 @@ else
   call Allmap(' <M-Down>  <Down>')
   call Allmap(' þ         ~')
   call Allmap(' À         @')
+  call Allmap(' £         #')
 endif
 "*************** }}}
 
