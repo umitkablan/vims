@@ -71,13 +71,9 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " set notimeout ttimeout ttimeoutlen=200
 " keep cursor always at the middle
 " set scrolloff=9999
-" fixing arrow keys on terminal Vim
-inoremap <Esc>D <Left>
-inoremap <Esc>A <Up>
-inoremap <Esc>B <Down>
-inoremap <Esc>C <Right>
 " show tabline every now and then
 set showtabline=2
+
 autocmd FileType text set wrap linebreak
 autocmd FileType (^text) set nowrap nolinebreak
 autocmd TabLeave * stopinsert
@@ -85,7 +81,46 @@ au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p
 set cursorline nocursorcolumn
 " au InsertEnter * set nocursorline
 " au InsertLeave * set cursorline
-"**************** }}}
+"*************** }}}
+
+"***************** {{{
+" fixing arrow keys on terminal Vim
+" -----------------------------------
+"
+" Two ideas are..
+" 1) set <Left>=[1;3D
+" 2) (i)(nore)map <Esc>OC <Right>
+
+" using the first idea is logical for transportability reasons.
+function Allmap(mapping)
+  execute 'map' a:mapping
+  execute 'map!' a:mapping
+endfunction
+
+if !has("gui_running")
+  call Allmap(' <ESC>[1;3D <Left>')
+  call Allmap(' <ESC>[1;3A <Up>')
+  call Allmap(' <ESC>[1;3B <Down>')
+  call Allmap(' <ESC>[1;3C <Right>')
+  call Allmap(' <Esc>OD    <Left>')
+  call Allmap(' <Esc>OA    <Up>')
+  call Allmap(' <Esc>OB    <Down>')
+  call Allmap(' <Esc>OC    <Right>')
+  call Allmap(' <ESC>}     }')
+  call Allmap(' <ESC>{     {')
+  call Allmap(' <ESC>[     [')
+  call Allmap(' <ESC>]     ]')
+  call Allmap(' <ESC>~     ~')
+  call Allmap(' <Esc>@     @')
+else
+  call Allmap(' <M-Left>  <Left>')
+  call Allmap(' <M-Right> <Right>')
+  call Allmap(' <M-Up>    <Up>')
+  call Allmap(' <M-Down>  <Down>')
+  call Allmap(' þ         ~')
+  call Allmap(' À         @')
+endif
+"*************** }}}
 
 "personal maps: maps that does not need plugins
 "************* {{{
