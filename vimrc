@@ -269,8 +269,24 @@ augroup END
 
 imap hj ;
 imap <expr> jk pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+
+function! MapPumInsert(key, insertSpaceAfter)
+  if !a:insertSpaceAfter
+    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
+  else
+    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\<Space>\" : \"".a:key."\""
+  endif
+endfunction
+call MapPumInsert(".", 0)
+call MapPumInsert(",", 1)
+" TODO: Tweak auto-pairs for my intension:
+"	insert the selected pum-entry if visible and behave rest.
+"	Otherwise, next line won't work since it is collapsing with that plugin.
+" call MapPumInsert("(", 0)
+
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
 
