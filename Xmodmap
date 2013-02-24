@@ -1,4 +1,5 @@
-
+! "xmodmap -pm" will print all modifier keys,
+! and "xmodmap -pke" to print all normal keys.
 remove mod2 = Num_Lock
 remove mod1 = Alt_L
 remove mod5 = ISO_Level3_Shift
@@ -9,6 +10,7 @@ add mod5 = ISO_Level3_Shift
 
 clear Lock
 keysym Caps_Lock = Escape
+! add Lock = Caps_Lock
 keysym BackSpace = idotless Iabovedot
 keysym i = BackSpace
 keysym scedilla = Return
