@@ -259,7 +259,8 @@ endfunction
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk YieldSemicolonEscIfAppropriate()
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk        YieldSemicolonEscIfAppropriate()
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk<Space> YieldSemicolonEscIfAppropriate() . "\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 
@@ -269,7 +270,7 @@ augroup hide_pum
 augroup END
 
 imap hj ;
-imap <expr> jk pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
