@@ -395,8 +395,8 @@ nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 inoremap <C-j> <C-X><C-O>
 inoremap <expr> <C-y> neocomplcache#close_popup()
 inoremap <expr> <C-e> neocomplcache#cancel_popup()
-imap <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
-          \ "\<Plug>(neocomplcache_snippets_expand)" : "\<Plug>SuperTabForward"
+imap <expr> <TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
+smap <expr> <TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 " show block name maps
 nnoremap [d :call ShowBlockName('[d')<CR>
 nnoremap [i :call ShowBlockName('[i')<CR>
