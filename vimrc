@@ -93,8 +93,8 @@ au InsertLeave * set cursorline
 
 " using the first idea is logical for transportability reasons.
 function Allmap(mapping)
-  execute 'map' a:mapping
-  execute 'map!' a:mapping
+  execute 'map'  . a:mapping
+  execute 'map!' . a:mapping
 endfunction
 
 if !has("gui_running")
@@ -333,6 +333,7 @@ autocmd VimEnter * Alias vd VCSDiff
 autocmd VimEnter * Alias vr VCSRevert
 autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias vu VCSUpdate
+autocmd VimEnter * Alias vl VCSLog
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
