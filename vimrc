@@ -313,6 +313,7 @@ au FileType help :set nonumber
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
+nmap <silent> <F10> :lclose<CR>:cclose<CR>
 
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
