@@ -98,19 +98,19 @@ function Allmap(mapping)
 endfunction
 
 if !has("gui_running")
-  call Allmap(' <ESC>[1;3D <Left>')
-  call Allmap(' <ESC>[1;3A <Up>')
-  call Allmap(' <ESC>[1;3B <Down>')
-  call Allmap(' <ESC>[1;3C <Right>')
+  call Allmap(' <Esc>[1;3D <Left>')
+  call Allmap(' <Esc>[1;3A <Up>')
+  call Allmap(' <Esc>[1;3B <Down>')
+  call Allmap(' <Esc>[1;3C <Right>')
   call Allmap(' <Esc>OD    <Left>')
   call Allmap(' <Esc>OA    <Up>')
   call Allmap(' <Esc>OB    <Down>')
   call Allmap(' <Esc>OC    <Right>')
-  call Allmap(' <ESC>}     }')
-  call Allmap(' <ESC>{     {')
-  call Allmap(' <ESC>[     [')
-  call Allmap(' <ESC>]     ]')
-  call Allmap(' <ESC>~     ~')
+  call Allmap(' <Esc>}     }')
+  call Allmap(' <Esc>{     {')
+  call Allmap(' <Esc>[     [')
+  call Allmap(' <Esc>]     ]')
+  call Allmap(' <Esc>~     ~')
   call Allmap(' <Esc>@     @')
   call Allmap(' <Esc>#     #')
   call Allmap(' <Esc>|     |')
@@ -313,7 +313,7 @@ au FileType help :set nonumber
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
-nmap <silent> <F10> :lclose<CR>:cclose<CR>
+nmap <silent> <F10> :lclose\|cclose<CR>
 
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
