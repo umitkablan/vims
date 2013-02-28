@@ -217,6 +217,12 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
 au FileType qf nnoremap <buffer> o <CR><C-W>p
+au FileType help setlocal nonumber
+
+nmap <silent> <F5> :update<CR>:mak %<CR>
+nmap <silent> <F9> :QFix<CR>
+nmap <silent> <F10> :lclose\|cclose<CR>
+nmap <silent> <F10><F10> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
 
 call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
@@ -283,7 +289,7 @@ function! MapPumInsert(key, insertSpaceAfter)
   endif
 endfunction
 call MapPumInsert(".", 0)
-call MapPumInsert(",", 1)
+call MapPumInsert(",", 0)
 " TODO: Tweak auto-pairs for my intension:
 "	insert the selected pum-entry if visible and behave rest.
 "	Otherwise, next line won't work since it is collapsing with that plugin.
@@ -309,12 +315,6 @@ augroup preprocessor_langs
   au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
 augroup END
 
-au FileType help :set nonumber
-
-nmap <silent> <F5> :update<CR>:mak %<CR>
-nmap <silent> <F9> :QFix<CR>
-nmap <silent> <F10> :lclose\|cclose<CR>
-
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
@@ -325,7 +325,9 @@ autocmd VimEnter * Alias er Errors
 autocmd VimEnter * Alias ag  LAck!
 autocmd VimEnter * Alias agg LAckAdd!
 autocmd VimEnter * Alias ac  Ack!
+autocmd VimEnter * Alias Ac  Ack!
 autocmd VimEnter * Alias acc AckAdd!
+autocmd VimEnter * Alias Acc AckAdd!
 autocmd VimEnter * Alias gr  Grep
 autocmd VimEnter * Alias rg  Rgrep
 autocmd VimEnter * Alias grr GrepAdd
