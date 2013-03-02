@@ -219,6 +219,9 @@ cnoremap <C-e> <End>
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 au FileType help setlocal nonumber
 
+nmap <silent> ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
+nmap <silent> ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
+
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
