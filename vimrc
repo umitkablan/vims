@@ -457,6 +457,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 let g:loaded_fonts=1
+let g:loaded_headlights = 1
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column'
 else
