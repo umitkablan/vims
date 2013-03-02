@@ -1,7 +1,7 @@
 "=============================================================================
-" FILE: session.vim
+" FILE: sorter_length.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 05 Oct 2010
+" Last Modified: 19 Oct 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,35 +24,23 @@
 " }}}
 "=============================================================================
 
-if exists('g:loaded_unite_source_session')
-      \ || $SUDO_USER != ''
-  finish
-endif
-
 let s:save_cpo = &cpo
 set cpo&vim
 
-let g:unite_source_session_enable_auto_save =
-      \ get(g:, 'unite_source_session_enable_auto_save', 0)
+function! unite#filters#sorter_length#define() "{{{
+  return s:sorter
+endfunction"}}}
 
-command! -nargs=? -complete=customlist,unite#sources#session#_complete
-      \ UniteSessionSave call unite#sources#session#_save(<q-args>)
+let s:sorter = {
+      \ 'name' : 'sorter_length',
+      \ 'description' : 'sort by length order',
+      \}
 
-command! -nargs=? -complete=customlist,unite#sources#session#_complete
-      \ UniteSessionLoad call unite#sources#session#_load(<q-args>)
-
-if g:unite_source_session_enable_auto_save
-  augroup plugin-unite-source-session
-    autocmd!
-    autocmd CursorHold *
-          \ if v:this_session != '' | call unite#sources#session#_save('') | endif
-  augroup END
-endif
-
-let g:loaded_unite_source_session = 1
+function! s:sorter.filter(candidates, context) "{{{
+  return unite#util#sort_by(a:candidates, 'len(v:val.word)')
+endfunction"}}}
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
-" __END__
 " vim: foldmethod=marker
