@@ -106,13 +106,15 @@
 "               Note: This alpha version doesnt create the directory structure
 "
 "               To integrate with other incrementor scripts (such as
-"               speeddating.vim or monday.vim), :nmap
+"               speeddating.vim or monday.vim), map
 "               <Plug>SwapItFallbackIncrement and <Plug>SwapItFallbackDecrement
 "               to the keys that should be invoked when swapit doesn't have a
 "               proper option. For example for speeddating.vim:
 "
 "               nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 "               nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
+"               vmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
+"               vmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 "
 "         Bugs: {{{2
 "
@@ -121,10 +123,6 @@
 "
 "               The visual mode is inconsistent on highlighting the end of a
 "               phrase occasionally one character under see VISHACK
-"
-"               Visual selection bug: if you have set selection=exclusive. You
-"               might have trouble with the last character not being selected
-"               on a multi word swap
 "
 "        To Do: {{{2
 "
@@ -165,14 +163,17 @@ endif
 if empty(maparg('<Plug>SwapItFallbackDecrement', 'n'))
     nnoremap <Plug>SwapItFallbackDecrement <c-x>
 endif
+" Don't define default fallback mappings for visual mode; there is no such
+" built-in functionality. The undefined <Plug> mappings will cause a beep, just
+" as we want.
 
 "Command/AutoCommand Configuration {{{1
 "
 " For executing the listing
 nnoremap <silent><c-a> :<c-u>call SwapWord(expand("<cword>"),'forward', 'no')<cr>
 nnoremap <silent><c-x> :<c-u>call SwapWord(expand("<cword>"),'backward','no')<cr>
-vnoremap <silent><c-a> "dy<esc>:call SwapWord(@d,'forward','yes')<cr>
-vnoremap <silent><c-x> "dy<esc>:call SwapWord(@d,'backward','yes')<cr>
+vnoremap <silent><c-a> "dy:call SwapWord(@d,'forward','yes')<cr>
+vnoremap <silent><c-x> "dy:call SwapWord(@d,'backward','yes')<cr>
 "inoremap <silent><c-b> <esc>b"sdwi <c-r>=SwapInsert()<cr>
 "inoremap <expr> <c-b> SwapInsert()
 
@@ -228,10 +229,11 @@ endfun
 fun! ProcessMatches(match_list, cur_word, direction, is_visual)
 
     if len(a:match_list) == 0
+        let visual_prefix = (a:is_visual == 'yes' ? 'gv' : '')
         if a:direction == 'forward'
-        exec 'normal' (v:count ? v:count : '') . "\<Plug>SwapItFallbackIncrement"
-    else
-        exec 'normal' (v:count ? v:count : '') . "\<Plug>SwapItFallbackDecrement"
+            exec 'normal' visual_prefix . (v:count ? v:count : '') . "\<Plug>SwapItFallbackIncrement"
+        else
+            exec 'normal' visual_prefix . (v:count ? v:count : '') . "\<Plug>SwapItFallbackDecrement"
         endif
         return ''
     endif
@@ -294,14 +296,14 @@ fun! SwapMatch(swap_list, cur_word, direction, is_visual)
         if a:is_visual == 'yes'
             if next_word =~ '\W'
                 let in_visual = 1
-                exec 'norm! gv"sp`[v`]'
+                exec 'norm! gv"sp`[v`]' . (&selection ==# 'exclusive' ? 'l' : '')
             else
                 exec 'norm! gv"spb'
             endif
         else
             if next_word =~ '\W'
                 let in_visual = 1
-                exec 'norm! maviw"sp`[v`]'
+                exec 'norm! maviw"sp`[v`]' . (&selection ==# 'exclusive' ? 'l' : '')
             else
                 exec 'norm! maviw"spb`a'
             endif
@@ -337,8 +339,9 @@ fun! ShowSwapChoices(match_list, cur_word, direction, is_visual)
 
     "Generate the prompt {{{3
     for swap_list in a:match_list
+        let next_index = (index(swap_list['options'], a:cur_word) + (a:direction == 'forward' ? 1 : -1)) % len(swap_list['options'])
         let confirm_options =  confirm_options . ' ' . a_opts[con_index] . " . " . swap_list['name'] . ' (' .
-                    \a:cur_word . ' > ' . swap_list['options'][index(swap_list['options'], a:cur_word) + 1] . ') '
+                    \a:cur_word . ' > ' . swap_list['options'][next_index] . ') '
 
         "        For some reason concatenating stuffs up the string, using an
         "        if con_index > 0
