@@ -6,6 +6,7 @@ set toolbars=tabs
 "nmap ı H
 nmap <BS> H
 nmap <Space> f
+nmap U u
 nmap <Tab><Tab>h :tabprevious<cr>
 nmap <Tab><Tab>l :tabnext<cr>
 " ş behaves like Enter in the command mode
