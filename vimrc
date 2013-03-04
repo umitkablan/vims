@@ -219,8 +219,10 @@ cnoremap <C-e> <End>
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 au FileType help setlocal nonumber
 
-nmap <silent> ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
-nmap <silent> ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
+nmap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
+nmap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
+nnoremap ğc "+yiw
+vnoremap ğc "+y
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
