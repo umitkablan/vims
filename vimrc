@@ -216,14 +216,14 @@ cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-
-au FileType qf nnoremap <buffer> o <CR><C-W>p
-au FileType help setlocal nonumber
-
+" unnamed register to/from system clipboard
 nmap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nmap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
 nnoremap ğc "+yiw
 vnoremap ğc "+y
+
+au FileType qf nnoremap <buffer> o <CR><C-W>p
+au FileType help setlocal nonumber
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
