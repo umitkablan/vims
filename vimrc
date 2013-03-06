@@ -228,7 +228,7 @@ au FileType help setlocal nonumber
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
-nmap <silent> <F10><F10> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
+nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
 
 call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
