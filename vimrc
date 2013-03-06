@@ -333,7 +333,9 @@ autocmd VimEnter * Alias Ac  Ack!
 autocmd VimEnter * Alias acc AckAdd!
 autocmd VimEnter * Alias Acc AckAdd!
 autocmd VimEnter * Alias gr  Grep
+autocmd VimEnter * Alias Gr  Grep
 autocmd VimEnter * Alias rg  Rgrep
+autocmd VimEnter * Alias Rg  Rgrep
 autocmd VimEnter * Alias grr GrepAdd
 autocmd VimEnter * Alias vc VCSCommit
 autocmd VimEnter * Alias vd VCSDiff
