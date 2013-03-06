@@ -282,10 +282,13 @@ augroup hide_pum
 augroup END
 
 imap hj ;
+" pummode related maps. decide on different acts based on pummode.
 imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-imap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-imap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+imap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
+imap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
+imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 
 function! MapPumInsert(key, insertSpaceAfter)
   if !a:insertSpaceAfter
