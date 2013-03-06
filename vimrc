@@ -346,6 +346,7 @@ autocmd VimEnter * Alias vr VCSRevert
 autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
+nnoremap -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
