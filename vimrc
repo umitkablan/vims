@@ -281,7 +281,7 @@ augroup hide_pum
   autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 augroup END
 
-imap hj ;
+imap <expr> jkj ";\<Esc>"
 " pummode related maps. decide on different acts based on pummode.
 imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
