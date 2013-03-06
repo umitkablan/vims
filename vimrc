@@ -128,8 +128,9 @@ endif
 
 "personal maps: maps that does not need plugins
 "************* {{{
-nmap <silent> ZZ :q<CR>
-nmap <silent> ZZA :qa<CR>
+nnoremap <silent> ZZ  :hide<CR>
+nnoremap <silent> ZZA :qa<CR>
+nnoremap <silent> ZA  :bd<CR>
 " disable all _accidental touches_
 nnoremap QQ <Nop>
 nnoremap Qq gQ
@@ -344,6 +345,9 @@ autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
+call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
+call tinykeymap#Map('changelocs', ',', 'norm! g,')
+call tinykeymap#Map('changelocs', ';', 'norm! g;')
 nnoremap -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
