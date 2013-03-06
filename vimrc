@@ -552,7 +552,6 @@ let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:yankring_history_dir = expand('$HOME/.vim')
-let g:EasyMotion_leader_key = '<Tab>'
 " let g:simple_bookmarks_filename = '~/.vim/simple_bookmarks'
 "------------------------------------------
 let g:indent_guides_color_change_percent = 20
