@@ -265,14 +265,14 @@ function! IsSemicolonAppropriateHere()
 endfunction
 
 function! YieldSemicolonEscIfAppropriate()
-  let isappr = IsSemicolonAppropriateHere()
+  let l:isappr = IsSemicolonAppropriateHere()
   if pumvisible()
-    if isappr
+    if l:isappr
       return ';'
     endif
     return ''
   endif
-  if isappr
+  if l:isappr
     return ';'
   endif
   return ''
