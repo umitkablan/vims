@@ -230,6 +230,18 @@ nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
 nmap <silent> <F10><F10> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
 
+imap <expr> jkl ";\<Esc>"
+" pummode related maps. decide on different acts based on pummode.
+imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+imap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
+imap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
+imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+
+" prevent escape to cancel previous escape
+inoremap <expr> <Esc><Esc> "\<Esc>"
+
 call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
@@ -281,15 +293,6 @@ augroup hide_pum
   autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 augroup END
 
-imap <expr> jkj ";\<Esc>"
-" pummode related maps. decide on different acts based on pummode.
-imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-imap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
-imap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
-imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-
 function! MapPumInsert(key, insertSpaceAfter)
   if !a:insertSpaceAfter
     exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
@@ -298,9 +301,6 @@ function! MapPumInsert(key, insertSpaceAfter)
   endif
 endfunction
 call MapPumInsert(",", 1)
-
-" prevent escape to cancel previous escape
-inoremap <expr> <Esc><Esc> "\<Esc>"
 
 augroup tag_langs
   au!
