@@ -304,6 +304,10 @@ function! MapPumInsert(key, insertSpaceAfter)
 endfunction
 call MapPumInsert(",", 1)
 
+call pathogen#infect('bundle/*')
+autocmd BufWritePost ~/.vim/** Helptags
+call ipi#inspect()
+
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
@@ -319,10 +323,6 @@ augroup preprocessor_langs
   au!
   au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
 augroup END
-
-call pathogen#infect('bundle/*')
-autocmd BufWritePost ~/.vim/** Helptags
-call ipi#inspect()
 
 " personal plugin maps
 " --------------------
