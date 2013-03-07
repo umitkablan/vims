@@ -206,7 +206,6 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
-nnoremap <silent> gn /<CR>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 nnoremap <Space> za
@@ -242,9 +241,14 @@ imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
 
-call pathogen#infect('bundle/*')
-autocmd BufWritePost ~/.vim/** Helptags
-call ipi#inspect()
+function! SearchForwLastSearch()
+  if @/ == ""
+    return "/\<Up>\<CR>"
+  else
+    return "/\<CR>"
+  endif
+endfunction
+nnoremap <silent> <expr> gn '' . SearchForwLastSearch() . ''
 
 function! IsHereAComment()
   let syn = synIDtrans(synID(line("."), col(".")-1, 1))
@@ -278,8 +282,6 @@ function! YieldSemicolonEscIfAppropriate()
   return ''
 endfunction
 
-" personal plugin maps
-" --------------------
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
@@ -305,13 +307,12 @@ call MapPumInsert(",", 1)
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
-  " Tried Tselect (TSelect.vim) and TS (exPlugin) exclusively:
+  " Other Ideas: TSelect.vim, TS (exPlugin), Unite
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
+  " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
   au FileType c,cpp,java,javascript,python,actionscript nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
   au FileType c,cpp,java,javascript,python,actionscript nmap <buffer> <Backspace> <C-T>
-  " au FileType c,cpp,java,javascript,python,actionscript nmap <buffer> <CR> :UniteWithCursorWord -immediately tag<CR>
-  " au BufWritePost * if stridx("c,cpp,java,javascript", &ft)>=0| call s:RainbowParanthesisEnableAll_RC()|endif
 augroup END
 
 augroup preprocessor_langs
@@ -319,6 +320,12 @@ augroup preprocessor_langs
   au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
 augroup END
 
+call pathogen#infect('bundle/*')
+autocmd BufWritePost ~/.vim/** Helptags
+call ipi#inspect()
+
+" personal plugin maps
+" --------------------
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
