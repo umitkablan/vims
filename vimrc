@@ -128,8 +128,9 @@ endif
 
 "personal maps: maps that does not need plugins
 "************* {{{
-nmap <silent> ZZ :q<CR>
-nmap <silent> ZZA :qa<CR>
+nnoremap <silent> ZZ  :hide<CR>
+nnoremap <silent> ZZA :qa<CR>
+nnoremap <silent> ZA  :bd<CR>
 " disable all _accidental touches_
 nnoremap QQ <Nop>
 nnoremap Qq gQ
@@ -227,7 +228,7 @@ au FileType help setlocal nonumber
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
-nmap <silent> <F10><F10> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
+nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
 
 imap <expr> jkl ";\<Esc>"
 " pummode related maps. decide on different acts based on pummode.
@@ -340,7 +341,9 @@ autocmd VimEnter * Alias Ac  Ack!
 autocmd VimEnter * Alias acc AckAdd!
 autocmd VimEnter * Alias Acc AckAdd!
 autocmd VimEnter * Alias gr  Grep
+autocmd VimEnter * Alias Gr  Grep
 autocmd VimEnter * Alias rg  Rgrep
+autocmd VimEnter * Alias Rg  Rgrep
 autocmd VimEnter * Alias grr GrepAdd
 autocmd VimEnter * Alias vc VCSCommit
 autocmd VimEnter * Alias vd VCSDiff
@@ -348,6 +351,10 @@ autocmd VimEnter * Alias vr VCSRevert
 autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
+autocmd VimEnter * Alias vs VCSStatus
+call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
+call tinykeymap#Map('changelocs', ',', 'norm! g,')
+call tinykeymap#Map('changelocs', ';', 'norm! g;')
 nnoremap -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
