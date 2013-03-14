@@ -140,6 +140,8 @@ nnoremap u <Nop>
 nnoremap U u
 nnoremap qQ Q
 nnoremap <Leader>q gqip
+" CTRL-c to leave insert mode,  better not know it.
+nnoremap <silent> <C-c> :pwd<CR>
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
@@ -195,6 +197,7 @@ nnoremap <silent> <Tab><Tab>h :tabprev<CR>
 nnoremap <silent> <c-l> :redraw!<CR>
 nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
+nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
 vmap < <gv
@@ -225,6 +228,7 @@ vnoremap ğc "+y
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 au FileType help setlocal nonumber
 
+imap <silent> <F11> <C-O>:set invpaste<CR>
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
