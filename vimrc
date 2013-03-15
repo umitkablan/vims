@@ -253,7 +253,7 @@ function! SearchForwLastSearch()
     return "/\<CR>"
   endif
 endfunction
-nnoremap <silent> <expr> gn '' . SearchForwLastSearch() . ''
+nmap <silent> <expr> gn '' . SearchForwLastSearch() . ''
 
 function! IsHereAComment()
   let syn = synIDtrans(synID(line("."), col(".")-1, 1))
