@@ -482,6 +482,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:inline_edit_autowrite=1
 let g:loaded_fonts=1
 let g:loaded_headlights = 1
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
@@ -503,7 +504,6 @@ let g:syntastic_c_compiler_options = "-std=gnu99
                                   \  -Winline -Wno-long-long -Wuninitialized -Wconversion
                                   \  -Wstrict-prototypes"
 "-pedantic
-let g:syntastic_c_checkers=['gcc'] " , 'make'
 let g:syntastic_stl_format = '[=> ln:%F (%t)]'
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
@@ -512,6 +512,8 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_c_no_include_search = 1
 let g:syntastic_c_auto_refresh_includes = 1
 let g:syntastic_c_check_header = 1
+let g:syntastic_c_checkers=['gcc'] " , 'make'
+let g:syntastic_html_checkers=['tidy']
 " ----------------------------------------------------------- }}
 augroup no_sticky_buffers
   au!
