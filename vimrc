@@ -73,14 +73,17 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " set scrolloff=9999
 " show tabline every now and then
 set showtabline=2
-
-autocmd FileType text set wrap linebreak
-autocmd FileType (^text) set nowrap nolinebreak
-autocmd TabLeave * stopinsert
-au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 set cursorline nocursorcolumn
+set nowrap nolinebreak
+
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
+au FileType text setlocal wrap linebreak
+au TabLeave    * stopinsert
+au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
+" delete swap file if the swapped file is 'nomodified'
+au SwapExists * if !&mod | let v:swapchoice = 'd' | endif
+au VimLeave   * if v:dying | wall | endif
 "*************** }}}
 
 "***************** {{{
