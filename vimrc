@@ -243,7 +243,6 @@ nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns
 imap <expr> jkl ";\<Esc>"
 imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-nmap jk<Space> :update<CR>
 imap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
@@ -362,6 +361,8 @@ autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
+autocmd VimEnter * Alias sw SudoWrite
+autocmd VimEnter * Alias sr SudoRead
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
