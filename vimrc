@@ -363,6 +363,7 @@ autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
 autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
+autocmd VimEnter * Alias con ConqueTermSplit
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
