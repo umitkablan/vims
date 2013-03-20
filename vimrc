@@ -336,34 +336,6 @@ augroup END
 
 " personal plugin maps
 " --------------------
-autocmd VimEnter * Alias E e
-autocmd VimEnter * Alias Tabe tabe
-autocmd VimEnter * Alias un Underline
-autocmd VimEnter * Alias git Git
-autocmd VimEnter * Alias gt  Git
-autocmd VimEnter * Alias gst Gstatus
-autocmd VimEnter * Alias er Errors
-autocmd VimEnter * Alias ag  LAck!
-autocmd VimEnter * Alias agg LAckAdd!
-autocmd VimEnter * Alias ac  Ack!
-autocmd VimEnter * Alias Ac  Ack!
-autocmd VimEnter * Alias acc AckAdd!
-autocmd VimEnter * Alias Acc AckAdd!
-autocmd VimEnter * Alias gr  Grep
-autocmd VimEnter * Alias Gr  Grep
-autocmd VimEnter * Alias rg  Rgrep
-autocmd VimEnter * Alias Rg  Rgrep
-autocmd VimEnter * Alias grr GrepAdd
-autocmd VimEnter * Alias vc VCSCommit
-autocmd VimEnter * Alias vd VCSDiff
-autocmd VimEnter * Alias vr VCSRevert
-autocmd VimEnter * Alias vb VCSBlame
-autocmd VimEnter * Alias vu VCSUpdate
-autocmd VimEnter * Alias vl VCSLog
-autocmd VimEnter * Alias vs VCSStatus
-autocmd VimEnter * Alias sw SudoWrite
-autocmd VimEnter * Alias sr SudoRead
-autocmd VimEnter * Alias con ConqueTermSplit
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
@@ -487,15 +459,49 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+"Alias'es
+autocmd VimEnter * Alias E e
+autocmd VimEnter * Alias Tabe tabe
+autocmd VimEnter * Alias un Underline
+autocmd VimEnter * Alias git Git
+autocmd VimEnter * Alias gt  Git
+autocmd VimEnter * Alias gst Gstatus
+autocmd VimEnter * Alias er Errors
+autocmd VimEnter * Alias ag  LAck!
+autocmd VimEnter * Alias agg LAckAdd!
+autocmd VimEnter * Alias ac  Ack!
+autocmd VimEnter * Alias Ac  Ack!
+autocmd VimEnter * Alias acc AckAdd!
+autocmd VimEnter * Alias Acc AckAdd!
+autocmd VimEnter * Alias gr  Grep
+autocmd VimEnter * Alias Gr  Grep
+autocmd VimEnter * Alias rg  Rgrep
+autocmd VimEnter * Alias Rg  Rgrep
+autocmd VimEnter * Alias grr GrepAdd
+autocmd VimEnter * Alias vc VCSCommit
+autocmd VimEnter * Alias vd VCSDiff
+autocmd VimEnter * Alias vr VCSRevert
+autocmd VimEnter * Alias vb VCSBlame
+autocmd VimEnter * Alias vu VCSUpdate
+autocmd VimEnter * Alias vl VCSLog
+autocmd VimEnter * Alias vs VCSStatus
+autocmd VimEnter * Alias sw SudoWrite
+autocmd VimEnter * Alias sr SudoRead
+autocmd VimEnter * Alias con ConqueTermSplit
+" inline_edit
 let g:inline_edit_autowrite=1
+" fonts and headlights plugin causing problems
 let g:loaded_fonts=1
 let g:loaded_headlights = 1
+" ag/ack
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column'
 else
   let g:ackprg = 'ack -H --nocolor --nogroup --column'
 endif
+" dbext
 let g:dbext_default_SQLITE_bin = 'sqlite3'
+" gf_ext
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
