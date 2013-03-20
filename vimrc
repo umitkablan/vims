@@ -203,11 +203,14 @@ nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
+" de facto visual block indent mappings
 vmap < <gv
 vmap > >gv
 nmap <Leader>> >i}
 nmap <Leader>< <i}
-"nnoremap <silent> gf :sp <cfile><CR>
+" easier colon access
+nmap ç :
+nnoremap <silent> gf :sp <cfile><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-j> @='jojo'<cr>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
@@ -238,9 +241,9 @@ nmap <silent> <F10> :lclose\|cclose<CR>
 nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
 
 imap <expr> jkl ";\<Esc>"
-" pummode related maps. decide on different acts based on pummode.
 imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+nmap jk<Space> :update<CR>
 imap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
 imap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
