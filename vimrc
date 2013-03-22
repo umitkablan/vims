@@ -519,7 +519,8 @@ let g:syntastic_stl_format = '[=> ln:%F (%t)]'
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
-let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_always_populate_loc_list=1
 let g:syntastic_c_no_include_search = 1
 let g:syntastic_c_auto_refresh_includes = 1
 let g:syntastic_c_check_header = 1
