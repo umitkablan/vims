@@ -58,7 +58,7 @@ function! s:wrap(command,count)
     endif
 endfunction
 
-nnoremap <silent> .     :<C-U>call <SID>repeat(v:count)<CR>
+nnoremap <silent> <Bar> :<C-U>call <SID>repeat(v:count)<CR>
 " nnoremap <silent> u     :<C-U>call <SID>wrap('U',v:count)<CR>
 nnoremap <silent> U     :<C-U>call <SID>wrap('u',v:count)<CR>
 nnoremap <silent> <C-R> :<C-U>call <SID>wrap("\<Lt>C-R>",v:count)<CR>

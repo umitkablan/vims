@@ -166,7 +166,9 @@ map gh ^
 map Y y$
 " i need the 'dot' at reverse side of comma/n, which i mainly use for
 " search-replace (<comma_or_n><dot>)
-nmap <Bar> .
+nmap <silent> <Bar> :norm! .<CR>
+nmap ç :
+nmap . ç
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
@@ -209,7 +211,6 @@ vmap > >gv
 nmap <Leader>> >i}
 nmap <Leader>< <i}
 " easier colon access
-nmap ç :
 nnoremap <silent> gf :sp <cfile><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-j> @='jojo'<cr>
