@@ -460,6 +460,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 "Alias'es
+autocmd VimEnter * Alias dd diffthis
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
