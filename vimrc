@@ -541,7 +541,7 @@ augroup no_sticky_buffers
   au BufEnter .lvimrc,fugitive://* nnoremap <buffer> ZZ :bd!<CR>
   au FileType conque_term nnoremap <buffer> ZZ :bd!<CR>
   au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit,svnstatus,svninfo,svnadd nnoremap <buffer> ZZ :bd!<CR>
-  " au BufReadPost fugitive://* set(?local) bufhidden=delete
+  au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 "------------------------------------------
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
