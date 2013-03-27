@@ -75,6 +75,7 @@ set timeout timeoutlen=540 ttimeoutlen=100
 set showtabline=2
 set cursorline nocursorcolumn
 set nowrap nolinebreak
+set showmode
 
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
@@ -235,7 +236,8 @@ vnoremap ğc "+y
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 au FileType help setlocal nonumber
 
-imap <silent> <F11> <C-O>:set invpaste<CR>
+imap <silent> <F11> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F11>
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
@@ -460,7 +462,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
-let g:EasyMotion_leader_key = '<Tab>'
+let g:EasyMotion_leader_key = '<Tab><Tab>'
 "Alias'es
 autocmd VimEnter * Alias dd diffthis
 autocmd VimEnter * Alias E e
