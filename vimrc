@@ -465,12 +465,15 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 "Alias'es
 autocmd VimEnter * Alias dd diffthis
+autocmd VimEnter * Alias do diffoff
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
-autocmd VimEnter * Alias git Git
-autocmd VimEnter * Alias gt  Git
-autocmd VimEnter * Alias gst Gstatus
+autocmd VimEnter * Alias git  Git
+autocmd VimEnter * Alias gt   Git
+autocmd VimEnter * Alias gst  Gstatus
+autocmd VimEnter * Alias ge   Gedit
+autocmd VimEnter * Alias gvsp Gvsplit
 autocmd VimEnter * Alias er Errors
 autocmd VimEnter * Alias ag  LAck!
 autocmd VimEnter * Alias agg LAckAdd!
