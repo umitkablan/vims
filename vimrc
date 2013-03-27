@@ -460,6 +460,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:EasyMotion_leader_key = '<Tab>'
 "Alias'es
 autocmd VimEnter * Alias dd diffthis
 autocmd VimEnter * Alias E e
