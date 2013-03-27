@@ -1164,7 +1164,7 @@ command! -range Source <line1>,<line2>call SourceRange()
 set background=dark
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
-" candycode southernlight lucid kolor kingtop getafe phonzia
+" candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 colorscheme kolor
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
