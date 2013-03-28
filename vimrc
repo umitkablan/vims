@@ -74,7 +74,7 @@ set timeout timeoutlen=540 ttimeoutlen=100
 " show tabline every now and then
 set showtabline=2
 set cursorline nocursorcolumn
-set nowrap nolinebreak
+set wrap nolinebreak
 set showmode
 
 au InsertEnter * set nocursorline
@@ -604,12 +604,15 @@ let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
 "------------------------------------------
+let g:loaded_Signs = 1
 let g:SignsMixedIndentation = 1
 let g:Signs_Diff = 0
 let g:Signs_QFList = 1
 let g:Signs_Alternate = 0
-" SignExpression getline(v:lnum)=~'TODO'
+" au VimEnter * SignExpression getline(v:lnum)=~'TODO'
+" let loaded_quickfixsigns = 1
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] "'marks', 'cursor', 'rel'
+au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
 "------------------------------------------
 let g:loaded_easytags = "disable_"
 let g:easytags_file = "~/.vim/easytags_TAGS"
