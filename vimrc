@@ -465,6 +465,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 "Alias'es
 autocmd VimEnter * Alias dd diffthis
+autocmd VimEnter * Alias ie InlineEdit
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
