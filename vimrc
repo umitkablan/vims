@@ -497,6 +497,7 @@ autocmd VimEnter * Alias vs VCSStatus
 autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
+autocmd VimEnter * Alias up UpdateTypesFileOnly
 " inline_edit
 let g:inline_edit_autowrite=1
 " fonts and headlights plugin causing problems
