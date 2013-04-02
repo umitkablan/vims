@@ -462,6 +462,8 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:autofenc_enable = 1
+let g:fencview_autodetect = 0
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 "Alias'es
 autocmd VimEnter * Alias dd diffthis
@@ -494,6 +496,7 @@ autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
+autocmd VimEnter * Alias vi VCSInfo
 autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
