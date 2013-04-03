@@ -241,7 +241,7 @@ set pastetoggle=<F11>
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
-nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
+nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
 
 imap <expr> jkl ";\<Esc>"
 imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
@@ -841,6 +841,16 @@ let g:SuperTabCrMapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+"wrapper on signs' update: wraps quickfixsigns and DynamicSigns
+function! UpdateSigns_()
+  if exists('g:loaded_quickfixsigns') && g:loaded_quickfixsigns == 0
+    call QuickfixsignsUpdate()
+  endif
+  if exists('g:loaded_Signs') && g:loaded_Signs == 0
+    UpdateSigns
+  endif
+endfunction
+
 " save/load quickfix list
 function SaveQuickFixList(fname)
   let list = getqflist()
