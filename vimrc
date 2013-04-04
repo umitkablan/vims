@@ -343,7 +343,7 @@ call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 nnoremap -- H:call EasyMotion#WB(0,0)<CR>
-nnoremap GL :call EchoLocationPath()<CR>
+nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
