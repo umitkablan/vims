@@ -342,6 +342,7 @@ augroup END
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
+let g:tinykeymap#map#windows#map = "gw"
 nnoremap -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
@@ -554,8 +555,6 @@ let g:ctrlp_match_window_bottom = 0
 let g:loaded_fortune_vimtips = 1
 let g:fortune_vimtips_file = "wisdom"
 let g:rainbow_activate=1
-let g:tinykeymap#map#windows#map = "gw"
-let g:SignaturePeriodicRefresh = 0
 let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 "------------------------------------------
@@ -618,8 +617,10 @@ let g:Signs_QFList = 1
 let g:Signs_Alternate = 0
 " au VimEnter * SignExpression getline(v:lnum)=~'TODO'
 " let loaded_quickfixsigns = 1
-let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] "'marks', 'cursor', 'rel'
+let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints', 'marks'] "'rel', 'cursor'
 au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
+let g:loaded_Signature = "disable"
+let g:SignaturePeriodicRefresh = 0
 "------------------------------------------
 let g:loaded_easytags = "disable_"
 let g:easytags_file = "~/.vim/easytags_TAGS"
