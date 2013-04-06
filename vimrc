@@ -241,7 +241,7 @@ set pastetoggle=<F11>
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
-nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|UpdateSigns<CR>
+nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
 
 imap <expr> jkl ";\<Esc>"
 imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
@@ -342,8 +342,9 @@ augroup END
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
+let g:tinykeymap#map#windows#map = "gw"
 nnoremap -- H:call EasyMotion#WB(0,0)<CR>
-nnoremap GL :call EchoLocationPath()<CR>
+nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
@@ -462,6 +463,8 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:autofenc_enable = 1
+let g:fencview_autodetect = 0
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 "Alias'es
 autocmd VimEnter * Alias dd diffthis
@@ -494,6 +497,7 @@ autocmd VimEnter * Alias vb VCSBlame
 autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
+autocmd VimEnter * Alias vi VCSInfo
 autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
@@ -552,8 +556,6 @@ let g:ctrlp_match_window_bottom = 0
 let g:loaded_fortune_vimtips = 1
 let g:fortune_vimtips_file = "wisdom"
 let g:rainbow_activate=1
-let g:tinykeymap#map#windows#map = "gw"
-let g:SignaturePeriodicRefresh = 0
 let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 "------------------------------------------
@@ -616,8 +618,10 @@ let g:Signs_QFList = 1
 let g:Signs_Alternate = 0
 " au VimEnter * SignExpression getline(v:lnum)=~'TODO'
 " let loaded_quickfixsigns = 1
-let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] "'marks', 'cursor', 'rel'
+let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints', 'marks'] "'rel', 'cursor'
 au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
+let g:loaded_Signature = "disable"
+let g:SignaturePeriodicRefresh = 0
 "------------------------------------------
 let g:loaded_easytags = "disable_"
 let g:easytags_file = "~/.vim/easytags_TAGS"
@@ -839,6 +843,16 @@ let g:SuperTabCrMapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+"wrapper on signs' update: wraps quickfixsigns and DynamicSigns
+function! UpdateSigns_()
+  if exists('g:loaded_quickfixsigns') && g:loaded_quickfixsigns == 0
+    call QuickfixsignsUpdate()
+  endif
+  if exists('g:loaded_Signs') && g:loaded_Signs == 0
+    UpdateSigns
+  endif
+endfunction
+
 " save/load quickfix list
 function SaveQuickFixList(fname)
   let list = getqflist()
