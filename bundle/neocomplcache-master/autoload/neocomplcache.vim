@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 30 Mar 2013.
+" Last Modified: 08 Apr 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -710,6 +710,9 @@ function! neocomplcache#enable() "{{{
     return
   endif
 
+  command! -nargs=0 -bar NeoComplCacheDisable
+        \ call neocomplcache#disable()
+
   call s:initialize_script_variables()
   call s:initialize_autocmds()
   call s:initialize_others()
@@ -733,8 +736,6 @@ function! neocomplcache#disable() "{{{
   augroup END
 
   delcommand NeoComplCacheDisable
-  delcommand Neco
-  delcommand NeoComplCacheAutoCompletionLength
 
   for source in values(neocomplcache#available_sources())
     if !has_key(source, 'finalize') || !source.loaded
@@ -1835,7 +1836,6 @@ function! neocomplcache#get_complete_words(complete_results, cur_keyword_pos, cu
               \ split(get(keyword, 'abbr', keyword.word),
               \             delimiter.'\ze.', 1)[ : delim_cnt],
               \ delimiter_sub)
-        echomsg keyword.abbr
 
         if g:neocomplcache_max_keyword_width >= 0
               \ && len(keyword.abbr) > g:neocomplcache_max_keyword_width
@@ -1925,7 +1925,7 @@ function! s:set_complete_results_pos(cur_text, ...) "{{{
       " Plugin default keyword position.
       let [cur_keyword_pos, cur_keyword_str] = neocomplcache#match_word(a:cur_text)
     else
-      let pos = getpos('.')
+      let pos = winsaveview()
 
       try
         let cur_keyword_pos = source.get_keyword_pos(a:cur_text)
@@ -1938,8 +1938,8 @@ function! s:set_complete_results_pos(cur_text, ...) "{{{
               \ 'Source name is ' . source_name)
         return complete_results
       finally
-        if getpos('.') != pos
-          call setpos('.', pos)
+        if winsaveview() != pos
+          call winrestview(pos)
         endif
       endtry
     endif
@@ -1986,7 +1986,7 @@ function! s:set_complete_results_words(complete_results) "{{{
       let &ignorecase = g:neocomplcache_enable_ignore_case
     endif
 
-    let pos = getpos('.')
+    let pos = winsaveview()
 
     try
       let words = result.source.kind ==# 'plugin' ?
@@ -2007,8 +2007,8 @@ function! s:set_complete_results_words(complete_results) "{{{
       endif
       return
     finally
-      if getpos('.') != pos
-        call setpos('.', pos)
+      if winsaveview() != pos
+        call winrestview(pos)
       endif
     endtry
 
@@ -2449,10 +2449,11 @@ function! s:on_insert_leave() "{{{
           \ "!empty(gettabwinvar(tabnr, v:val, 'neocomplcache_foldinfo'))")
       let neocomplcache_foldinfo =
             \ gettabwinvar(tabnr, winnr, 'neocomplcache_foldinfo')
-      call settabwinvar(tabnr, winnr, '&foldmethod',
-            \ neocomplcache_foldinfo.foldmethod)
-      call settabwinvar(tabnr, winnr, '&foldexpr',
-            \ neocomplcache_foldinfo.foldexpr)
+      " Note: To disabled restore foldinfo is too heavy.
+      " call settabwinvar(tabnr, winnr, '&foldmethod',
+      "       \ neocomplcache_foldinfo.foldmethod)
+      " call settabwinvar(tabnr, winnr, '&foldexpr',
+      "       \ neocomplcache_foldinfo.foldexpr)
       call settabwinvar(tabnr, winnr,
             \ 'neocomplcache_foldinfo', {})
     endfor
