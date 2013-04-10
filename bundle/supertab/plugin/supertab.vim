@@ -725,7 +725,7 @@ endfunction " }}}
   " map a regular tab to ctrl-tab (note: doesn't work in console vim)
   exec 'inoremap ' . g:SuperTabMappingTabLiteral . ' <tab>'
 
-  imap <c-x> <c-r>=<SID>ManualCompletionEnter()<cr>
+  imap <c-x><c-x> <c-r>=<SID>ManualCompletionEnter()<cr>
 
   imap <script> <Plug>SuperTabForward <c-r>=<SID>SuperTab('n')<cr>
   imap <script> <Plug>SuperTabBackward <c-r>=<SID>SuperTab('p')<cr>
