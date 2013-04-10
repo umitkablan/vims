@@ -315,7 +315,7 @@ function! MapPumInsert(key, insertSpaceAfter)
     exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\<Space>\" : \"".a:key."\""
   endif
 endfunction
-call MapPumInsert(",", 1)
+" call MapPumInsert(",", 1)
 
 call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
