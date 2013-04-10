@@ -463,6 +463,8 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:ycm_key_list_select_completion = []
+let g:ycm_key_list_previous_completion = []
 let g:autofenc_enable = 1
 let g:fencview_autodetect = 0
 let g:EasyMotion_leader_key = '<Tab><Tab>'
@@ -664,14 +666,7 @@ command! SDP call Svndiff("prev")
 command! SDN call Svndiff("next")
 command! SDC call Svndiff("clear")
 "------------------------------------------
-let g:xptemplate_key = '<Tab>'
-let g:xptemplate_nav_prev = '<S-Tab>'
-let g:xptemplate_bundle = 'javascript_jquery'
-let g:xptemplate_brace_complete = '([{<'
-let g:xptemplate_strict = 0
-let g:xptemplate_always_show_pum=1
-let g:xptemplate_highlight = 'current'
-"------------------------------------------
+let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplcache_snippets'
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -685,7 +680,6 @@ let g:neocomplcache_enable_ignore_case = 0
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_cursor_hold_i = 1
 let g:neocomplcache_enable_auto_delimiter = 0
-let g:neocomplcache_snippets_dir = '~/.vim/var/neocomplcache_snippets'
 let g:neocomplcache_temporary_dir = $HOME . '/.vim/var/neocomplcache_tmp'
 " For snippet_complete marker.
 if has('conceal')
@@ -713,9 +707,10 @@ let g:neocomplcache_omni_patterns.java = '\h\w*\%(\.\|->\)'
 "endif
 "let g:neocomplcache_omni_functions.c   = 'omni#cpp#complete#Main'
 "------------------------------------------
-let OmniCpp_MayCompleteDot = 1
-let OmniCpp_MayCompleteArrow = 1
-let OmniCpp_MayCompleteScope = 1
+let OmniCpp_MayCompleteDot = 0
+let OmniCpp_MayCompleteArrow = 0
+let OmniCpp_MayCompleteScope = 0
+let OmniCpp_SelectFirstItem = 0
 "------------------------------------------
 let g:acp_enableAtStartUp = 0
 let g:acp_behaviorKeywordLength = 2
@@ -827,6 +822,7 @@ let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 "------------------------------------------
 let g:SuperTabMappingForward = '<C-Space>'
 let g:SuperTabMappingBackward = '<S-C-Space>'
+let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
 "************************ }}}
