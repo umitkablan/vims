@@ -328,8 +328,8 @@ augroup tag_langs
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
-  au FileType c,cpp,java,javascript,python,actionscript nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python,actionscript nmap <buffer> <Backspace> <C-T>
+  au FileType c,cpp,java,javascript,python,actionscript,sh nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
+  au FileType c,cpp,java,javascript,python,actionscript,sh nmap <buffer> <Backspace> <C-T>
 augroup END
 
 augroup preprocessor_langs
@@ -366,6 +366,7 @@ nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
 nnoremap <silent> ĞTT :ExtsStackToggle<CR>
 nnoremap <silent> <C-P><C-P> :Unite -start-insert source<CR>
 nnoremap <silent> <Leader>b :Unite -start-insert bookmark<CR>
+nnoremap <silent> ĞB :UniteBookmarkAdd <CR>
 nnoremap <silent> <C-B> :Unite -start-insert buffer<CR>
 nnoremap <silent> MRU :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <Leader>t  :CtrlPBufTag<CR>
@@ -619,10 +620,10 @@ let g:Signs_Diff = 0
 let g:Signs_QFList = 1
 let g:Signs_Alternate = 0
 " au VimEnter * SignExpression getline(v:lnum)=~'TODO'
-" let loaded_quickfixsigns = 1
+let loaded_quickfixsigns = 1
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
 au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
-let g:loaded_Signature = "disable"
+" let g:loaded_Signature = "disable"
 let g:SignaturePeriodicRefresh = 0
 "------------------------------------------
 let g:loaded_easytags = "disable_"
