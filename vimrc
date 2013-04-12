@@ -672,8 +672,8 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_min_syntax_length = 2
-let g:neocomplcache_min_keyword_length = 2
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_min_keyword_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_auto_select = 0
 let g:neocomplcache_max_list = 25
@@ -686,6 +686,24 @@ let g:neocomplcache_temporary_dir = $HOME . '/.vim/var/neocomplcache_tmp'
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+let g:neocomplcache_source_completion_length = {
+  \ 'buffer_complete'    : 1,
+  \ 'eclim_complete'     : 1,
+  \ 'snippets_complete'  : 2,
+  \ 'keyword_complete'   : 2,
+  \ 'include_complete'   : 3,
+  \ 'dictionary_complete': 3,
+  \ 'syntax_complete'    : 3
+  \ }
+let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'default'      : '',
+  \ 'javascript'   : $HOME . '/.vimrc/dict/javascript.dict',
+  \ 'actionscript' : $HOME . '/.vimrc/dict/actionscript.dict',
+  \ 'python'       : $HOME . '/.vimrc/dict/python.dict',
+  \ 'ruby'         : $HOME . '/.vimrc/dict/ruby.dict',
+  \ 'java'         : $HOME . '/.vimrc/dict/java.dict',
+  \ 'php'          : $HOME . '/.vimrc/dict/php.dict',
+  \ }
 "autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
