@@ -464,6 +464,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:vimball_home = $HOME . "/.vim/bundle"
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 let g:autofenc_enable = 1
