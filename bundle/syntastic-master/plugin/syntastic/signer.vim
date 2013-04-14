@@ -1,7 +1,32 @@
 if exists("g:loaded_syntastic_signer")
     finish
 endif
-let g:loaded_syntastic_list=1
+let g:loaded_syntastic_signer=1
+
+if !exists("g:syntastic_enable_signs")
+    let g:syntastic_enable_signs = 1
+endif
+
+if !exists("g:syntastic_error_symbol")
+    let g:syntastic_error_symbol = '>>'
+endif
+
+if !exists("g:syntastic_warning_symbol")
+    let g:syntastic_warning_symbol = '>>'
+endif
+
+if !exists("g:syntastic_style_error_symbol")
+    let g:syntastic_style_error_symbol = 'S>'
+endif
+
+if !exists("g:syntastic_style_warning_symbol")
+    let g:syntastic_style_warning_symbol = 'S>'
+endif
+
+if !has('signs')
+    let g:syntastic_enable_signs = 0
+endif
+
 
 "start counting sign ids at 5000, start here to hopefully avoid conflicting
 "with any other code that places signs (not sure if this precaution is
@@ -18,7 +43,7 @@ function! g:SyntasticSigner.New()
 endfunction
 
 function! g:SyntasticSigner.SetUpSignStyles()
-    if g:syntastic_enable_signs
+    if has('signs')
         if !hlexists('SyntasticErrorSign')
             highlight link SyntasticErrorSign error
         endif
@@ -61,7 +86,11 @@ function! g:SyntasticSigner._signErrors(loclist)
     let loclist = a:loclist
     if loclist.hasErrorsOrWarningsToDisplay()
 
-        let errors = loclist.filter({'bufnr': bufnr('')})
+        let lfilter = {'bufnr': bufnr('')}
+        if g:syntastic_quiet_warnings
+            let lfilter['type'] = 'E'
+        endif
+        let errors = loclist.filter(lfilter)
         for i in errors
             let sign_severity = 'Error'
             let sign_subtype = ''

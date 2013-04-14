@@ -35,7 +35,9 @@ CONTENTS                                                  *syntastic-contents*
 1. Intro                                                     *syntastic-intro*
 
 Note: This doc only deals with using syntastic. To learn how to write syntax
-checker integrations, visit the github wiki (coming soon).
+checker integrations, see the guide on the github wiki:
+
+    https://github.com/scrooloose/syntastic/wiki/Syntax-Checker-Guide
 
 Syntastic is a syntax checking plugin that runs files through external syntax
 checkers. This can be done on demand, or automatically as files are saved and
@@ -350,7 +352,7 @@ This is telling syntastic to run the 'php' checker first, and if no errors are
 found, run 'phpcs', and then 'phpmd'.
 
 ------------------------------------------------------------------------------
-5.2 Configuring specific checkers.
+5.2 Configuring specific checkers                  *syntastic-config-makeprg*
 
 Most checkers use the 'syntastic#makeprg#build()' function and provide many
 options by default - in fact you can customise every part of the command
