@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -e ~/.bashrc ]; then
+if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
