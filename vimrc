@@ -776,8 +776,8 @@ let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
 "------------------------------------------
 let g:unite_source_history_yank_enable=1
-let g:unite_source_file_mru_limit=1500
-let g:unite_source_history_yank_limit=1000
+let g:unite_source_file_mru_limit=700
+let g:unite_source_history_yank_limit=600
 let g:unite_data_directory = $HOME . '/.vim/var/unite'
 let g:unite_source_menu_menus = {}
 let g:unite_source_menu_menus.vimshell = {
