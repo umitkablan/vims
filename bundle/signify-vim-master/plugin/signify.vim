@@ -1,7 +1,7 @@
 " Plugin:      https://github.com/mhinz/vim-signify
 " Description: show a diff from a version control system via the signcolumn
 " Maintainer:  Marco Hinz <http://github.com/mhinz>
-" Version:     1.6
+" Version:     1.7
 
 if exists('g:loaded_signify') || !has('signs') || &cp
   finish
@@ -14,7 +14,7 @@ let s:other_signs_line_numbers = {}
 
 " overwrite non-signify signs by default
 let s:sign_overwrite = get(g:, 'signify_sign_overwrite', 1)
-let s:vcs_list       = get(g:, 'signify_vcs_list', [ 'git', 'hg', 'svn', 'darcs', 'bzr', 'cvs', 'rcs' ])
+let s:vcs_list       = get(g:, 'signify_vcs_list', [ 'git', 'hg', 'svn', 'darcs', 'bzr', 'fossil', 'cvs', 'rcs' ])
 
 let s:id_start = 0x100
 let s:id_top   = s:id_start
@@ -51,7 +51,6 @@ augroup signify
 
   autocmd BufEnter             * let s:path = resolve(expand('<afile>:p'))
   autocmd BufWritePost         * call s:start(s:path)
-  autocmd BufDelete            * call s:stop(s:path) | if has_key(s:sy, s:path) | call remove(s:sy, s:path) | endif
   autocmd VimEnter,ColorScheme * call s:colors_set()
 
   if get(g:, 'signify_update_on_bufenter', 1)
@@ -59,22 +58,28 @@ augroup signify
   endif
 
   if get(g:, 'signify_cursorhold_normal')
-    autocmd CursorHold *
-          \ if filewritable(s:path) && empty(&buftype) |
-          \   update | call s:start(s:path) |
+    autocmd CursorHold * nested
+          \ if has_key(s:sy, s:path) && s:sy[s:path].active && &modified |
+          \   write |
           \ endif
   endif
 
   if get(g:, 'signify_cursorhold_insert')
-    autocmd CursorHoldI *
-          \ if filewritable(s:path) && empty(&buftype) |
-          \   update | call s:start(s:path) |
+    autocmd CursorHoldI * nested
+          \ if has_key(s:sy, s:path) && s:sy[s:path].active && &modified |
+          \   write |
           \ endif
   endif
 
   if !has('gui_win32')
     autocmd FocusGained * call s:start(s:path)
   endif
+
+  autocmd BufDelete *
+        \ call s:stop(s:path) |
+        \ if has_key(s:sy, s:path) |
+        \   call remove(s:sy, s:path) |
+        \ endif
 augroup END
 
 " Init: commands {{{1
@@ -145,12 +150,11 @@ function! s:start(path) abort
   " Inactive buffer.. bail out.
   elseif !s:sy[a:path].active
     return
+  " Update signs.
   else
-    execute 'sign place 99999 line=1 name=SignifyPlaceholder file='. a:path
-    call s:sign_remove_all(a:path)
     let diff = s:repo_get_diff_{s:sy[a:path].type}(a:path)
     if empty(diff)
-      sign unplace 99999
+      call s:sign_remove_all(a:path)
       return
     endif
     let s:sy[a:path].id_top  = s:id_top
@@ -170,14 +174,16 @@ function! s:start(path) abort
     call s:sign_get_others(a:path)
   endif
 
+  execute 'sign place 99999 line=1 name=SignifyPlaceholder file='. a:path
+  call s:sign_remove_all(a:path)
   call s:repo_process_diff(a:path, diff)
+  sign unplace 99999
 
   if !maparg('[c', 'n')
     nnoremap <buffer><silent> ]c :<c-u>execute v:count .'SignifyJumpToNextHunk'<cr>
     nnoremap <buffer><silent> [c :<c-u>execute v:count .'SignifyJumpToPrevHunk'<cr>
   endif
 
-  sign unplace 99999
   let s:sy[a:path].id_top = (s:id_top - 1)
 endfunction
 
@@ -231,7 +237,6 @@ function! s:sign_remove_all(path) abort
   endfor
 
   let s:other_signs_line_numbers = {}
-  let s:sy[a:path].id_jump = -1
   let s:sy[a:path].ids = []
 endfunction
 
@@ -283,6 +288,14 @@ endfunction
 function! s:repo_get_diff_darcs(path) abort
   if executable('darcs')
     let diff = system('cd '. s:escape(fnamemodify(a:path, ':h')) .' && darcs diff --no-pause-for-gui --diff-command="'. s:difftool .' -U0 %1 %2" -- '. s:escape(a:path))
+    return v:shell_error ? '' : diff
+  endif
+endfunction
+
+" Function: s:repo_get_diff_fossil {{{1
+function! s:repo_get_diff_fossil(path) abort
+  if executable('fossil')
+    let diff = system('cd '. s:escape(fnamemodify(a:path, ':h')) .' && fossil set diff-command "'. s:difftool .' -U 0" && fossil diff --unified -c 0 -- '. s:escape(a:path))
     return v:shell_error ? '' : diff
   endif
 endfunction
