@@ -464,6 +464,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:hybrid_use_Xresources = 1
 let g:github_user = "umitkablan"
 let g:vimball_home = $HOME . "/.vim/bundle"
 let g:ycm_key_list_select_completion = []
