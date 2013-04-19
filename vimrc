@@ -473,6 +473,7 @@ let g:autofenc_enable = 1
 let g:fencview_autodetect = 0
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 "Alias'es
+autocmd VimEnter * Alias te tabedit<Space>%
 autocmd VimEnter * Alias dd diffthis
 autocmd VimEnter * Alias do diffoff
 autocmd VimEnter * Alias ie InlineEdit
@@ -1214,6 +1215,8 @@ colorscheme hybrid
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
 
-winsize 170 46
+if has("gui_running")
+  winsize 170 46
+endif
 
 "vim:fdm=marker
