@@ -4,12 +4,14 @@
 --ignore-dir=neocomplcache_tmp
 --type-set=csv=.csv,.tsv
 --type-set=gettext=.pot,.po
+--type-set=minifiedjs=.min.js,-min.js
 # this type might be produced by makefile(s) in my system
 --type-set=deps=.cmd
 
 # types to ignore by default
 --nogettext
 --nodeps
+--nominifiedjs
 
 #-G^.*$
 #--type-set=xlf=.xlf
