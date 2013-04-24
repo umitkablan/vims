@@ -257,47 +257,6 @@ imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
 
-function! SearchForwLastSearch()
-  if @/ == ""
-    return "/\<Up>\<CR>"
-  else
-    return "/\<CR>"
-  endif
-endfunction
-nmap <silent> <expr> gn '' . SearchForwLastSearch() . ''
-
-function! IsHereAComment()
-  let syn = synIDtrans(synID(line("."), col(".")-1, 1))
-  return syn == hlID("Comment")
-endfunction
-
-function! IsSemicolonAppropriateHere()
-  " TODO:
-  " Write a regex which will execute faster
-  " Think about plugin extraction of the idea
-  let cline = getline(".")
-  let lastchar  = cline[col("$")-2]
-  let firstchar = cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && cline !~ '^\s*$' && lastchar != "\\" && !IsHereAComment()
-    return 1
-  endif
-  return 0
-endfunction
-
-function! YieldSemicolonEscIfAppropriate()
-  let l:isappr = IsSemicolonAppropriateHere()
-  if pumvisible()
-    if l:isappr
-      return ';'
-    endif
-    return ''
-  endif
-  if l:isappr
-    return ';'
-  endif
-  return ''
-endfunction
-
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
@@ -311,14 +270,10 @@ augroup hide_pum
   autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 augroup END
 
-function! MapPumInsert(key, insertSpaceAfter)
-  if !a:insertSpaceAfter
-    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
-  else
-    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\<Space>\" : \"".a:key."\""
-  endif
-endfunction
-" call MapPumInsert(",", 1)
+augroup preprocessor_langs
+  au!
+  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
+augroup END
 
 call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
@@ -333,11 +288,6 @@ augroup tag_langs
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
   au FileType c,cpp,java,javascript,python,actionscript,sh nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
   au FileType c,cpp,java,javascript,python,actionscript,sh nmap <buffer> <Backspace> <C-T>
-augroup END
-
-augroup preprocessor_langs
-  au!
-  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
 augroup END
 
 " personal plugin maps
@@ -420,21 +370,6 @@ smap <expr> <TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expa
 " show block name maps
 nnoremap [d :call ShowBlockName('[d')<CR>
 nnoremap [i :call ShowBlockName('[i')<CR>
-" Disable Luc Hermitte's maps
-vmap <unique> NOTUSED<c-x>v <Plug>RefactorExtractVariable
-vmap <unique> NOTUSED<c-x>t <Plug>RefactorExtractType
-nmap <unique> NOTUSED<c-x>P <Plug>RefactorPutLastUp
-nmap <unique> NOTUSED<c-x>p <Plug>RefactorPutLastDown
-nmap <unique> NOTUSED<c-x>g <Plug>RefactorExtractGetter
-nmap <unique> NOTUSED<c-x>s <Plug>RefactorExtractSetter
-imap <unique> NOTUSED<c-space> <Plug>PreviewWord
-nmap <unique> NOTUSED<c-space> <Plug>PreviewWord
-imap <unique> NOTUSED<c-F10> <Plug>ClosePreviewWindow
-nmap <unique> NOTUSED<c-F10> <Plug>ClosePreviewWindow
-imap <unique> NOTUSED<c-x>i <Plug>CompleteIncludes
-nmap <unique> NOTUSED<c-x>i <Plug>OpenIncludes
-nmap <silent> NOTUSED<F9> <Plug>ToggleBrackets
-imap <silent> NOTUSED<F9> <Plug>ToggleBrackets
 nmap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
 vmap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
 imap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
@@ -442,23 +377,6 @@ imap <unique> NOTUSED<M-Del> <Plug>MarkersJumpF
 map  <unique> NOTUSED<M-Del> <Plug>MarkersJumpF
 imap <unique> NOTUSED<M-S-Del> <Plug>MarkersJumpB
 map  <unique> NOTUSED<M-S-Del> <Plug>MarkersJumpB
-function! s:Lh_Cpp_Hate()
-  nmap <buffer> NOTUSED]m <Plug>NextFunctionStart
-  nmap <buffer> NOTUSED[m <Plug>PrevFunctionStart
-  nmap <buffer> NOTUSED]M <Plug>NextFunctionEnd
-  nmap <buffer> NOTUSED[M <Plug>PrevFunctionEnd
-  nmap <buffer> NOTUSED;GI <Plug>GotoImpl
-  nmap <buffer> NOTUSED<M-LeftMouse>  <LeftMouse><Plug>GotoImpl<CR>
-  nmap <buffer> NOTUSED;PI <Plug>PasteImpl
-  nmap <buffer> NOTUSED<M-RightMouse> <LeftMouse><Plug>PasteImpl
-  nmap <buffer> NOTUSED;MI <Plug>MoveToImpl
-  imap <buffer> NOTUSED<C-X>GI <Plug>GotoImpl
-  imap <buffer> NOTUSED<M-LeftMouse>  <LeftMouse><Plug>GotoImpl
-  imap <buffer> NOTUSED<C-X>PI <Plug>PasteImpl
-  imap <buffer> NOTUSED<M-RightMouse> <LeftMouse><Plug>PasteImpl
-  imap <buffer> NOTUSED<C-X>MI <Plug>MoveToImpl
-endfunction
-au BufReadPre c,cpp call s:Lh_Cpp_Hate()
 map <unique> UNUSED<LocalLeader>p <Plug>JavagetsetInsertGetterSetter
 map <unique> UNUSED<LocalLeader>g <Plug>JavagetsetInsertGetterOnly
 map <unique> UNUSED<LocalLeader>s <Plug>JavagetsetInsertSetterOnly
@@ -471,14 +389,8 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
-let g:hybrid_use_Xresources = 1
-let g:github_user = "umitkablan"
-let g:vimball_home = $HOME . "/.vim/bundle"
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
-let g:autofenc_enable = 1
-let g:fencview_autodetect = 0
-let g:EasyMotion_leader_key = '<Tab><Tab>'
 " Alias'es --------------------------------
 autocmd VimEnter * Alias te tabedit<Space>%
 autocmd VimEnter * Alias dd diffthis
@@ -516,25 +428,18 @@ autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
 autocmd VimEnter * Alias up UpdateTypesFileOnly
-" inline_edit
-let g:inline_edit_autowrite=1
-" fonts and headlights plugin causing problems
-let g:loaded_fonts=1
-let g:loaded_headlights = 1
 " ag & ack -------------------------------
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column'
 else
   let g:ackprg = 'ack -H --nocolor --nogroup --column'
 endif
-" dbext ----------------------------------
-let g:dbext_default_SQLITE_bin = 'sqlite3'
 " gf_ext ---------------------------------
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
-" syntastic ------------------------------------------------- {{
+" syntastic --------------------------------------------- {{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-std=gnu99
                                   \  -Wall -Wextra -Wshadow -Wpointer-arith
@@ -554,7 +459,7 @@ let g:syntastic_c_auto_refresh_includes = 1
 let g:syntastic_c_check_header = 1
 let g:syntastic_c_checkers=['gcc'] " , 'make'
 let g:syntastic_html_checkers=['tidy']
-" ----------------------------------------------------------- }}
+" ------------------------------------------------------- }}
 augroup no_sticky_buffers
   au!
   " TODO: can g:local_vimrc variable be used inside au?
@@ -563,15 +468,6 @@ augroup no_sticky_buffers
   au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit,svnstatus,svninfo,svnadd nnoremap <buffer> ZZ :bd!<CR>
   au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
-"------------------------------------------
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-let g:ctrlp_match_window_bottom = 0
-let g:loaded_fortune_vimtips = 1
-let g:fortune_vimtips_file = "wisdom"
-let g:rainbow_activate=1
-let g:locator_disable_mappings = 1
-let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 " smartput & pasta ------------------------
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
@@ -595,29 +491,16 @@ let g:tcommentMapLeader2 = '<Leader>-_0'
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
-"------------------------------------------
-let g:yankring_history_dir = expand('$HOME/.vim')
-let g:notesRoot = expand('$HOME/.vim/var/notes')
-let g:notes_directory = expand('$HOME/.vim/var/notes')
-let g:local_vimrc=".lvimrc"
-let g:Tdd_makeprg='make'
-let g:exTS_backto_editbuf = 0
-let g:exTS_close_when_selected = 1
-let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
-let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
-let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
-let g:enableUnicodeCompletion = 0
-let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
 " IndentGuides ----------------------------
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
 autocmd VimEnter * IndentGuidesDisable
-"------------------------------------------
+" mark.vim --------------------------------
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
-"------------------------------------------
+" signs bar: DynamicSigns, quickfixsigns, signature
 let g:loaded_Signs = 1
 let g:SignsMixedIndentation = 1
 let g:Signs_Diff = 0
@@ -638,11 +521,6 @@ autocmd FileType conque_term let b:easytags_auto_highlight = 0
 autocmd FileType conque_term let b:easytags_on_cursorhold = 0
 autocmd FileType conque_term let b:easytags_auto_update = 0
 let g:easytags_updatetime_autodisable = 1
-"------------------------------------------
-let g:loaded_colorsupport = "disable_"
-"let g:loaded_obviousmode = "disable_"
-let g:loaded_StatusLineHighlight = "disable_"
-let no_multiselect_maps = 1
 "VCSCommand ------------------------------
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
@@ -657,10 +535,6 @@ let g:netrw_home = $HOME . '/.vim/var'
 let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
-"------------------------------------------
-let utl_opt_verbose=0
-"------------------------------------------
-let g:CoremoSearch_setDefaultMap = 0
 "neocomplcache & neosnippet ---------------
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplcache_snippets'
 let g:neocomplcache_enable_at_startup = 1
@@ -742,8 +616,6 @@ let g:ConqueTerm_ToggleKey   = '<C-F8>'
 let g:ConqueTerm_SendVisKey  = '<C-F9>'
 let g:ConqueTerm_SendFileKey = '<C-F10>'
 let g:ConqueTerm_ExecFileKey = '<C-F11>'
-" ----------------------------------------- }}
-let g:no_tagselect_maps = 1
 "------------------------------------------
 let g:ctags_path = '/usr/bin/ctags'
 let g:ctags_args = '-I __declspec+'
@@ -799,10 +671,6 @@ function g:unite_source_menu_menus.colorschemes.map(key, value)
         \       'action__command' : a:value,
         \}
 endfunction
-" SrcExpl ---------------------------------
-let g:SrcExpl_refreshTime = 400
-"------------------------------------------
-let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 " IndentConsistencyCop ------------------------------------------
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
@@ -814,6 +682,46 @@ let g:SuperTabMappingBackward = '<S-C-Space>'
 let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
+"------------------------------------------
+let g:EasyMotion_leader_key = '<Tab><Tab>'
+let g:inline_edit_autowrite=1
+let g:dbext_default_SQLITE_bin = 'sqlite3'
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_match_window_bottom = 0
+let g:loaded_fortune_vimtips = 1
+let g:fortune_vimtips_file = "wisdom"
+let g:rainbow_activate=1
+let g:locator_disable_mappings = 1
+let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
+let g:yankring_history_dir = expand('$HOME/.vim')
+let g:notesRoot = expand('$HOME/.vim/var/notes')
+let g:notes_directory = expand('$HOME/.vim/var/notes')
+let g:local_vimrc=".lvimrc"
+let g:Tdd_makeprg='make'
+let g:exTS_backto_editbuf = 0
+let g:exTS_close_when_selected = 1
+let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
+let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
+let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
+let g:enableUnicodeCompletion = 0
+let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
+let g:SrcExpl_refreshTime = 400
+let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
+let g:no_tagselect_maps = 1
+let utl_opt_verbose=0
+let g:CoremoSearch_setDefaultMap = 0
+let g:hybrid_use_Xresources = 1
+let g:github_user = "umitkablan"
+let g:vimball_home = $HOME . "/.vim/bundle"
+let g:autofenc_enable = 1
+let g:fencview_autodetect = 0
+" fonts and headlights plugin causing problems
+let g:loaded_fonts=1
+let g:loaded_headlights = 1
+let g:loaded_colorsupport = "disable_"
+let g:loaded_StatusLineHighlight = "disable_"
+let no_multiselect_maps = 1
 "************************ }}}
 
 "let g:vimmp_server_type="mpd"
@@ -828,6 +736,56 @@ let g:SuperTabCrMapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+function! MapPumInsert(key, insertSpaceAfter)
+  if !a:insertSpaceAfter
+    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
+  else
+    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\<Space>\" : \"".a:key."\""
+  endif
+endfunction
+" call MapPumInsert(",", 1)
+
+function! SearchForwLastSearch()
+  if @/ == ""
+    return "/\<Up>\<CR>"
+  else
+    return "/\<CR>"
+  endif
+endfunction
+nmap <silent> <expr> gn '' . SearchForwLastSearch() . ''
+
+function! IsHereAComment()
+  let syn = synIDtrans(synID(line("."), col(".")-1, 1))
+  return syn == hlID("Comment")
+endfunction
+
+function! IsSemicolonAppropriateHere()
+  " TODO:
+  " Write a regex which will execute faster
+  " Think about plugin extraction of the idea
+  let cline = getline(".")
+  let lastchar  = cline[col("$")-2]
+  let firstchar = cline[0]
+  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && cline !~ '^\s*$' && lastchar != "\\" && !IsHereAComment()
+    return 1
+  endif
+  return 0
+endfunction
+
+function! YieldSemicolonEscIfAppropriate()
+  let l:isappr = IsSemicolonAppropriateHere()
+  if pumvisible()
+    if l:isappr
+      return ';'
+    endif
+    return ''
+  endif
+  if l:isappr
+    return ';'
+  endif
+  return ''
+endfunction
+
 command! SDP call Svndiff("prev")
 command! SDN call Svndiff("next")
 command! SDC call Svndiff("clear")
