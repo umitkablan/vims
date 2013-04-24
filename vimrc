@@ -213,6 +213,7 @@ nmap <Leader>> >i}
 nmap <Leader>< <i}
 " easier colon access
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
+nnoremap <Leader>g :%g/<C-r><C-w>/
 " vnoremap <c-j> @='jojo'<cr>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
