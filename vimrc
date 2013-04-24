@@ -233,7 +233,7 @@ nmap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
 nnoremap ğc "+yiw
 vnoremap ğc "+y
 
-au FileType qf nnoremap <buffer> o <CR><C-W>p
+au FileType qf   nnoremap <buffer> o <CR><C-W>p
 au FileType help setlocal nonumber
 
 " Better than just inverting 'paste' is inverting and showing
