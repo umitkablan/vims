@@ -238,8 +238,8 @@ autocmd FileType help setlocal nonumber
 
 " Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
-imap <silent> <F12> <C-O>:set invpaste paste?<CR>
-nmap <silent> <F12> <C-O>:set invpaste paste?<CR>
+imap <F12> <C-O>:set invpaste paste?<CR>
+nmap <F12> <C-O>:set invpaste paste?<CR>
 
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
