@@ -236,8 +236,8 @@ vnoremap ğc "+y
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 au FileType help setlocal nonumber
 
-imap <silent> <F11> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F11>
+imap <silent> <F12> <C-O>:set invpaste paste?<CR>
+" set pastetoggle=<F12>
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
