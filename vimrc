@@ -212,7 +212,6 @@ vmap > >gv
 nmap <Leader>> >i}
 nmap <Leader>< <i}
 " easier colon access
-nnoremap <silent> gf :sp <cfile><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " vnoremap <c-j> @='jojo'<cr>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
@@ -343,6 +342,10 @@ call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 let g:tinykeymap#map#windows#map = "gw"
+nnoremap  X         :CoremoSearchAdd<CR>
+xnoremap  X         :CoremoSearchAddV<CR>
+nnoremap  <Leader>X :CoremoSearchRemove<CR>
+xnoremap  <Leader>X :CoremoSearchRemoveV<CR>
 nnoremap -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
@@ -583,31 +586,23 @@ let g:DeleteTrailingWhitespace_Action = 'ask'
 "------------------------------------------
 let g:enableUnicodeCompletion = 0
 let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
-let g:LustyExplorerDefaultMappings = -1
 "------------------------------------------
 let g:tcommentMapLeader1="_"
 let g:tcommentMapLeader2 = '<Leader>-_0'
 "------------------------------------------
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
-let g:AutoPairsShortcutBackInsert = '<M-b>'
+let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 "------------------------------------------
+let g:yankring_history_dir = expand('$HOME/.vim')
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:local_vimrc=".lvimrc"
-" let g:vimprj_changeCurDirIfVimprjFound = 1
-" let g:vimprj_alwaysApplyExecSettings = 1
-" let g:indexer_indexerListFilename=$HOME.'/.vim/indexer_files'
-" let g:indexer_ctagsJustAppendTagsAtFileSave=1
-" let g:indexer_ctagsWriteFilelist=1
-" let g:indexer_useSedWhenAppend=1
 let g:Tdd_makeprg='make'
 let g:exTS_backto_editbuf = 0
 let g:exTS_close_when_selected = 1
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
-let g:yankring_history_dir = expand('$HOME/.vim')
-" let g:simple_bookmarks_filename = '~/.vim/simple_bookmarks'
 "------------------------------------------
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
@@ -644,13 +639,14 @@ let g:loaded_colorsupport = "disable_"
 let g:loaded_StatusLineHighlight = "disable_"
 let no_multiselect_maps = 1
 "------------------------------------------
+" VCSCommand
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 " let VCSCommandSVNDiffOpt = "-ignore-all-space"
 "------------------------------------------
+" netrw
 let g:tar_nomax = 1
 let g:zip_nomax = 1
-"------------------------------------------
 let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
 let g:netrw_use_noswf = 0
 let g:netrw_keepdir = 0
@@ -662,15 +658,8 @@ let g:netrw_banner = 0
 let utl_opt_verbose=0
 "------------------------------------------
 let g:CoremoSearch_setDefaultMap = 0
-nnoremap  X         :CoremoSearchAdd<CR>
-xnoremap  X         :CoremoSearchAddV<CR>
-nnoremap  <Leader>X :CoremoSearchRemove<CR>
-xnoremap  <Leader>X :CoremoSearchRemoveV<CR>
 "------------------------------------------
-command! SDP call Svndiff("prev")
-command! SDN call Svndiff("next")
-command! SDC call Svndiff("clear")
-"------------------------------------------
+" neocomplcache & neosnippet
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplcache_snippets'
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
@@ -729,28 +718,16 @@ let g:neocomplcache_omni_patterns.java = '\h\w*\%(\.\|->\)'
         "let g:neocomplcache_omni_functions = {}
 "endif
 "let g:neocomplcache_omni_functions.c   = 'omni#cpp#complete#Main'
-"------------------------------------------
+" OmniCpp ------------------------------------------
 let OmniCpp_MayCompleteDot = 0
 let OmniCpp_MayCompleteArrow = 0
 let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem = 0
 "------------------------------------------
-let g:acp_enableAtStartUp = 0
-let g:acp_behaviorKeywordLength = 2
-let g:acp_completeoptPreview = 0
-let g:acp_ignorecaseOption = 0
-"let g:acp_behaviorXmlOmniLength = -1
-"let g:acp_behaviorHtmlOmniLength = -1
-"let g:acp_behaviorCssOmniPropertyLength = -1
-"------------------------------------------
-let g:fuf_modesDisable = ['mrucmd', 'mrufile']
-let g:fuf_dataDir='~/.vim/var/fuf-data'
-let g:fuf_buffer_keyDelete='<C-d>'
-"------------------------------------------
 let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
 let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
 let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
-"------------------------------------------
+" SingleCompile ---------------------------
 let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
 let g:SingleCompile_showquickfixiferror = 1
@@ -862,6 +839,10 @@ let g:SuperTabCrMapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+command! SDP call Svndiff("prev")
+command! SDN call Svndiff("next")
+command! SDC call Svndiff("clear")
+"------------------------------------------
 "wrapper on signs' update: wraps quickfixsigns and DynamicSigns
 function! UpdateSigns_()
   if exists('g:loaded_quickfixsigns') && g:loaded_quickfixsigns == 0
