@@ -586,10 +586,10 @@ let g:DeleteTrailingWhitespace_Action = 'ask'
 "------------------------------------------
 let g:enableUnicodeCompletion = 0
 let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
-"------------------------------------------
+" TComment --------------------------------
 let g:tcommentMapLeader1="_"
 let g:tcommentMapLeader2 = '<Leader>-_0'
-"------------------------------------------
+" AutoPairs -------------------------------
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
@@ -603,7 +603,7 @@ let g:exTS_close_when_selected = 1
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
-"------------------------------------------
+" IndentGuides ----------------------------
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
 autocmd VimEnter * IndentGuidesDisable
@@ -624,7 +624,7 @@ let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints',
 au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
 " let g:loaded_Signature = "disable"
 let g:SignaturePeriodicRefresh = 0
-"------------------------------------------
+" EasyTags --------------------------------
 let g:loaded_easytags = "disable_"
 let g:easytags_file = "~/.vim/easytags_TAGS"
 let g:easytags_always_enabled = 1
@@ -638,13 +638,11 @@ let g:loaded_colorsupport = "disable_"
 "let g:loaded_obviousmode = "disable_"
 let g:loaded_StatusLineHighlight = "disable_"
 let no_multiselect_maps = 1
-"------------------------------------------
-" VCSCommand
+"VCSCommand ------------------------------
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 " let VCSCommandSVNDiffOpt = "-ignore-all-space"
-"------------------------------------------
-" netrw
+" netrw ----------------------------------
 let g:tar_nomax = 1
 let g:zip_nomax = 1
 let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
@@ -658,8 +656,7 @@ let g:netrw_banner = 0
 let utl_opt_verbose=0
 "------------------------------------------
 let g:CoremoSearch_setDefaultMap = 0
-"------------------------------------------
-" neocomplcache & neosnippet
+"neocomplcache & neosnippet ---------------
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplcache_snippets'
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
@@ -723,7 +720,7 @@ let OmniCpp_MayCompleteDot = 0
 let OmniCpp_MayCompleteArrow = 0
 let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem = 0
-"------------------------------------------
+" TxtBrowser ------------------------------
 let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
 let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
 let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
@@ -754,7 +751,7 @@ let g:statline_show_charcode = 0
 let g:statline_show_tagname = 1
 let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
-"------------------------------------------
+" Unite.vim --------------------------------
 let g:unite_source_history_yank_enable=1
 let g:unite_source_file_mru_limit=700
 let g:unite_source_history_yank_limit=600
@@ -797,29 +794,16 @@ function g:unite_source_menu_menus.colorschemes.map(key, value)
         \       'action__command' : a:value,
         \}
 endfunction
-"------------------------------------------
+" SrcExpl ---------------------------------
 let g:SrcExpl_refreshTime = 400
 "------------------------------------------
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
-"------------------------------------------
+" IndentConsistencyCop ------------------------------------------
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
 let g:indentconsistencycop_CheckOnLoad = 0
 let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
-"------------------------------------------
-"function! <SID>SetMainDefaults()
-  "" since yaifa.vim I have these needn't be set
-  ""set tabstop=3
-  ""set shiftwidth=3
-  ""set expandtab
-"endfunction
-"call <SID>SetMainDefaults()
-"call vimprj#init()
-" define a vimprj hook
-"function! g:vimprj#dHooks['SetDefaultOptions']['main_options'](dParams)
-  "call <SID>SetMainDefaults()
-"endfunction
-"------------------------------------------
+" SuperTab ------------------------------------------
 let g:SuperTabMappingForward = '<C-Space>'
 let g:SuperTabMappingBackward = '<S-C-Space>'
 let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
