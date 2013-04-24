@@ -475,7 +475,7 @@ let g:ycm_key_list_previous_completion = []
 let g:autofenc_enable = 1
 let g:fencview_autodetect = 0
 let g:EasyMotion_leader_key = '<Tab><Tab>'
-"Alias'es
+" Alias'es --------------------------------
 autocmd VimEnter * Alias te tabedit<Space>%
 autocmd VimEnter * Alias dd diffthis
 autocmd VimEnter * Alias do diffoff
@@ -517,15 +517,15 @@ let g:inline_edit_autowrite=1
 " fonts and headlights plugin causing problems
 let g:loaded_fonts=1
 let g:loaded_headlights = 1
-" ag/ack
+" ag & ack -------------------------------
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column'
 else
   let g:ackprg = 'ack -H --nocolor --nogroup --column'
 endif
-" dbext
+" dbext ----------------------------------
 let g:dbext_default_SQLITE_bin = 'sqlite3'
-" gf_ext
+" gf_ext ---------------------------------
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
@@ -568,7 +568,7 @@ let g:fortune_vimtips_file = "wisdom"
 let g:rainbow_activate=1
 let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
-"------------------------------------------
+" smartput & pasta ------------------------
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
@@ -577,15 +577,13 @@ let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'pyth
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
+" SwapIt & speeddating --------------------
 " use SwapIt to interface C-X/A rather than speeddating. speeddating is
 " called from SwapIt as a fallback method.
 let g:speeddating_no_mappings = 1
-"------------------------------------------
+" DeleteTrailingWhitespace ----------------
 let g:DeleteTrailingWhitespace = 1
 let g:DeleteTrailingWhitespace_Action = 'ask'
-"------------------------------------------
-let g:enableUnicodeCompletion = 0
-let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
 " TComment --------------------------------
 let g:tcommentMapLeader1="_"
 let g:tcommentMapLeader2 = '<Leader>-_0'
@@ -603,6 +601,8 @@ let g:exTS_close_when_selected = 1
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
+let g:enableUnicodeCompletion = 0
+let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
 " IndentGuides ----------------------------
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
