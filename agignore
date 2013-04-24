@@ -2,5 +2,6 @@ tags
 neocomplcache_tmp
 *.taghl
 *-min.js
+*.min.js
 pipe
 *.pipe
