@@ -236,8 +236,11 @@ vnoremap ğc "+y
 au FileType qf nnoremap <buffer> o <CR><C-W>p
 au FileType help setlocal nonumber
 
-imap <silent> <F12> <C-O>:set invpaste paste?<CR>
+" Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
+imap <silent> <F12> <C-O>:set invpaste paste?<CR>
+nmap <silent> <F12> <C-O>:set invpaste paste?<CR>
+
 nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
