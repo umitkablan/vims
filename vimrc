@@ -722,6 +722,7 @@ let g:loaded_headlights = 1
 let g:loaded_colorsupport = "disable_"
 let g:loaded_StatusLineHighlight = "disable_"
 let no_multiselect_maps = 1
+let g:goldenview__enable_default_mapping = 0
 "************************ }}}
 
 "let g:vimmp_server_type="mpd"
