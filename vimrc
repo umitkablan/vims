@@ -68,7 +68,6 @@ set directory=~/.vim/var/tmp
 set updatetime=5000
 "make a little max-delay between keypad *touches*
 set timeout timeoutlen=540 ttimeout ttimeoutlen=100
-" set notimeout ttimeout ttimeoutlen=200
 " keep cursor always at the middle
 " set scrolloff=9999
 " show tabline every now and then
