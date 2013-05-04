@@ -393,8 +393,6 @@ xmap ax <Plug>(textobj-comment-a)
 omap ax <Plug>(textobj-comment-a)
 xmap ix <Plug>(textobj-comment-i)
 omap ix <Plug>(textobj-comment-i)
-xmap iX <Plug>(textobj-comment-big-a)
-omap iX <Plug>(textobj-comment-big-a)
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 " Alias'es --------------------------------
