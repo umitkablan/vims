@@ -1155,7 +1155,7 @@ command! -range Source <line1>,<line2>call SourceRange()
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid
 set background=dark
-colorscheme hybrid
+colorscheme lucid
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
