@@ -388,6 +388,11 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:textobj_comment_no_default_key_mappings = 1
+xmap ax <Plug>(textobj-comment-a)
+omap ax <Plug>(textobj-comment-a)
+xmap ix <Plug>(textobj-comment-i)
+omap ix <Plug>(textobj-comment-i)
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 " Alias'es --------------------------------
@@ -588,11 +593,23 @@ endif
 "let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c    = '\h\w*\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.java = '\h\w*\%(\.\|->\)'
-"if !exists('g:neocomplcache_omni_functions')
-        "let g:neocomplcache_omni_functions = {}
-"endif
-"let g:neocomplcache_omni_functions.c   = 'omni#cpp#complete#Main'
+let g:neocomplcache_omni_patterns.java = '\h\w*\%(\.\)'
+" if !exists('g:neocomplcache_force_omni_patterns')
+"   let g:neocomplcache_force_omni_patterns = {}
+" endif
+" let g:neocomplcache_force_overwrite_completefunc = 1
+" if !exists('g:neocomplcache_omni_functions')
+"   let g:neocomplcache_omni_functions = {}
+" endif
+" let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+" let g:neocomplcache_omni_functions.python = 'jedi#complete'
+" let g:neocomplcache_omni_functions.c      = 'omni#cpp#complete#Main'
+"------------------------------------------
+let g:jedi#popup_on_dot = 0
+let g:jedi#auto_initialization = 1
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#show_function_definition = "0"
+let g:jedi#autocompletion_command = "<M-_>"
 " OmniCpp ------------------------------------------
 let OmniCpp_MayCompleteDot = 0
 let OmniCpp_MayCompleteArrow = 0
@@ -1138,7 +1155,7 @@ command! -range Source <line1>,<line2>call SourceRange()
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid
 set background=dark
-colorscheme hybrid
+colorscheme lucid
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
