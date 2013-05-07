@@ -1,7 +1,7 @@
 
 [[ $- != *i* ]] && return
 
-export TERM="screen-256color"
+export TERM="xterm-256color"
 
 bind '"\e[A":history-search-backward'
 bind '"\e[A":history-search-backward'
