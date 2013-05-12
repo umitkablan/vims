@@ -727,7 +727,7 @@ let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pull
 let g:no_tagselect_maps = 1
 let utl_opt_verbose=0
 let g:CoremoSearch_setDefaultMap = 0
-let g:hybrid_use_Xresources = 1
+let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
 let g:vimball_home = $HOME . "/.vim/bundle"
 let g:autofenc_enable = 1
@@ -1155,7 +1155,7 @@ command! -range Source <line1>,<line2>call SourceRange()
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid
 set background=dark
-colorscheme lucid
+colorscheme hybrid
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
