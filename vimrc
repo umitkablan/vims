@@ -94,7 +94,7 @@ au VimLeave   * if v:dying | wall | endif
 " 1) set <Left>=[1;3D
 " 2) (i)(nore)map <Esc>OC <Right>
 
-" using the first idea is logical for transportability reasons.
+" using the first idea is logical for portability reasons.
 function Allmap(mapping)
   execute 'map'  . a:mapping
   execute 'map!' . a:mapping
