@@ -1,12 +1,12 @@
 ﻿" Vim auto-load script
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: May 5, 2013
+" Last Change: May 12, 2013
 " URL: http://peterodding.com/code/vim/notes/
 
 " Note: This file is encoded in UTF-8 including a byte order mark so
 " that Vim loads the script using the right encoding transparently.
 
-let g:xolox#notes#version = '0.17.11'
+let g:xolox#notes#version = '0.19'
 let s:scriptdir = expand('<sfile>:p:h')
 
 call xolox#misc#compat#check('notes', 2)
@@ -26,11 +26,17 @@ function! xolox#notes#init() " {{{1
   else
     let localdir = xolox#misc#path#absolute('~/.vim/misc/notes')
   endif
-  " Define the default location where the user's notes are saved?
-  if !exists('g:notes_directory')
-    let g:notes_directory = xolox#misc#path#merge(localdir, 'user')
+  " Backwards compatibility with old configurations.
+  if exists('g:notes_directory')
+    call xolox#misc#msg#warn("notes.vim %s: Please upgrade your configuration, see :help notes-backwards-compatibility", g:xolox#notes#version)
+    let g:notes_directories = [g:notes_directory]
+    unlet g:notes_directory
   endif
-  call s:create_notes_directory()
+  " Define the default location where the user's notes are saved?
+  if !exists('g:notes_directories')
+    let g:notes_directories = [xolox#misc#path#merge(localdir, 'user')]
+  endif
+  call s:create_notes_directories()
   " Define the default location of the shadow directory with predefined notes?
   if !exists('g:notes_shadowdir')
     let g:notes_shadowdir = xolox#misc#path#merge(systemdir, 'shadow')
@@ -60,6 +66,14 @@ function! xolox#notes#init() " {{{1
   if !exists('g:notes_smart_quotes')
     let g:notes_smart_quotes = 1
   endif
+  " Tab/Shift-Tab is used to indent/dedent list items by default.
+  if !exists('g:notes_tab_indents')
+    let g:notes_tab_indents = 1
+  endif
+  " Alt-Left/Alt-Right is used to indent/dedent list items by default.
+  if !exists('g:notes_alt_indents')
+    let g:notes_alt_indents = 1
+  endif
   " Text used for horizontal rulers.
   if !exists('g:notes_ruler_text')
     let g:notes_ruler_text = repeat(' ', ((&tw > 0 ? &tw : 79) - 5) / 2) . '* * *'
@@ -74,21 +88,33 @@ function! xolox#notes#init() " {{{1
   endif
 endfunction
 
-function! s:create_notes_directory()
-  let notes_directory = expand(g:notes_directory)
-  if !isdirectory(notes_directory)
-    call xolox#misc#msg#info("notes.vim %s: Creating notes directory (first run?) ..", g:xolox#notes#version)
-    call mkdir(notes_directory, 'p')
-  endif
-  if filewritable(notes_directory) != 2
-    call xolox#misc#msg#warn("notes.vim %s: The notes directory (%s) is not writable!", g:xolox#notes#version, notes_directory)
-  endif
+function! s:create_notes_directories()
+  for directory in xolox#notes#find_directories(0)
+    if !isdirectory(directory)
+      call xolox#misc#msg#info("notes.vim %s: Creating notes directory %s (first run?) ..", g:xolox#notes#version, directory)
+      call mkdir(directory, 'p')
+    endif
+    if filewritable(directory) != 2
+      call xolox#misc#msg#warn("notes.vim %s: The notes directory %s is not writable!", g:xolox#notes#version, directory)
+    endif
+  endfor
 endfunction
 
 function! xolox#notes#shortcut() " {{{1
   " The "note:" pseudo protocol is just a shortcut for the :Note command.
-  let name = matchstr(expand('<afile>'), 'note:\zs.*')
-  call xolox#notes#edit(v:cmdbang ? '!' : '', name)
+  let expression = expand('<afile>')
+  let bufnr_save = bufnr('%')
+  call xolox#misc#msg#debug("notes.vim %s: Expanding shortcut %s ..", g:xolox#notes#version, string(expression))
+  let substring = matchstr(expression, 'note:\zs.*')
+  call xolox#misc#msg#debug("notes.vim %s: Editing note based on title substring %s ..", g:xolox#notes#version, string(substring))
+  call xolox#notes#edit(v:cmdbang ? '!' : '', substring)
+  " Clean up the buffer with the name "note:..."?
+  let pathname = fnamemodify(bufname(bufnr_save), ':p')
+  let basename = fnamemodify(pathname, ':t')
+  if basename =~ '^note:'
+    call xolox#misc#msg#debug("notes.vim %s: Cleaning up buffer #%i - %s", g:xolox#notes#version, bufnr_save, pathname)
+    execute 'bwipeout' bufnr_save
+  endif
 endfunction
 
 function! xolox#notes#edit(bang, title) abort " {{{1
@@ -98,11 +124,12 @@ function! xolox#notes#edit(bang, title) abort " {{{1
   if title != ''
     let fname = xolox#notes#select(title)
     if fname != ''
+      call xolox#misc#msg#debug("notes.vim %s: Editing existing note: %s", g:xolox#notes#version, fname)
       execute 'edit' . a:bang fnameescape(fname)
       if !xolox#notes#unicode_enabled() && xolox#misc#path#equals(fnamemodify(fname, ':h'), g:notes_shadowdir)
         call s:transcode_utf8_latin1()
       endif
-      setlocal filetype=notes
+      call xolox#notes#set_filetype()
       call xolox#misc#timer#stop('notes.vim %s: Opened note in %s.', g:xolox#notes#version, starttime)
       return
     endif
@@ -124,7 +151,7 @@ function! xolox#notes#edit(bang, title) abort " {{{1
   if title != 'New note'
     call setline(1, title)
   endif
-  setlocal filetype=notes
+  call xolox#notes#set_filetype()
   doautocmd BufReadPost
   call xolox#misc#timer#stop('notes.vim %s: Started new note in %s.', g:xolox#notes#version, starttime)
 endfunction
@@ -171,7 +198,7 @@ function! xolox#notes#check_sync_title() " {{{1
         let new_fname = xolox#notes#title_to_fname(xolox#notes#current_title())
         if rename(name_on_disk, new_fname) == 0
           execute 'edit' fnameescape(new_fname)
-          setlocal filetype=notes
+          call xolox#notes#set_filetype()
           call xolox#misc#msg#info("notes.vim %s: Renamed file to match note title.", g:xolox#notes#version)
         else
           call xolox#misc#msg#warn("notes.vim %s: Failed to rename file to match note title?!", g:xolox#notes#version)
@@ -200,7 +227,7 @@ function! s:get_visual_selection()
   let [lnum1, col1] = getpos("'<")[1:2]
   let [lnum2, col2] = getpos("'>")[1:2]
   let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][: col2 - 2]
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
   let lines[0] = lines[0][col1 - 1:]
   return join(lines, ' ')
 endfunction
@@ -213,7 +240,7 @@ function! xolox#notes#edit_shadow() " {{{1
   if !xolox#notes#unicode_enabled()
     call s:transcode_utf8_latin1()
   endif
-  setlocal filetype=notes
+  call xolox#notes#set_filetype()
 endfunction
 
 function! xolox#notes#unicode_enabled()
@@ -236,14 +263,18 @@ function! xolox#notes#select(filter) " {{{1
   let filter = xolox#misc#str#trim(a:filter)
   for [fname, title] in items(xolox#notes#get_fnames_and_titles(1))
     if title ==? filter
+      call xolox#misc#msg#debug("notes.vim %s: Filter %s exactly matches note: %s", g:xolox#notes#version, string(filter), title)
       return fname
     elseif title =~? filter
       let notes[fname] = title
     endif
   endfor
   if len(notes) == 1
-    return keys(notes)[0]
+    let fname = keys(notes)[0]
+    call xolox#misc#msg#debug("notes.vim %s: Filter %s matched one note: %s", g:xolox#notes#version, string(filter), fname)
+    return fname
   elseif !empty(notes)
+    call xolox#misc#msg#debug("notes.vim %s: Filter %s matched %i notes.", g:xolox#notes#version, string(filter), len(notes))
     let choices = ['Please select a note:']
     let values = ['']
     for fname in sort(keys(notes), 1)
@@ -252,7 +283,9 @@ function! xolox#notes#select(filter) " {{{1
     endfor
     let choice = inputlist(choices)
     if choice > 0 && choice < len(choices)
-      return values[choice]
+      let fname = values[choice]
+      call xolox#misc#msg#debug("notes.vim %s: User selected note: %s", g:xolox#notes#version, string(filter), fname)
+      return fname
     endif
   endif
   return ''
@@ -558,7 +591,7 @@ function! xolox#notes#recent(bang, title_filter) " {{{1
   " Add the formatted list of notes to the buffer.
   call setline(line('$') + 1, lines)
   " Load the notes file type.
-  setlocal filetype=notes
+  call xolox#notes#set_filetype()
   let &l:statusline = bufname
   " Change the status line
   " Lock the buffer contents.
@@ -568,6 +601,32 @@ function! xolox#notes#recent(bang, title_filter) " {{{1
 endfunction
 
 " Miscellaneous functions. {{{1
+
+function! xolox#notes#find_directories(include_shadow_directory) " {{{2
+  " Generate a list of absolute pathnames of all notes directories.
+  let directories = copy(g:notes_directories)
+  " Add the shadow directory?
+  if a:include_shadow_directory
+    call add(directories, g:notes_shadowdir)
+  endif
+  " Return the expanded directory pathnames.
+  return map(directories, 'expand(v:val)')
+endfunction
+
+function! xolox#notes#set_filetype() " {{{2
+  " Load the notes file type if not already loaded.
+  if &filetype != 'notes'
+    " Change the file type.
+    setlocal filetype=notes
+  elseif synID(1, 1, 0) == 0
+    " Load the syntax. When you execute :RecentNotes, switch to a different
+    " buffer and then return to the buffer created by :RecentNotes, it will
+    " have lost its syntax highlighting. The following line of code solves
+    " this problem. We don't explicitly set the syntax to 'notes' so that we
+    " preserve dot separated composed values.
+    let &syntax = &syntax
+  endif
+endfunction
 
 function! xolox#notes#swaphack() " {{{2
   " Selectively ignore the dreaded E325 interactive prompt.
@@ -605,7 +664,14 @@ endfunction
 
 function! xolox#notes#buffer_is_note() " {{{2
   " Check whether the current buffer is a note (with the correct file type and path).
-  return xolox#notes#filetype_is_note(&ft) && xolox#misc#path#equals(expand('%:p:h'), g:notes_directory)
+  let bufpath = expand('%:p:h')
+  if xolox#notes#filetype_is_note(&ft)
+    for directory in xolox#notes#find_directories(1)
+      if xolox#misc#path#equals(bufpath, directory)
+        return 1
+      endif
+    endfor
+  endif
 endfunction
 
 function! xolox#notes#current_title() " {{{2
@@ -730,10 +796,13 @@ function! s:python_command(...) " {{{2
   if !(executable(python) && filereadable(script))
     call xolox#misc#msg#debug("notes.vim %s: We can't execute the %s script!", g:xolox#notes#version, script)
   else
-    let options = ['--database', g:notes_indexfile, '--notes', g:notes_directory]
+    let options = ['--database', g:notes_indexfile]
     if &ignorecase
       call add(options, '--ignore-case')
     endif
+    for directory in xolox#notes#find_directories(0)
+      call extend(options, ['--notes', directory])
+    endfor
     let arguments = map([script] + options + a:000, 'xolox#misc#escape#shell(v:val)')
     let command = join([python] + arguments)
     call xolox#misc#msg#debug("notes.vim %s: Executing external command %s", g:xolox#notes#version, command)
@@ -771,9 +840,11 @@ function! xolox#notes#get_fnames(include_shadow_notes) " {{{3
   " Get list with filenames of all existing notes.
   if !s:have_cached_names
     let starttime = xolox#misc#timer#start()
-    let pattern = xolox#misc#path#merge(g:notes_directory, '*')
-    let listing = glob(xolox#misc#path#absolute(pattern))
-    call extend(s:cached_fnames, filter(split(listing, '\n'), 'filereadable(v:val)'))
+    for directory in xolox#notes#find_directories(0)
+      let pattern = xolox#misc#path#merge(directory, '*')
+      let listing = glob(xolox#misc#path#absolute(pattern))
+      call extend(s:cached_fnames, filter(split(listing, '\n'), 'filereadable(v:val)'))
+    endfor
     let s:have_cached_names = 1
     call xolox#misc#timer#stop('notes.vim %s: Cached note filenames in %s.', g:xolox#notes#version, starttime)
   endif
@@ -850,10 +921,23 @@ function! xolox#notes#title_to_fname(title) " {{{3
   " Convert note {title} to absolute filename.
   let filename = xolox#misc#path#encode(a:title)
   if filename != ''
-    let pathname = xolox#misc#path#merge(g:notes_directory, filename . g:notes_suffix)
+    let directory = xolox#notes#select_directory()
+    let pathname = xolox#misc#path#merge(directory, filename . g:notes_suffix)
     return xolox#misc#path#absolute(pathname)
   endif
   return ''
+endfunction
+
+function! xolox#notes#select_directory() " {{{3
+  " Pick the best suited directory for creating a new note.
+  let bufdir = expand('%:p:h')
+  let notes_directories = xolox#notes#find_directories(0)
+  for directory in notes_directories
+    if xolox#misc#path#equals(bufdir, directory)
+      return directory
+    endif
+  endfor
+  return notes_directories[0]
 endfunction
 
 function! xolox#notes#cache_add(filename, title) " {{{3
