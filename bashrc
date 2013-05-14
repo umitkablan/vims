@@ -19,3 +19,10 @@ export PATH=/opt/flex-sdk/bin:$PATH
 
 export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
 export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
+
+BASHCOMPLETE_RCDIR="/etc/bash_completion.d"
+for i in $(ls "$BASHCOMPLETE_RCDIR"); do
+    if [ -x "$BASHCOMPLETE_RCDIR/$i" ]; then
+        source "$BASHCOMPLETE_RCDIR/$i"
+    fi
+done
