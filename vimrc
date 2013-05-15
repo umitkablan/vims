@@ -38,7 +38,7 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set number "relativenumber
 " highlight current line
 set wmw=0 "minimum window height
-set cmdheight=2
+set cmdheight=1
 set history=450
 "move the viminfo file to .vim to avoid the vim-related rubbish outside .vim/.
 set viminfo+=n~/.vim/var/viminfo
@@ -168,7 +168,9 @@ map Y y$
 " search-replace (<comma_or_n><dot>)
 nmap <silent> <Bar> :norm! .<CR>
 nmap ç :
+vmap ç :
 nmap . ç
+vmap . ç
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
@@ -291,6 +293,8 @@ augroup END
 
 " personal plugin maps
 " --------------------
+nnoremap <silent> <F2> :InlineEdit<CR>
+inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
