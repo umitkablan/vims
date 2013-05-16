@@ -712,7 +712,7 @@ let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:notesRoot = expand('$HOME/.vim/var/notes')
-let g:notes_directory = expand('$HOME/.vim/var/notes')
+let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 let g:local_vimrc=".lvimrc"
 let g:Tdd_makeprg='make'
 let g:exTS_backto_editbuf = 0
