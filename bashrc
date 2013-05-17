@@ -14,9 +14,9 @@ alias minicom="minicom -w"
 alias s="sudo"
 alias pwroff="sudo poweroff"
 
-export PATH=/sbin:$PATH
-export PATH=~/.gem/ruby/1.9.1/bin:$PATH
-export PATH=/opt/flex-sdk/bin:$PATH
+export PATH=$PATH:/sbin
+export PATH=$PATH:~/.gem/ruby/1.9.1/bin
+export PATH=$PATH:/opt/flex-sdk/bin
 
 export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
 export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
