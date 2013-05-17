@@ -393,6 +393,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 let g:textobj_comment_no_default_key_mappings = 1
+let g:buffergator_suppress_keymaps = 1
 xmap ax <Plug>(textobj-comment-a)
 omap ax <Plug>(textobj-comment-a)
 xmap ix <Plug>(textobj-comment-i)
@@ -400,12 +401,13 @@ omap ix <Plug>(textobj-comment-i)
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 " Alias'es --------------------------------
-autocmd VimEnter * Alias te tabedit<Space>%
+autocmd VimEnter * Alias te tabedit
+autocmd VimEnter * Alias tee tabedit<Space>~/
+autocmd VimEnter * Alias tec tabedit<Space>%
 autocmd VimEnter * Alias dd diffthis
 autocmd VimEnter * Alias do diffoff
 autocmd VimEnter * Alias ie InlineEdit
 autocmd VimEnter * Alias E e
-autocmd VimEnter * Alias Tabe tabe
 autocmd VimEnter * Alias un Underline
 autocmd VimEnter * Alias git  Git
 autocmd VimEnter * Alias gt   Git
