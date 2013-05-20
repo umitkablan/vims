@@ -441,7 +441,7 @@ autocmd VimEnter * Alias con ConqueTermSplit
 autocmd VimEnter * Alias up UpdateTypesFileOnly
 " ag & ack -------------------------------
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
-  let g:ackprg = 'ag --nocolor --nogroup --column'
+  let g:ackprg = 'ag --nocolor --nogroup --column --smart-case'
 else
   let g:ackprg = 'ack -H --nocolor --nogroup --column'
 endif
