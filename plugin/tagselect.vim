@@ -141,6 +141,7 @@ if (! exists("no_plugin_maps") || ! no_plugin_maps) &&
   vnoremap <silent> <C-W>g<C-]> :<C-U>call <SID>TagSelectVisual('stjump')<CR>
 endif
 
+
 function! s:TagSelectMain(cmd, ...) " {{{
   let tagName = a:0 ? a:1 : ''
   if g:tagselectExpandCurWord
@@ -294,6 +295,17 @@ function! s:SelectTagCount(tagCount, bang)
   call s:SelectTag(tagCmd, tagCount, a:bang)
 endfunction
 
+function! TSMoveToEntry(direction)
+  let flag = "W"
+  if a:direction == "prev"
+    let flag = flag . "b"
+  endif
+  let l = search('^\s*\d\+\s\+\S\s\+', flag)
+  if l == 0
+    echomsg "Last item!"
+  endif
+endfunction
+
 function! s:SelectTag(cmd, tagCount, bang)
   let tagCount = a:tagCount
   if tagCount != 0
@@ -357,6 +369,8 @@ function! s:SetupBuf() " {{{
   nnoremap <silent> <buffer> <Backspace> :TSQuit<CR>
   nnoremap <silent> <buffer> <CR> :TSSelect<CR>
   nnoremap <silent> <buffer> <2-LeftMouse> :TSSelect<CR>
+  nnoremap <silent> <buffer> j :call TSMoveToEntry("next")<CR>
+  nnoremap <silent> <buffer> k :call TSMoveToEntry("prev")<CR>
 
   " When user types numbers in the browser window, input the tag index
   " directly.
