@@ -18,6 +18,6 @@ if exists('g:loaded_visualrepeat') || (v:version < 700)
 endif
 let g:loaded_visualrepeat = 1
 
-xnoremap <silent> . :<C-U>call visualrepeat#repeat()<CR>
+xnoremap <silent> <Bar> :<C-U>call visualrepeat#repeat()<CR>
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
