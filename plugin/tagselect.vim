@@ -303,6 +303,8 @@ function! TSMoveToEntry(direction)
   let l = search('^\s*\d\+\s\+\S\+\s\+\S', flag)
   if l == 0
     echomsg "Last item!"
+  else
+    echomsg ""
   endif
 endfunction
 
