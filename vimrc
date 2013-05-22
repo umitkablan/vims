@@ -393,6 +393,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:startify_session_dir = '~/.vim/var/session'
 let g:textobj_comment_no_default_key_mappings = 1
 let g:buffergator_suppress_keymaps = 1
 xmap ax <Plug>(textobj-comment-a)
@@ -1162,7 +1163,7 @@ command! -range Source <line1>,<line2>call SourceRange()
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid
 set background=dark
-colorscheme hybrid
+colorscheme last256
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
