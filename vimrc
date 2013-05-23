@@ -438,6 +438,9 @@ autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
 autocmd VimEnter * Alias vi VCSInfo
+autocmd VimEnter * Alias vcn call<Space>Svndiff("next")
+autocmd VimEnter * Alias vcp call<Space>Svndiff("prev")
+autocmd VimEnter * Alias vcc call<Space>Svndiff("clear")
 autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
@@ -813,9 +816,6 @@ function! YieldSemicolonEscIfAppropriate()
   return ''
 endfunction
 
-command! SDP call Svndiff("prev")
-command! SDN call Svndiff("next")
-command! SDC call Svndiff("clear")
 "------------------------------------------
 "wrapper on signs' update: wraps quickfixsigns and DynamicSigns
 function! UpdateSigns_()
