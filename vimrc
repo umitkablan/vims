@@ -174,6 +174,7 @@ vmap . ç
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
+nnoremap <silent> <F3> @:
 " autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
 "   <C-D>/<C-U>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
