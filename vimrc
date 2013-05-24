@@ -244,7 +244,6 @@ autocmd FileType help setlocal nonumber
 imap <F12> <C-O>:set invpaste paste?<CR>
 nmap <F12>      :set invpaste paste?<CR>
 
-nmap <silent> <F5> :update<CR>:mak %<CR>
 nmap <silent> <F9> :QFix<CR>
 nmap <silent> <F10> :lclose\|cclose<CR>
 nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
@@ -295,6 +294,7 @@ augroup END
 
 " personal plugin maps
 " --------------------
+nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
@@ -394,6 +394,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:tmuxmake_targets = ""
 let g:startify_session_dir = '~/.vim/var/session'
 let g:session_directory = "~/.vim/var/session"
 let g:startify_show_files_number = 19
@@ -768,6 +769,15 @@ let g:goldenview__enable_default_mapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+function! Make_Tmux_Build(targets)
+  update
+  if a:targets == ""
+    make %
+  else
+    exec "SlimuxShellRun make " . a:targets
+  endif
+endfunction
+
 function! MapPumInsert(key, insertSpaceAfter)
   if !a:insertSpaceAfter
     exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
