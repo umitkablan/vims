@@ -395,6 +395,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 let g:startify_session_dir = '~/.vim/var/session'
+let g:session_directory = "~/.vim/var/session"
 let g:startify_show_files_number = 19
 let g:startify_bookmarks = ['~/projects', '~/.vim']
 let g:textobj_comment_no_default_key_mappings = 1
