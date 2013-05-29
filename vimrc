@@ -295,6 +295,7 @@ augroup END
 " personal plugin maps
 " --------------------
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
+inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
