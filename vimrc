@@ -1175,6 +1175,8 @@ function! SourceRange() range
 endfunction
 command! -range Source <line1>,<line2>call SourceRange()
 
+" there is also a program named 'ansifilter' which filters out ansi escapes
+" unsuccessfully.
 function! ClearAnsiSequences(line0, line1)
   exec a:line0 . ',' . a:line1 . 's/\e\[[[:digit:];]*m//ge'
   exec a:line0 . ',' . a:line1 . 's/\e(B//ge'
