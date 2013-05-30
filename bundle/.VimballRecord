@@ -1,2 +1,3 @@
 tagbar.vmb: call delete('~/.vim/bundle/autoload/tagbar.vim')|call delete('~/.vim/bundle/doc/tagbar.txt')|call delete('~/.vim/bundle/plugin/tagbar.vim')|call delete('~/.vim/bundle/syntax/tagbar.vim')
 ReplaceWithRegister-1.31.vmb: call delete('/home/arch/.vim/bundle/autoload/ReplaceWithRegister.vim')|call delete('/home/arch/.vim/bundle/plugin/ReplaceWithRegister.vim')|call delete('/home/arch/.vim/bundle/doc/ReplaceWithRegister.txt')
+AnsiEsc.vba: call delete('/home/ukablan/.vim/bundle/plugin/AnsiEscPlugin.vim')|call delete('/home/ukablan/.vim/bundle/autoload/AnsiEsc.vim')|call delete('/home/ukablan/.vim/bundle/plugin/cecutil.vim')|call delete('/home/ukablan/.vim/bundle/doc/AnsiEsc.txt')
