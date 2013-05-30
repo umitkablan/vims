@@ -1178,6 +1178,9 @@ command! -range Source <line1>,<line2>call SourceRange()
 function! ClearAnsiSequences(line0, line1)
   exec a:line0 . ',' . a:line1 . 's/\e\[[[:digit:];]*m//ge'
   exec a:line0 . ',' . a:line1 . 's/\e(B//ge'
+  " TODO: This substitution sometimes remains comma behind because of the
+  " pattern '[36;1H,'. The situation should be fixed after deeper
+  " understanding of the issue.
   exec a:line0 . ',' . a:line1 . 's/\e\[\d\+;\d\+\w//g'
 endfunction
 command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
