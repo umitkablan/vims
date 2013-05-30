@@ -32,24 +32,24 @@ endfor
 
 nnoremap g<Space> :<C-U>call vim_addon_other#SmartGotoLine()<CR>
 
-noremap \kl :call vim_addon_other#KeepOrDropLines("keep")<cr>
-noremap \dl :call vim_addon_other#KeepOrDropLines("drop")<cr>
+noremap <Leader>kl :call vim_addon_other#KeepOrDropLines("keep")<cr>
+noremap <Leader>dl :call vim_addon_other#KeepOrDropLines("drop")<cr>
 
 
 " grep
 " memo: -g -r = grep -r
 noremap <m-g><m-r> :call vim_addon_other#GrepR()<cr>
 
-noremap \mid :call vim_addon_other#GnuIdutils_Mkid()<cr>
-noremap \lid :call vim_addon_other#GnuIdutils_Lid()<cr>
+noremap <Leader>mid :call vim_addon_other#GnuIdutils_Mkid()<cr>
+noremap <Leader>lid :call vim_addon_other#GnuIdutils_Lid()<cr>
 
 " gnu id utils
 
 command! -nargs=1 -complete=file RenameFile call vim_addon_other#RenameFile(<f-args>)<cr>
 command! -nargs=1 -complete=file ContinueWorkOnCopy call vim_addon_other#ContinueWorkOnCopy(<f-args>)<cr>
 
-noremap \cp :RenameFile<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
-noremap \mv :ContinueWorkOnCopy<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
+noremap <Leader>cp :RenameFile<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
+noremap <Leader>mv :ContinueWorkOnCopy<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
 
 " insert filename or path into commandline
 cmap >fn <c-r>=expand('%:p')<cr>
