@@ -299,6 +299,7 @@ augroup END
 
 " personal plugin maps
 " --------------------
+call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
