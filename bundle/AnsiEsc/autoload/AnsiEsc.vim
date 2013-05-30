@@ -101,6 +101,7 @@ fun! AnsiEsc#AnsiEsc(rebuild)
   if has("conceal")
    syn match ansiSuppress	conceal	'\e\[[0-9;]*[^m]'
    syn match ansiSuppress	conceal	'\e\[?\d*[^m]'
+   syn match ansiSuppress	conceal	'\e(B'
    syn match ansiSuppress	conceal	'\b'
   else
    syn match ansiSuppress		'\e\[[0-9;]*[^m]'
