@@ -174,7 +174,12 @@ vmap . ç
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
-nnoremap <silent> <F3> @:
+" TODO: This command is not working properly when you have used up/down to
+" navigate cline history and executed a command. This command is not seen as
+" last command.
+" run last command; @: is not working properly in the current scheme when some
+" thing is reexecuted from history before.
+nnoremap <silent> <F3> :<Up><CR>
 " autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
 "   <C-D>/<C-U>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
@@ -1164,13 +1169,18 @@ endfunction
 
 " Source a range of visually selected vim
 function! SourceRange() range
-  let tmp = tempname()
-  call writefile(getline(a:firstline,
-\                    a:lastline), l:tmp)
+  let l:tmp = tempname()
+  call writefile(getline(a:firstline, a:lastline), l:tmp)
   execute "source " . l:tmp
-  call delete(l:tmp)
 endfunction
 command! -range Source <line1>,<line2>call SourceRange()
+
+function! ClearAnsiSequences(line0, line1)
+  exec a:line0 . ',' . a:line1 . 's/\e\[[[:digit:];]*m//ge'
+  exec a:line0 . ',' . a:line1 . 's/\e(B//ge'
+  exec a:line0 . ',' . a:line1 . 's/\e\[\d\+;\d\+\w//g'
+endfunction
+command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 "******************************************** }}}
 
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
