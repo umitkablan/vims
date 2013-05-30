@@ -1183,7 +1183,7 @@ function! ClearAnsiSequences(line0, line1)
   " TODO: This substitution sometimes remains comma behind because of the
   " pattern '[36;1H,'. The situation should be fixed after deeper
   " understanding of the issue.
-  exec a:line0 . ',' . a:line1 . 's/\e\[\d\+;\d\+\w//g'
+  exec a:line0 . ',' . a:line1 . 's/\e\[\d\+;\d\+\w//ge'
 endfunction
 command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 "******************************************** }}}
