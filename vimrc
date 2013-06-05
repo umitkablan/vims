@@ -746,6 +746,7 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so
 let g:enableUnicodeCompletion = 0
 let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
 let g:SrcExpl_refreshTime = 400
+let g:SrcExpl_isUpdateTags = 0
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 let g:no_tagselect_maps = 1
 let utl_opt_verbose=0
