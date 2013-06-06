@@ -1194,9 +1194,9 @@ command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
-" last256 aldmeris hybrid
+" last256 aldmeris hybrid darknight256
 set background=dark
-colorscheme last256
+colorscheme darknight256
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
