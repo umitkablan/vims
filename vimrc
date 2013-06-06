@@ -1147,14 +1147,6 @@ endfunction
 " Next and Last {{{
 " Motion for "next/last object". For example, "din(" would go to the next "()" pair
 " and delete its contents.
-onoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-xnoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-onoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-xnoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-onoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-xnoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-onoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
-xnoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
 function! s:NextTextObject(motion, dir)
   let c = nr2char(getchar())
   if c ==# "b"
@@ -1168,6 +1160,15 @@ function! s:NextTextObject(motion, dir)
   endif
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
+onoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+xnoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+onoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+xnoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+onoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+xnoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+onoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+xnoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+" }}}
 
 " Source a range of visually selected vim
 function! SourceRange() range
