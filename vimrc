@@ -228,7 +228,7 @@ nnoremap <Leader>g :%g/<C-r><C-w>/
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
-" nnoremap <Space> za
+nnoremap <Space> za
 nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 " ease cmdline 0/$ movement
 cnoremap <C-j> <t_kd>
@@ -300,8 +300,8 @@ augroup END
 " personal plugin maps
 " --------------------
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
-nmap <Space> <Plug>(expand_region_expand)
-vmap <Space> <Plug>(expand_region_expand)
+nmap + <Plug>(expand_region_expand)
+vmap + <Plug>(expand_region_expand)
 vmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
