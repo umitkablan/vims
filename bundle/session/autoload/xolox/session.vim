@@ -1,11 +1,9 @@
 " Vim script
 " Author: Peter Odding
-" Last Change: May 20, 2013
+" Last Change: June 6, 2013
 " URL: http://peterodding.com/code/vim/session/
 
-let g:xolox#session#version = '2.3.2'
-
-call xolox#misc#compat#check('session.vim', g:xolox#session#version, 9)
+let g:xolox#session#version = '2.3.11'
 
 " Public API for session persistence. {{{1
 
@@ -22,7 +20,15 @@ function! xolox#session#save_session(commands, filename) " {{{2
   call add(a:commands, '" Created by session.vim ' . g:xolox#session#version . ' on ' . strftime('%d %B %Y at %H:%M:%S.'))
   call add(a:commands, '" Open this file in Vim and run :source % to restore your session.')
   call add(a:commands, '')
-  if is_all_tabs
+  if &verbose >= 1
+    call add(a:commands, 'set verbose=' . &verbose)
+  endif
+  " We save the GUI options only for global sessions, not for tab scoped
+  " sessions. Also, if the Vim we're currently running in doesn't have GUI
+  " support, Vim will report &go as an empty string. We should never persist
+  " this value if the user didn't specifically set it! Otherwise the next time
+  " the session is restored in a GUI Vim, things will look funky :-).
+  if has('gui') && is_all_tabs
     call add(a:commands, 'set guioptions=' . escape(&go, ' "\'))
     call add(a:commands, 'silent! set guifont=' . escape(&gfn, ' "\'))
   endif
@@ -77,16 +83,19 @@ endfunction
 
 function! xolox#session#save_fullscreen(commands) " {{{2
   try
-    if xolox#shell#is_fullscreen()
-      call add(a:commands, "if has('gui_running')")
-      call add(a:commands, "  try")
-      call add(a:commands, "    call xolox#shell#fullscreen()")
-      " XXX Without this hack Vim on GTK doesn't restore &lines and &columns.
-      call add(a:commands, "    call feedkeys(\":set lines=" . &lines . " columns=" . &columns . "\\<CR>\")")
-      call add(a:commands, "  catch " . '/^Vim\%((\a\+)\)\=:E117/')
-      call add(a:commands, "    \" Ignore missing full-screen plug-in.")
-      call add(a:commands, "  endtry")
-      call add(a:commands, "endif")
+    let commands = xolox#shell#persist_fullscreen()
+    if !empty(commands)
+      call add(a:commands, "try")
+      for line in commands
+        call add(a:commands, "  " . line)
+      endfor
+      if has('gui_running') && (has('gui_gtk') || has('gui_gtk2') || has('gui_gnome'))
+        " Without this hack GVim on GTK doesn't preserve the window size.
+        call add(a:commands, "  call feedkeys(\":set lines=" . &lines . " columns=" . &columns . "\\<CR>\")")
+      endif
+      call add(a:commands, "catch " . '/^Vim\%((\a\+)\)\=:E117/')
+      call add(a:commands, "  \" Ignore missing full-screen plug-in.")
+      call add(a:commands, "endtry")
     endif
   catch /^Vim\%((\a\+)\)\=:E117/
     " Ignore missing full-screen functionality.
@@ -328,7 +337,7 @@ function! xolox#session#auto_load() " {{{2
             \ is_default_session ? '' : printf(' (%s)', session))
       " Prepare the list of choices.
       let choices = ['&Yes', '&No']
-      if !is_default_session
+      if g:session_default_to_last && has_last_session
         call add(choices, '&Forget')
       endif
       " Prompt the user (if not configured otherwise).
@@ -362,7 +371,7 @@ function! xolox#session#auto_save() " {{{2
   if !empty(name)
     let is_tab_scoped = xolox#session#is_tab_scoped()
     let msg = "Do you want to save your %s before quitting Vim?"
-    if s:prompt(printf(msg, xolox#session#get_label(name)), ['&Yes', '&No'], 'g:session_autosave') == 1
+    if s:prompt(printf(msg, xolox#session#get_label(name, is_tab_scoped)), ['&Yes', '&No'], 'g:session_autosave') == 1
       if is_tab_scoped
         call xolox#session#save_tab_cmd(name, '', 'SaveTabSession')
       else
@@ -444,16 +453,17 @@ function! xolox#session#open_cmd(name, bang, command) abort " {{{2
     elseif a:bang == '!' || !s:session_is_locked(path, a:command)
       let oldcwd = s:nerdtree_persist()
       call xolox#session#close_cmd(a:bang, 1, name != s:get_name('', 0), a:command)
-      if xolox#session#include_tabs()
-        let g:session_old_cwd = oldcwd
-      else
-        let t:session_old_cwd = oldcwd
-      endif
       call s:lock_session(path)
       execute 'source' fnameescape(path)
+      if xolox#session#is_tab_scoped()
+        let t:session_old_cwd = oldcwd
+        let session_type = 'tab scoped'
+      else
+        let g:session_old_cwd = oldcwd
+        let session_type = 'global'
+      endif
       call s:last_session_persist(name)
       call s:flush_session()
-      let session_type = xolox#session#include_tabs() ? 'global' : 'tab scoped'
       call xolox#misc#timer#stop("session.vim %s: Opened %s %s session in %s.", g:xolox#session#version, session_type, string(name), starttime)
       call xolox#misc#msg#info("session.vim %s: Opened %s %s session from %s.", g:xolox#session#version, session_type, string(name), fnamemodify(path, ':~'))
     endif
@@ -491,7 +501,7 @@ function! xolox#session#save_cmd(name, bang, command) abort " {{{2
     else
       call s:last_session_persist(name)
       call s:flush_session()
-      let label = xolox#session#get_label(name)
+      let label = xolox#session#get_label(name, !xolox#session#include_tabs())
       call xolox#misc#timer#stop("session.vim %s: Saved %s in %s.", g:xolox#session#version, label, starttime)
       call xolox#misc#msg#info("session.vim %s: Saved %s to %s.", g:xolox#session#version, label, friendly_path)
       if xolox#session#include_tabs()
@@ -530,7 +540,7 @@ function! xolox#session#close_cmd(bang, silent, save_allowed, command) abort " {
   if name != ''
     if a:save_allowed
       let msg = "Do you want to save your current %s before closing it?"
-      let label = xolox#session#get_label(name)
+      let label = xolox#session#get_label(name, !is_all_tabs)
       if s:prompt(printf(msg, label), ['&Yes', '&No'], 'g:session_autosave') == 1
         call xolox#session#save_cmd(name, a:bang, a:command)
       endif
@@ -568,7 +578,7 @@ function! xolox#session#close_cmd(bang, silent, save_allowed, command) abort " {
   call s:flush_session()
   if !a:silent
     let msg = "session.vim %s: Closed %s."
-    let label = xolox#session#get_label(xolox#session#find_current_session())
+    let label = xolox#session#get_label(xolox#session#find_current_session(), !is_all_tabs)
     call xolox#misc#msg#info(msg, g:xolox#session#version, label)
   endif
   if xolox#session#is_tab_scoped()
@@ -629,7 +639,7 @@ function! xolox#session#restart_cmd(bang, args) abort " {{{2
     if name == '' | let name = 'restart' | endif
     call xolox#session#save_cmd(name, a:bang, 'RestartVim')
     " Generate the Vim command line.
-    let progname = xolox#misc#escape#shell(fnameescape(xolox#misc#os#find_vim()))
+    let progname = xolox#misc#escape#shell(xolox#misc#os#find_vim())
     let command = progname . ' -g -c ' . xolox#misc#escape#shell('OpenSession\! ' . fnameescape(name))
     let args = matchstr(a:args, '^\s*|\s*\zs.\+$')
     if !empty(args)
@@ -738,14 +748,8 @@ function! xolox#session#find_current_session() " {{{2
   return xolox#session#path_to_name(pathname)
 endfunction
 
-function! xolox#session#get_label(name) " {{{2
-  if xolox#session#is_tab_scoped()
-    let name = xolox#session#path_to_name(t:this_session)
-    if a:name == name
-      return printf('tab scoped session %s', string(a:name))
-    endif
-  endif
-  return printf('global session %s', string(a:name))
+function! xolox#session#get_label(name, is_tab_scoped) " {{{2
+  return printf('%s session %s', a:is_tab_scoped ? 'tab scoped' : 'global', string(a:name))
 endfunction
 
 function! xolox#session#options_include(value) " {{{2
