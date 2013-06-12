@@ -86,9 +86,8 @@ au SwapExists * if !&mod | let v:swapchoice = 'd' | endif
 au VimLeave   * if v:dying | wall | endif
 "*************** }}}
 
-"***************** {{{
 " fixing arrow keys on terminal Vim
-" -----------------------------------
+" ***************** {{{
 "
 " Two ideas are..
 " 1) set <Left>=[1;3D
@@ -129,7 +128,7 @@ else
 endif
 "*************** }}}
 
-"personal maps: maps that does not need plugins
+" personal maps: maps that do not need plugins
 "************* {{{
 nnoremap <silent> ZZ  :hide<CR>
 nnoremap <silent> ZZA :qa<CR>
@@ -240,19 +239,11 @@ nmap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nmap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
 nnoremap ğc "+yiw
 vnoremap ğc "+y
-
-autocmd FileType qf   nnoremap <buffer> o <CR><C-W>p
-autocmd FileType help setlocal nonumber
-
 " Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
 imap <F12> <C-O>:set invpaste paste?<CR>
 nmap <F12>      :set invpaste paste?<CR>
-
-nmap <silent> <F9> :QFix<CR>
-nmap <silent> <F10> :lclose\|cclose<CR>
-nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
-
+" behaviour on pumvisible()?
 imap <expr> jkl ";\<Esc>"
 imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
@@ -263,6 +254,15 @@ imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
+
+" ************* }}}
+
+autocmd FileType qf   nnoremap <buffer> o <CR><C-W>p
+autocmd FileType help setlocal nonumber
+
+nmap <silent> <F9> :QFix<CR>
+nmap <silent> <F10> :lclose\|cclose<CR>
+nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
 
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
@@ -298,7 +298,7 @@ augroup tag_langs
 augroup END
 
 " personal plugin maps
-" --------------------
+" ******************** {{{
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 nmap + <Plug>(expand_region_expand)
 vmap + <Plug>(expand_region_expand)
