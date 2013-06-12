@@ -5,50 +5,63 @@
 
 
 
+let s:slimux_panelist_cmd = "tmux list-panes -a"
 let s:retry_send = {}
 let s:last_selected_pane = ""
 
-function! g:_SlimuxPickPaneFromBuf(tmux_packet, test)
-
-    " Get current line under the cursor
-    let line = getline(".")
-
-    " Parse target pane from current line
-    let pane_match = matchlist(line, '\(^[^ ]\+\)\: ')
-
-    if len(pane_match) == 0
-      echo "Please select a pane with enter or exit with 'q'"
-      return
+function! s:PickPaneIdFromLine(line)
+    let l:pane_match = matchlist(a:line, '\(^[^ ]\+\)\: ')
+    if len(l:pane_match) == 0
+        return ""
     endif
-
-    let target_pane = pane_match[1]
-
-    " Test only. Do not send the real packet or configure anything. Instead
-    " just send line break to see on which pane the cursor is on.
-    if a:test
-        return s:Send({ "target_pane": target_pane, "text": "\n", "type": "code" })
-    endif
-
-    " Hide (and destroy) the scratch buffer
-    hide
-
-    " Configure current packet
-    let a:tmux_packet["target_pane"] = target_pane
-
-    " Save last selected pane
-    let s:last_selected_pane = target_pane
-
-    if !empty(s:retry_send)
-        call s:Send(s:retry_send)
-        let s:retry_send = {}
-    endif
-
+    return l:pane_match[1]
 endfunction
 
-function! s:SelectPane(tmux_packet)
+function! SlimuxGetPaneList(lead, ...)
+    let l:panes = system(s:slimux_panelist_cmd)
+    let l:lst = map(split(l:panes, '\n'), 's:PickPaneIdFromLine(v:val)')
+    " let l:lst = filter(l:lst, 'strlen(v:val) > 0')
+    return filter(l:lst, 'v:val =~ ''\V\^''. a:lead')
+endfunction
 
-    " Save config dict to global so that it can be accessed later
-    let g:SlimuxActiveConfigure = a:tmux_packet
+function! s:ConfSetPane(tmux_packet, target_pane)
+  " Configure current packet
+  let a:tmux_packet["target_pane"] = a:target_pane
+  " Save last selected pane
+  let s:last_selected_pane = a:target_pane
+  if !empty(s:retry_send)
+      call s:Send(s:retry_send)
+      let s:retry_send = {}
+  endif
+endfunction
+
+function! g:_SlimuxPickPaneFromBuf(tmux_packet, test)
+    let l:target_pane = s:PickPaneIdFromLine(getline("."))
+    if l:target_pane == ""
+       echo "Please select a pane with enter or exit with 'q'"
+       return
+     endif
+
+     " Test only. Do not send the real packet or configure anything. Instead
+     " just send line break to see on which pane the cursor is on.
+     if a:test
+        return s:Send({ "target_pane": l:target_pane, "text": "\n", "type": "code" })
+     endif
+
+     hide
+    call s:ConfSetPane(a:tmux_packet, l:target_pane)
+endfunction
+
+function! s:SelectPane(tmux_packet, ...)
+     " Save config dict to global so that it can be accessed later
+     let g:SlimuxActiveConfigure = a:tmux_packet
+
+    if exists('a:1')
+        if a:1 != ""
+            call s:ConfSetPane(g:SlimuxActiveConfigure, a:1)
+            return
+        endif
+    endif
 
     " Create new buffer in a horizontal split
     belowright new
@@ -68,7 +81,7 @@ function! s:SelectPane(tmux_packet)
     " Put tmux panes in the buffer. Must use cat here because tmux might fail
     " here due to some libevent bug in linux.
     " Try 'tmux list-panes -a > panes.txt' to see if it is fixed
-    read !tmux list-panes -a | cat
+    read !tmux list-panes -F '\#{pane_id}: \#{session_name}:\#{window_index}.\#{pane_index}: \#{window_name}: \#{pane_title} [\#{pane_width}x\#{pane_height}] \#{?pane_active,(active),}' -a | cat
 
     " Move cursor to first item
     call setpos(".", [0, 3, 0, 0])
@@ -102,20 +115,31 @@ function! s:Send(tmux_packet)
     endif
 
     let target = a:tmux_packet["target_pane"]
-    let text = a:tmux_packet["text"]
+    let type = a:tmux_packet["type"]
 
-    if a:tmux_packet["type"] == "code"
-      call s:ExecFileTypeFn("SlimuxPre_", [target])
-      let text = s:ExecFileTypeFn("SlimuxEscape_", [text])
-    endif
+    if type == "code" || type == "cmd"
 
-    let text = s:EscapeText(text)
+      let text = a:tmux_packet["text"]
 
-    call system("tmux set-buffer " . text)
-    call system("tmux paste-buffer -t " . target)
+      if type == "code"
+        call s:ExecFileTypeFn("SlimuxPre_", [target])
+        let text = s:ExecFileTypeFn("SlimuxEscape_", [text])
+      endif
 
-    if a:tmux_packet["type"] == "code"
-      call s:ExecFileTypeFn("SlimuxPost_", [target])
+      let text = s:EscapeText(text)
+
+      call system("tmux set-buffer " . text)
+      call system("tmux paste-buffer -t " . target)
+
+      if type == "code"
+        call s:ExecFileTypeFn("SlimuxPost_", [target])
+      endif
+
+    elseif type == 'keys'
+
+      let keys = a:tmux_packet["keys"]
+      call system("tmux send-keys -t " . target . " " . keys)
+
     endif
 
 endfunction
@@ -203,6 +227,31 @@ endfunction
 
 command! -nargs=1 -complete=shellcmd SlimuxShellRun call SlimuxSendCommand("<args>")
 command! SlimuxShellPrompt    call SlimuxSendCommand(input("CMD>", s:previous_cmd))
-command! SlimuxShellLast      call SlimuxSendCommand(s:previous_cmd)
+command! SlimuxShellLast      call SlimuxSendCommand(s:previous_cmd != "" ? s:previous_cmd : input("CMD>", s:previous_cmd))
 command! SlimuxShellConfigure call s:SelectPane(s:cmd_packet)
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keys interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Send raw keys using the tmux 'send-keys' syntax.
+" Works like the shell interface regarding configuration.
+" Here's an example the stops the currently running server(ctrl+c) and starts it again:
+" :SlimuxSendKeysPrompt
+" KEYS>C-C 'make run-server' Enter)
+
+let s:keys_packet = { "target_pane": "", "type": "keys" }
+let s:previous_keys = ""
+
+function! SlimuxSendKeys(keys)
+
+  let s:previous_keys = a:keys
+  let s:keys_packet["keys"] = a:keys
+  call s:Send(s:keys_packet)
+
+endfunction
+
+command! SlimuxSendKeysPrompt    call SlimuxSendKeys(input('KEYS>', s:previous_keys))
+command! SlimuxSendKeysLast      call SlimuxSendKeys(s:previous_keys != "" ? s:previous_keys : input('KEYS>'))
+command! -nargs=? -complete=customlist,SlimuxGetPaneList SlimuxShellConfigure call s:SelectPane(s:cmd_packet, <q-args>)
