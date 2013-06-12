@@ -168,8 +168,8 @@ noremap Y y$
 nnoremap <silent> <Bar> :norm! .<CR>
 nnoremap ç :
 vnoremap ç :
-nnoremap . ç
-vnoremap . ç
+nmap . ç
+vmap . ç
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
