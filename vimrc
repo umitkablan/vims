@@ -146,7 +146,7 @@ nnoremap <Leader>q gqip
 nnoremap <silent> <C-c> :pwd<CR>
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
-imap <C-BS> <C-W>
+inoremap <C-BS> <C-W>
 " swap comma (,) and semicolon (;) because my keyboard is comma-privileged
 noremap , ;
 noremap ; ,
@@ -157,19 +157,19 @@ xnoremap ; ,
 noremap g; g,
 noremap g, g;
 " Handy, go to last edit. It is frequently done twice.
-nmap g,, g,g,
+nnoremap g,, g,g,
 " not to press shift key
-map gl $
-map gh ^
+noremap gl $
+noremap gh ^
 " behave like C and D counterparts (default is yy, which yanks line(s))
-map Y y$
+noremap Y y$
 " i need the 'dot' at reverse side of comma/n, which i mainly use for
 " search-replace (<comma_or_n><dot>)
-nmap <silent> <Bar> :norm! .<CR>
-nmap ç :
-vmap ç :
-nmap . ç
-vmap . ç
+nnoremap <silent> <Bar> :norm! .<CR>
+nnoremap ç :
+vnoremap ç :
+nnoremap . ç
+vnoremap . ç
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
@@ -191,8 +191,8 @@ nnoremap <silent> y@  :let @+=expand("%:.")<CR>
 " saving stuff
 if has("gui_running")
   nnoremap <silent> <C-s> :update<CR>
-  vmap <C-s> <Esc><C-s>gv
-  imap <C-s> <C-o><C-s>
+  vnoremap <C-s> <Esc><C-s>gv
+  inoremap <C-s> <C-o><C-s>
 endif
 if has("gui")
   set guioptions-=T
@@ -214,10 +214,10 @@ nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
 " de facto visual block indent mappings
-vmap < <gv
-vmap > >gv
-nmap <Leader>> >i}
-nmap <Leader>< <i}
+vnoremap < <gv
+vnoremap > >gv
+nnoremap <Leader>> >i}
+nnoremap <Leader>< <i}
 " easier colon access
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap <Leader>g :%g/<C-r><C-w>/
@@ -235,22 +235,22 @@ cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 " unnamed register to/from system clipboard
-nmap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
-nmap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
+nnoremap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
+nnoremap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
 nnoremap ğc "+yiw
 vnoremap ğc "+y
 " Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
-imap <F12> <C-O>:set invpaste paste?<CR>
-nmap <F12>      :set invpaste paste?<CR>
+inoremap <F12> <C-O>:set invpaste paste?<CR>
+nnoremap <F12>      :set invpaste paste?<CR>
 " behaviour on pumvisible()?
-imap <expr> jkl ";\<Esc>"
-imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-imap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
-imap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
-imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> jkl ";\<Esc>"
+inoremap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+inoremap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+inoremap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
@@ -260,9 +260,9 @@ inoremap <expr> <Esc><Esc> "\<Esc>"
 autocmd FileType qf   nnoremap <buffer> o <CR><C-W>p
 autocmd FileType help setlocal nonumber
 
-nmap <silent> <F9> :QFix<CR>
-nmap <silent> <F10> :lclose\|cclose<CR>
-nmap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
+nnoremap <silent> <F9> :QFix<CR>
+nnoremap <silent> <F10> :lclose\|cclose<CR>
+nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
 
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
@@ -293,8 +293,8 @@ augroup tag_langs
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh nmap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh nmap <buffer> <Backspace> <C-T>
+  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
+  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <buffer> <Backspace> <C-T>
 augroup END
 
 " personal plugin maps
