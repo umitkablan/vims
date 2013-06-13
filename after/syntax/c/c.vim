@@ -1,3 +1,0 @@
-
-runtime syntax/ifdef.vim
-
