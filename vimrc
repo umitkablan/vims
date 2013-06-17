@@ -258,6 +258,7 @@ inoremap <expr> <Esc><Esc> "\<Esc>"
 " ************* }}}
 
 autocmd FileType qf   nnoremap <buffer> o <CR><C-W>p
+autocmd FileType qf   nnoremap <buffer> <Backspace> :cclose<CR>
 autocmd FileType help setlocal nonumber
 
 nnoremap <silent> <F9> :QFix<CR>
