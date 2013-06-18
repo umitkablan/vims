@@ -234,6 +234,8 @@ cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+inoremap <C-E> <C-O>$
+inoremap <C-A> <C-O>^
 " unnamed register to/from system clipboard
 nnoremap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nnoremap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
