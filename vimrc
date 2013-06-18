@@ -38,7 +38,7 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set number "relativenumber
 " highlight current line
 set wmw=0 "minimum window height
-set cmdheight=1
+set cmdheight=2
 set history=450
 "move the viminfo file to .vim to avoid the vim-related rubbish outside .vim/.
 set viminfo+=n~/.vim/var/viminfo
@@ -261,6 +261,7 @@ autocmd FileType qf   nnoremap <buffer> o <CR><C-W>p
 autocmd FileType qf   nnoremap <buffer> <Backspace> :cclose<CR>
 autocmd FileType help setlocal nonumber
 
+nnoremap <silent> <buffer> <Backspace> :call QFixCloseAndCheck()<CR>
 nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
@@ -295,7 +296,7 @@ augroup tag_langs
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <buffer> <Backspace> <C-T>
+  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
 
 " personal plugin maps
@@ -878,6 +879,14 @@ augroup QFixToggle
   autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
   autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
+function! QFixCloseAndCheck()
+  if exists("g:qfix_win")
+    cclose
+    unlet! g:qfix_win
+    return 1
+  endif
+  return 0
+endfunction
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose
