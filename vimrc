@@ -260,7 +260,7 @@ inoremap <expr> <Esc><Esc> "\<Esc>"
 " ************* }}}
 
 autocmd FileType qf   nnoremap <buffer> o <CR><C-W>p
-autocmd FileType qf   nnoremap <buffer> <Backspace> :cclose<CR>
+autocmd FileType qf   nnoremap <buffer> <Backspace> :q<CR>
 autocmd FileType help setlocal nonumber
 
 nnoremap <silent> <buffer> <Backspace> :call QFixCloseAndCheck()<CR>
