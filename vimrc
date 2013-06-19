@@ -247,12 +247,12 @@ inoremap <F12> <C-O>:set invpaste paste?<CR>
 nnoremap <F12>      :set invpaste paste?<CR>
 " behaviour on pumvisible()?
 inoremap <expr> jkl ";\<Esc>"
-inoremap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-inoremap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-inoremap <expr> <Esc>  pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+imap <expr> jk        pumvisible() ? "\<CR>\<Esc>" : "\<Esc>"
+imap <expr> jk<Space> pumvisible() ? "\<CR>\<Esc>\<Esc>:update\<CR>" : "\<Esc>\<Esc>:update\<CR>"
+inoremap <expr> <Esc>  pumvisible() ? neocomplcache#cancel_popup() : "\<Esc>"
+inoremap <expr> <CR>   pumvisible() ? neocomplcache#close_popup()  : "\<CR>"
+imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
@@ -383,8 +383,8 @@ nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 " NeoComplCache
 inoremap <C-j> <C-X><C-O>
-inoremap <expr> <C-y> neocomplcache#close_popup()
-inoremap <expr> <C-e> neocomplcache#cancel_popup()
+" inoremap <expr> <C-y> neocomplcache#close_popup()
+" inoremap <expr> <C-e> neocomplcache#cancel_popup()
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 " show block name maps
