@@ -191,8 +191,8 @@ nnoremap <silent> y@  :let @+=expand("%:.")<CR>
 " saving stuff
 if has("gui_running")
   nnoremap <silent> <C-s> :update<CR>
-  vnoremap <C-s> <Esc><C-s>gv
-  inoremap <C-s> <C-o><C-s>
+  vmap <C-s> <Esc><C-s>gv
+  imap <C-s> <C-o><C-s>
 endif
 if has("gui")
   set guioptions-=T
@@ -1210,7 +1210,7 @@ command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
-" last256 aldmeris hybrid darknight256 luna inkpot
+" last256 aldmeris hybrid darknight256 luna inkpot gardener
 set background=dark
 colorscheme inkpot
 " if !has("gui_running")
