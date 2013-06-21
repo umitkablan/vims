@@ -19,8 +19,12 @@ if !exists('g:statline_trailing_space')
     let g:statline_trailing_space = 1
 endif
 
+if !exists('g:statline_show_echofunc')
+    let g:statline_show_echofunc = 0
+endif
+
 if !exists('g:statline_mixed_indent')
-    let g:statline_mixed_indent = 1
+    let g:statline_mixed_indent = 0
 endif
 
 if !exists('g:statline_rvm')
@@ -115,6 +119,10 @@ function! Get_Statusline_Normal()
 
     if g:statline_show_tagname == 1
         let statusline_tmp = statusline_tmp . "%2*%{tagbar#currenttag('<%s> ', '')}%*"
+    endif
+
+    if g:statline_show_echofunc == 1
+        let statusline_tmp = statusline_tmp . "%3*%{EchoFuncGetStatusLine()}%*"
     endif
 
     " separation between left/right aligned items
