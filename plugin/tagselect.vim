@@ -256,21 +256,36 @@ function! s:GetTagIndxUnderCursor() " {{{
   return tagIndex
 endfunction
 
-function! s:SelectTagUnderCursor(bang)
-  call s:SelectTagCount(s:GetTagIndxUnderCursor(), a:bang)
+function! s:SelectTagUnderCursor(bang, ...)
+  if exists('a:1')
+    call s:SelectTagCount(s:GetTagIndxUnderCursor(), a:bang, a:1)
+  else
+    call s:SelectTagCount(s:GetTagIndxUnderCursor(), a:bang, "")
+  endif
 endfunction
 
-function! s:SelectTagCount(tagCount, bang)
+function! s:SelectTagCount(tagCount, bang, jumpcmd)
   let tagCmd = ''
   let tagCount = a:tagCount
+  if a:jumpcmd != ""
+    let tagCmd = a:jumpcmd
+  endif
   if getline(1) =~ '^tselect:'
-    let tagCmd = 'tselect'
+    if tagCmd == ""
+      let tagCmd = 'tselect'
+    endif
   elseif getline(1) =~ '^stselect:'
-    let tagCmd = 'stselect'
+    if tagCmd == ""
+      let tagCmd = 'stselect'
+    endif
   elseif getline(1) =~ '^tjump:'
-    let tagCmd = 'tselect'
+    if tagCmd == ""
+      let tagCmd = 'tselect'
+    endif
   elseif getline(1) =~ '^stjump:'
-    let tagCmd = 'stselect'
+    if tagCmd == ""
+      let tagCmd = 'stselect'
+    endif
   elseif getline(1) =~ '^tags:'
     let selectedTag = tagCount
     if selectedTag != 0
@@ -370,6 +385,7 @@ function! s:SetupBuf() " {{{
   nnoremap <silent> <buffer> q :TSQuit<CR>
   nnoremap <silent> <buffer> <Backspace> :TSQuit<CR>
   nnoremap <silent> <buffer> <CR> :TSSelect<CR>
+  nnoremap <silent> <buffer> s :TSSelectSplit<CR>
   nnoremap <silent> <buffer> <2-LeftMouse> :TSSelect<CR>
   nnoremap <silent> <buffer> j :call TSMoveToEntry("next")<CR>
   nnoremap <silent> <buffer> k :call TSMoveToEntry("prev")<CR>
@@ -387,6 +403,7 @@ function! s:SetupBuf() " {{{
 
   command! -buffer TSQuit :call <SID>Quit()
   command! -buffer -bang TSSelect :call <SID>SelectTagUnderCursor('<bang>')
+  command! -buffer -bang TSSelectSplit :call <SID>SelectTagUnderCursor('<bang>', 'stselect')
 
   syn clear
   set ft=tagselect
