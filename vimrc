@@ -297,7 +297,7 @@ augroup tag_langs
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
+  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <CR> :Tjump <C-R><C-W><CR>
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
 
@@ -428,6 +428,7 @@ autocmd VimEnter * Alias tee tabedit<Space>~/
 autocmd VimEnter * Alias tec tabedit<Space>%
 autocmd VimEnter * Alias dd diffthis
 autocmd VimEnter * Alias do diffoff
+autocmd VimEnter * Alias did DirDiff
 autocmd VimEnter * Alias ie InlineEdit
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias un Underline
@@ -456,6 +457,7 @@ autocmd VimEnter * Alias vu VCSUpdate
 autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
 autocmd VimEnter * Alias vi VCSInfo
+autocmd VimEnter * Alias va VCSAdd
 autocmd VimEnter * Alias vcn call<Space>Svndiff("next")
 autocmd VimEnter * Alias vcp call<Space>Svndiff("prev")
 autocmd VimEnter * Alias vcc call<Space>Svndiff("clear")
