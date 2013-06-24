@@ -683,44 +683,22 @@ let g:unite_source_history_yank_enable=1
 let g:unite_source_file_mru_limit=700
 let g:unite_source_history_yank_limit=600
 let g:unite_data_directory = $HOME . '/.vim/var/unite'
-let g:unite_source_menu_menus = {}
-let g:unite_source_menu_menus.vimshell = {
-      \     'description' : 'Vim Shell Interactive',
-      \ }
-let g:unite_source_menu_menus.vimshell.candidates = {
-      \       'ghci'      : 'VimShellInteractive ghci',
-      \       'python'    : 'VimShellInteractive python',
-      \}
-let g:unite_source_menu_menus.commands = {
-      \     'description' : 'Command Output',
-      \}
-let g:unite_source_menu_menus.commands.candidates = {
-      \       'NMap'      : 'NMap',
-      \}
-let g:unite_source_menu_menus.colorschemes = {
-      \     'description' : 'Colorscheme',
-      \}
-let g:unite_source_menu_menus.colorschemes.candidates = {
-      \       'colorscheme select' : 'Unite -auto-preview colorscheme',
-      \}
-function g:unite_source_menu_menus.commands.map(key, value)
-  return {
-        \       'word' : a:key, 'kind' : 'command',
-        \       'action__command' : a:value,
-        \}
-endfunction
-function g:unite_source_menu_menus.vimshell.map(key, value)
-  return {
-        \       'word' : a:key, 'kind' : 'command',
-        \       'action__command' : a:value,
-        \}
-endfunction
-function g:unite_source_menu_menus.colorschemes.map(key, value)
-  return {
-        \       'word' : a:key, 'kind' : 'command',
-        \       'action__command' : a:value,
-        \}
-endfunction
+if !exists("g:unite_source_menu_menus")
+  let g:unite_source_menu_menus = {}
+endif
+" let g:unite_source_menu_menus.vimshell = {
+"       \     'description' : 'Vim Shell Interactive',
+"       \ }
+" let g:unite_source_menu_menus.vimshell.candidates = {
+"       \       'ghci'      : 'VimShellInteractive ghci',
+"       \       'python'    : 'VimShellInteractive python',
+"       \}
+" function g:unite_source_menu_menus.vimshell.map(key, value)
+"   return {
+"         \       'word' : a:key, 'kind' : 'command',
+"         \       'action__command' : a:value,
+"         \}
+" endfunction
 " IndentConsistencyCop ------------------------------------------
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
@@ -1223,5 +1201,7 @@ colorscheme inkpot
 if has("gui_running")
   winsize 170 46
 endif
+
+source ~/.vimrc.local
 
 " vim:fdm=marker
