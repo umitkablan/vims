@@ -333,7 +333,8 @@ nnoremap <silent> <Leader>p3 :ConqueTermSplit python3<CR>
 nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
-nnoremap <silent> <Leader>e :lcd %:h<CR>:Unite -start-insert file<CR>
+nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
+nnoremap <silent> <Leader>e :Unite -start-insert file_rec/async<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
 nnoremap <silent> ĞUU :Underline<CR>
@@ -434,7 +435,7 @@ autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias un Underline
 autocmd VimEnter * Alias git  Git
 autocmd VimEnter * Alias gt   Git
-autocmd VimEnter * Alias gst  Gstatus
+autocmd VimEnter * Alias gs   Gstatus
 autocmd VimEnter * Alias ge   Gedit
 autocmd VimEnter * Alias gvsp Gvsplit
 autocmd VimEnter * Alias er Errors
