@@ -342,14 +342,12 @@ nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
 nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-nnoremap <silent> <C-P><C-P> :Unite -start-insert source<CR>
-nnoremap <silent> <Leader>b :Unite -start-insert bookmark<CR>
+nnoremap <silent> <C-p> :Unite -start-insert source<CR>
+nnoremap <silent> <Leader>b :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB :UniteBookmarkAdd <CR>
 nnoremap <silent> <C-B> :Unite -start-insert buffer<CR>
 nnoremap <silent> MRU :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <Leader>t  :CtrlPBufTag<CR>
-nnoremap <silent> <Leader><Leader>cd :FufDirWithCurrentBufferDir<CR>
-nnoremap <silent> ĞĞCD :FufDirWithFullCwd<CR>
 nnoremap <silent> <Leader>sc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
@@ -358,7 +356,6 @@ vnoremap '! :ClamVisual <Space>
 " nmap <silent> <C-z> <Plug>QAnotherWin
 " nmap <Leader>t :Shell make test<CR><CR>
 " nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
-" nnoremap <silent> <Leader>b  :FufBuffer<CR>
 " nmap <silent> <unique> <Leader>b <Plug>SelectBuf
 nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
 nmap CAL  <Plug>CalendarV
@@ -714,6 +711,7 @@ let g:SuperTabCrMapping = 0
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 let g:inline_edit_autowrite=1
 let g:dbext_default_SQLITE_bin = 'sqlite3'
+let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
