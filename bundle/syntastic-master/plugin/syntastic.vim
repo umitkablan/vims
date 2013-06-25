@@ -20,30 +20,6 @@ runtime! plugin/syntastic/*.vim
 
 let s:running_windows = has("win16") || has("win32")
 
-if !exists("g:syntastic_enable_balloons")
-    let g:syntastic_enable_balloons = 1
-endif
-if !has('balloon_eval')
-    let g:syntastic_enable_balloons = 0
-endif
-
-if !exists("g:syntastic_enable_highlighting")
-    let g:syntastic_enable_highlighting = 1
-endif
-
-" highlighting requires getmatches introduced in 7.1.040
-if v:version < 701 || (v:version == 701 && !has('patch040'))
-    let g:syntastic_enable_highlighting = 0
-endif
-
-if !exists("g:syntastic_echo_current_error")
-    let g:syntastic_echo_current_error = 1
-endif
-
-if !exists("g:syntastic_auto_loc_list")
-    let g:syntastic_auto_loc_list = 2
-endif
-
 if !exists("g:syntastic_always_populate_loc_list")
     let g:syntastic_always_populate_loc_list = 0
 endif
@@ -64,20 +40,31 @@ if !exists("g:syntastic_check_on_open")
     let g:syntastic_check_on_open = 0
 endif
 
+if !exists("g:syntastic_check_on_wq")
+    let g:syntastic_check_on_wq = 1
+endif
+
 if !exists("g:syntastic_loc_list_height")
     let g:syntastic_loc_list_height = 10
 endif
 
+if !exists("g:syntastic_ignore_files")
+    let g:syntastic_ignore_files = []
+endif
+
+if !exists("g:syntastic_filetype_map")
+    let g:syntastic_filetype_map = {}
+endif
+
 let s:registry = g:SyntasticRegistry.Instance()
-let s:signer = g:SyntasticSigner.New()
-call s:signer.SetUpSignStyles()
+let s:notifiers = g:SyntasticNotifiers.Instance()
 let s:modemap = g:SyntasticModeMap.Instance()
 
 function! s:CompleteCheckerName(argLead, cmdLine, cursorPos)
     let checker_names = []
     for ft in s:CurrentFiletypes()
         for checker in s:registry.availableCheckersFor(ft)
-            call add(checker_names, checker.name())
+            call add(checker_names, checker.getName())
         endfor
     endfor
     return join(checker_names, "\n")
@@ -86,22 +73,51 @@ endfunction
 command! SyntasticToggleMode call s:ToggleMode()
 command! -nargs=? -complete=custom,s:CompleteCheckerName SyntasticCheck call s:UpdateErrors(0, <f-args>) <bar> call s:Redraw()
 command! Errors call s:ShowLocList()
+command! SyntasticInfo call s:registry.echoInfoFor(s:CurrentFiletypes())
 
 highlight link SyntasticError SpellBad
 highlight link SyntasticWarning SpellCap
 
 augroup syntastic
-    if g:syntastic_echo_current_error
-        autocmd cursormoved * call s:EchoCurrentError()
-    endif
-
     autocmd BufReadPost * if g:syntastic_check_on_open | call s:UpdateErrors(1) | endif
     autocmd BufWritePost * call s:UpdateErrors(1)
 
-    autocmd BufWinEnter * if empty(&bt) | call s:AutoToggleLocList() | endif
-    autocmd BufEnter * if &bt=='quickfix' && !empty(getloclist(0)) && !bufloaded(getloclist(0)[0].bufnr) | call s:HideLocList() | endif
+    autocmd BufWinEnter * call s:BufWinEnterHook()
+
+    " TODO: the next autocmd should be "autocmd BufWinLeave * if empty(&bt) | lclose | endif"
+    " but in recent versions of Vim lclose can no longer be called from BufWinLeave
+    autocmd BufEnter * call s:BufEnterHook()
 augroup END
 
+if v:version > 703 || (v:version == 703 && has('patch544'))
+    " QuitPre was added in Vim 7.3.544
+    augroup syntastic
+        autocmd QuitPre * call s:QuitPreHook()
+    augroup END
+endif
+
+
+function! s:BufWinEnterHook()
+    if empty(&bt)
+        let loclist = g:SyntasticLoclist.current()
+        call s:notifiers.refresh(loclist)
+    endif
+endfunction
+
+function! s:BufEnterHook()
+    " TODO: at this point there is no b:syntastic_loclist
+    let loclist = filter(getloclist(0), 'v:val["valid"] == 1')
+    let buffers = syntastic#util#unique(map( loclist, 'v:val["bufnr"]' ))
+    if &bt=='quickfix' && !empty(loclist) && empty(filter( buffers, 'syntastic#util#bufIsActive(v:val)' ))
+        call g:SyntasticLoclistHide()
+    endif
+endfunction
+
+
+function! s:QuitPreHook()
+    let b:syntastic_skip_checks = !g:syntastic_check_on_wq
+    call g:SyntasticLoclistHide()
+endfunction
 
 "refresh and redraw all the error info for this buf when saving or reading
 function! s:UpdateErrors(auto_invoked, ...)
@@ -117,67 +133,26 @@ function! s:UpdateErrors(auto_invoked, ...)
         endif
     end
 
-    if g:syntastic_enable_balloons
-        call s:RefreshBalloons()
-    endif
+    let loclist = g:SyntasticLoclist.current()
 
-    if g:syntastic_enable_signs
-        call s:signer.refreshSigns(s:LocList())
-    endif
-
-    if g:syntastic_enable_highlighting
-        call s:HighlightErrors()
-    endif
-
-    let loclist = s:LocList()
-    if g:syntastic_always_populate_loc_list && loclist.hasErrorsOrWarningsToDisplay()
+    if g:syntastic_always_populate_loc_list || g:syntastic_auto_jump
         call setloclist(0, loclist.filteredRaw())
-    endif
-
-    if g:syntastic_auto_jump && loclist.hasErrorsOrWarningsToDisplay()
-        call setloclist(0, loclist.filteredRaw())
-        silent! ll
-    endif
-
-    call s:AutoToggleLocList()
-endfunction
-
-"automatically open/close the location list window depending on the users
-"config and buffer error state
-function! s:AutoToggleLocList()
-    let loclist = s:LocList()
-    if loclist.hasErrorsOrWarningsToDisplay()
-        if g:syntastic_auto_loc_list == 1
-            call s:ShowLocList()
-        endif
-    else
-        if g:syntastic_auto_loc_list > 0
-
-            "TODO: this will close the loc list window if one was opened by
-            "something other than syntastic
-            lclose
+        if g:syntastic_auto_jump && loclist.hasErrorsOrWarningsToDisplay()
+            silent! lrewind
         endif
     endif
-endfunction
 
-"lazy init the loc list for the current buffer
-function! s:LocList()
-    if !exists("b:syntastic_loclist")
-        let b:syntastic_loclist = g:SyntasticLoclist.New([])
-    endif
-    return b:syntastic_loclist
+    call s:notifiers.refresh(loclist)
 endfunction
 
 "clear the loc list for the buffer
 function! s:ClearCache()
+    call s:notifiers.reset(g:SyntasticLoclist.current())
     unlet! b:syntastic_loclist
 endfunction
 
 function! s:CurrentFiletypes()
-    "sub - for _ in filetypes otherwise we cant name syntax checker
-    "functions legally for filetypes like "gentoo-metadata"
-    let fts = substitute(&ft, '-', '_', 'g')
-    return split(fts, '\.')
+    return split(&filetype, '\.')
 endfunction
 
 "detect and cache all syntax errors in this buffer
@@ -186,28 +161,38 @@ function! s:CacheErrors(...)
     let newLoclist = g:SyntasticLoclist.New([])
 
     if !s:SkipFile()
+        let active_checkers = 0
         for ft in s:CurrentFiletypes()
-
             if a:0
                 let checker = s:registry.getChecker(ft, a:1)
-                if !empty(checker)
-                    let checkers = [checker]
-                endif
+                let checkers = !empty(checker) ? [checker] : []
             else
                 let checkers = s:registry.getActiveCheckers(ft)
             endif
 
             for checker in checkers
+                let active_checkers += 1
+                call syntastic#util#debug("CacheErrors: Invoking checker: " . checker.getName())
+
                 let loclist = checker.getLocList()
 
                 if !loclist.isEmpty()
                     let newLoclist = newLoclist.extend(loclist)
+                    call newLoclist.setName( checker.getName() . ' ('. checker.getFiletype() . ')' )
 
                     "only get errors from one checker at a time
                     break
                 endif
             endfor
         endfor
+
+        if !active_checkers
+            if a:0
+                call syntastic#util#warn('checker ' . a:1 . ' is not active for filetype ' . &filetype)
+            else
+                call syntastic#util#debug('no active checkers for filetype ' . &filetype)
+            endif
+        endif
     endif
 
     let b:syntastic_loclist = newLoclist
@@ -222,122 +207,8 @@ endfunction
 
 "display the cached errors for this buf in the location list
 function! s:ShowLocList()
-    let loclist = s:LocList()
-    if loclist.hasErrorsOrWarningsToDisplay()
-        call setloclist(0, loclist.filteredRaw())
-        let num = winnr()
-        exec "lopen " . g:syntastic_loc_list_height
-        if num != winnr()
-            wincmd p
-        endif
-    endif
-endfunction
-
-function! s:HideLocList()
-    if len(filter( range(1,bufnr('$')), 'buflisted(v:val) && bufloaded(v:val)' )) == 1
-        quit
-    else
-        lclose
-    endif
-endfunction
-
-"highlight the current errors using matchadd()
-"
-"The function `Syntastic_{filetype}_{checker}_GetHighlightRegex` is used
-"to override default highlighting.  This function must take one arg (an
-"error item) and return a regex to match that item in the buffer.
-function! s:HighlightErrors()
-    call s:ClearErrorHighlights()
-    let loclist = s:LocList()
-
-    let fts = substitute(&ft, '-', '_', 'g')
-    for ft in split(fts, '\.')
-
-        for item in loclist.filteredRaw()
-            let group = item['type'] == 'E' ? 'SyntasticError' : 'SyntasticWarning'
-
-            if has_key(item, 'hl')
-                call matchadd(group, '\%' . item['lnum'] . 'l' . item['hl'])
-            elseif get(item, 'col')
-                let lastcol = col([item['lnum'], '$'])
-                let lcol = min([lastcol, item['col']])
-
-                "a bug in vim can sometimes cause there to be no 'vcol' key,
-                "so check for its existence
-                let coltype = has_key(item, 'vcol') && item['vcol'] ? 'v' : 'c'
-
-                call matchadd(group, '\%' . item['lnum'] . 'l\%' . lcol . coltype)
-            endif
-        endfor
-    endfor
-endfunction
-
-"remove all error highlights from the window
-function! s:ClearErrorHighlights()
-    for match in getmatches()
-        if stridx(match['group'], 'Syntastic') == 0
-            call matchdelete(match['id'])
-        endif
-    endfor
-endfunction
-
-"set up error ballons for the current set of errors
-function! s:RefreshBalloons()
-    let b:syntastic_balloons = {}
-    let loclist = s:LocList()
-    if loclist.hasErrorsOrWarningsToDisplay()
-        for i in loclist.filteredRaw()
-            let b:syntastic_balloons[i['lnum']] = i['text']
-        endfor
-        set beval bexpr=SyntasticErrorBalloonExpr()
-    endif
-endfunction
-
-"print as much of a:msg as possible without "Press Enter" prompt appearing
-function! s:WideMsg(msg)
-    let old_ruler = &ruler
-    let old_showcmd = &showcmd
-
-    "convert tabs to spaces so that the tabs count towards the window width
-    "as the proper amount of characters
-    let msg = substitute(a:msg, "\t", repeat(" ", &tabstop), "g")
-    let msg = strpart(msg, 0, winwidth(0)-1)
-
-    "This is here because it is possible for some error messages to begin with
-    "\n which will cause a "press enter" prompt. I have noticed this in the
-    "javascript:jshint checker and have been unable to figure out why it
-    "happens
-    let msg = substitute(msg, "\n", "", "g")
-
-    set noruler noshowcmd
-    redraw
-
-    echo msg
-
-    let &ruler=old_ruler
-    let &showcmd=old_showcmd
-endfunction
-
-"echo out the first error we find for the current line in the cmd window
-function! s:EchoCurrentError()
-    let loclist = s:LocList()
-    "If we have an error or warning at the current line, show it
-    let errors = loclist.filter({'lnum': line("."), "type": 'e'})
-    let warnings = loclist.filter({'lnum': line("."), "type": 'w'})
-
-    let b:syntastic_echoing_error = len(errors) || len(warnings)
-    if len(errors)
-        return s:WideMsg(errors[0]['text'])
-    endif
-    if len(warnings)
-        return s:WideMsg(warnings[0]['text'])
-    endif
-
-    "Otherwise, clear the status line
-    if b:syntastic_echoing_error
-        echo
-        let b:syntastic_echoing_error = 0
-    endif
+    let loclist = g:SyntasticLoclist.current()
+    call loclist.show()
 endfunction
 
 "the script changes &shellpipe and &shell to stop the screen flicking when
@@ -365,9 +236,21 @@ function! s:Redraw()
     endif
 endfunction
 
+function! s:IgnoreFile(filename)
+    let fname = fnamemodify(a:filename, ':p')
+    for p in g:syntastic_ignore_files
+        if fname =~# p
+            return 1
+        endif
+    endfor
+    return 0
+endfunction
+
 " Skip running in special buffers
 function! s:SkipFile()
-    return !empty(&buftype) || !filereadable(expand('%')) || getwinvar(0, '&diff')
+    let force_skip = exists('b:syntastic_skip_checks') ? b:syntastic_skip_checks : 0
+    let fname = expand('%')
+    return force_skip || !empty(&buftype) || !filereadable(fname) || getwinvar(0, '&diff') || s:IgnoreFile(fname)
 endfunction
 
 function! s:uname()
@@ -382,7 +265,9 @@ endfunction
 "
 "return '' if no errors are cached for the buffer
 function! SyntasticStatuslineFlag()
-    let loclist = s:LocList()
+    let loclist = g:SyntasticLoclist.current()
+    let issues = loclist.filteredRaw()
+    let num_issues = loclist.getLength()
     if loclist.hasErrorsOrWarningsToDisplay()
         let errors = loclist.errors()
         let warnings = loclist.warnings()
@@ -405,10 +290,10 @@ function! SyntasticStatuslineFlag()
         "sub in the total errors/warnings/both
         let output = substitute(output, '\C%w', num_warnings, 'g')
         let output = substitute(output, '\C%e', num_errors, 'g')
-        let output = substitute(output, '\C%t', loclist.length(), 'g')
+        let output = substitute(output, '\C%t', num_issues, 'g')
 
         "first error/warning line num
-        let output = substitute(output, '\C%F', loclist.filteredRaw()[0]['lnum'], 'g')
+        let output = substitute(output, '\C%F', num_issues ? issues[0]['lnum'] : '', 'g')
 
         "first error line num
         let output = substitute(output, '\C%fe', num_errors ? errors[0]['lnum'] : '', 'g')
@@ -436,12 +321,18 @@ endfunction
 "a:options may also contain:
 "   'defaults' - a dict containing default values for the returned errors
 "   'subtype' - all errors will be assigned the given subtype
+"   'postprocess' - a list of functions to be applied to the error list
+"   'cwd' - change directory to the given path before running the checker
 function! SyntasticMake(options)
+    call syntastic#util#debug('SyntasticMake: called with options: '. string(a:options))
+
     let old_loclist = getloclist(0)
     let old_makeprg = &l:makeprg
     let old_shellpipe = &shellpipe
     let old_shell = &shell
     let old_errorformat = &l:errorformat
+    let old_cwd = getcwd()
+    let old_lc_all = $LC_ALL
 
     if s:OSSupportsShellpipeHack()
         "this is a hack to stop the screen needing to be ':redraw'n when
@@ -458,8 +349,19 @@ function! SyntasticMake(options)
         let &l:errorformat = a:options['errorformat']
     endif
 
+    if has_key(a:options, 'cwd')
+        exec 'lcd ' . fnameescape(a:options['cwd'])
+    endif
+
+    let $LC_ALL = 'C'
     silent lmake!
+    let $LC_ALL = old_lc_all
+
     let errors = getloclist(0)
+
+    if has_key(a:options, 'cwd')
+        exec 'lcd ' . fnameescape(old_cwd)
+    endif
 
     call setloclist(0, old_loclist)
     let &l:makeprg = old_makeprg
@@ -475,20 +377,25 @@ function! SyntasticMake(options)
         call SyntasticAddToErrors(errors, a:options['defaults'])
     endif
 
+    " Apply ignore patterns
+    let ignore = {}
+    for buf in syntastic#util#unique(map(copy(errors), 'v:val["bufnr"]'))
+        let ignore[buf] = s:IgnoreFile(bufname(str2nr(buf)))
+    endfor
+    call filter(errors, '!ignore[v:val["bufnr"]]')
+
     " Add subtype info if present.
     if has_key(a:options, 'subtype')
         call SyntasticAddToErrors(errors, {'subtype': a:options['subtype']})
     endif
 
-    return errors
-endfunction
-
-"get the error balloon for the current mouse position
-function! SyntasticErrorBalloonExpr()
-    if !exists('b:syntastic_balloons')
-        return ''
+    if has_key(a:options, 'postprocess') && !empty(a:options['postprocess'])
+        for rule in a:options['postprocess']
+            let errors = call('syntastic#postprocess#' . rule, [errors])
+        endfor
     endif
-    return get(b:syntastic_balloons, v:beval_lnum, '')
+
+    return errors
 endfunction
 
 "take a list of errors and add default values to them from a:options
