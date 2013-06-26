@@ -683,19 +683,33 @@ let g:unite_data_directory = $HOME . '/.vim/var/unite'
 if !exists("g:unite_source_menu_menus")
   let g:unite_source_menu_menus = {}
 endif
-" let g:unite_source_menu_menus.vimshell = {
-"       \     'description' : 'Vim Shell Interactive',
-"       \ }
-" let g:unite_source_menu_menus.vimshell.candidates = {
-"       \       'ghci'      : 'VimShellInteractive ghci',
-"       \       'python'    : 'VimShellInteractive python',
-"       \}
-" function g:unite_source_menu_menus.vimshell.map(key, value)
-"   return {
-"         \       'word' : a:key, 'kind' : 'command',
-"         \       'action__command' : a:value,
-"         \}
-" endfunction
+let g:unite_source_menu_menus.fenc = {
+      \     'description' : 'Change file fenc option.',
+      \ }
+let g:unite_source_menu_menus.fenc.command_candidates = [
+      \       ['utf8',      'set fenc=utf8'],
+      \       ['iso2022jp', 'set fenc=Iso2022jp'],
+      \       ['cp932',     'set fenc=Cp932'],
+      \       ['euc',       'set fenc=Euc'],
+      \       ['utf16',     'set fenc=Utf16'],
+      \       ['utf16-be',  'set fenc=Utf16be'],
+      \       ['jis',       'set fenc=Jis'],
+      \       ['sjis',      'set fenc=Sjis'],
+      \       ['unicode',   'set fenc=Unicode'],
+      \     ]
+let g:unite_source_menu_menus.vimshell = {
+      \     'description' : 'Vim Shell Interactive',
+      \ }
+let g:unite_source_menu_menus.vimshell.candidates = {
+      \       'ghci'      : 'VimShellInteractive ghci',
+      \       'python'    : 'VimShellInteractive python',
+      \}
+function g:unite_source_menu_menus.vimshell.map(key, value)
+  return {
+        \       'word' : a:key, 'kind' : 'command',
+        \       'action__command' : a:value,
+        \}
+endfunction
 " IndentConsistencyCop ------------------------------------------
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
