@@ -11,7 +11,7 @@
 " your hand to press enter-backspace as it is forced by most "general-purpose"
 " keyboards.).
 
-"Global Vim configuration
+" global vim configuration
 "***************** {{{
 set nocompatible
 filetype plugin on
@@ -186,6 +186,9 @@ noremap <Down> 4<C-E>
 noremap <Up>   4<C-Y>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
 nnoremap <silent> \ :let @/=""<CR>:echo "Cleared Search Pattern"<CR>
+nnoremap / /\V
+nnoremap <silent> <expr> gn '' . SearchForwLastSearch() . ''
+" save current file path to register
 nnoremap <silent> y@@ :let @+=expand("%:p")<CR>
 nnoremap <silent> y@  :let @+=expand("%:.")<CR>
 " saving stuff
@@ -803,7 +806,6 @@ function! SearchForwLastSearch()
     return "/\<CR>"
   endif
 endfunction
-nmap <silent> <expr> gn '' . SearchForwLastSearch() . ''
 
 function! IsHereAComment()
   let syn = synIDtrans(synID(line("."), col(".")-1, 1))
