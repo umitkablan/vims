@@ -163,7 +163,8 @@ noremap gl $
 noremap gh ^
 " behave like C and D counterparts (default is yy, which yanks line(s))
 noremap Y y$
-" i need the 'dot' at reverse side of comma/n, which i mainly use for
+nnoremap DD dip
+" Needed the 'dot' at reverse side of comma/n, which is mainly used for
 " search-replace (<comma_or_n><dot>)
 nnoremap <silent> <Bar> :norm! .<CR>
 nnoremap ç :
