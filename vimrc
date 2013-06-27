@@ -197,12 +197,6 @@ if has("gui_running")
   vmap <C-s> <Esc><C-s>gv
   imap <C-s> <C-o><C-s>
 endif
-if has("gui")
-  set guioptions-=T
-  set guioptions-=r
-  set guioptions+=c " Use console dialogs where possible"
-  "set guioptions-=m
-endif
 nnoremap <silent> <Tab><space> :update<CR>
 " using TAB instead of ^W is easier
 nmap <Tab> <C-W>
@@ -240,10 +234,10 @@ cnoremap <C-e> <End>
 inoremap <C-E> <C-O>$
 inoremap <C-A> <C-O>^
 " unnamed register to/from system clipboard
-nnoremap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
+nnoremap <silent> <Leader>,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nnoremap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
-nnoremap ğc "+yiw
-vnoremap ğc "+y
+nnoremap <Leader>c "+yiw
+vnoremap <Leader>c "+y
 " Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
 inoremap <F12> <C-O>:set invpaste paste?<CR>
@@ -315,7 +309,7 @@ nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
-call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
+call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 let g:tinykeymap#map#windows#map = "gw"
@@ -1211,6 +1205,13 @@ colorscheme inkpot
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
+
+if has("gui")
+  set guioptions-=T
+  set guioptions-=r
+  set guioptions+=c " Use console dialogs where possible"
+  "set guioptions-=m
+endif
 
 if has("gui_running")
   winsize 170 46
