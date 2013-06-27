@@ -286,7 +286,7 @@ augroup END
 
 augroup preprocessor_langs
   au!
-  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>kmz
+  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>mzk
 augroup END
 
 call pathogen#infect('bundle/*')
