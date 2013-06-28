@@ -163,7 +163,6 @@ noremap gl $
 noremap gh ^
 " behave like C and D counterparts (default is yy, which yanks line(s))
 noremap Y y$
-nnoremap DD dip
 " Needed the 'dot' at reverse side of comma/n, which is mainly used for
 " search-replace (<comma_or_n><dot>)
 nnoremap <silent> <Bar> :norm! .<CR>
@@ -216,6 +215,7 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap <Leader>> >i}
 nnoremap <Leader>< <i}
+nnoremap ĞD di}
 " easier colon access
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap <Leader>g :%g/<C-r><C-w>/
