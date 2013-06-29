@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: iexe.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 24 Jan 2012.
+" Last Modified: 11 May 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,20 +24,25 @@
 " }}}
 "=============================================================================
 
-let s:update_time_save = &updatetime
+let s:V = vital#of('vimshell')
+let s:BM = s:V.import('Vim.BufferManager')
+let s:manager = s:BM.new()  " creates new manager
+call s:manager.config('opener', 'silent edit')
+call s:manager.config('range', 'current')
 
 let s:command = {
       \ 'name' : 'iexe',
       \ 'kind' : 'execute',
       \ 'description' : 'iexe [{options}...] {command}',
       \}
-function! s:command.execute(commands, context)"{{{
+function! s:command.execute(commands, context) "{{{
   " Interactive execute command.
 
   let commands = a:commands
   let [commands[0].args, options] = vimshell#parser#getopt(commands[0].args, {
         \ 'arg=' : ['--encoding', '--split'],
         \ }, {
+        \ '--encoding' : vimshell#interactive#get_default_encoding(a:commands),
         \ '--split' : g:vimshell_split_command,
         \ })
 
@@ -52,10 +57,12 @@ function! s:command.execute(commands, context)"{{{
     call insert(args, 'fakecygpty')
   endif
 
-  let use_cygpty = vimshell#iswin() && args[0] =~ '^fakecygpty\%(\.exe\)\?$'
+  let use_cygpty = vimshell#util#is_windows() &&
+        \ args[0] =~ '^fakecygpty\%(\.exe\)\?$'
   if use_cygpty
     if !executable('fakecygpty')
-      call vimshell#error_line(a:context.fd, 'iexe: "fakecygpty.exe" is required. Please install it.')
+      call vimshell#error_line(a:context.fd,
+            \ 'iexe: "fakecygpty.exe" is required. Please install it.')
       return
     endif
 
@@ -65,25 +72,23 @@ function! s:command.execute(commands, context)"{{{
       return
     endif
 
-    let args[1] = vimproc#get_command_name(args[1], g:vimshell_interactive_cygwin_path)
+    let args[1] = vimproc#get_command_name(
+          \ args[1], g:vimshell_interactive_cygwin_path)
   endif
 
   let cmdname = fnamemodify(args[0], ':r')
-  if !has_key(options, '--encoding')
-    let options['--encoding'] = has_key(g:vimshell_interactive_encodings, cmdname) ?
-          \ g:vimshell_interactive_encodings[cmdname] : &termencoding
-  endif
-
   if !use_cygpty && has_key(g:vimshell_interactive_command_options, cmdname)
-    for arg in vimproc#parser#split_args(g:vimshell_interactive_command_options[cmdname])
+    for arg in vimproc#parser#split_args(
+          \ g:vimshell_interactive_command_options[cmdname])
       call add(args, arg)
     endfor
   endif
 
-  if vimshell#iswin() && cmdname == 'cmd'
+  if vimshell#util#is_windows() && cmdname == 'cmd'
     " Run cmdproxy.exe instead of cmd.exe.
     if !executable('cmdproxy.exe')
-      call vimshell#error_line(a:context.fd, 'iexe: "cmdproxy.exe" is not found. Please install it.')
+      call vimshell#error_line(a:context.fd,
+            \ 'iexe: "cmdproxy.exe" is not found. Please install it.')
       return
     endif
 
@@ -93,11 +98,13 @@ function! s:command.execute(commands, context)"{{{
   " Encoding conversion.
   if options['--encoding'] != '' && options['--encoding'] != &encoding
     for command in commands
-      call map(command.args, 'iconv(v:val, &encoding, options["--encoding"])')
+      call map(command.args,
+            \ 'vimproc#util#iconv(v:val, &encoding, options["--encoding"])')
     endfor
   endif
 
-  if exists('b:interactive') && !empty(b:interactive.process) && b:interactive.process.is_valid
+  if exists('b:interactive') && !empty(b:interactive.process)
+        \ && b:interactive.process.is_valid
     " Delete zombie process.
     call vimshell#interactive#force_exit()
   endif
@@ -118,10 +125,12 @@ function! s:command.execute(commands, context)"{{{
         \ '$TERMCAP' : 'COLUMNS=' . winwidth(0)-5,
         \ '$VIMSHELL' : 1,
         \ '$COLUMNS' : winwidth(0)-5,
-        \ '$LINES' : winheight(0),
+        \ '$LINES' : g:vimshell_scrollback_limit,
         \ '$VIMSHELL_TERM' : 'interactive',
         \ '$EDITOR' : vimshell#get_editor_name(),
+        \ '$GIT_EDITOR' : vimshell#get_editor_name(),
         \ '$PAGER' : g:vimshell_cat_command,
+        \ '$GIT_PAGER' : g:vimshell_cat_command,
         \})
 
   " Initialize.
@@ -143,17 +152,18 @@ function! s:command.execute(commands, context)"{{{
         \ 'encoding' : options['--encoding'],
         \ 'is_secret': 0,
         \ 'prompt_history' : {},
-        \ 'is_pty' : (!vimshell#iswin() || use_cygpty),
+        \ 'is_pty' : (!vimshell#util#is_windows() || use_cygpty),
         \ 'args' : args,
         \ 'echoback_linenr' : 0,
         \ 'prompt_nr' : line('.'),
         \ 'width' : winwidth(0),
-        \ 'height' : winheight(0),
+        \ 'height' : g:vimshell_scrollback_limit,
         \ 'stdout_cache' : '',
         \ 'stderr_cache' : '',
         \ 'command' : fnamemodify(use_cygpty ? args[1] : args[0], ':t:r'),
-        \ 'is_close_immediately' : has_key(a:context, 'is_close_immediately')
-        \    && a:context.is_close_immediately,
+        \ 'cmdline' : join(args),
+        \ 'is_close_immediately' :
+        \   get(a:context, 'is_close_immediately', 0),
         \ 'hook_functions_table' : {},
         \}
 
@@ -166,22 +176,24 @@ function! s:command.execute(commands, context)"{{{
     startinsert!
   endif
 endfunction"}}}
-function! s:command.complete(args)"{{{
+function! s:command.complete(args) "{{{
   if len(a:args) == 1
     return vimshell#complete#helper#executables(a:args[-1])
-  elseif vimshell#iswin() && len(a:args) > 1 && a:args[1] == 'fakecygpty'
-    return vimshell#complete#helper#executables(a:args[-1], g:vimshell_interactive_cygwin_path) :
+  elseif vimshell#util#is_windows() &&
+        \ len(a:args) > 1 && a:args[1] == 'fakecygpty'
+    return vimshell#complete#helper#executables(
+          \ a:args[-1], g:vimshell_interactive_cygwin_path) :
   endif
 
-  return []
+  return vimshell#complete#helper#args(a:args[1], a:args[2:])
 endfunction"}}}
 
 function! vimshell#commands#iexe#define()
   return s:command
 endfunction
 
-" Set interactive options."{{{
-if vimshell#iswin()
+" Set interactive options. "{{{
+if vimshell#util#is_windows()
   " Windows only options.
   call vimshell#set_dictionary_helper(
         \ g:vimshell_interactive_command_options, 'bash,bc,gosh,python,zsh', '-i')
@@ -198,9 +210,9 @@ if vimshell#iswin()
   call vimshell#set_dictionary_helper(
         \ g:vimshell_interactive_command_options, 'sbt',
         \  '-Djline.WindowsTerminal.directConsole=false')
-
   call vimshell#set_dictionary_helper(
-        \ g:vimshell_interactive_encodings, 'gosh,fakecygpty', 'utf8')
+        \ g:vimshell_interactive_command_options, 'ipython,ipython3',
+        \ '--TerminalInteractiveShell.readline_use=False')
 
   call vimshell#set_dictionary_helper(
         \ g:vimshell_interactive_cygwin_commands, 'tail,zsh,ssh', 1)
@@ -241,7 +253,7 @@ call vimshell#set_dictionary_helper(
       \ g:vimshell_interactive_interpreter_commands, 'dosbatch', 'cmdproxy')
 call vimshell#set_dictionary_helper(
       \ g:vimshell_interactive_interpreter_commands, 'scala',
-      \  vimshell#iswin() ? 'scala.bat' : 'scala')
+      \  vimshell#util#is_windows() ? 'scala.bat' : 'scala')
 call vimshell#set_dictionary_helper(
       \ g:vimshell_interactive_interpreter_commands, 'ocaml', 'ocaml')
 call vimshell#set_dictionary_helper(
@@ -256,7 +268,7 @@ call vimshell#set_dictionary_helper(
       \ g:vimshell_interactive_monochrome_commands, 'earthquake', '1')
 "}}}
 
-function! s:default_settings()"{{{
+function! s:default_settings() "{{{
   " Common.
   setlocal buftype=nofile
   setlocal bufhidden=hide
@@ -271,34 +283,39 @@ function! s:default_settings()"{{{
     setlocal concealcursor=nvi
   endif
 
-  " For interactive.
-  setlocal wrap
-  setlocal omnifunc=vimshell#complete#interactive_history_complete#omnifunc
-
   " Define mappings.
   call vimshell#int_mappings#define_default_mappings()
 endfunction"}}}
 
-function! s:default_syntax()"{{{
+function! s:default_syntax() "{{{
   " Set syntax.
-  syn region   InteractiveError   start=+!!!+ end=+!!!+ contains=InteractiveErrorHidden oneline
-  hi def link InteractiveError Error
+  syntax match InteractiveError
+      \ '!!![^!].*!!!' contains=InteractiveErrorHidden
+  highlight def link InteractiveError Error
 
   if has('conceal')
     " Supported conceal features.
-    syn match   InteractiveErrorHidden            '!!!' contained conceal
+    syntax match   InteractiveErrorHidden
+          \ '!!!' contained conceal
   else
-    syn match   InteractiveErrorHidden            '!!!' contained
-    hi def link InteractiveErrorHidden Ignore
+    syntax match   InteractiveErrorHidden
+          \ '!!!' contained
+    highlight def link InteractiveErrorHidden Ignore
   endif
 endfunction"}}}
 
-function! vimshell#commands#iexe#init(context, interactive, new_pos, old_pos, is_insert)"{{{
+function! vimshell#commands#iexe#init(context, interactive, new_pos, old_pos, is_insert) "{{{
   " Save current directiory.
   let cwd = getcwd()
 
-  edit `='iexe-'.substitute(join(a:interactive.args),
-        \ '[<>|]', '_', 'g').'@'.(bufnr('$')+1)`
+  let ret = s:manager.open('iexe-'.substitute(join(a:interactive.args),
+        \ '[<>|]', '_', 'g') .'@'.(bufnr('$')+1))
+  if !ret.loaded
+    call vimshell#echo_error(
+          \ '[vimshell] Failed to open Buffer.')
+    return
+  endif
+
   let [a:new_pos[2], a:new_pos[3]] = [bufnr('%'), getpos('.')]
 
   call vimshell#cd(cwd)
@@ -315,13 +332,10 @@ function! vimshell#commands#iexe#init(context, interactive, new_pos, old_pos, is
 
   " Set autocommands.
   augroup vimshell
-    autocmd InsertEnter <buffer>       call s:insert_enter()
-    autocmd InsertLeave <buffer>       call s:insert_leave()
-    autocmd BufDelete <buffer>       call vimshell#interactive#hang_up(
-          \ vimshell#util#expand('<afile>'))
-    autocmd CursorHoldI <buffer>     call vimshell#interactive#check_insert_output()
-    autocmd CursorMovedI <buffer>    call vimshell#interactive#check_moved_output()
-    autocmd BufWinEnter,WinEnter <buffer> call s:event_bufwin_enter()
+    autocmd BufDelete,VimLeavePre <buffer>
+          \ call vimshell#interactive#hang_up(expand('<afile>'))
+    autocmd BufWinEnter,WinEnter <buffer>
+          \ call s:event_bufwin_enter()
   augroup END
 
   " Set send buffer.
@@ -330,32 +344,13 @@ function! vimshell#commands#iexe#init(context, interactive, new_pos, old_pos, is
   let bufnr = bufnr('%')
   call vimshell#restore_pos(a:old_pos)
 
-  if has_key(a:context, 'is_single_command') && a:context.is_single_command
+  if get(a:context, 'is_single_command', 0)
     call vimshell#next_prompt(a:context, a:is_insert)
     call vimshell#restore_pos(a:new_pos)
   endif
 endfunction"}}}
 
-function! vimshell#commands#iexe#dummy()
-endfunction
-
-function! s:insert_enter()"{{{
-  if &updatetime > g:vimshell_interactive_update_time
-    let s:update_time_save = &updatetime
-    let &updatetime = g:vimshell_interactive_update_time
-  endif
-
-  if winwidth(0) != b:interactive.width || winheight(0) != b:interactive.height
-    " Set new window size.
-    call b:interactive.process.set_winsize(winwidth(0), winheight(0))
-  endif
-endfunction"}}}
-function! s:insert_leave()"{{{
-  if &updatetime < s:update_time_save
-    let &updatetime = s:update_time_save
-  endif
-endfunction"}}}
-function! s:event_bufwin_enter()"{{{
+function! s:event_bufwin_enter() "{{{
   if has('conceal')
     setlocal conceallevel=3
     setlocal concealcursor=nvi

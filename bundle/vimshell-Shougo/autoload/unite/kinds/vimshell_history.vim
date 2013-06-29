@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: vimshell/history.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 17 Nov 2011.
+" Last Modified: 02 Feb 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -27,26 +27,26 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! unite#kinds#vimshell_history#define()"{{{
+function! unite#kinds#vimshell_history#define() "{{{
   return s:kind
 endfunction"}}}
 
 let s:kind = {
       \ 'name' : 'vimshell/history',
-      \ 'default_action' : 'execute',
+      \ 'default_action' : 'insert',
       \ 'action_table': {},
       \ 'alias_table' : { 'ex' : 'nop', 'narrow' : 'edit' },
       \ 'parents': ['completion'],
       \}
 
-" Actions"{{{
+" Actions "{{{
 let s:kind.action_table.delete = {
       \ 'description' : 'delete from vimshell history',
       \ 'is_invalidate_cache' : 1,
       \ 'is_quit' : 0,
       \ 'is_selectable' : 1,
       \ }
-function! s:kind.action_table.delete.func(candidates)"{{{
+function! s:kind.action_table.delete.func(candidates) "{{{
   let current_histories =
         \ a:candidates[0].action__current_histories
   for candidate in a:candidates
@@ -64,7 +64,7 @@ let s:kind.action_table.edit = {
       \ 'is_invalidate_cache' : 1,
       \ 'is_quit' : 0,
       \ }
-function! s:kind.action_table.edit.func(candidate)"{{{
+function! s:kind.action_table.edit.func(candidate) "{{{
   let current_histories =
         \ a:candidate.action__current_histories
   let history = input('Please edit history: ',
@@ -83,7 +83,7 @@ let s:kind.action_table.execute = {
       \ 'description' : 'execute history',
       \ 'is_selectable' : 1,
       \ }
-function! s:kind.action_table.execute.func(candidates)"{{{
+function! s:kind.action_table.execute.func(candidates) "{{{
   let candidate = deepcopy(a:candidates[0])
   let candidate.action__complete_word =
         \ join(map(copy(a:candidates), 'v:val.action__complete_word'), '; ')
@@ -95,9 +95,9 @@ endfunction"}}}
 let s:kind.action_table.insert = {
       \ 'description' : 'insert history',
       \ }
-function! s:kind.action_table.insert.func(candidate)"{{{
+function! s:kind.action_table.insert.func(candidate) "{{{
   if !vimshell#check_prompt()
-    echoerr 'Not in command line.'
+    call vimshell#echo_error('Not in command line.')
     return
   endif
 
@@ -109,6 +109,26 @@ function! s:kind.action_table.insert.func(candidate)"{{{
     normal! $
   endif
 endfunction"}}}
+
+let s:kind.action_table.unite__new_candidate = {
+      \ 'description' : 'add new history',
+      \ 'is_invalidate_cache' : 1,
+      \ 'is_quit' : 0,
+      \ }
+function! s:kind.action_table.unite__new_candidate.func(candidate) "{{{
+  let current_histories =
+        \ a:candidate.action__current_histories
+  let history = input('Please input new history: ',
+        \ '', 'shellcmd')
+  if history != ''
+    call insert(current_histories, history)
+  endif
+
+  if !a:candidate.action__is_external
+    call unite#sources#vimshell_history#_change_histories(current_histories)
+  endif
+endfunction"}}}
+
 "}}}
 
 let &cpo = s:save_cpo

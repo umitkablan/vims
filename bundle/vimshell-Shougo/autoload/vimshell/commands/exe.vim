@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: exe.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 21 Oct 2011.
+" Last Modified: 11 May 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -29,12 +29,13 @@ let s:command = {
       \ 'kind' : 'execute',
       \ 'description' : 'exe [{option}...] {command}',
       \}
-function! s:command.execute(commands, context)"{{{
+function! s:command.execute(commands, context) "{{{
   let commands = a:commands
   let [commands[0].args, options] = vimshell#parser#getopt(commands[0].args, {
         \ 'arg=' : ['--encoding'],
         \ }, {
-        \ '--encoding' : &termencoding,
+        \ '--encoding' : vimshell#interactive#get_default_encoding(a:commands),
+        \ '--syntax' : b:interactive.syntax,
         \ })
 
   if empty(commands[0].args)
@@ -44,16 +45,19 @@ function! s:command.execute(commands, context)"{{{
   " Encoding conversion.
   if options['--encoding'] != '' && options['--encoding'] != &encoding
     for command in commands
-      call map(command.args, 'iconv(v:val, &encoding, options["--encoding"])')
+      call map(command.args,
+            \ 'vimproc#util#iconv(v:val, &encoding, options["--encoding"])')
     endfor
   endif
 
   " Execute command.
   call s:init_process(commands, a:context, options)
 
-  " Move line.
-  call append(line('.'), '')
-  normal! j
+  if vimshell#check_prompt()
+    " Move line.
+    call append('.', '')
+    call cursor(line('.')+1, 0)
+  endif
 
   let b:interactive.output_pos = getpos('.')
 
@@ -94,12 +98,15 @@ function! s:command.execute(commands, context)"{{{
 
   let b:vimshell.system_variables['status'] = b:interactive.status
 endfunction"}}}
+function! s:command.complete(args) "{{{
+  return vimshell#complete#helper#command_args(a:args)
+endfunction"}}}
 
 function! vimshell#commands#exe#define()
   return s:command
 endfunction
 
-function! s:init_process(commands, context, options)"{{{
+function! s:init_process(commands, context, options) "{{{
   if !empty(b:interactive.process) && b:interactive.process.is_valid
     " Delete zombie process.
     call vimshell#interactive#force_exit()
@@ -111,10 +118,12 @@ function! s:init_process(commands, context, options)"{{{
         \ '$TERMCAP' : 'COLUMNS=' . winwidth(0)-5,
         \ '$VIMSHELL' : 1,
         \ '$COLUMNS' : winwidth(0)-5,
-        \ '$LINES' : winheight(0),
+        \ '$LINES' : g:vimshell_scrollback_limit,
         \ '$VIMSHELL_TERM' : 'execute',
         \ '$EDITOR' : vimshell#get_editor_name(),
+        \ '$GIT_EDITOR' : vimshell#get_editor_name(),
         \ '$PAGER' : g:vimshell_cat_command,
+        \ '$GIT_PAGER' : g:vimshell_cat_command,
         \})
 
   " Initialize.
@@ -129,20 +138,21 @@ function! s:init_process(commands, context, options)"{{{
   endfor
 
   " Set variables.
-  let b:interactive.syntax = b:interactive.syntax
+  let b:interactive.syntax = a:options['--syntax']
   let b:interactive.process = sub
   let b:interactive.args = a:commands[0].args
   let b:interactive.fd = a:context.fd
   let b:interactive.encoding = a:options['--encoding']
-  let b:interactive.is_pty = !vimshell#iswin()
+  let b:interactive.is_pty = !vimshell#util#is_windows()
   let b:interactive.echoback_linenr = -1
   let b:interactive.prompt_nr = line('.')
   let b:interactive.stdout_cache = ''
   let b:interactive.stderr_cache = ''
   let b:interactive.cmdline = join(cmdline, '|')
   let b:interactive.width = winwidth(0)
-  let b:interactive.height = winheight(0)
+  let b:interactive.height = g:vimshell_scrollback_limit
   let b:interactive.prompt_history = {}
   let b:interactive.echoback_linenr = 0
-  let b:interactive.command = fnamemodify(a:commands[0].args[0], ':t:r')
+  let b:interactive.command =
+        \ fnamemodify(a:commands[0].args[0], ':t:r')
 endfunction"}}}

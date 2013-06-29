@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: terminal.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 23 Jan 2012.
+" Last Modified: 05 Jun 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,7 +24,7 @@
 " }}}
 "=============================================================================
 
-function! vimshell#terminal#init()"{{{
+function! vimshell#terminal#init() "{{{
   let b:interactive.terminal = {
         \ 'syntax_names' : {},
         \ 'titlestring' : &titlestring,
@@ -40,11 +40,13 @@ function! vimshell#terminal#init()"{{{
         \}
 
   if s:use_conceal()
-    syntax match vimshellEscapeSequenceConceal contained conceal    '\e\[[0-9;]*m'
-    syntax match vimshellEscapeSequenceMarker conceal               '\e\[0\?m\|\e0m\['
+    syntax match vimshellEscapeSequenceConceal
+          \ contained conceal    '\e\[[0-9;]*m'
+    syntax match vimshellEscapeSequenceMarker
+          \ conceal               '\e\[0*m\|\e0m\['
   endif
 endfunction"}}}
-function! vimshell#terminal#print(string, is_error)"{{{
+function! vimshell#terminal#print(string, is_error) "{{{
   if !has_key(b:interactive, 'terminal')
     call vimshell#terminal#init()
   endif
@@ -54,8 +56,13 @@ function! vimshell#terminal#print(string, is_error)"{{{
     echomsg 'print string = ' . string(a:string)
   endif
 
+  " Skip next auto completion.
+  call vimshell#util#skip_next_complete()
+
   if &filetype ==# 'vimshell' &&
-        \ empty(b:vimshell.continuation) && vimshell#check_prompt()
+        \ empty(b:vimshell.continuation) && (vimshell#check_prompt()
+        \ || vimshell#head_match(getline('.'),
+        \     vimshell#get_secondary_prompt()))
     " Move line.
     call append(line('.'), '')
     normal! j
@@ -70,9 +77,11 @@ function! vimshell#terminal#print(string, is_error)"{{{
         \ 'line' : 0,
         \ }
   let s:virtual.lines = {}
-  let [s:virtual.line, s:virtual.col] = s:get_virtual_col(line('.'), col('.')-1)
+  let [s:virtual.line, s:virtual.col] =
+        \ s:get_virtual_col(line('.'), col('.')-1)
   if g:vimshell_enable_debug
-    echomsg '[s:virtual.line, s:virtual.col] = ' . string([s:virtual.line, s:virtual.col])
+    echomsg '[s:virtual.line, s:virtual.col] = ' .
+          \ string([s:virtual.line, s:virtual.col])
   endif
   let s:virtual.lines[s:virtual.line] = current_line
 
@@ -85,22 +94,29 @@ function! vimshell#terminal#print(string, is_error)"{{{
 
   let newstr = ''
   let pos = 0
-  let max = len(a:string)
+
+  " Optimize checkstr.
+  let string = a:string
+  while string =~ '\%(\e\[[0-9;]*m\)\{2,}'
+    let string = substitute(string,
+          \ '\e\[[0-9;]*\zsm\e\[\ze[0-9;]*m', ';', 'g')
+  endwhile
+  let max = len(string)
 
   while pos < max
-    let char = a:string[pos]
+    let char = string[pos]
 
-    if char !~ '[[:cntrl:]]'"{{{
+    if char !~ '[[:cntrl:]]' "{{{
       let newstr .= char
       let pos += 1
       continue
       "}}}
-    elseif char == "\<C-h>""{{{
+    elseif char == "\<C-h>" "{{{
       " Print rest string.
       call s:output_string(newstr)
       let newstr = ''
 
-      if pos + 1 < max && a:string[pos+1] == "\<C-h>"
+      if pos + 1 < max && string[pos+1] == "\<C-h>"
         " <C-h><C-h>
         call s:control.delete_multi_backword_char()
         let pos += 2
@@ -112,9 +128,9 @@ function! vimshell#terminal#print(string, is_error)"{{{
 
       continue
       "}}}
-    elseif char == "\<ESC>""{{{
+    elseif char == "\<ESC>" "{{{
       " Check escape sequence.
-      let checkstr = a:string[pos+1 :]
+      let checkstr = string[pos+1 :]
       if checkstr == ''
         break
       endif
@@ -137,7 +153,7 @@ function! vimshell#terminal#print(string, is_error)"{{{
 
       " Check simple pattern.
       let checkchar1 = checkstr[0]
-      if has_key(s:escape_sequence_simple_char1, checkchar1)"{{{
+      if has_key(s:escape_sequence_simple_char1, checkchar1) "{{{
         call s:output_string(newstr)
         let newstr = ''
 
@@ -147,7 +163,8 @@ function! vimshell#terminal#print(string, is_error)"{{{
         continue
       endif"}}}
       let checkchar2 = checkstr[: 1]
-      if checkchar2 != '' && has_key(s:escape_sequence_simple_char2, checkchar2)"{{{
+      if checkchar2 != '' &&
+            \ has_key(s:escape_sequence_simple_char2, checkchar2) "{{{
         call s:output_string(newstr)
         let newstr = ''
 
@@ -159,7 +176,7 @@ function! vimshell#terminal#print(string, is_error)"{{{
 
       let matched = 0
       " Check match pattern.
-      for pattern in keys(s:escape_sequence_match)"{{{
+      for pattern in keys(s:escape_sequence_match) "{{{
         if checkstr =~ pattern
           let matched = 1
 
@@ -179,7 +196,7 @@ function! vimshell#terminal#print(string, is_error)"{{{
       if matched
         continue
       endif"}}}
-    elseif has_key(s:control_sequence, char)"{{{
+    elseif has_key(s:control_sequence, char) "{{{
       " Check other pattern.
       " Print rest string.
       call s:output_string(newstr)
@@ -199,27 +216,29 @@ function! vimshell#terminal#print(string, is_error)"{{{
   call s:output_string(newstr)
 
   " Set lines.
-  for linenr in sort(map(keys(s:virtual.lines), 'str2nr(v:val)'), 's:sortfunc')
-    call setline(linenr, s:virtual.lines[linenr])
+  for linenr in sort(map(keys(s:virtual.lines),
+        \ 'str2nr(v:val)'), 's:sortfunc')
+    call setline(linenr, substitute(
+          \ s:virtual.lines[linenr], '[^!]\zs!\{6}\ze[^!]', '', 'g'))
   endfor
 
   call s:set_cursor()
 endfunction"}}}
-function! vimshell#terminal#set_title()"{{{
+function! vimshell#terminal#set_title() "{{{
   if !has_key(b:interactive, 'terminal')
     call vimshell#terminal#init()
   endif
 
   let &titlestring = b:interactive.terminal.titlestring
 endfunction"}}}
-function! vimshell#terminal#restore_title()"{{{
+function! vimshell#terminal#restore_title() "{{{
   if !has_key(b:interactive, 'terminal')
     call vimshell#terminal#init()
   endif
 
   let &titlestring = b:interactive.terminal.titlestring_save
 endfunction"}}}
-function! vimshell#terminal#clear_highlight()"{{{
+function! vimshell#terminal#clear_highlight() "{{{
   if !has_key(b:interactive, 'terminal')
     call vimshell#terminal#init()
   endif
@@ -244,10 +263,14 @@ function! vimshell#terminal#clear_highlight()"{{{
   endif
 endfunction"}}}
 
-function! s:optimized_print(string, is_error)"{{{
+function! s:optimized_print(string, is_error) "{{{
   " Strip <CR>.
-  let string = substitute(substitute(a:string, "\<C-g>", '', 'g'),
-        \ '\r\+\n', '\n', 'g')
+  let string = substitute(substitute(
+        \ a:string, "\<C-g>", '', 'g'), '\r\+\n', '\n', 'g')
+
+  if g:vimshell_enable_debug
+    echomsg 'print optimized output string = ' . string(string)
+  endif
 
   let lines = split(string, '\n', 1)
 
@@ -258,10 +281,11 @@ function! s:optimized_print(string, is_error)"{{{
   endif
 
   normal! $
-  let [s:virtual.line, s:virtual.col] = s:get_virtual_col(line('.'), col('.')-1)
+  let [s:virtual.line, s:virtual.col] =
+        \ s:get_virtual_col(line('.'), col('.')-1)
   call s:set_cursor()
 endfunction"}}}
-function! s:print_with_redraw(is_error, lines)"{{{
+function! s:print_with_redraw(is_error, lines) "{{{
   let cnt = 1
   for line in a:lines
     if cnt != 1 ||
@@ -270,25 +294,26 @@ function! s:print_with_redraw(is_error, lines)"{{{
       normal! j
     endif
 
-    let ls = split(line, '\r', 1)
+    let ls = map(split(line, '\r\ze.', 1), "substitute(v:val, '\\r', '', '')")
 
     if a:is_error
-      call map(ls, '"!!!".v:val."!!!"')
+      call map(ls, "v:val != '' ? ('!!!'.v:val.'!!!') : v:val")
     endif
 
     for l in ls
       call setline('.', l)
+      sleep 1m
       redraw
     endfor
 
     let cnt += 1
   endfor
 endfunction"}}}
-function! s:print_simple(is_error, lines)"{{{
+function! s:print_simple(is_error, lines) "{{{
   let lines = a:lines
 
   if a:is_error
-    call map(lines, '"!!!".v:val."!!!"')
+    call map(lines, "v:val != '' ? ('!!!'.v:val.'!!!') : v:val")
   endif
 
   " Optimized print.
@@ -301,7 +326,8 @@ function! s:print_simple(is_error, lines)"{{{
 
     normal! j$
   elseif line('.') != b:interactive.echoback_linenr
-    call setline('.', getline('.') . lines[0])
+    call setline('.', substitute(
+          \ getline('.') . lines[0], '[^!]\zs!\{6}\ze[^!]', '', 'g'))
   endif
 
   let lines = lines[1:]
@@ -309,9 +335,10 @@ function! s:print_simple(is_error, lines)"{{{
   call append('.', lines)
   execute 'normal!' (len(lines)).'j$'
 endfunction"}}}
-function! s:set_cursor()"{{{
+function! s:set_cursor() "{{{
   " Get real pos(0 origin).
-  let [line, col] = s:get_real_pos(s:virtual.line, s:virtual.col)
+  let [line, col] = s:get_real_pos(
+        \ s:virtual.line, s:virtual.col)
   call s:set_screen_pos(line, col)
 
   " Convert to 1 origin.
@@ -332,15 +359,15 @@ function! s:set_cursor()"{{{
 endfunction"}}}
 function! s:is_no_echoback()
   return b:interactive.type ==# 'interactive'
-          \ && vimshell#iswin()
+          \ && vimshell#util#is_windows()
           \ && has_key(b:interactive, 'command')
           \ && !get(g:vimshell_interactive_echoback_commands,
           \        b:interactive.command, 0)
 endfunction
 
-function! s:init_terminal()"{{{
+function! s:init_terminal() "{{{
 endfunction"}}}
-function! s:output_string(string)"{{{
+function! s:output_string(string) "{{{
   if s:virtual.line == b:interactive.echoback_linenr
     if s:is_no_echoback()
       " no echoback command.
@@ -352,14 +379,19 @@ function! s:output_string(string)"{{{
     return
   endif
 
+  if g:vimshell_enable_debug
+    echomsg 'print output string = ' . string(a:string)
+  endif
+
   if a:string == ''
     return
   endif
 
-  let string = b:interactive.terminal.is_error ?
+  let string = a:string != '' && b:interactive.terminal.is_error ?
         \ '!!!' . a:string . '!!!' : a:string
 
-  if b:interactive.terminal.current_character_set ==# 'Line Drawing'
+  if b:interactive.terminal.current_character_set
+        \ ==# 'Line Drawing'
     " Convert characters.
     let string = ''
     for c in split(a:string, '\zs')
@@ -370,10 +402,10 @@ function! s:output_string(string)"{{{
 
   call s:set_screen_string(s:virtual.line, s:virtual.col, string)
 endfunction"}}}
-function! s:sortfunc(i1, i2)"{{{
+function! s:sortfunc(i1, i2) "{{{
   return a:i1 == a:i2 ? 0 : a:i1 > a:i2 ? 1 : -1
 endfunction"}}}
-function! s:scroll_up(number)"{{{
+function! s:scroll_up(number) "{{{
   let line = b:interactive.terminal.region_bottom
   let end = b:interactive.terminal.region_top - a:number
   while line >= end
@@ -392,7 +424,7 @@ function! s:scroll_up(number)"{{{
     let i += 1
   endwhile
 endfunction"}}}
-function! s:scroll_down(number)"{{{
+function! s:scroll_down(number) "{{{
   let line = b:interactive.terminal.region_top
   let end = b:interactive.terminal.region_bottom - a:number
   while line <= end
@@ -411,7 +443,7 @@ function! s:scroll_down(number)"{{{
     let i += 1
   endwhile
 endfunction"}}}
-function! s:clear_highlight_line(linenr)"{{{
+function! s:clear_highlight_line(linenr) "{{{
   if s:use_conceal()
     return
   endif
@@ -423,48 +455,84 @@ function! s:clear_highlight_line(linenr)"{{{
     endfor
   endif
 endfunction"}}}
-function! s:use_conceal()"{{{
+function! s:use_conceal() "{{{
   return has('conceal') && b:interactive.type !=# 'terminal'
 endfunction"}}}
 
 " Note: Real pos is 0 origin.
-function! s:get_real_pos(line, col)"{{{
+function! s:get_real_pos(line, col) "{{{
   let current_line = get(s:virtual.lines, a:line, getline(a:line))
   if a:col <= 1 && current_line !~ '\e\[[0-9;]*m'
     return [a:line, 0]
   endif
 
-  return s:get_col(a:line, a:col, 0)
+  return s:get_col_current_line(a:line, a:col, 0)
 endfunction"}}}
-function! s:get_virtual_col(line, col)"{{{
+function! s:get_virtual_col(line, col) "{{{
   let current_line = get(s:virtual.lines, a:line, getline(a:line))
   if a:col <= 0 && current_line !~ '\e\[[0-9;]*m'
     return [a:line, 1]
   endif
 
-  return s:get_col(a:line, a:col, 1)
+  return s:get_col_current_line(a:line, a:col, 1)
 endfunction"}}}
-function! s:get_col(line, col, is_virtual)"{{{
+function! s:get_col_current_line(line, col, is_virtual) "{{{
+  let current_line = get(s:virtual.lines, a:line, getline(a:line))
+  return [a:line, vimshell#terminal#get_col(
+        \ current_line, a:col, a:is_virtual)]
+endfunction"}}}
+function! s:get_screen_character(line, col) "{{{
+  let [line, col] = s:get_real_pos(a:line, a:col)
+  return s:virtual.lines[line][col]
+endfunction"}}}
+function! s:get_virtual_wcswidth(string) "{{{
+  return vimshell#util#wcswidth(
+        \ substitute(a:string, '\e\[[0-9;]*m', '', 'g'))
+endfunction"}}}
+function! s:set_screen_string(line, col, string) "{{{
+  let [line, col] = s:get_real_pos(a:line, a:col)
+  call s:set_screen_pos(line, col)
+
+  let current_line = s:virtual.lines[line]
+  let len = vimshell#util#wcswidth(a:string)
+  let s:virtual.lines[line] =
+        \ (col > 1 ? current_line[:col-2] : '')
+        \ . a:string
+        \ . current_line[col+len :]
+  let len2 = s:get_virtual_wcswidth(a:string)
+  let s:virtual.col += len2
+  if col < 1
+    let s:virtual.col += 1
+  endif
+
+  " let [s:virtual.line, s:virtual.col] = s:get_virtual_col(line, col+len)
+  if g:vimshell_enable_debug
+    echomsg 'current_line = ' . current_line
+    echomsg 'current_line[col:] = ' . current_line[col :]
+    echomsg '[old_virt_col, real_col, new_virt_col, string] = ' .
+          \ string([a:col, col, s:virtual.col, a:string])
+  endif
+endfunction"}}}
+function! s:set_screen_pos(line, col) "{{{
+  if a:line == ''
+    return
+  endif
+
+  if !has_key(s:virtual.lines, a:line)
+    let s:virtual.lines[a:line] = ''
+  endif
+  if a:col > len(s:virtual.lines[a:line])
+    let s:virtual.lines[a:line] .=
+          \ repeat(' ', a:col - len(s:virtual.lines[a:line]))
+  endif
+endfunction"}}}
+function! vimshell#terminal#get_col(line, col, is_virtual) "{{{
   " is_virtual -> a:col : real col.
   " not -> a:col : virtual col.
   let col = 1
   let real_col = 0
 
-  let current_line = get(s:virtual.lines, a:line, getline(a:line))
-  if current_line =~ '^ \+'
-    " Optimized.
-    let spaces = len(matchstr(current_line, '^ \+'))
-    let col += spaces
-    let real_col += spaces
-
-    let check_col = a:is_virtual ? real_col : col
-    if check_col > a:col
-      let col -= check_col - a:col
-      let real_col -= check_col - a:col
-    endif
-
-    let current_line = current_line[real_col :]
-  endif
+  let current_line = a:line
 
   if current_line !~ '\e\[[0-9;]*m'
     " Optimized.
@@ -479,7 +547,7 @@ function! s:get_col(line, col, is_virtual)"{{{
     endfor
   else
     let skip_cnt = 0
-    for c in split(current_line, '\zs')
+    for c in split(current_line[real_col :], '\zs')
       if skip_cnt > 0
         let skip_cnt -= 1
         continue
@@ -488,7 +556,8 @@ function! s:get_col(line, col, is_virtual)"{{{
       if c == "\<ESC>"
             \ && current_line[real_col :] =~ '^\e\[[0-9;]*m'
         " Skip.
-        let sequence = matchstr(current_line, '^\e\[[0-9;]*m', real_col)
+        let sequence = matchstr(current_line,
+              \ '^\e\[[0-9;]*m', real_col)
         let skip_cnt = len(sequence)-1
         let real_col += len(sequence)
       else
@@ -513,50 +582,15 @@ function! s:get_col(line, col, is_virtual)"{{{
     endif
   endif
 
-  return [a:line, (a:is_virtual ? col : real_col)]
-endfunction"}}}
-function! s:get_screen_character(line, col)"{{{
-  let [line, col] = s:get_real_pos(a:line, a:col)
-  return s:virtual.lines[line][col]
-endfunction"}}}
-function! s:get_virtual_wcswidth(string)"{{{
-  return vimshell#util#wcswidth(
-        \ substitute(a:string, '\e\[[0-9;]*m', '', 'g'))
-endfunction"}}}
-function! s:set_screen_string(line, col, string)"{{{
-  let [line, col] = s:get_real_pos(a:line, a:col)
-  call s:set_screen_pos(line, col)
-
-  let current_line = s:virtual.lines[line]
-  let len = vimshell#util#wcswidth(a:string)
-  let s:virtual.lines[line] = current_line[ : col]  .  a:string
-        \             . current_line[col+len :]
-  let len2 = s:get_virtual_wcswidth(a:string)
-  let s:virtual.col += len2
-
-  " let [s:virtual.line, s:virtual.col] = s:get_virtual_col(line, col+len)
-  if g:vimshell_enable_debug
-    echomsg 'current_line = ' . current_line
-    echomsg 'current_line[col:] = ' . current_line[col :]
-    echomsg '[virt_col, real_col, string] = ' .
-          \ string([a:col, col, s:virtual.col, a:string])
-  endif
-endfunction"}}}
-function! s:set_screen_pos(line, col)"{{{
-  if !has_key(s:virtual.lines, a:line)
-    let s:virtual.lines[a:line] = ''
-  endif
-  if a:col > len(s:virtual.lines[a:line])
-    let s:virtual.lines[a:line] .= repeat(' ', a:col - len(s:virtual.lines[a:line]))
-  endif
+  return (a:is_virtual ? col : real_col)
 endfunction"}}}
 
 " Escape sequence functions.
 let s:escape = {}
-function! s:escape.ignore(matchstr)"{{{
+function! s:escape.ignore(matchstr) "{{{
 endfunction"}}}
 
-" Color table."{{{
+" Color table. "{{{
 let s:color_table = [ 0x00, 0x5F, 0x87, 0xAF, 0xD7, 0xFF ]
 let s:grey_table = [
       \0x08, 0x12, 0x1C, 0x26, 0x30, 0x3A, 0x44, 0x4E, 
@@ -579,14 +613,15 @@ let s:highlight_table = {
       \ '27' : ' gui=NONE',
       \ '28' : ' ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE',
       \ '29' : ' gui=NONE',
-      \ '39' : ' ctermfg=NONE guifg=NONE', 
-      \ '49' : ' ctermbg=NONE guibg=NONE', 
+      \ '39' : ' ctermfg=NONE guifg=NONE',
+      \ '49' : ' ctermbg=NONE guibg=NONE',
       \}"}}}
-function! s:escape.highlight(matchstr)"{{{
+function! s:escape.highlight(matchstr) "{{{
   if g:vimshell_disable_escape_highlight
         \ || (b:interactive.type == 'interactive' &&
         \     get(g:vimshell_interactive_monochrome_commands,
         \         b:interactive.command, 0))
+        \ || b:interactive.terminal.is_error
     return
   endif
 
@@ -602,14 +637,14 @@ function! s:escape.highlight(matchstr)"{{{
 
   let highlight = ''
   let highlight_list =
-        \ split(matchstr(a:matchstr, '^\[\zs[0-9;]\+'), ';')
+        \ split(matchstr(a:matchstr, '^\[\zs[0-9;]\+'), ';', 1)
   let cnt = 0
   if empty(highlight_list)
     " Default.
     let highlight_list = [ 0 ]
   endif
   for color_code in map(highlight_list, 'str2nr(v:val)')
-    if has_key(s:highlight_table, color_code)"{{{
+    if has_key(s:highlight_table, color_code) "{{{
       " Use table.
       let highlight .= s:highlight_table[color_code]
     elseif 30 <= color_code && color_code <= 37
@@ -696,8 +731,8 @@ function! s:escape.highlight(matchstr)"{{{
   if s:use_conceal()
     let syntax_name = 'EscapeSequenceAt_' . bufnr('%')
           \ . '_' . line . '_' . col
-    let syntax_command = printf('start=+\e\%s+ end=+\e[\[0]+me=e-2 ' .
-          \ 'contains=vimshellEscapeSequenceConceal', a:matchstr)
+    let syntax_command = printf('start=+\e\%s+ end=+\ze\e[\[0*m]\|$+ ' .
+          \ 'contains=vimshellEscapeSequenceConceal oneline', a:matchstr)
 
     execute 'syntax region' syntax_name syntax_command
     execute 'highlight' syntax_name highlight
@@ -710,7 +745,7 @@ function! s:escape.highlight(matchstr)"{{{
     let syntax_name = 'EscapeSequenceAt_' . bufnr('%')
           \ . '_' . line . '_' . (col+1)
     let syntax_command = printf(
-          \ 'start=+\%%%sl\%%%sc+ end=+.*+ contains=ALL', line, col)
+          \ 'start=+\%%%sl\%%%sc+ end=+.*+ contains=ALL oneline', line, col)
 
     if !has_key(b:interactive.terminal.syntax_names, line)
       let b:interactive.terminal.syntax_names[line] = {}
@@ -729,16 +764,22 @@ function! s:escape.highlight(matchstr)"{{{
     execute 'highlight' syntax_name highlight
   endif
 endfunction"}}}
-function! s:escape.move_cursor(matchstr)"{{{
-  let args = split(matchstr(a:matchstr, '[0-9;]\+'), ';')
+function! s:escape.move_cursor(matchstr) "{{{
+  let args = split(matchstr(a:matchstr, '[0-9;]\+'), ';', 1)
 
   let s:virtual.line = get(args, 0, 1)
   let s:virtual.col = get(args, 1, 1)
+  if s:virtual.line !~ '^\d\+$' || s:virtual.col !~ '^\d\+$'
+    call unite#print_error(
+          \ 'Move cursor escape sequence format error: str = "'
+          \ . a:matchstr . '"')
+    return
+  endif
 
   let [line, col] = s:get_real_pos(s:virtual.line, s:virtual.col)
   call s:set_screen_pos(line, col)
 endfunction"}}}
-function! s:escape.move_cursor_column(matchstr)"{{{
+function! s:escape.move_cursor_column(matchstr) "{{{
   let n = matchstr(a:matchstr, '\d\+')
   if n == ''
     let n = 1
@@ -749,15 +790,15 @@ function! s:escape.move_cursor_column(matchstr)"{{{
   let [line, col] = s:get_real_pos(s:virtual.line, s:virtual.col)
   call s:set_screen_pos(line, col)
 endfunction"}}}
-function! s:escape.setup_scrolling_region(matchstr)"{{{
-  let args = split(matchstr(a:matchstr, '[0-9;]\+'), ';')
+function! s:escape.setup_scrolling_region(matchstr) "{{{
+  let args = split(matchstr(a:matchstr, '[0-9;]\+'), ';', 1)
 
   let top = empty(args) ? 0 : args[0]
   let bottom = empty(args) ? 0 : args[1]
 
   if top == 1
-    if (vimshell#iswin() && bottom == 25)
-          \|| (!vimshell#iswin() && bottom == b:interactive.height)
+    if (vimshell#util#is_windows() && bottom == 25)
+          \|| (!vimshell#util#is_windows() && bottom == b:interactive.height)
       " Clear scrolling region.
       let [top, bottom] = [0, 0]
     endif
@@ -766,7 +807,7 @@ function! s:escape.setup_scrolling_region(matchstr)"{{{
   let b:interactive.terminal.region_top = top
   let b:interactive.terminal.region_bottom = bottom
 endfunction"}}}
-function! s:escape.clear_line(matchstr)"{{{
+function! s:escape.clear_line(matchstr) "{{{
   " Clear previous highlight.
   call s:clear_highlight_line(s:virtual.line)
 
@@ -787,7 +828,7 @@ function! s:escape.clear_line(matchstr)"{{{
     let s:virtual.col = 1
   endif
 endfunction"}}}
-function! s:escape.clear_screen(matchstr)"{{{
+function! s:escape.clear_screen(matchstr) "{{{
   let param = matchstr(a:matchstr, '\d\+')
   if param == '' || param == '0'
     " Clear screen from cursor down.
@@ -822,7 +863,7 @@ function! s:escape.clear_screen(matchstr)"{{{
     call vimshell#terminal#clear_highlight()
   endif
 endfunction"}}}
-function! s:escape.move_up(matchstr)"{{{
+function! s:escape.move_up(matchstr) "{{{
   let n = matchstr(a:matchstr, '\d\+')
   if n == ''
     let n = 1
@@ -839,7 +880,7 @@ function! s:escape.move_up(matchstr)"{{{
     endif
   endif
 endfunction"}}}
-function! s:escape.move_down(matchstr)"{{{
+function! s:escape.move_down(matchstr) "{{{
   let n = matchstr(a:matchstr, '\d\+')
   if n == ''
     let n = 1
@@ -853,7 +894,7 @@ function! s:escape.move_down(matchstr)"{{{
     let s:virtual.line += n
   endif
 endfunction"}}}
-function! s:escape.move_right(matchstr)"{{{
+function! s:escape.move_right(matchstr) "{{{
   let n = matchstr(a:matchstr, '\d\+')
   if n == ''
     let n = 1
@@ -861,7 +902,7 @@ function! s:escape.move_right(matchstr)"{{{
 
   let s:virtual.col += n
 endfunction"}}}
-function! s:escape.move_left(matchstr)"{{{
+function! s:escape.move_left(matchstr) "{{{
   let n = matchstr(a:matchstr, '\d\+')
   if n == ''
     let n = 1
@@ -872,40 +913,40 @@ function! s:escape.move_left(matchstr)"{{{
     let s:virtual.col = 1
   endif
 endfunction"}}}
-function! s:escape.move_down_head1(matchstr)"{{{
+function! s:escape.move_down_head1(matchstr) "{{{
   call s:control.newline()
 endfunction"}}}
-function! s:escape.move_down_head(matchstr)"{{{
+function! s:escape.move_down_head(matchstr) "{{{
   call s:scroll_down(a:matchstr)
   let s:virtual.col = 1
 endfunction"}}}
-function! s:escape.move_up_head(matchstr)"{{{
+function! s:escape.move_up_head(matchstr) "{{{
   let param = matchstr(a:matchstr, '\d\+')
   if param != '0'
     call s:scroll_up(a:matchstr)
   endif
   let s:virtual.col = 1
 endfunction"}}}
-function! s:escape.scroll_up1(matchstr)"{{{
+function! s:escape.scroll_up1(matchstr) "{{{
   call s:scroll_up(1)
 endfunction"}}}
-function! s:escape.scroll_down1(matchstr)"{{{
+function! s:escape.scroll_down1(matchstr) "{{{
   call s:scroll_down(1)
 endfunction"}}}
-function! s:escape.move_col(matchstr)"{{{
+function! s:escape.move_col(matchstr) "{{{
   let num = matchstr(a:matchstr, '\d\+')
   let s:virtual.col = num
   if s:virtual.col < 1
     let s:virtual.col = 1
   endif
 endfunction"}}}
-function! s:escape.save_pos(matchstr)"{{{
+function! s:escape.save_pos(matchstr) "{{{
   let b:interactive.terminal.save_pos = [s:virtual.line, s:virtual.col]
 endfunction"}}}
-function! s:escape.restore_pos(matchstr)"{{{
+function! s:escape.restore_pos(matchstr) "{{{
   let [s:virtual.line, s:virtual.col] = b:interactive.terminal.save_pos
 endfunction"}}}
-function! s:escape.change_title(matchstr)"{{{
+function! s:escape.change_title(matchstr) "{{{
   let title = matchstr(a:matchstr, '^k\zs.\{-}\ze\e\\')
   if empty(title)
     let title = matchstr(a:matchstr, '^][02];\zs.\{-}\ze'."\<C-g>")
@@ -914,10 +955,10 @@ function! s:escape.change_title(matchstr)"{{{
   let &titlestring = title
   let b:interactive.terminal.titlestring = title
 endfunction"}}}
-function! s:escape.print_control_sequence(matchstr)"{{{
+function! s:escape.print_control_sequence(matchstr) "{{{
   call s:output_string("\<ESC>")
 endfunction"}}}
-function! s:escape.change_cursor_shape(matchstr)"{{{
+function! s:escape.change_cursor_shape(matchstr) "{{{
   if !exists('+guicursor') || b:interactive.type !=# 'terminal'
     return
   endif
@@ -934,7 +975,7 @@ function! s:escape.change_cursor_shape(matchstr)"{{{
     set guicursor=i:hor20-Cursor/lCursor-blinkon0
   endif
 endfunction"}}}
-function! s:escape.change_character_set(matchstr)"{{{
+function! s:escape.change_character_set(matchstr) "{{{
   if a:matchstr =~ '^[()]0'
     " Line drawing set.
     if a:matchstr =~ '^('
@@ -944,10 +985,10 @@ function! s:escape.change_character_set(matchstr)"{{{
     endif
   endif
 endfunction"}}}
-function! s:escape.reset(matchstr)"{{{
+function! s:escape.reset(matchstr) "{{{
   call vimshell#terminal#init()
 endfunction"}}}
-function! s:escape.delete_chars(matchstr)"{{{
+function! s:escape.delete_chars(matchstr) "{{{
   let n = matchstr(a:matchstr, '\d\+')
   if n == ''
     let n = 1
@@ -959,9 +1000,9 @@ endfunction"}}}
 
 " Control sequence functions.
 let s:control = {}
-function! s:control.ignore()"{{{
+function! s:control.ignore() "{{{
 endfunction"}}}
-function! s:control.newline()"{{{
+function! s:control.newline() "{{{
   let s:virtual.col = 1
 
   if b:interactive.type !=# 'terminal'
@@ -971,7 +1012,7 @@ function! s:control.newline()"{{{
 
   call s:escape.move_down(1)
 endfunction"}}}
-function! s:control.delete_backword_char()"{{{
+function! s:control.delete_backword_char() "{{{
   if s:virtual.line == b:interactive.echoback_linenr
     return
   endif
@@ -992,7 +1033,7 @@ function! s:control.delete_backword_char()"{{{
 
   call s:escape.move_left(1)
 endfunction"}}}
-function! s:control.delete_multi_backword_char()"{{{
+function! s:control.delete_multi_backword_char() "{{{
   if s:virtual.line == b:interactive.echoback_linenr
     return
   endif
@@ -1013,16 +1054,16 @@ function! s:control.delete_multi_backword_char()"{{{
 
   call s:escape.move_left(2)
 endfunction"}}}
-function! s:control.carriage_return()"{{{
+function! s:control.carriage_return() "{{{
   let s:virtual.col = 1
 endfunction"}}}
-function! s:control.bell()"{{{
+function! s:control.bell() "{{{
   echo 'Ring!'
 endfunction"}}}
-function! s:control.shift_in()"{{{
+function! s:control.shift_in() "{{{
   let b:interactive.terminal.current_character_set = b:interactive.terminal.standard_character_set
 endfunction"}}}
-function! s:control.shift_out()"{{{
+function! s:control.shift_out() "{{{
   let b:interactive.terminal.current_character_set = b:interactive.terminal.alternate_character_set
 endfunction"}}}
 
@@ -1116,6 +1157,8 @@ let s:control_sequence = {
       \ "\<C-g>" : s:control.bell,
       \ "\<C-o>" : s:control.shift_in,
       \ "\<C-n>" : s:control.shift_out,
+      \ "\<C-a>" : s:control.ignore,
+      \ "\<C-b>" : s:control.ignore,
       \}
 "}}}
 

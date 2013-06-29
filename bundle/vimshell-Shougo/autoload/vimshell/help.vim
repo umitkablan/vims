@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: help.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 15 Oct 2011.
+" Last Modified: 24 Sep 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,13 +24,13 @@
 " }}}
 "=============================================================================
 
-" For echodoc."{{{
+" For echodoc. "{{{
 let s:doc_dict = {
       \ 'name' : 'vimshell',
       \ 'rank' : 10,
       \ 'filetypes' : { 'vimshell' : 1 },
       \ }
-function! s:doc_dict.search(cur_text)"{{{
+function! s:doc_dict.search(cur_text) "{{{
   " Get command name.
   try
     let args = vimshell#get_current_args(vimshell#get_cur_text())
@@ -43,7 +43,7 @@ function! s:doc_dict.search(cur_text)"{{{
 
   let command = fnamemodify(args[0], ':t:r')
 
-  let commands = vimshell#available_commands()
+  let commands = vimshell#available_commands(command)
   if has_key(s:cached_doc, command)
     let description = s:cached_doc[command]
   elseif has_key(commands, command)
@@ -67,23 +67,23 @@ function! s:doc_dict.search(cur_text)"{{{
 endfunction"}}}
 "}}}
 
-function! vimshell#help#init()"{{{
+function! vimshell#help#init() "{{{
   if exists('g:loaded_echodoc') && g:loaded_echodoc
     call echodoc#register('vimshell', s:doc_dict)
   endif
 
   call s:load_cached_doc()
 endfunction"}}}
-function! vimshell#help#get_cached_doc()"{{{
+function! vimshell#help#get_cached_doc() "{{{
   return s:cached_doc
 endfunction"}}}
-function! vimshell#help#set_cached_doc(cache)"{{{
+function! vimshell#help#set_cached_doc(cache) "{{{
   let s:cached_doc = a:cache
   let doc_path = g:vimshell_temporary_directory.'/cached-doc'
   call writefile(values(map(deepcopy(s:cached_doc), 'v:key."!!!".v:val')), doc_path)
 endfunction"}}}
 
-function! s:load_cached_doc()"{{{
+function! s:load_cached_doc() "{{{
   let s:cached_doc = {}
   let doc_path = g:vimshell_temporary_directory.'/cached-doc'
   if !filereadable(doc_path)

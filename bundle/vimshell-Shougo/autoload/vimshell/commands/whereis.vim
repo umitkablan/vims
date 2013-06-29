@@ -29,7 +29,7 @@ let s:command = {
       \ 'kind' : 'internal',
       \ 'description' : 'whereis command',
       \}
-function! s:command.execute(args, context)"{{{
+function! s:command.execute(args, context) "{{{
   if empty(a:args)
     return
   endif
@@ -38,6 +38,13 @@ function! s:command.execute(args, context)"{{{
   for arg in vimproc#get_command_name(a:args[0], $PATH, -1)
     call vimshell#print_line(a:context.fd, arg)
   endfor
+endfunction"}}}
+function! s:command.complete(args) "{{{
+  if len(a:args) == 1
+    return vimshell#complete#helper#executables(a:args[-1])
+  endif
+
+  return []
 endfunction"}}}
 
 function! vimshell#commands#whereis#define()

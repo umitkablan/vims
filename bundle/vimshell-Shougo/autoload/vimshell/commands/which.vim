@@ -29,7 +29,7 @@ let s:command = {
       \ 'kind' : 'internal',
       \ 'description' : 'which command',
       \}
-function! s:command.execute(args, context)"{{{
+function! s:command.execute(args, context) "{{{
   if empty(a:args)
     return
   endif
@@ -47,6 +47,13 @@ function! s:command.execute(args, context)"{{{
   endif
   
   call vimshell#print_line(a:context.fd, line)
+endfunction"}}}
+function! s:command.complete(args) "{{{
+  if len(a:args) == 1
+    return vimshell#complete#helper#executables(a:args[-1])
+  endif
+
+  return []
 endfunction"}}}
 
 function! vimshell#commands#which#define()

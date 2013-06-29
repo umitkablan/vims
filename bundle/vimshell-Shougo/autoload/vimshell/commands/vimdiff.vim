@@ -29,7 +29,7 @@ let s:command = {
       \ 'kind' : 'internal',
       \ 'description' : 'vimdiff {filename1} {filename2}',
       \}
-function! s:command.execute(args, context)"{{{
+function! s:command.execute(args, context) "{{{
   let [args, options] = vimshell#parser#getopt(a:args, {
         \ 'arg=' : ['--split'],
         \ }, {
@@ -48,7 +48,7 @@ function! s:command.execute(args, context)"{{{
   let [new_pos, old_pos] = vimshell#split(options['--split'])
 
   try
-    edit `=args[0]`
+    silent edit `=args[0]`
   catch
     echohl Error | echomsg v:errmsg | echohl None
   endtry

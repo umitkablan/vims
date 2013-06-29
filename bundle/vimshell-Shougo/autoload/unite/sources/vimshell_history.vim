@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: vimshell_history.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 16 Nov 2011.
+" Last Modified: 16 Mar 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -35,6 +35,7 @@ let s:source = {
       \ 'action_table' : {},
       \ 'syntax' : 'uniteSource__VimshellHistory',
       \ 'is_listed' : 0,
+      \ 'filters' : ['matcher_default', 'sorter_nothing', 'converter_default'],
       \ }
 
 let s:current_histories = []
@@ -44,10 +45,18 @@ function! s:source.hooks.on_init(args, context) "{{{
         \ vimshell#history#read())
   let a:context.source__cur_keyword_pos = len(vimshell#get_prompt())
 endfunction"}}}
-function! s:source.hooks.on_syntax(args, context)"{{{
-  syntax match uniteSource__VimshellHistorySpaces />-*\ze\s*$/
-        \ containedin=uniteSource__VimshellHistory
-  highlight default link uniteSource__VimshellHistorySpaces Comment
+function! s:source.hooks.on_syntax(args, context) "{{{
+  let save_current_syntax = get(b:, 'current_syntax', '')
+  unlet! b:current_syntax
+
+  try
+    syntax include @Vimshell syntax/vimshell.vim
+    syntax region uniteSource__VimShellHistoryVimshell
+          \ start=' ' end='$' contains=@Vimshell,vimshellCommand
+          \ containedin=uniteSource__VimshellHistory
+  finally
+    let b:current_syntax = save_current_syntax
+  endtry
 endfunction"}}}
 function! s:source.hooks.on_close(args, context) "{{{
   let a:context.source__cur_keyword_pos = len(vimshell#get_prompt())
@@ -55,7 +64,7 @@ function! s:source.hooks.on_close(args, context) "{{{
     call vimshell#history#write(s:current_histories)
   endif
 endfunction"}}}
-function! s:source.hooks.on_post_filter(args, context)"{{{
+function! s:source.hooks.on_post_filter(args, context) "{{{
   let cnt = 0
 
   for candidate in a:context.candidates
@@ -75,17 +84,17 @@ endfunction"}}}
 
 function! s:source.gather_candidates(args, context) "{{{
   return map(copy(s:current_histories),
-        \ '{ "word" : v:val }')
+        \ "{ 'word' : v:val,  }")
 endfunction "}}}
 
 function! unite#sources#vimshell_history#start_complete(is_insert) "{{{
   if !exists(':Unite')
-    echoerr 'unite.vim is not installed.'
-    echoerr 'Please install unite.vim Ver.1.5 or above.'
+    call vimshell#echo_error('unite.vim is not installed.')
+    call vimshell#echo_error('Please install unite.vim Ver.1.5 or above.')
     return ''
   elseif unite#version() < 300
-    echoerr 'Your unite.vim is too old.'
-    echoerr 'Please install unite.vim Ver.3.0 or above.'
+    call vimshell#echo_error('Your unite.vim is too old.')
+    call vimshell#echo_error('Please install unite.vim Ver.3.0 or above.')
     return ''
   endif
 

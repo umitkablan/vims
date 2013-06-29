@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: vimshell.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 03 Jan 2012.
+" Last Modified: 10 Jun 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,58 +24,48 @@
 " }}}
 "=============================================================================
 
-if v:version < 702
+if exists('g:loaded_vimshell')
+  finish
+elseif v:version < 702
   echoerr 'vimshell does not work this version of Vim "' . v:version . '".'
   finish
-elseif exists('g:loaded_vimshell')
-  finish
-elseif $SUDO_USER != ''
-  echoerr '"sudo vim" is detected. Please use sudo.vim or other plugins instead.'
-  echoerr 'vimshell is disabled.'
+elseif $SUDO_USER != '' && $USER !=# $SUDO_USER
+      \ && $HOME !=# expand('~'.$USER)
+      \ && $HOME ==# expand('~'.$SUDO_USER)
+  echohl Error
+  echomsg 'vimshell disabled: "sudo vim" is detected and $HOME is set to '
+        \.'your user''s home. '
+        \.'You may want to use the sudo.vim plugin, the "-H" option '
+        \.'with "sudo" or set always_set_home in /etc/sudoers instead.'
+  echohl None
   finish
 endif
 
 let s:save_cpo = &cpo
 set cpo&vim
 
-" Obsolute options check."{{{
-if exists('g:VimShell_Prompt')
-  echoerr 'g:VimShell_Prompt option does not work this version of vimshell.'
-endif
-if exists('g:VimShell_SecondaryPrompt')
-  echoerr 'g:VimShell_SecondaryPrompt option does not work this version of vimshell.'
-endif
-if exists('g:VimShell_UserPrompt')
-  echoerr 'g:VimShell_UserPrompt option does not work this version of vimshell.'
-endif
-if exists('g:VimShell_EnableInteractive')
-  echoerr 'g:VimShell_EnableInteractive option does not work this version of vimshell.'
-endif
+" Obsolute options check. "{{{
 "}}}
-" Global options definition."{{{
+" Global options definition. "{{{
 let g:vimshell_enable_debug =
       \ get(g:, 'vimshell_enable_debug', 0)
-let g:vimshell_ignore_case =
-      \ get(g:, 'vimshell_ignore_case', &ignorecase)
-let g:vimshell_smart_case =
-      \ get(g:, 'vimshell_smart_case', &smartcase)
-let g:vimshell_max_list =
-      \ get(g:, 'vimshell_max_list', 100)
 let g:vimshell_use_terminal_command =
       \ get(g:, 'vimshell_use_terminal_command', '')
-let g:vimshell_split_height =
-      \ get(g:, 'vimshell_split_height', 30)
 let g:vimshell_temporary_directory =
-      \ get(g:, 'vimshell_temporary_directory', expand('~/.vimshell'))
-if !isdirectory(fnamemodify(g:vimshell_temporary_directory, ':p'))
-  call mkdir(fnamemodify(g:vimshell_temporary_directory, ':p'), 'p')
+      \ substitute(fnamemodify(get(
+      \   g:, 'vimshell_temporary_directory', '~/.vimshell'),
+      \  ':p'), '\\', '/', 'g')
+if !isdirectory(g:vimshell_temporary_directory)
+  call mkdir(g:vimshell_temporary_directory, 'p')
 endif
 let g:vimshell_max_command_history =
       \ get(g:, 'vimshell_max_command_history', 1000)
 let g:vimshell_max_directory_stack =
       \ get(g:, 'vimshell_max_directory_stack', 100)
 let g:vimshell_vimshrc_path =
-      \ get(g:, 'vimshell_vimshrc_path', expand('~/.vimshrc'))
+      \ substitute(fnamemodify(get(
+      \   g:, 'vimshell_vimshrc_path', '~/.vimshrc'),
+      \  ':p'), '\\', '/', 'g')
 if !isdirectory(fnamemodify(g:vimshell_vimshrc_path, ':p:h'))
   call mkdir(fnamemodify(g:vimshell_vimshrc_path, ':p:h'), 'p')
 endif
@@ -94,6 +84,10 @@ let g:vimshell_environment_term =
       \ get(g:, 'vimshell_environment_term', 'xterm')
 let g:vimshell_split_command =
       \ get(g:, 'vimshell_split_command', 'nicely')
+let g:vimshell_popup_command =
+      \ get(g:, 'vimshell_popup_command', '')
+let g:vimshell_popup_height =
+      \ get(g:, 'vimshell_popup_height', 30)
 let g:vimshell_cd_command =
       \ get(g:, 'vimshell_cd_command', 'lcd')
 let g:vimshell_external_history_path =
@@ -104,18 +98,26 @@ let g:vimshell_no_save_history_commands =
       \ })
 let g:vimshell_scrollback_limit =
       \ get(g:, 'vimshell_scrollback_limit', 1000)
+let g:vimshell_enable_transient_user_prompt =
+      \ get(g:, 'vimshell_enable_transient_user_prompt', 0)
+let g:vimshell_force_overwrite_statusline =
+      \ get(g:, 'vimshell_force_overwrite_statusline', 0)
 
 " For interactive commands.
 let g:vimshell_interactive_no_save_history_commands =
-      \ get(g:, 'vimshell_no_save_history_commands', {})
+      \ get(g:, 'vimshell_interactive_no_save_history_commands', {})
 let g:vimshell_interactive_update_time =
-      \ get(g:, 'vimshell_update_time', 500)
+      \ get(g:, 'vimshell_interactive_update_time', 500)
 let g:vimshell_interactive_command_options =
-      \ get(g:, 'vimshell_command_options', {})
+      \ get(g:, 'vimshell_interactive_command_options', {})
 let g:vimshell_interactive_interpreter_commands =
-      \ get(g:, 'vimshell_interpreter_commands', {})
+      \ get(g:, 'vimshell_interactive_interpreter_commands', {})
 let g:vimshell_interactive_encodings =
-      \ get(g:, 'vimshell_interactive_encodings', {})
+      \ get(g:, 'vimshell_interactive_encodings',
+      \     (has('win32') || has('win64')) ? {
+      \   '/MinGW/bin/' : 'utf-8', '/msysgit/bin/' : 'utf-8',
+      \   '/cygwin/bin/' : 'utf-8', 'gosh' : 'utf-8', 'fakecygpty' : 'utf-8',
+      \   } : {})
 let g:vimshell_interactive_prompts =
       \ get(g:, 'vimshell_interactive_prompts', {})
 let g:vimshell_interactive_echoback_commands =
@@ -144,28 +146,46 @@ let g:vimshell_interactive_cygwin_home =
       \ get(g:, 'vimshell_interactive_cygwin_home', '')
 "}}}
 
-command! -nargs=? -complete=dir VimShell call vimshell#switch_shell(0, <q-args>)
-command! -nargs=? -complete=dir VimShellCreate call vimshell#create_shell(0, <q-args>)
-command! -nargs=? -complete=dir VimShellPop call s:vimshell_popup(<q-args>)
-command! -nargs=? -complete=dir VimShellTab tabnew | call vimshell#create_shell(0, <q-args>)
-command! -nargs=+ -complete=customlist,s:execute_completefunc VimShellExecute call s:vimshell_execute(<q-args>)
-command! -nargs=* -complete=customlist,s:execute_completefunc VimShellInteractive call s:vimshell_interactive(<q-args>)
-command! -nargs=+ -complete=customlist,s:execute_completefunc VimShellTerminal call s:vimshell_terminal(<q-args>)
+command! -nargs=? -complete=customlist,vimshell#complete VimShell
+      \ call s:call_vimshell({}, <q-args>)
+command! -nargs=? -complete=customlist,vimshell#complete VimShellCreate
+      \ call s:call_vimshell({'create' : 1}, <q-args>)
+command! -nargs=? -complete=customlist,vimshell#complete VimShellPop
+      \ call s:call_vimshell({'toggle' : 1, 'popup' : 1}, <q-args>)
+command! -nargs=? -complete=customlist,vimshell#complete VimShellTab
+      \ tabnew | call s:call_vimshell({}, <q-args>)
+command! -nargs=? -complete=customlist,vimshell#complete VimShellCurrentDir
+      \ call s:call_vimshell({}, <q-args> . ' ' . getcwd())
+command! -nargs=? -complete=customlist,vimshell#complete VimShellBufferDir
+      \ call s:call_vimshell({}, <q-args> . ' ' .
+      \ vimshell#util#substitute_path_separator(
+      \       fnamemodify(bufname('%'), ':p:h')))
 
-" Plugin keymappings"{{{
-nnoremap <silent> <Plug>(vimshell_split_switch)  :<C-u>call vimshell#switch_shell(1, '')<CR>
-nnoremap <silent> <Plug>(vimshell_split_create)  :<C-u>call vimshell#create_shell(1, '')<CR>
-nnoremap <silent> <Plug>(vimshell_switch)  :<C-u>call vimshell#switch_shell(0, '')<CR>
-nnoremap <silent> <Plug>(vimshell_create)  :<C-u>call vimshell#create_shell(0, '')<CR>
+command! -nargs=+ -complete=customlist,vimshell#vimshell_execute_complete VimShellExecute
+      \ call s:vimshell_execute(<q-args>)
+command! -nargs=* -complete=customlist,vimshell#vimshell_execute_complete VimShellInteractive
+      \ call s:vimshell_interactive(<q-args>)
+command! -nargs=+ -complete=customlist,vimshell#vimshell_execute_complete VimShellTerminal
+      \ call s:vimshell_terminal(<q-args>)
+
+command! -range -nargs=? VimShellSendString
+      \ call vimshell#interactive#send_region(<line1>, <line2>, <q-args>)
+command! -complete=buffer -nargs=1 VimShellSendBuffer
+      \ call vimshell#interactive#set_send_buffer(<q-args>)
+
+" Plugin keymappings "{{{
+nnoremap <silent> <Plug>(vimshell_split_switch)
+      \ :<C-u>call <SID>call_vimshell({'split' : 1}, '')<CR>
+nnoremap <silent> <Plug>(vimshell_split_create)
+      \ :<C-u>call <SID>call_vimshell({'split' : 1, 'create' : 1}, '')<CR>
+nnoremap <silent> <Plug>(vimshell_switch)
+      \ :<C-u>VimShell<CR>
+nnoremap <silent> <Plug>(vimshell_create)
+      \ :<C-u>VimShellCreate<CR>
 "}}}
 
 " Command functions:
-function! s:execute_completefunc(lead, cmd, pos)"{{{
-  silent! let keys = vimshell#complete#vimshell_execute_complete#completefunc(
-        \ a:lead, a:cmd, a:pos)
-  return keys
-endfunction"}}}
-function! s:vimshell_execute(args)"{{{
+function! s:vimshell_execute(args) "{{{
   let context = {
         \ 'has_head_spaces' : 0,
         \ 'is_interactive' : 0,
@@ -185,14 +205,14 @@ function! s:vimshell_execute(args)"{{{
     return
   endtry
 endfunction"}}}
-function! s:vimshell_interactive(args)"{{{
+function! s:vimshell_interactive(args) "{{{
   if a:args == ''
-    call vimshell#commands#iexe#dummy()
+    call vimshell#commands#iexe#define()
 
     " Search interpreter.
     if &filetype == '' ||
           \ !has_key(g:vimshell_interactive_interpreter_commands, &filetype)
-      echoerr 'Interpreter is not found.'
+      call vimshell#echo_error('Interpreter is not found.')
       return
     endif
 
@@ -221,7 +241,7 @@ function! s:vimshell_interactive(args)"{{{
     return
   endtry
 endfunction"}}}
-function! s:vimshell_terminal(args)"{{{
+function! s:vimshell_terminal(args) "{{{
   let context = {
         \ 'has_head_spaces' : 0,
         \ 'is_interactive' : 0,
@@ -240,15 +260,29 @@ function! s:vimshell_terminal(args)"{{{
     return
   endtry
 endfunction"}}}
-function! s:vimshell_popup(args)"{{{
-  if &filetype ==# 'vimshell'
-    " Quit vimshell.
-    hide
-    return
-  endif
 
-  " Popup vimshell buffer.
-  call vimshell#switch_shell(1, a:args)
+function! s:call_vimshell(default, args) "{{{
+  let args = []
+  let options = a:default
+  for arg in split(a:args, '\%(\\\@<!\s\)\+')
+    let arg = substitute(arg, '\\\( \)', '\1', 'g')
+
+    let arg_key = substitute(arg, '=\zs.*$', '', '')
+    let matched_list = filter(copy(vimshell#get_options()),
+          \  'v:val ==# arg_key')
+    for option in matched_list
+      let key = substitute(substitute(option, '-', '_', 'g'),
+            \ '=$', '', '')[1:]
+      let options[key] = (option =~ '=$') ?
+            \ arg[len(option) :] : 1
+    endfor
+
+    if empty(matched_list)
+      call add(args, arg)
+    endif
+  endfor
+
+  call vimshell#start(join(args), options)
 endfunction"}}}
 
 augroup vimshell

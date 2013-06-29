@@ -1,7 +1,7 @@
 "=============================================================================
-" FILE: vimshell_execute_complete.vim
+" FILE: source_shellcmd.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 24 Dec 2010.
+" Last Modified: 13 Oct 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,8 +24,38 @@
 " }}}
 "=============================================================================
 
-function! vimshell#complete#vimshell_execute_complete#completefunc(arglead, cmdline, cursorpos)"{{{
-  " Get complete words.
-  return map(vimshell#complete#command_complete#get_candidates(a:cmdline, 0, a:arglead), 'v:val.word')
+let s:command = {
+      \ 'name' : 'source_shellcmd',
+      \ 'kind' : 'internal',
+      \ 'description' : 'source shellcmd...',
+      \}
+function! s:command.execute(args, context) "{{{
+  if len(a:args) < 1
+    return
+  endif
+
+  let output = vimshell#util#is_windows() ?
+        \ system(printf('cmd /c "%s& set"',
+        \      join(map(a:args, '"\"".v:val."\""')))) :
+        \ vimproc#system(printf("%s -c '%s; env'",
+        \ &shell, join(a:args)))
+  " echomsg join(a:args)
+  " echomsg output
+  let variables = {}
+  for line in split(
+        \ vimproc#util#iconv(output, 'char', &encoding), '\n\|\r\n')
+    if line =~ '^\h\w*='
+      let name = '$'.matchstr(line, '^\h\w*')
+      let val = matchstr(line, '^\h\w*=\zs.*')
+      let variables[name] = val
+    else
+      call vimshell#print_line(a:context.fd, line)
+    endif
+  endfor
+
+  call vimshell#set_variables(variables)
 endfunction"}}}
-" vim: foldmethod=marker
+
+function! vimshell#commands#source_shellcmd#define()
+  return s:command
+endfunction
