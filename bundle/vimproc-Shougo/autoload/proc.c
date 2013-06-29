@@ -34,11 +34,15 @@
 #endif
 
 /* for forkpty() / login_tty() */
-#if defined __linux__ || defined __CYGWIN__
+#if (defined __linux__ || defined __CYGWIN__) && !defined __ANDROID__
 # include <pty.h>
 # include <utmp.h>
 #elif defined __APPLE__ || defined __NetBSD__
 # include <util.h>
+#elif defined __sun__ || defined __ANDROID__
+# include <termios.h>
+int openpty(int *, int *, char *, struct termios *, struct winsize *);
+int forkpty(int *, char *, struct termios *, struct winsize *);
 #else
 # include <termios.h>
 # include <libutil.h>
@@ -61,9 +65,15 @@
 #include <sys/wait.h>
 #if defined __NetBSD__
 #define WIFCONTINUED(x) (_WSTATUS(x) == _WSTOPPED && WSTOPSIG(x) == 0x13)
+#elif defined __ANDROID__
+#define WIFCONTINUED(x) (WIFSTOPPED(x) && WSTOPSIG(x) == 0x13)
 #endif
 
 /* for socket */
+#if defined __FreeBSD__
+#define __BSD_VISIBLE 1
+#include <arpa/inet.h>
+#endif
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -76,6 +86,7 @@ const int debug = 0;
 /* API */
 const char *vp_dlopen(char *args);      /* [handle] (path) */
 const char *vp_dlclose(char *args);     /* [] (handle) */
+const char *vp_dlversion(char *args);   /* [] (version) */
 
 const char *vp_file_open(char *args);   /* [fd] (path, flags, mode) */
 const char *vp_file_close(char *args);  /* [] (fd) */
@@ -104,6 +115,8 @@ const char *vp_socket_open(char *args); /* [socket] (host, port) */
 const char *vp_socket_close(char *args);/* [] (socket) */
 const char *vp_socket_read(char *args); /* [hd, eof] (socket, nr, timeout) */
 const char *vp_socket_write(char *args);/* [nleft] (socket, hd, timeout) */
+
+const char *vp_host_exists(char *args); /* [int] (host) */
 
 const char *vp_decode(char *args);      /* [decoded_str] (encode_str) */
 /* --- */
@@ -143,6 +156,13 @@ vp_dlclose(char *args)
         return dlerror();
     vp_stack_free(&_result);
     return NULL;
+}
+
+const char *
+vp_dlversion(char *args)
+{
+    vp_stack_push_num(&_result, "%2d%02d", 7, 1);
+    return vp_stack_return(&_result);
 }
 
 const char *
@@ -489,7 +509,7 @@ vp_pipe_open(char *args)
             vp_stack_push_num(&_result, "%d", fd[2][0]);
         return vp_stack_return(&_result);
     }
-    /* DO NOT REACH HEAR */
+    /* DO NOT REACH HERE */
     return NULL;
 
 
@@ -725,15 +745,18 @@ vp_kill(char *args)
     vp_stack_t stack;
     pid_t pid;
     int sig;
+    int ret;
 
     VP_RETURN_IF_FAIL(vp_stack_from_args(&stack, args));
     VP_RETURN_IF_FAIL(vp_stack_pop_num(&stack, "%d", &pid));
     VP_RETURN_IF_FAIL(vp_stack_pop_num(&stack, "%d", &sig));
 
-    if (kill(pid, sig) == -1)
+    ret = kill(pid, sig);
+    if (ret < 0)
         return vp_stack_return_error(&_result, "kill() error: %s",
                 strerror(errno));
-    return NULL;
+    vp_stack_push_num(&_result, "%d", ret);
+    return vp_stack_return(&_result);
 }
 
 const char *
@@ -836,6 +859,30 @@ vp_socket_write(char *args)
     return vp_file_write(args);
 }
 
+/*
+ * Added by Richard Emberson
+ * Check to see if a host exists.
+ */
+const char *
+vp_host_exists(char *args)
+{
+    vp_stack_t stack;
+    char *host;
+    struct hostent *hostent;
+
+    VP_RETURN_IF_FAIL(vp_stack_from_args(&stack, args));
+    VP_RETURN_IF_FAIL(vp_stack_pop_str(&stack, &host));
+
+    hostent = gethostbyname(host);
+    if (hostent) {
+        vp_stack_push_num(&_result, "%d", 1);
+    } else {
+        vp_stack_push_num(&_result, "%d", 0);
+    }
+
+    return vp_stack_return(&_result);
+}
+
 const char *
 vp_readdir(char *args)
 {
@@ -867,40 +914,60 @@ const char *
 vp_decode(char *args)
 {
     vp_stack_t stack;
-    unsigned num = 0;
-    unsigned i = 0;
-    size_t length;
+    unsigned num;
+    unsigned i, bi;
+    size_t length, max_buf;
     char *str;
     char *buf;
     char *p;
-    char *bp;
 
     VP_RETURN_IF_FAIL(vp_stack_from_args(&stack, args));
     VP_RETURN_IF_FAIL(vp_stack_pop_str(&stack, &str));
 
     length = strlen(str);
-    buf = (char *)malloc(length/2 + 2);
+    max_buf = length/2 + 2;
+    buf = (char *)malloc(max_buf);
     if (buf == NULL) {
         return vp_stack_return_error(&_result, "malloc() error: %s",
                 "Memory cannot allocate");
     }
 
     p = str;
-    bp = buf;
+    bi = 0;
+    num = 0;
     for (i = 0; i < length; i++, p++) {
         if (isdigit((int)*p))
             num |= (*p & 15);
         else
             num |= (*p & 15) + 9;
 
-        if (i % 2) {
-            *bp++ = num;
-            num = 0;
-        } else {
+        if (i % 2 == 0) {
             num <<= 4;
+            continue;
         }
+
+        /* Write character. */
+        if (num == 0) {
+            /* Convert NULL character. */
+            max_buf += 1;
+            buf = (char *)realloc(buf, max_buf);
+            if (buf == NULL) {
+                return vp_stack_return_error(
+                        &_result, "realloc() error: %s",
+                        "Memory cannot allocate");
+            }
+
+            buf[bi] = '^';
+            bi++;
+            buf[bi] = '@';
+            bi++;
+        } else {
+            buf[bi] = num;
+            bi++;
+        }
+        num = 0;
     }
-    *bp = '\0';
+    buf[bi] = '\0';
     vp_stack_push_str(&_result, buf);
     free(buf);
     return vp_stack_return(&_result);

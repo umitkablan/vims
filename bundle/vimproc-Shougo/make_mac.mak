@@ -1,14 +1,24 @@
 # for Mac.
 
-TARGET=autoload/proc.so
+# clang or llvm-gcc
+LLVMCC=llvm-gcc
+
+ifneq ($(shell which $(LLVMCC)),)
+CC=$(LLVMCC)
+else
+CC=gcc
+endif
+
+TARGET=autoload/vimproc_mac.so
 SRC=autoload/proc.c
-CFLAGS=-O2 -W -Wall -Wno-unused -bundle -fPIC -arch i386 -arch x86_64
-LDFLAGS+=-lutil
+ARCHS=i386 x86_64
+CFLAGS=-O2 -W -Wall -Wno-unused -bundle -fPIC $(foreach ARCH,$(ARCHS),-arch $(ARCH))
+LDFLAGS=
 
 all: $(TARGET)
 
 $(TARGET): $(SRC) autoload/vimstack.c
-	gcc $(CFLAGS) -o $(TARGET) $(SRC) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(LDFLAGS)
 
 .PHONY : clean
 clean:

@@ -24,11 +24,16 @@
 #define VP_INITIAL_BUFSIZE 512
 #define VP_ERRMSG_SIZE 512
 
-#define VP_RETURN_IF_FAIL(expr)     \
+#if defined(_WIN64)
+# define VP_RETURN_IF_FAIL(expr) \
+    { const char *vp_err = (expr); if (vp_err != NULL) return vp_err; }
+#else
+# define VP_RETURN_IF_FAIL(expr)     \
     do {                            \
         const char *vp_err = expr;  \
         if (vp_err) return vp_err;  \
     } while (0)
+#endif
 
 /* buf:var|EOV|var|EOV|top:free buffer|buf+size */
 typedef struct vp_stack_t {
@@ -39,7 +44,6 @@ typedef struct vp_stack_t {
 
 /* use for initialize */
 #define VP_STACK_NULL {0, NULL, NULL}
-static vp_stack_t vp_stack_null = {0, NULL, NULL};
 
 static void vp_stack_free(vp_stack_t *stack);
 static const char *vp_stack_from_args(vp_stack_t *stack, char *args);
@@ -192,7 +196,7 @@ vp_stack_pop_bin(vp_stack_t *stack, char **buf, size_t *size)
         /* "%0.2x" is warned by gcc. */
         if (sscanf(p, "%2x", &num) != 1)
             return "vp_stack_pop_bin: sscanf error";
-        (*buf)[*size] = num;
+        (*buf)[*size] = (char)(num & 0xff);
         *size += 1;
         p += 2;
     }

@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: vimproc.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 09 Nov 2011.
+" Last Modified: 26 Oct 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,10 +24,10 @@
 " }}}
 "=============================================================================
 
-if v:version < 702
-  echoerr 'vimproc does not work this version of Vim "' . v:version . '".'
+if exists('g:loaded_vimproc')
   finish
-elseif exists('g:loaded_vimproc')
+elseif v:version < 702
+  echoerr 'vimproc does not work this version of Vim "' . v:version . '".'
   finish
 endif
 
@@ -36,27 +36,15 @@ let s:save_cpo = &cpo
 set cpo&vim
 " }}}
 
-let g:vimproc_shell_commands =
-      \ get(g:, 'vimproc_shell_commands', {
-      \     'sh' : 1, 'bash' : 1, 'zsh' : 1, 'csh' : 1, 'tcsh' : 1,
-      \     'tmux' : 1, 'screen' : 1, 'su' : 1,
-      \     'python' : 1, 'rhino' : 1, 'ipython' : 1,
-      \ })
-let g:stdinencoding =
-      \ get(g:, 'stdinencoding', &termencoding)
-let g:stdoutencoding =
-      \ get(g:, 'stdoutencoding', &termencoding)
-let g:stderrencoding =
-      \ get(g:, 'stderrencoding', &termencoding)
-
 command! -nargs=+ -complete=shellcmd VimProcBang call s:bang(<q-args>)
 command! -nargs=+ -complete=shellcmd VimProcRead call s:read(<q-args>)
 
 " Command functions:
-function! s:bang(cmdline)"{{{
+function! s:bang(cmdline) "{{{
   " Expand % and #.
   let cmdline = join(map(vimproc#parser#split_args_through(
-        \ vimproc#util#iconv(a:cmdline, vimproc#util#termencoding(), &encoding)),
+        \ vimproc#util#iconv(a:cmdline,
+        \   vimproc#util#termencoding(), &encoding)),
         \ 'substitute(expand(v:val), "\n", " ", "g")'))
 
   " Open pipe.
@@ -68,7 +56,8 @@ function! s:bang(cmdline)"{{{
     if !subproc.stdout.eof
       let output = subproc.stdout.read(10000, 0)
       if output != ''
-        let output = vimproc#util#iconv(output, vimproc#util#stdoutencoding(), &encoding)
+        let output = vimproc#util#iconv(output,
+              \ vimproc#util#stdoutencoding(), &encoding)
 
         echon output
         sleep 1m
@@ -78,7 +67,8 @@ function! s:bang(cmdline)"{{{
     if !subproc.stderr.eof
       let output = subproc.stderr.read(10000, 0)
       if output != ''
-        let output = vimproc#util#iconv(output, vimproc#util#stderrencoding(), &encoding)
+        let output = vimproc#util#iconv(output,
+              \ vimproc#util#stderrencoding(), &encoding)
         echohl WarningMsg | echon output | echohl None
 
         sleep 1m
@@ -91,10 +81,11 @@ function! s:bang(cmdline)"{{{
 
   let [cond, last_status] = subproc.waitpid()
 endfunction"}}}
-function! s:read(cmdline)"{{{
+function! s:read(cmdline) "{{{
   " Expand % and #.
   let cmdline = join(map(vimproc#parser#split_args_through(
-        \ vimproc#util#iconv(a:cmdline, vimproc#util#termencoding(), &encoding)),
+        \ vimproc#util#iconv(a:cmdline,
+        \   vimproc#util#termencoding(), &encoding)),
         \ 'substitute(expand(v:val), "\n", " ", "g")'))
 
   " Expand args.
