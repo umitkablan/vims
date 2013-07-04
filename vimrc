@@ -182,8 +182,8 @@ nnoremap <silent> <F3> :<Up><CR>
 " autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
 "   <C-D>/<C-U>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
-noremap <Down> 4<C-E>
-noremap <Up>   4<C-Y>
+nmap <Up>   5<C-Y>
+nmap <Down> 5<C-E>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
 nnoremap <silent> \ :let @/=""<CR>:echo "Cleared Search Pattern"<CR>
 nnoremap / /\V
@@ -232,8 +232,8 @@ cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-inoremap <C-E> <C-O>$
-inoremap <C-A> <C-O>^
+inoremap <silent> <C-E> <C-O>:normal! "g$"<CR>
+inoremap <silent> <C-A> <C-O>:exe "normal! \<C-O>g^"<CR>
 " unnamed register to/from system clipboard
 nnoremap <silent> <Leader>,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nnoremap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
@@ -281,7 +281,7 @@ augroup END
 
 augroup preprocessor_langs
   au!
-  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>mzk
+  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>k
 augroup END
 
 call pathogen#infect('bundle/*')
@@ -301,6 +301,8 @@ augroup END
 
 " personal plugin maps
 " ******************** {{{
+nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
+nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 nmap + <Plug>(expand_region_expand)
 vmap + <Plug>(expand_region_expand)
@@ -405,6 +407,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:ac_smooth_scroll_no_default_key_mappings = 1
 let g:tmuxmake_targets = ""
 let g:startify_session_dir = '~/.vim/var/session'
 let g:session_directory = "~/.vim/var/session"
