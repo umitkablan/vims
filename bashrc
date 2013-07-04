@@ -1,7 +1,7 @@
 
 [[ $- != *i* ]] && return
 
-export TERM="xterm-256color"
+export TERM="screen-256color"
 export EDITOR="vim"
 
 bind '"\e[A":history-search-backward'
