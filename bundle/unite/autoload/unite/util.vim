@@ -40,7 +40,7 @@ function! unite#util#print_error(...)
   return call(s:V.print_error, a:000)
 endfunction
 function! unite#util#smart_execute_command(action, word)
-  execute a:action . ' ' . (a:word == '' ? '' : '`=a:word`')
+  execute 'keepjumps' a:action . ' ' . (a:word == '' ? '' : '`=a:word`')
 endfunction
 function! unite#util#escape_file_searching(...)
   return call(s:V.escape_file_searching, a:000)
@@ -48,9 +48,14 @@ endfunction
 function! unite#util#escape_pattern(...)
   return call(s:V.escape_pattern, a:000)
 endfunction
-function! unite#util#set_default(...)
-  return call(s:V.set_default, a:000)
-endfunction
+function! unite#util#set_default(var, val, ...)  "{{{
+  if !exists(a:var) || type({a:var}) != type(a:val)
+    let alternate_var = get(a:000, 0, '')
+
+    let {a:var} = exists(alternate_var) ?
+          \ {alternate_var} : a:val
+  endif
+endfunction"}}}
 function! unite#util#set_dictionary_helper(...)
   return call(s:V.set_dictionary_helper, a:000)
 endfunction
@@ -100,9 +105,15 @@ function! unite#util#uniq(...)
 endfunction
 function! unite#util#input(prompt, ...) "{{{
   let context = unite#get_context()
+  let prompt = a:prompt
   let default = get(a:000, 0, '')
   let completion = get(a:000, 1, '')
-  let args = [a:prompt, default]
+  let source_name = get(a:000, 2, '')
+  if source_name != ''
+    let prompt = printf('[%s] %s', source_name, prompt)
+  endif
+
+  let args = [prompt, default]
   if completion != ''
     call add(args, completion)
   endif
@@ -122,6 +133,8 @@ function! unite#util#input_yesno(message) "{{{
     call unite#print_error('Invalid input.')
     let yesno = input(a:message . ' [yes/no]: ')
   endwhile
+
+  redraw
 
   return yesno =~? 'y\%[es]'
 endfunction"}}}
@@ -259,9 +272,6 @@ endfunction"}}}
 function! unite#util#convert2list(expr) "{{{
   return type(a:expr) ==# type([]) ? a:expr : [a:expr]
 endfunction"}}}
-function! unite#util#msg2list(expr) "{{{
-  return type(a:expr) ==# type([]) ? a:expr : split(a:expr, '\n')
-endfunction"}}}
 
 function! unite#util#truncate_wrap(str, max, footer_width, separator) "{{{
   let width = unite#util#wcswidth(a:str)
@@ -283,18 +293,9 @@ function! unite#util#get_name(list, name, default) "{{{
   return get(a:list, unite#util#index_name(a:list, a:name), a:default)
 endfunction"}}}
 
-function! unite#util#redraw_echo(expr) "{{{
-  if has('vim_starting')
-    echo join(unite#util#msg2list(a:expr), "\n")
-    return
-  endif
-
-  let msg = unite#util#msg2list(a:expr)
-  let height = max([1, &cmdheight])
-  for i in range(0, len(msg)-1, height)
-    redraw
-    echo join(msg[i : i+height-1], "\n")
-  endfor
+function! unite#util#escape_match(str) "{{{
+  return substitute(substitute(escape(a:str, '~\.^$[]'),
+        \ '\*\@<!\*', '[^/]*', 'g'), '\*\*\+', '.*', 'g')
 endfunction"}}}
 
 let &cpo = s:save_cpo
