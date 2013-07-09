@@ -5,3 +5,4 @@ neocomplcache_tmp
 *.min.js
 pipe
 *.pipe
+cscope.out
