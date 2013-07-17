@@ -57,6 +57,8 @@ set path=.
 set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc
+set wildignore+=*.pyo,*.pyd,*.class,*.lock
+set wildignore+=.git,.svn,.hg
 " can leave a buffer without saving
 set hidden
 " backup and temp dirs
@@ -73,8 +75,13 @@ set timeout timeoutlen=540 ttimeout ttimeoutlen=100
 " show tabline every now and then
 set showtabline=2
 set cursorline nocursorcolumn
-set wrap nolinebreak
+set wrap linebreak
 set showmode
+if has('multi_byte')
+  let &showbreak = '↳ '
+else
+  let &showbreak = '> '
+endif
 
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
