@@ -198,7 +198,8 @@ nnoremap <silent> <expr> gn '' . SearchForwLastSearch() . ''
 " save current file path to register
 nnoremap <silent> y@@ :let @+=expand("%:p")<CR>
 nnoremap <silent> y@  :let @+=expand("%:.")<CR>
-" saving stuff
+" gui receives keystrokes that terminal cannot, use them for saving &
+" visual-reselect, etc.
 if has("gui_running")
   nnoremap <silent> <C-s> :update<CR>
   vmap <C-s> <Esc><C-s>gv
@@ -211,7 +212,7 @@ nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
 " full redraw
-nnoremap <silent> <c-l> :redraw!<CR>
+nnoremap <silent> <c-l> :let @/=""\|redraw!<CR>
 nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
