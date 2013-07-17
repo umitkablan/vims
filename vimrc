@@ -677,12 +677,30 @@ let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
 let g:ctags_statusline = 1
 let generate_tags = 1
+" statline-umt ----------------------------
 let g:statline_filename_relative = 0
 let g:statline_mixed_indent = 0
 let g:statline_show_charcode = 0
 let g:statline_show_tagname = 1
 let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
+" airline-vim -----------------------------
+let g:airline_enable_fugitive = 0
+let g:airline_section_b = '%<%1.24{getcwd()}'
+let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
+if has('multi_byte')
+  let g:airline_left_sep  = '»'
+  let g:airline_left_sep  = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_linecolumn_prefix = '␊ '
+  let g:airline_linecolumn_prefix = '␤ '
+  let g:airline_linecolumn_prefix = '¶ '
+  let g:airline_fugitive_prefix = '⎇ '
+  let g:airline_paste_symbol = 'ρ'
+  let g:airline_paste_symbol = 'Þ'
+  let g:airline_paste_symbol = '∥'
+endif
 " Unite.vim --------------------------------
 let g:unite_source_history_yank_enable=1
 let g:unite_source_file_mru_limit=700
