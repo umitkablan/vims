@@ -506,10 +506,6 @@ let g:syntastic_html_checkers=['tidy']
 " ------------------------------------------------------- }}
 augroup no_sticky_buffers
   au!
-  " TODO: can g:local_vimrc variable be used inside au?
-  au BufEnter .lvimrc,fugitive://* nnoremap <buffer> ZZ :bd!<CR>
-  au FileType conque_term nnoremap <buffer> ZZ :bd!<CR>
-  au FileType svnrevert,svnannotate,svnupdate,svnlog,svncommit,svnstatus,svninfo,svnadd nnoremap <buffer> ZZ :bd!<CR>
   au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 " smartput & pasta ------------------------
