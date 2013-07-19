@@ -37,8 +37,8 @@ from the source code of the miscellaneous scripts using the Python module
 
 <!-- Start of generated documentation -->
 
-The documentation of the 67 functions below was extracted from
-15 Vim scripts on June  3, 2013 at 21:53.
+The documentation of the 80 functions below was extracted from
+15 Vim scripts on June 26, 2013 at 10:55.
 
 ### Handling of special buffers
 
@@ -201,10 +201,10 @@ only converted to strings when the user has enabled increased verbosity.
 
 #### The `xolox#misc#open#file()` function
 
-Given a pathname as the first argument, this opens the file with the
-program associated with the file type. So for example a text file might
-open in Vim, an `*.html` file would probably open in your web browser and
-a media file would open in a media player.
+Given a pathname or URL as the first argument, this opens the file with
+the program associated with the file type. So for example a text file
+might open in Vim, an `*.html` file would probably open in your web
+browser and a media file would open in a media player.
 
 This should work on Windows, Mac OS X and most Linux distributions. If
 this fails to find a file association, you can pass one or more external
@@ -280,6 +280,14 @@ otherwise (so by default) a list with all matches is returned.
 
 ### Operating system interfaces
 
+#### The `xolox#misc#os#is_mac()` function
+
+Returns 1 (true) when on Mac OS X, 0 (false) otherwise. You would expect
+this to simply check the Vim feature list, but for some obscure reason the
+`/usr/bin/vim` included in Mac OS X (verified on version 10.7.5) returns 0
+(false) in response to `has('mac')`, so we check the output of `uname`
+to avoid false negatives.
+
 #### The `xolox#misc#os#is_win()` function
 
 Returns 1 (true) when on Microsoft Windows, 0 (false) otherwise.
@@ -328,6 +336,13 @@ Returns a dictionary with one or more of the following key/value pairs:
   standard error stream (as a list of strings, one for each line)
 
 [vim-shell]: http://peterodding.com/code/vim/shell/
+
+#### The `xolox#misc#os#can_use_dll()` function
+
+If a) we're on Microsoft Windows, b) the vim-shell plug-in is installed
+and c) the compiled DLL included in vim-shell works, we can use the
+vim-shell plug-in to execute external commands! Returns 1 (true)
+if we can use the DLL, 0 (false) otherwise.
 
 ### Pathname manipulation functions
 
@@ -415,18 +430,33 @@ Create a temporary directory and return the pathname of the directory.
 
 ### String handling
 
+#### The `xolox#misc#str#slug()` function
+
+Convert a string to a "slug" - something that can be safely used in
+filenames and URLs without worrying about quoting/escaping of special
+characters.
+
 #### The `xolox#misc#str#ucfirst()` function
 
-Uppercase the first character in a string.
+Uppercase the first character in a string (the first argument).
 
 #### The `xolox#misc#str#compact()` function
 
-Compact whitespace in the string given as the first argument.
+Compact whitespace in a string (the first argument).
 
 #### The `xolox#misc#str#trim()` function
 
-Trim all whitespace from the start and end of the string given as the
-first argument.
+Trim all whitespace from the start and end of a string (the first
+argument).
+
+#### The `xolox#misc#str#indent()` function
+
+Indent all lines in a multi-line string (the first argument) with a
+specific number of *space characters* (the second argument, an integer).
+
+#### The `xolox#misc#str#dedent()` function
+
+Remove common whitespace from a multi line string.
 
 ### Test runner & infrastructure for Vim plug-ins
 
@@ -518,23 +548,6 @@ Test splitting of multi-valued Vim options with
 
 Test joining of multi-valued Vim options with `xolox#misc#option#join()`.
 
-#### The `xolox#misc#tests#evaluation_of_tags_option()` function
-
-Test evaluation of Vim's ['tags'] [] option. We don't test `~/.tags` style
-patterns because `xolox#misc#option#eval_tags()` doesn't support those.
-Depending on your perspective this is not a bug, because the ['tags'] []
-option gets special treatment in Vim anyway:
-
-  :set tags=~/.tags
-    tags=~/.tags
-  :echo &tags
-    /home/peter/.tags
-
-So at the point where `xolox#misc#option#eval_tags()` receives the value
-of ['tags'] [], it has already been expanded by Vim.
-
-['tags']: http://vimdoc.sourceforge.net/htmldoc/options.html#'tags'
-
 #### The `xolox#misc#tests#finding_vim_on_the_search_path()` function
 
 Test looking up Vim's executable on the search path using [v:progname] []
@@ -546,6 +559,12 @@ with `xolox#misc#os#find_vim()`.
 
 Test basic functionality of synchronous command execution with
 `xolox#misc#os#exec()`.
+
+#### The `xolox#misc#tests#synchronous_command_execution_with_stderr()` function
+
+Test basic functionality of synchronous command execution with
+`xolox#misc#os#exec()` including the standard error stream (not available
+on Windows when vim-shell is not installed).
 
 #### The `xolox#misc#tests#synchronous_command_execution_with_raising_of_errors()` function
 
@@ -559,8 +578,35 @@ Test synchronous command execution without raising of errors with
 
 #### The `xolox#misc#tests#asynchronous_command_execution()` function
 
-Test basic functionality of asynchronous command execution with
-`xolox#misc#os#exec()`.
+Test the basic functionality of asynchronous command execution with
+`xolox#misc#os#exec()`. This runs the external command `mkdir` and tests
+that the side effect of creating the directory takes place. This might
+seem like a peculiar choice, but it's one of the few 100% portable
+commands (Windows + UNIX) that doesn't involve input/output streams.
+
+#### The `xolox#misc#tests#string_case_transformation()` function
+
+Test string case transformation with `xolox#misc#str#ucfirst()`.
+
+#### The `xolox#misc#tests#string_whitespace_compaction()` function
+
+Test compaction of whitespace in strings with `xolox#misc#str#compact()`.
+
+#### The `xolox#misc#tests#string_whitespace_trimming()` function
+
+Test trimming of whitespace in strings with `xolox#misc#str#trim()`.
+
+#### The `xolox#misc#tests#multiline_string_dedent()` function
+
+Test dedenting of multi-line strings with `xolox#misc#str#dedent()`.
+
+#### The `xolox#misc#tests#version_string_parsing()` function
+
+Test parsing of version strings with `xolox#misc#version#parse()`.
+
+#### The `xolox#misc#tests#version_string_comparison()` function
+
+Test comparison of version strings with `xolox#misc#version#at_least()`.
 
 ### Timing of long during operations
 
@@ -589,6 +635,17 @@ Show a formatted message to the user. This function has the same argument
 handling as Vim's [printf()] [printf] function with one difference: At the
 point where you want the elapsed time to be embedded, you write `%s` and
 you pass the list returned by `xolox#misc#timer#start()` as an argument.
+
+### Version string handling
+
+#### The `xolox#misc#version#parse()` function
+
+Convert a version string to a list of integers.
+
+#### The `xolox#misc#version#at_least()` function
+
+Check whether the second version string is equal to or greater than the
+first version string. Returns 1 (true) when it is, 0 (false) otherwise.
 
 <!-- End of generated documentation -->
 

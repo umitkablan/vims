@@ -1,11 +1,11 @@
 " Pathname manipulation functions.
 "
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: June 2, 2013
+" Last Change: June 25, 2013
 " URL: http://peterodding.com/code/vim/misc/
 
 let s:windows_compatible = xolox#misc#os#is_win()
-let s:mac_os_x_compatible = has('macunix')
+let s:mac_os_x_compatible = xolox#misc#os#is_mac()
 
 function! xolox#misc#path#which(...) " {{{1
   " Scan the executable search path (`$PATH`) for one or more external
@@ -253,7 +253,7 @@ function! xolox#misc#path#tempdir() " {{{1
     try
       call mkdir(directory, '', 0700)
       return directory
-    catch /\<E739\>/
+    catch /^Vim\%((\a\+)\)\=:E739/
       " Keep looking for a non-existing directory.
     endtry
     let s:tempdir_counter += 1
