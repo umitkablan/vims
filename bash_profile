@@ -44,4 +44,4 @@ export TODO="t"
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
 # Load Bash It
-source $BASH_IT/bash_it.sh
+# source $BASH_IT/bash_it.sh
