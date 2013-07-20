@@ -5,7 +5,7 @@ export TERM="screen-256color"
 export EDITOR="vim"
 
 bind '"\e[1;3A":history-search-backward'
-bind '"\e[1;3A":history-search-backward'
+bind '"\e[1;3B":history-search-forward'
 
 export LS_COLORS="di=01;37:fi=00;35"
 alias ls='ls --color=auto'
