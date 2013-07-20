@@ -442,6 +442,7 @@ autocmd VimEnter * Alias ie InlineEdit
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias un Underline
 autocmd VimEnter * Alias git  Git
+autocmd VimEnter * Alias gl   Glog
 autocmd VimEnter * Alias gt   Git
 autocmd VimEnter * Alias gs   Gstatus
 autocmd VimEnter * Alias ge   Gedit
