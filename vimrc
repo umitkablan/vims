@@ -565,6 +565,10 @@ let g:easytags_updatetime_autodisable = 1
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 " let VCSCommandSVNDiffOpt = "-ignore-all-space"
+augroup VCSCommand
+  au!
+  au VCSCommand User VCSBufferCreated silent! nmap <unique> <buffer> q :bwipeout<cr>
+augroup END
 " netrw ----------------------------------
 let g:tar_nomax = 1
 let g:zip_nomax = 1
