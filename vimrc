@@ -415,6 +415,8 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 
 "plugin configuration
 "******************** {{{
+let g:rainbow_active = 1
+let g:rainbow_operators = 1
 let g:ac_smooth_scroll_no_default_key_mappings = 1
 let g:tmuxmake_targets = ""
 let g:startify_session_dir = '~/.vim/var/session'
@@ -440,6 +442,7 @@ autocmd VimEnter * Alias ie InlineEdit
 autocmd VimEnter * Alias E e
 autocmd VimEnter * Alias un Underline
 autocmd VimEnter * Alias git  Git
+autocmd VimEnter * Alias gl   Glog
 autocmd VimEnter * Alias gt   Git
 autocmd VimEnter * Alias gs   Gstatus
 autocmd VimEnter * Alias ge   Gedit
@@ -1231,7 +1234,7 @@ command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener
 set background=dark
-colorscheme inkpot
+colorscheme badwolf
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
