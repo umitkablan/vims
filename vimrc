@@ -316,6 +316,7 @@ nmap + <Plug>(expand_region_expand)
 vmap + <Plug>(expand_region_expand)
 vmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
+nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
@@ -569,7 +570,7 @@ let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 " let VCSCommandSVNDiffOpt = "-ignore-all-space"
 augroup VCSCommand
-  au VCSCommand User VCSBufferCreated silent! nmap <unique> <buffer> <Backspace> :bwipeout!<cr>
+  au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
 augroup END
 " netrw ----------------------------------
 let g:tar_nomax = 1
