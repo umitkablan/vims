@@ -82,7 +82,7 @@ let s:k_version = 109
 if exists("g:loaded_local_vimrc")
 \ && (g:loaded_local_vimrc >= s:k_version)
 \ && !exists('g:force_reload_local_vimrc')
-finish
+    finish
 endif
 let g:loaded_local_vimrc_vim = s:k_version
 let s:cpo_save=&cpo
@@ -113,10 +113,10 @@ let s:sCd = 0
 function! s:SourceLocal(path)
     let up_path = fnamemodify(a:path,':h')
     if up_path == '.' " likelly a non existant path
-    if ! isdirectory(a:path)
-        call lh#common#warning_msg("[local_vimrc] The current file '".expand('%:p:')."' seems to be in a non-existant directory: '".a:path."'")
-    endif
-    let up_path = getcwd()
+        if ! isdirectory(a:path)
+            call lh#common#warning_msg("[local_vimrc] The current file '".expand('%:p:')."' seems to be in a non-existant directory: '".a:path."'")
+        endif
+        let up_path = getcwd()
     endif
     " call confirm('crt='.a:path."\nup=".up_path."\n$HOME=".s:home, '&Ok', 1)
     " echomsg ('crt='.a:path."\nup=".up_path."\n$HOME=".s:home)
