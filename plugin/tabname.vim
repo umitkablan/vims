@@ -26,7 +26,7 @@ function! s:RemoveTabName()
     for win_number in range(1, winnr('$'))
         call setwinvar(win_number, "tab_win_name", '')
     endfor
-    unlet t:tab_name
+    silent! unlet t:tab_name
 
     call s:RefreshTab()
 endfunction
@@ -135,7 +135,8 @@ augroup END
 
 call s:RefreshTab()
 
-command! -nargs=1 TName call s:SetTabName(<q-args>)
+command! -nargs=1 TNamee call s:SetTabName(<q-args>)
+command! -nargs=1 TName call s:SetTabName(<args>)
 command! TNoName call s:RemoveTabName()
 
 
