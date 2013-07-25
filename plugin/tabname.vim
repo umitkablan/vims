@@ -33,7 +33,7 @@ endfunction
 
 function! s:RefreshTab()
     set tabline=%!TabCaptionLineFunction()
-	set guitablabel=%{TabGuiCaptionLabel()}
+    set guitablabel=%{TabGuiCaptionLabel()}
 endfunction
 
 function! TabCaptionLabel(number)
