@@ -319,6 +319,7 @@ nmap - <Plug>(expand_region_shrink)
 nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
+autocmd BufReadPost vim vmap <silent> <buffer> <F2> :Source<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
@@ -692,6 +693,7 @@ let g:statline_show_encoding = 0
 let g:airline_enable_fugitive = 0
 let g:airline_section_b = '%<%1.24{getcwd()}'
 let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
+let g:airline_section_x = ""
 if has('multi_byte')
   let g:airline_left_sep  = '»'
   let g:airline_left_sep  = '▶'
