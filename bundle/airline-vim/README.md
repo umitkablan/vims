@@ -2,7 +2,7 @@
 
 Lean &amp; mean statusline for vim that's light as air.
 
-![img](https://github.com/bling/vim-airline/wiki/screenshots/light.png)
+![img](https://github.com/bling/vim-airline/wiki/screenshots/demo.gif)
 
 # Rationale
 
@@ -10,7 +10,7 @@ There's already [powerline][b], why yet another statusline?
 
 *  it's 100% vimscript; no python needed.
 *  it's small.  i want the core plugin to be *less than 200 lines* as a rule (specifically adhering to the [open/closed principle][h]).
-*  despite the small size, it is fully featured and already integrates with: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s] and [syntastic][e].
+*  despite the small size, it is fully featured and already integrates with: [vim-bufferline][f], [fugitive][d], [unite][i], [ctrlp][j], [minibufexpl][o], [gundo][p], [undotree][q], [nerdtree][r], [tagbar][s], [syntastic][e] and [lawrencium][u].
 *  it looks good with regular fonts, and provides configuration points so you can use unicode or powerline symbols.
 *  it's fast to load, taking roughly 1ms.  by comparison, powerline needs 60ms on the same machine.
 *  it's fully customizable; if you know a little `statusline` syntax you can tweak it to your needs.
@@ -21,7 +21,7 @@ What about [old powerline][a]?
 *  the old version still works well, but since it's deprecated new features won't get added
 *  it uses different font codes, which makes it incompatible with other powerline bindings in the same terminal (e.g. bash, zsh, tmux, etc.)
 
-# Why's it called airline?
+# Where did the name come from?
 
 I wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  Thanks for flying vim!
 
@@ -48,14 +48,6 @@ For the nice looking powerline symbols to appear, you will need to install a pat
 
 Finally, enable them in vim-airline by adding `let g:airline_powerline_fonts = 1` to your vimrc.
 
-# Bugs
-
-If you encounter a bug, please do the following:
-
-*  reproduce it with this [minivimrc][g] repository to rule out any configuration conflicts.
-*  specify your version and patch level, as well as operating system (found with `:version`).
-*  a link to a gist or your vimrc where it can be reproduced.
-
 # FAQ
 
 Solutions to common problems can be found in the [Wiki](https://github.com/bling/vim-airline/wiki/FAQ).
@@ -63,6 +55,14 @@ Solutions to common problems can be found in the [Wiki](https://github.com/bling
 # Screenshots
 
 A full list of screenshots can be found in the [Wiki][n].
+
+# Bugs
+
+Tracking down bugs can take a very long time due to different configurations, versions, and operating systems.  To ensure a timely response, please help me out by doing the following:
+
+*  reproduce it with this [minivimrc][g] repository to rule out any configuration conflicts.
+*  include your version of vim, including patches, and operating system (`:version` will contain this information).
+*  a link to your vimrc or a gist which shows how you configured the plugin(s)
 
 # Contributions
 
@@ -98,3 +98,4 @@ Distributed under the same terms as the Vim license.  See `:help license`.
 [r]: https://github.com/scrooloose/nerdtree
 [s]: https://github.com/majutsushi/tagbar
 [t]: https://powerline.readthedocs.org/en/latest/fontpatching.html
+[u]: https://bitbucket.org/ludovicchabant/vim-lawrencium

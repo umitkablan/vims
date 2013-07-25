@@ -31,7 +31,6 @@ function! airline#load_theme(name)
   let g:airline_theme = a:name
   let inactive_colors = g:airline#themes#{g:airline_theme}#inactive "also lazy loads the theme
   let w:airline_lastmode = ''
-  let w:airline_active = 1
   call airline#highlight(['inactive'])
   call airline#update_highlight()
 endfunction
@@ -67,32 +66,14 @@ function! s:is_excluded_window()
   return 0
 endfunction
 
-function! s:apply_window_overrides()
-  call airline#extensions#clear_window_overrides()
-
-  if &buftype == 'quickfix'
-    let w:airline_section_a = 'Quickfix'
-    let w:airline_section_b = ''
-    let w:airline_section_c = ''
-    let w:airline_section_x = ''
-  endif
-
-  if &previewwindow
-    let w:airline_section_a = 'Preview'
-    let w:airline_section_b = ''
-    let w:airline_section_c = bufname(winbufnr(winnr()))
-  endif
-
-  for FuncRef in g:airline_window_override_funcrefs
-    call FuncRef()
-  endfor
-endfunction
-
 function! airline#update_externals()
-  let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('g:bufferline_loaded') ? '%{bufferline#generate_string()}' : "%f%m"
-  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('g:loaded_syntastic_plugin') ? '%{SyntasticStatuslineFlag()}' : ''
-  let g:airline_externals_fugitive = g:airline_enable_fugitive && exists('g:loaded_fugitive') && strlen(fugitive#head()) > 0
-        \ ? g:airline_fugitive_prefix.fugitive#head() : ''
+  let g:airline_externals_bufferline = g:airline_enable_bufferline && exists('*bufferline#get_status_string')
+        \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string()
+        \ : "%f%m"
+  let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag') ? '%{SyntasticStatuslineFlag()}' : ''
+  let g:airline_externals_fugitive = g:airline_enable_fugitive ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
+        \ ? g:airline_fugitive_prefix.fugitive#head() : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
+        \ ? g:airline_fugitive_prefix.lawrencium#statusline() : '') : ''
 endfunction
 
 function! s:get_section(key)
@@ -107,7 +88,7 @@ function! airline#update_statusline(active)
   endif
 
   call airline#update_externals()
-  call s:apply_window_overrides()
+  call airline#extensions#apply_window_overrides()
 
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
@@ -126,8 +107,9 @@ function! airline#update_statusline(active)
     let sl.=l:info_sep_color
     let sl.=g:airline_left_sep
     let sl.=l:status_color.' %<'.s:get_section('c').' '
-    let sl.=exists('w:airline_section_gutter')
-          \ ? s:get_section('gutter')
+    let gutter = get(w:, 'airline_section_gutter', get(g:, 'airline_section_gutter', ''))
+    let sl.=gutter != ''
+          \ ? gutter
           \ : '%#warningmsg#'.g:airline_externals_syntastic.l:file_flag_color."%{&ro ? g:airline_readonly_symbol : ''}".l:status_color
   else
     let sl.=l:status_color.' %f%m'
@@ -148,7 +130,7 @@ endfunction
 
 let g:airline_current_mode_text = ''
 function! airline#update_highlight()
-  if w:airline_active
+  if get(w:, 'airline_active', 1)
     let l:m = mode()
     if l:m ==# "i"
       let l:mode = ['insert']
@@ -160,15 +142,22 @@ function! airline#update_highlight()
       let l:mode = ['normal']
     endif
     let g:airline_current_mode_text = get(g:airline_mode_map, l:m, l:m)
+    if g:airline_detect_iminsert && &iminsert
+      if exists('b:keymap_name')
+        let g:airline_current_mode_text .= ' ' . toupper(b:keymap_name)
+      else
+        let g:airline_current_mode_text .= ' LANG'
+      endif
+    endif
   else
     let l:mode = ['inactive']
   endif
 
-  if &modified | call add(l:mode, 'modified') | endif
-  if &paste    | call add(l:mode, 'paste')    | endif
+  if g:airline_detect_modified && &modified | call add(l:mode, 'modified') | endif
+  if g:airline_detect_paste    && &paste    | call add(l:mode, 'paste')    | endif
 
   let mode_string = join(l:mode)
-  if !exists('w:airline_lastmode') || w:airline_lastmode != mode_string
+  if get(w:, 'airline_lastmode', '') != mode_string
     call airline#highlight(l:mode)
     let w:airline_lastmode = mode_string
   endif
