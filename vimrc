@@ -316,10 +316,11 @@ nmap + <Plug>(expand_region_expand)
 vmap + <Plug>(expand_region_expand)
 vmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
+autocmd FileType tagbar nmap <buffer> <Backspace> q
 nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
-autocmd BufReadPost vim vmap <silent> <buffer> <F2> :Source<CR>
+autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
