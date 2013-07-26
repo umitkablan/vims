@@ -690,6 +690,9 @@ let g:statline_show_tagname = 1
 let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
 " airline-vim -----------------------------
+if !exists("g:airline_window_override_funcrefs")
+  let g:airline_window_override_funcrefs = []
+endif
 let g:airline_enable_fugitive = 0
 let g:airline_section_b = '%<%1.24{getcwd()}'
 let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
@@ -1236,7 +1239,7 @@ command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener
 set background=dark
-colorscheme badwolf
+colorscheme Tomorrow-Night-Eighties
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
