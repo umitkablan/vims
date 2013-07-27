@@ -265,8 +265,8 @@ inoremap <expr> <Esc><Esc> "\<Esc>"
 
 " ************* }}}
 
-autocmd FileType qf   nnoremap <buffer> o <CR><C-W>p
-autocmd FileType qf   nnoremap <buffer> <Backspace> :q<CR>
+autocmd FileType qf   nnoremap <silent> <buffer> o <CR><C-W>p
+autocmd FileType qf   nnoremap <silent> <buffer> <Backspace> :q<CR>
 autocmd FileType help setlocal nonumber
 
 nnoremap <silent> <buffer> <Backspace> :call QFixCloseAndCheck()<CR>
@@ -309,6 +309,7 @@ augroup END
 
 " personal plugin maps
 " ******************** {{{
+au FileType tar nnoremap <Backspace> :bwipeout!<CR>
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
@@ -1252,6 +1253,9 @@ if has("gui_running")
   winsize 170 46
 endif
 
-source ~/.vimrc.local
+try
+  source ~/.vimrc.local
+catch //
+endtry
 
 " vim:fdm=marker
