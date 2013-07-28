@@ -691,7 +691,7 @@ let g:statline_show_tagname = 1
 let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
 " airline-vim -----------------------------
-let g:airline_enable_fugitive = 0
+let g:airline_enable_branch = 0
 let g:airline_section_b = '%<%1.24{getcwd()}'
 let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
 let g:airline_section_x = ""
