@@ -310,6 +310,7 @@ augroup END
 " personal plugin maps
 " ******************** {{{
 au FileType tar nnoremap <Backspace> :bwipeout!<CR>
+au FileType man nnoremap <Backspace> :bwipeout!<CR>
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
