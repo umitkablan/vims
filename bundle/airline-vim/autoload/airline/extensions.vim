@@ -1,4 +1,6 @@
-function! airline#extensions#apply_left_override(section1, section2)
+let s:sections = ['a','b','c','gutter','x','y','z']
+
+function! s:override_left_only(section1, section2)
   let w:airline_section_a = a:section1
   let w:airline_section_b = a:section2
   let w:airline_section_c = ''
@@ -6,18 +8,16 @@ function! airline#extensions#apply_left_override(section1, section2)
 endfunction
 
 function! airline#extensions#apply_window_overrides()
+  unlet! w:airline_left_only
+  for section in s:sections
+    unlet! w:airline_section_{section}
+  endfor
+
   if &buftype == 'quickfix'
     let w:airline_section_a = 'Quickfix'
     let w:airline_section_b = ''
     let w:airline_section_c = ''
     let w:airline_section_x = ''
-  elseif &buftype == 'help'
-    let w:airline_section_a = 'Help'
-    let w:airline_section_b = '%f'
-    let w:airline_section_c = ''
-    let w:airline_section_gutter = ' '
-    let w:airline_section_x = ''
-    let w:airline_section_y = ''
   endif
 
   if &previewwindow
@@ -27,71 +27,42 @@ function! airline#extensions#apply_window_overrides()
   endif
 
   if &ft == 'netrw'
-    call airline#extensions#apply_left_override('netrw', '%f')
+    call s:override_left_only('netrw', '%f')
   elseif &ft == 'unite'
-    call airline#extensions#apply_left_override('Unite', '%{unite#get_status_string()}')
+    call s:override_left_only('Unite', unite#get_status_string())
   elseif &ft == 'nerdtree'
-    call airline#extensions#apply_left_override('NERD', '')
+    call s:override_left_only('NERD', '')
   elseif &ft == 'undotree'
-    call airline#extensions#apply_left_override('undotree', '')
+    call s:override_left_only('undotree', '')
   elseif &ft == 'gundo'
-    call airline#extensions#apply_left_override('Gundo', '')
+    call s:override_left_only('Gundo', '')
   elseif &ft == 'diff'
-    call airline#extensions#apply_left_override('diff', '')
+    call s:override_left_only('diff', '')
   elseif &ft == 'tagbar'
-    call airline#extensions#apply_left_override('Tagbar', '')
+    call s:override_left_only('Tagbar', '')
   elseif &ft == 'vimshell'
-    call airline#extensions#apply_left_override('vimshell', '%{vimshell#get_status_string()}')
+    call s:override_left_only('vimshell', vimshell#get_status_string())
   elseif &ft == 'vimfiler'
-    call airline#extensions#apply_left_override('vimfiler', '%{vimfiler#get_status_string()}')
+    call s:override_left_only('vimfiler', vimfiler#get_status_string())
   elseif &ft == 'minibufexpl'
-    call airline#extensions#apply_left_override('MiniBufExplorer', '')
+    call s:override_left_only('MiniBufExplorer', '')
   endif
-endfunction
 
-function! airline#extensions#is_excluded_window()
-  for matchft in g:airline_exclude_filetypes
-    if matchft ==# &ft
-      return 1
-    endif
+  for Fn in g:airline_window_override_funcrefs
+    call Fn()
   endfor
-
-  for matchw in g:airline_exclude_filenames
-    if matchstr(expand('%'), matchw) ==# matchw
-      return 1
-    endif
-  endfor
-
-  if g:airline_exclude_preview && &previewwindow
-    return 1
-  endif
-
-  return 0
-endfunction
-
-function! airline#extensions#load_theme()
-  if get(g:, 'loaded_ctrlp', 0)
-    call airline#extensions#ctrlp#load_theme()
-  endif
 endfunction
 
 function! airline#extensions#load()
-  if get(g:, 'loaded_unite', 0)
-    let g:unite_force_overwrite_statusline = 0
-  endif
-  if get(g:, 'loaded_vimfiler', 0)
-    let g:vimfiler_force_overwrite_statusline = 0
-  endif
+  let g:unite_force_overwrite_statusline = 0
+  let g:vimfiler_force_overwrite_statusline = 0
 
   if get(g:, 'loaded_ctrlp', 0)
+    call airline#extensions#ctrlp#load_ctrlp_hi()
     let g:ctrlp_status_func = {
           \ 'main': 'airline#extensions#ctrlp#ctrlp_airline',
           \ 'prog': 'airline#extensions#ctrlp#ctrlp_airline_status',
           \ }
-  endif
-
-  if get(g:, 'command_t_loaded', 0)
-    call add(g:airline_window_override_funcrefs, function('airline#extensions#commandt#apply_window_override'))
   endif
 
   if g:airline_enable_bufferline && get(g:, 'loaded_bufferline', 0)
@@ -103,8 +74,5 @@ function! airline#extensions#load()
     let g:bufferline_active_buffer_right = ''
     let g:bufferline_separator = ' '
   endif
-
-  call add(g:airline_window_override_funcrefs, function('airline#extensions#apply_window_overrides'))
-  call add(g:airline_exclude_funcrefs, function('airline#extensions#is_excluded_window'))
 endfunction
 

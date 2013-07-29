@@ -296,6 +296,8 @@ call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
+" personal plugin maps
+" ******************** {{{
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
@@ -307,8 +309,6 @@ augroup tag_langs
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
 
-" personal plugin maps
-" ******************** {{{
 au FileType tar nnoremap <Backspace> :bwipeout!<CR>
 au FileType man nnoremap <Backspace> :bwipeout!<CR>
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
@@ -318,10 +318,11 @@ nmap + <Plug>(expand_region_expand)
 vmap + <Plug>(expand_region_expand)
 vmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
+autocmd FileType tagbar nmap <buffer> <Backspace> q
 nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
-autocmd BufReadPost vim vmap <silent> <buffer> <F2> :Source<CR>
+autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
@@ -692,6 +693,9 @@ let g:statline_show_tagname = 1
 let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
 " airline-vim -----------------------------
+if !exists("g:airline_window_override_funcrefs")
+  let g:airline_window_override_funcrefs = []
+endif
 let g:airline_enable_branch = 0
 let g:airline_section_b = '%<%1.24{getcwd()}'
 let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
@@ -1238,7 +1242,7 @@ command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener
 set background=dark
-colorscheme badwolf
+colorscheme Tomorrow-Night-Eighties
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif

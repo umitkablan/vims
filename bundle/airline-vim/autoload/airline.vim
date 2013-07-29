@@ -1,6 +1,5 @@
 " vim: ts=2 sts=2 sw=2 fdm=indent
 let s:is_win32term = (has('win32') || has('win64')) && !has('gui_running')
-let s:sections = ['a','b','c','gutter','x','y','z']
 
 let s:airline_highlight_map = {
       \ 'mode'           : 'Al2',
@@ -10,6 +9,7 @@ let s:airline_highlight_map = {
       \ 'statusline'     : 'Al6',
       \ 'file'           : 'Al7',
       \ }
+let s:airline_highlight_groups = keys(s:airline_highlight_map)
 
 function! airline#exec_highlight(group, colors)
   let colors = a:colors
@@ -33,40 +33,37 @@ function! airline#load_theme(name)
   let w:airline_lastmode = ''
   call airline#highlight(['inactive'])
   call airline#update_highlight()
-  call airline#extensions#load_theme()
 endfunction
 
 function! airline#highlight(modes)
   " draw the base mode, followed by any overrides
   let mapped = map(a:modes, 'v:val == a:modes[0] ? v:val : a:modes[0]."_".v:val')
   for mode in mapped
-    if exists('g:airline#themes#{g:airline_theme}#{mode}')
-      for key in keys(g:airline#themes#{g:airline_theme}#{mode})
+    for key in s:airline_highlight_groups
+      if exists('g:airline#themes#{g:airline_theme}#{mode}[key]')
         let colors = g:airline#themes#{g:airline_theme}#{mode}[key]
         let suffix = a:modes[0] == 'inactive' ? '_inactive' : ''
         call airline#exec_highlight(s:airline_highlight_map[key].suffix, colors)
-      endfor
-    endif
+      endif
+    endfor
   endfor
 endfunction
 
 function! s:is_excluded_window()
-  for Fn in g:airline_exclude_funcrefs
-    if Fn()
+  for matchft in g:airline_exclude_filetypes
+    if matchft ==# &ft
       return 1
     endif
   endfor
+  for matchw in g:airline_exclude_filenames
+    if matchstr(expand('%'), matchw) ==# matchw
+      return 1
+    endif
+  endfor
+  if g:airline_exclude_preview && &previewwindow
+    return 1
+  endif
   return 0
-endfunction
-
-function! s:apply_window_overrides()
-  unlet! w:airline_left_only
-  for section in s:sections
-    unlet! w:airline_section_{section}
-  endfor
-  for Fn in g:airline_window_override_funcrefs
-    call Fn()
-  endfor
 endfunction
 
 function! airline#update_externals()
@@ -74,13 +71,9 @@ function! airline#update_externals()
         \ ? '%{bufferline#refresh_status()}'.bufferline#get_status_string()
         \ : "%f%m"
   let g:airline_externals_syntastic = g:airline_enable_syntastic && exists('*SyntasticStatuslineFlag') ? '%{SyntasticStatuslineFlag()}' : ''
-  let g:airline_externals_branch = g:airline_enable_branch
-        \ ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
-          \ ? g:airline_branch_prefix.fugitive#head()
-          \ : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
-            \ ? g:airline_branch_prefix.lawrencium#statusline()
-            \ : '')
-        \ : ''
+  let g:airline_externals_fugitive = g:airline_enable_fugitive ? (exists('*fugitive#head') && strlen(fugitive#head()) > 0
+        \ ? g:airline_fugitive_prefix.fugitive#head() : exists('*lawrencium#statusline') && strlen(lawrencium#statusline()) > 0
+        \ ? g:airline_fugitive_prefix.lawrencium#statusline() : '') : ''
 endfunction
 
 function! s:get_section(key)
@@ -95,7 +88,7 @@ function! airline#update_statusline(active)
   endif
 
   call airline#update_externals()
-  call s:apply_window_overrides()
+  call airline#extensions#apply_window_overrides()
 
   let l:mode_color      = a:active ? "%#Al2#" : "%#Al2_inactive#"
   let l:mode_sep_color  = a:active ? "%#Al3#" : "%#Al3_inactive#"
@@ -107,7 +100,6 @@ function! airline#update_statusline(active)
   let sl = '%{airline#update_highlight()}'
   if a:active
     let sl.=l:mode_color.' '.s:get_section('a').' '
-    let sl.='%{g:airline_detect_paste && &paste ? g:airline_paste_symbol." " : ""}'
     let sl.=l:mode_sep_color
     let sl.=a:active ? g:airline_left_sep : g:airline_left_alt_sep
     let sl.=l:info_color
