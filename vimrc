@@ -346,7 +346,7 @@ nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
-nnoremap <silent> <Leader>e :Unite -start-insert file_rec/async<CR>
+nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 vnoremap <silent> <Leader><Leader>u :Utl<CR>
 nnoremap <silent> ĞUU :Underline<CR>
@@ -357,8 +357,9 @@ nnoremap <silent> ĞTT :ExtsStackToggle<CR>
 nnoremap <silent> <C-p> :Unite -start-insert source<CR>
 nnoremap <silent> <Leader>b :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB :UniteBookmarkAdd <CR>
-nnoremap <silent> <C-B> :Unite -start-insert buffer<CR>
+nnoremap <silent> <C-B> :Unite -start-insert buffer file_rec/async<CR>
 nnoremap <silent> MRU :Unite -no-split -start-insert file_mru directory_mru<CR>
+nnoremap <silent> <C--> :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 nnoremap <silent> <Leader>t  :CtrlPBufTag<CR>
 nnoremap <silent> <Leader>sc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
