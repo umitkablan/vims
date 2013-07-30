@@ -84,7 +84,7 @@ endfunction
 function! s:HiCursorWords__execute()
     if exists("w:HiCursorWords__matchId")
         silent! call matchdelete(w:HiCursorWords__matchId)
-        unlet w:HiCursorWords__matchId
+        unlet! w:HiCursorWords__matchId
     endif
 
     let linestr = getline('.')
