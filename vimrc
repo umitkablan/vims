@@ -266,7 +266,6 @@ inoremap <expr> <Esc><Esc> "\<Esc>"
 " ************* }}}
 
 autocmd FileType qf   nnoremap <silent> <buffer> o <CR><C-W>p
-autocmd FileType qf   nnoremap <silent> <buffer> <Backspace> :q<CR>
 autocmd FileType help setlocal nonumber
 
 nnoremap <silent> <F9> :QFix<CR>
@@ -307,9 +306,13 @@ augroup tag_langs
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
-
 nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
-au FileType tar,man,conque_term nnoremap <buffer> <Backspace> :bwipeout!<CR>
+au FileType tar,man,conque_term nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
+au FileType tagbar,qf nnoremap <silent> <buffer> <Backspace> :q<CR>
+augroup VCSCommand
+  au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
+augroup END
+
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
@@ -317,8 +320,6 @@ nmap + <Plug>(expand_region_expand)
 vmap + <Plug>(expand_region_expand)
 vmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
-autocmd FileType tagbar nmap <buffer> <Backspace> q
-nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
@@ -573,9 +574,6 @@ let g:easytags_updatetime_autodisable = 1
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 " let VCSCommandSVNDiffOpt = "-ignore-all-space"
-augroup VCSCommand
-  au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
-augroup END
 " netrw ----------------------------------
 let g:tar_nomax = 1
 let g:zip_nomax = 1
