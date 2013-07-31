@@ -423,6 +423,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "plugin configuration
 "******************** {{{
 let g:rainbow_active = 1
+let g:clever_f_across_no_line = 1
 let g:rainbow_operators = 1
 let g:ac_smooth_scroll_no_default_key_mappings = 1
 let g:tmuxmake_targets = ""
