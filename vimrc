@@ -255,13 +255,11 @@ nnoremap <F12>      :set invpaste paste?<CR>
 inoremap <expr> jkl ";\<Esc>"
 imap <expr> jk        pumvisible() ? "\<CR>\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? "\<CR>\<Esc>\<Esc>:update\<CR>" : "\<Esc>\<Esc>:update\<CR>"
-inoremap <expr> <Esc>  pumvisible() ? neocomplcache#cancel_popup() : "\<Esc>"
-inoremap <expr> <CR>   pumvisible() ? neocomplcache#close_popup()  : "\<CR>"
-imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 
 " prevent escape to cancel previous escape
 inoremap <expr> <Esc><Esc> "\<Esc>"
+" easy completion
+inoremap <C-j> <C-X><C-O>
 
 " ************* }}}
 
@@ -393,10 +391,13 @@ vmap gr  <Plug>ReplaceVisual
 " fallback to speeddating when SwapIt cannot success
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
-" NeoComplCache
-inoremap <C-j> <C-X><C-O>
-" inoremap <expr> <C-y> neocomplcache#close_popup()
-" inoremap <expr> <C-e> neocomplcache#cancel_popup()
+" NeoComplete
+" inoremap <expr> <C-y> neocomplete#close_popup()
+" inoremap <expr> <C-e> neocomplete#cancel_popup()
+inoremap <expr> <Esc>  pumvisible() ? neocomplete#cancel_popup() : "\<Esc>"
+inoremap <expr> <CR>   pumvisible() ? neocomplete#close_popup()  : "\<CR>"
+imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 " show block name maps
@@ -584,27 +585,28 @@ let g:netrw_home = $HOME . '/.vim/var'
 let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
-"neocomplcache & neosnippet ---------------
-let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplcache_snippets'
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_enable_auto_select = 0
-let g:neocomplcache_max_list = 25
-let g:neocomplcache_enable_ignore_case = 0
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_cursor_hold_i = 1
-let g:neocomplcache_enable_auto_delimiter = 0
-let g:neocomplcache_temporary_dir = $HOME . '/.vim/var/neocomplcache_tmp'
+"neocomplete & neosnippet ---------------
+let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_camel_case_completion = 1
+let g:neocomplete#enable_underbar_completion = 1
+let g:neocomplete#min_syntax_length = 3
+let g:neocomplete#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#max_list = 25
+let g:neocomplete#enable_ignore_case = 0
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_cursor_hold_i = 1
+let g:neocomplete#enable_auto_delimiter = 0
+let g:neocomplete#temporary_dir = $HOME . '/.vim/var/neocomplete_tmp'
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-let g:neocomplcache_source_completion_length = {
+let g:neocomplete#source_completion_length = {
   \ 'buffer_complete'    : 1,
   \ 'eclim_complete'     : 1,
   \ 'snippets_complete'  : 2,
@@ -613,7 +615,7 @@ let g:neocomplcache_source_completion_length = {
   \ 'dictionary_complete': 3,
   \ 'syntax_complete'    : 3
   \ }
-let g:neocomplcache_dictionary_filetype_lists = {
+let g:neocomplete#dictionary_filetype_lists = {
   \ 'default'      : '',
   \ 'javascript'   : $HOME . '/.vimrc/dict/javascript.dict',
   \ 'actionscript' : $HOME . '/.vimrc/dict/actionscript.dict',
@@ -631,24 +633,24 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
 autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
 " Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-        let g:neocomplcache_omni_patterns = {}
+if !exists('g:neocomplete#omni_patterns')
+        let g:neocomplete#omni_patterns = {}
 endif
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c    = '\h\w*\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.java = '\h\w*\%(\.\)'
-" if !exists('g:neocomplcache_force_omni_patterns')
-"   let g:neocomplcache_force_omni_patterns = {}
+"let g:neocomplete#omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"let g:neocomplete#omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#omni_patterns.c    = '\h\w*\%(\.\|->\)'
+let g:neocomplete#omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+let g:neocomplete#omni_patterns.java = '\h\w*\%(\.\)'
+" if !exists('g:neocomplete#force_omni_patterns')
+"   let g:neocomplete#force_omni_patterns = {}
 " endif
-" let g:neocomplcache_force_overwrite_completefunc = 1
-" if !exists('g:neocomplcache_omni_functions')
-"   let g:neocomplcache_omni_functions = {}
+" let g:neocomplete#force_overwrite_completefunc = 1
+" if !exists('g:neocomplete#omni_functions')
+"   let g:neocomplete#omni_functions = {}
 " endif
-" let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-" let g:neocomplcache_omni_functions.python = 'jedi#complete'
-" let g:neocomplcache_omni_functions.c      = 'omni#cpp#complete#Main'
+" let g:neocomplete#force_omni_patterns.python = '[^. \t]\.\w*'
+" let g:neocomplete#omni_functions.python = 'jedi#complete'
+" let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
 "------------------------------------------
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 1
