@@ -161,7 +161,6 @@ vp_dlclose(char *args)
 const char *
 vp_dlversion(char *args)
 {
-    (void) args;
     vp_stack_push_num(&_result, "%2d%02d", 7, 1);
     return vp_stack_return(&_result);
 }
@@ -902,9 +901,15 @@ vp_readdir(char *args)
                 strerror(errno));
     }
 
+    if (strcmp(dirname, "/") == 0) {
+        dirname[0] = '\0';
+    }
+
     for (dp = readdir(dir); dp != NULL; dp = readdir(dir)) {
-        snprintf(buf, sizeof(buf), "%s/%s", dirname, dp->d_name);
-        vp_stack_push_str(&_result, buf);
+        if (strcmp(dp->d_name, ".") && strcmp(dp->d_name, "..")) {
+            snprintf(buf, sizeof(buf), "%s/%s", dirname, dp->d_name);
+            vp_stack_push_str(&_result, buf);
+        }
     }
     closedir(dir);
 
