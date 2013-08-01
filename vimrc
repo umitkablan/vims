@@ -212,7 +212,7 @@ nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
 " full redraw
-nnoremap <silent> <c-l> :let @/=""\|redraw!<CR>
+nnoremap <silent> <c-l> :let @/=""\|redraw!\|e!<CR>
 nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
