@@ -483,6 +483,7 @@ autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
 autocmd VimEnter * Alias up UpdateTypesFileOnly
+autocmd VimEnter * Alias ss SaveSession<Space>default
 " ag & ack -------------------------------
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case'
@@ -588,7 +589,6 @@ let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
 "neocomplete & neosnippet ---------------
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
-let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_camel_case_completion = 1
