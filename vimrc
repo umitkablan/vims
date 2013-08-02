@@ -393,8 +393,8 @@ inoremap <expr> <C-y> neocomplete#close_popup()
 inoremap <expr> <C-e> neocomplete#cancel_popup()
 inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
-" inoremap <expr> <CR>   pumvisible() ? neocomplete#close_popup()  : "\<CR>"
+inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
+" inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 " show block name maps
