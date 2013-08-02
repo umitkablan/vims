@@ -186,7 +186,6 @@ vmap . ç
 " run last command; @: is not working properly in the current scheme when some
 " thing is reexecuted from history before.
 nnoremap <silent> <F3> :<Up><CR>
-" autocmd CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " map arrow keys to move whole window up/down
 "   <C-D>/<C-U>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
 nmap <Up>   5<C-Y>
@@ -252,15 +251,13 @@ vnoremap <Leader>c "+y
 inoremap <F12> <C-O>:set invpaste paste?<CR>
 nnoremap <F12>      :set invpaste paste?<CR>
 " behaviour on pumvisible()?
-inoremap <expr> jkl ";\<Esc>"
-imap <expr> jk        pumvisible() ? "\<CR>\<Esc>" : "\<Esc>"
-imap <expr> jk<Space> pumvisible() ? "\<CR>\<Esc>\<Esc>:update\<CR>" : "\<Esc>\<Esc>:update\<CR>"
-
-" prevent escape to cancel previous escape
-inoremap <expr> <Esc><Esc> "\<Esc>"
+imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " easy completion
 inoremap <C-j> <C-X><C-O>
-
+" au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " ************* }}}
 
 autocmd FileType qf   nnoremap <silent> <buffer> o <CR><C-W>p
@@ -273,9 +270,9 @@ nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call Up
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk        YieldSemicolonEscIfAppropriate()
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk<Space> YieldSemicolonEscIfAppropriate() . "\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : "\<C-y>"
 augroup END
 
 augroup hide_pum
@@ -392,12 +389,12 @@ vmap gr  <Plug>ReplaceVisual
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 " NeoComplete
-" inoremap <expr> <C-y> neocomplete#close_popup()
-" inoremap <expr> <C-e> neocomplete#cancel_popup()
-inoremap <expr> <Esc>  pumvisible() ? neocomplete#cancel_popup() : "\<Esc>"
-inoremap <expr> <CR>   pumvisible() ? neocomplete#close_popup()  : "\<CR>"
-imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <C-y> neocomplete#close_popup()
+inoremap <expr> <C-e> neocomplete#cancel_popup()
+inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
+" inoremap <expr> <CR>   pumvisible() ? neocomplete#close_popup()  : "\<CR>"
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 " show block name maps
@@ -540,6 +537,7 @@ let g:DeleteTrailingWhitespace_Action = 'ask'
 let g:tcommentMapLeader1="_"
 let g:tcommentMapLeader2 = '<Leader>-_0'
 " AutoPairs -------------------------------
+let g:AutoPairsMapSpace = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
@@ -861,18 +859,15 @@ function! IsSemicolonAppropriateHere()
   return 0
 endfunction
 
-function! YieldSemicolonEscIfAppropriate()
-  let l:isappr = IsSemicolonAppropriateHere()
+function! YieldSemicolonIfAppropriate()
+  let l:ret = ""
   if pumvisible()
-    if l:isappr
-      return ';'
-    endif
-    return ''
+    let l:ret = neocomplete#smart_close_popup()
   endif
-  if l:isappr
-    return ';'
+  if IsSemicolonAppropriateHere()
+    let l:ret = l:ret . ";"
   endif
-  return ''
+  return l:ret
 endfunction
 
 "------------------------------------------
