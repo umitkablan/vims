@@ -217,6 +217,7 @@ nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
+nnoremap <silent> ĞT :tab sp<CR>
 " de facto visual block indent mappings
 vnoremap < <gv
 vnoremap > >gv
