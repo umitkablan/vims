@@ -693,13 +693,13 @@ let g:statline_show_tagname = 1
 let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
 " airline-vim -----------------------------
-if !exists("g:airline_window_override_funcrefs")
-  let g:airline_window_override_funcrefs = []
+if !exists("g:airline_statusline_funcrefs")
+  let g:airline_statusline_funcrefs = []
 endif
-let g:airline_enable_branch = 0
-let g:airline_section_b = '%<%1.24{getcwd()}'
-let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
-let g:airline_section_x = ""
+let g:airline_enable_branch = 1
+" let g:airline_section_b = '%<%1.24{getcwd()}'
+" let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
+" let g:airline_section_x = ""
 if has('multi_byte')
   let g:airline_left_sep  = '»'
   let g:airline_left_sep  = '▶'
@@ -708,7 +708,7 @@ if has('multi_byte')
   let g:airline_linecolumn_prefix = '␊'
   let g:airline_linecolumn_prefix = '␤'
   let g:airline_linecolumn_prefix = '¶'
-  let g:airline_fugitive_prefix = '⎇ '
+  let g:airline_branch_prefix = '⎇ '
   let g:airline_paste_symbol = 'ρ'
   let g:airline_paste_symbol = 'Þ'
   let g:airline_paste_symbol = '∥'
