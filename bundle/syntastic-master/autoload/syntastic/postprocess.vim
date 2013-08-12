@@ -53,6 +53,18 @@ function! syntastic#postprocess#cygwinRemoveCR(errors)
     return llist
 endfunction
 
+" decode XML entities
+function! syntastic#postprocess#decodeXMLEntities(errors)
+    let llist = []
+
+    for e in a:errors
+        let e['text'] = syntastic#util#decodeXMLEntities(e['text'])
+        call add(llist, e)
+    endfor
+
+    return llist
+endfunction
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 " vim: set et sts=4 sw=4:
