@@ -697,6 +697,7 @@ if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
 endif
 let g:airline_enable_branch = 1
+let g:airline_detect_whitespace=2 "icon only
 " let g:airline_section_b = '%<%1.24{getcwd()}'
 " let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
 " let g:airline_section_x = ""
@@ -712,6 +713,7 @@ if has('multi_byte')
   let g:airline_paste_symbol = 'ρ'
   let g:airline_paste_symbol = 'Þ'
   let g:airline_paste_symbol = '∥'
+  let g:airline_whitespace_symbol = 'Ξ'
 endif
 " Unite.vim --------------------------------
 let g:unite_source_history_yank_enable=1
