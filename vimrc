@@ -698,9 +698,23 @@ if !exists("g:airline_statusline_funcrefs")
 endif
 let g:airline_enable_branch = 1
 let g:airline_detect_whitespace=2 "icon only
-" let g:airline_section_b = '%<%1.24{getcwd()}'
+let g:airline_section_b = '%<%1.24{getcwd()}'
 " let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
-" let g:airline_section_x = ""
+let g:airline_section_x = ""
+let g:airline_mode_map = {
+      \ '__' : '------',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V-LN',
+      \ 'c'  : 'C',
+      \ '' : 'V-BL',
+      \ 's'  : 'S',
+      \ 'S'  : 'S-LN',
+      \ '' : 'S-BL',
+      \ }
+
 if has('multi_byte')
   let g:airline_left_sep  = '»'
   let g:airline_left_sep  = '▶'
