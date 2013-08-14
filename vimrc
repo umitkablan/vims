@@ -254,8 +254,8 @@ nnoremap <F12>      :set invpaste paste?<CR>
 " behaviour on pumvisible()?
 imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
 imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+imap <expr> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+imap <expr> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " easy completion
 inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
@@ -273,7 +273,7 @@ augroup semicolon_langs
   au!
   au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
   au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : "\<C-y>"
+  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : neocomplete#close_popup()
 augroup END
 
 augroup hide_pum
@@ -390,8 +390,8 @@ vmap gr  <Plug>ReplaceVisual
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 " NeoComplete
-inoremap <expr> <C-y> neocomplete#close_popup()
-inoremap <expr> <C-e> neocomplete#cancel_popup()
+" inoremap <expr> <C-y> neocomplete#close_popup()
+" inoremap <expr> <C-e> neocomplete#cancel_popup()
 inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
@@ -845,7 +845,7 @@ function! MapPumInsert(key, insertSpaceAfter)
   if !a:insertSpaceAfter
     exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
   else
-    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\<Space>\" : \"".a:key."\""
+    exec "imap <expr> " . a:key . " pumvisible() ? neocomplete#close_popup()".a:key."\<Space>\" : \"".a:key."\""
   endif
 endfunction
 " call MapPumInsert(",", 1)
