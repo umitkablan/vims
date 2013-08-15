@@ -217,6 +217,7 @@ nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
 nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
+nnoremap <silent> ĞT :tab sp<CR>
 " de facto visual block indent mappings
 vnoremap < <gv
 vnoremap > >gv
@@ -253,8 +254,8 @@ nnoremap <F12>      :set invpaste paste?<CR>
 " behaviour on pumvisible()?
 imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
 imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-imap <expr> jk        pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-imap <expr> jk<Space> pumvisible() ? "\<C-y>\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+imap <expr> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+imap <expr> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " easy completion
 inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
@@ -270,9 +271,9 @@ nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call Up
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : "\<C-y>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 
 augroup hide_pum
@@ -389,8 +390,8 @@ vmap gr  <Plug>ReplaceVisual
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 " NeoComplete
-inoremap <expr> <C-y> neocomplete#close_popup()
-inoremap <expr> <C-e> neocomplete#cancel_popup()
+" inoremap <expr> <C-y> neocomplete#close_popup()
+" inoremap <expr> <C-e> neocomplete#cancel_popup()
 inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
@@ -692,13 +693,28 @@ let g:statline_show_tagname = 1
 let g:statline_syntastic = 1
 let g:statline_show_encoding = 0
 " airline-vim -----------------------------
-if !exists("g:airline_window_override_funcrefs")
-  let g:airline_window_override_funcrefs = []
+if !exists("g:airline_statusline_funcrefs")
+  let g:airline_statusline_funcrefs = []
 endif
-let g:airline_enable_branch = 0
+let g:airline_enable_branch = 1
+let g:airline_detect_whitespace=2 "icon only
 let g:airline_section_b = '%<%1.24{getcwd()}'
-let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
+" let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
 let g:airline_section_x = ""
+let g:airline_mode_map = {
+      \ '__' : '------',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V-LN',
+      \ 'c'  : 'C',
+      \ '' : 'V-BL',
+      \ 's'  : 'S',
+      \ 'S'  : 'S-LN',
+      \ '' : 'S-BL',
+      \ }
+
 if has('multi_byte')
   let g:airline_left_sep  = '»'
   let g:airline_left_sep  = '▶'
@@ -707,10 +723,11 @@ if has('multi_byte')
   let g:airline_linecolumn_prefix = '␊'
   let g:airline_linecolumn_prefix = '␤'
   let g:airline_linecolumn_prefix = '¶'
-  let g:airline_fugitive_prefix = '⎇ '
+  let g:airline_branch_prefix = '⎇ '
   let g:airline_paste_symbol = 'ρ'
   let g:airline_paste_symbol = 'Þ'
   let g:airline_paste_symbol = '∥'
+  let g:airline_whitespace_symbol = 'Ξ'
 endif
 " Unite.vim --------------------------------
 let g:unite_source_history_yank_enable=1
@@ -828,7 +845,7 @@ function! MapPumInsert(key, insertSpaceAfter)
   if !a:insertSpaceAfter
     exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
   else
-    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\<Space>\" : \"".a:key."\""
+    exec "imap <expr> " . a:key . " pumvisible() ? neocomplete#close_popup()".a:key."\<Space>\" : \"".a:key."\""
   endif
 endfunction
 " call MapPumInsert(",", 1)
