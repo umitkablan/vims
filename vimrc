@@ -271,9 +271,9 @@ nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call Up
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript imap <expr> <buffer> <CR> !pumvisible() && IsSemicolonAppropriateHere() ? ";\<CR>" : neocomplete#close_popup()
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 
 augroup hide_pum
