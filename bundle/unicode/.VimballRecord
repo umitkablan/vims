@@ -2,3 +2,4 @@ unicode-0.8.vba: call delete('/home/arch/.vim/bundle/unicode/plugin/unicode.vim'
 unicode-0.12.vmb: call delete('/home/arch/.vim/bundle/unicode/plugin/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/autoload/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/doc/unicode.txt')
 unicode-0.15.vmb: call delete('/home/ukablan/.vim/bundle/unicode/plugin/unicode.vim')|call delete('/home/ukablan/.vim/bundle/unicode/autoload/unicode.vim')|call delete('/home/ukablan/.vim/bundle/unicode/doc/unicode.txt')
 unicode-0.16.vmb: call delete('~/.vim/bundle/unicode/plugin/unicode.vim')|call delete('~/.vim/bundle/unicode/autoload/unicode.vim')|call delete('~/.vim/bundle/unicode/doc/unicode.txt')
+unicode-0.17.vmb: call delete('/home/arch/.vim/bundle/unicode/plugin/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/autoload/unicode.vim')|call delete('/home/arch/.vim/bundle/unicode/doc/unicode.txt')
