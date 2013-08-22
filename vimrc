@@ -422,6 +422,7 @@ nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
 "******************** {{{
 let g:signify_sign_overwrite = 0
 let g:signify_line_highlight = 0
+let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:rainbow_active = 1
 let g:clever_f_across_no_line = 1
 let g:rainbow_operators = 1
