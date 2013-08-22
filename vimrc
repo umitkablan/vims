@@ -233,7 +233,7 @@ nnoremap <Leader>g :%g/<C-r><C-w>/
 " vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
-nnoremap <Space> za
+nnoremap <silent> <Space> :exe 'silent! normal! '.((foldclosed('.')>0)? "zMzxzt" : 'zc')<CR>
 nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 " ease cmdline 0/$ movement
 cnoremap <C-j> <t_kd>
