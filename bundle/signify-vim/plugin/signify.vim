@@ -1,7 +1,4 @@
-" Plugin:      https://github.com/mhinz/vim-signify
-" Description: show a diff from a version control system via the signcolumn
-" Maintainer:  Marco Hinz <http://github.com/mhinz>
-" Version:     1.9
+scriptencoding utf-8
 
 if exists('g:loaded_signify') || !has('signs') || &cp
   finish
@@ -47,7 +44,7 @@ augroup signify
           \ endif
   endif
 
-  if !has('gui_win32')
+  if get(g:, 'signify_update_on_focusgained') && !has('gui_win32')
     autocmd FocusGained * call sy#start(g:sy_path)
   endif
 augroup END

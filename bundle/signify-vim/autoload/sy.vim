@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 if exists('b:autoloaded_sy')
     finish
 endif
@@ -7,7 +9,7 @@ let b:autoloaded_sy = 1
 let g:signify_sign_overwrite = get(g:, 'signify_sign_overwrite', 1)
 let g:id_top = 0x100
 
-sign define SignifyPlaceholder text=. texthl=SignifySignChange linehl=NONE
+sign define SignifyPlaceholder text=. texthl=SignifySignChange linehl=
 
 " Function: #start {{{1
 function! sy#start(path) abort
@@ -18,20 +20,36 @@ function! sy#start(path) abort
     return
   endif
 
-  " new buffer.. add to list
+  " new buffer.. add to list of registered files
   if !has_key(g:sy, a:path)
+    if get(g:, 'signify_disable_by_default')
+      let g:sy[a:path] = { 'active': 0, 'type': 'unknown', 'hunks': [], 'id_top': g:id_top, 'stats': [-1, -1, -1] }
+      return
+    endif
+
     let [ diff, type ] = sy#repo#detect(a:path)
     if empty(diff)
+      " register file as active with either no changes or no found VCS
+      let g:sy[a:path] = { 'active': 1, 'type': 'unknown', 'hunks': [], 'id_top': g:id_top, 'stats': [0, 0, 0] }
       return
     endif
-    if get(g:, 'signify_disable_by_default')
-      let g:sy[a:path] = { 'active': 0, 'type': type, 'hunks': [], 'id_top': g:id_top }
-      return
-    endif
-    let g:sy[a:path] = { 'active': 1, 'type': type, 'hunks': [], 'id_top': g:id_top }
+
+    " register file as active and containing changes
+    let g:sy[a:path] = { 'active': 1, 'type': type, 'hunks': [], 'id_top': g:id_top, 'stats': [0, 0, 0] }
+
   " inactive buffer.. bail out
   elseif !g:sy[a:path].active
     return
+
+  " retry detecting changes or VCS
+  elseif g:sy[a:path].type == 'unknown'
+    let [ diff, type ] = sy#repo#detect(a:path)
+    if empty(diff)
+      " no changes or VCS found
+      return
+    endif
+    let g:sy[a:path].type = type
+
   " update signs
   else
     let diff = sy#repo#get_diff_{g:sy[a:path].type}(a:path)
@@ -88,6 +106,7 @@ function! sy#toggle() abort
     if g:sy[g:sy_path].active
       call sy#stop(g:sy_path)
       let g:sy[g:sy_path].active = 0
+      let g:sy[g:sy_path].stats = [-1, -1, -1]
     else
       let g:sy[g:sy_path].active = 1
       call sy#start(g:sy_path)
