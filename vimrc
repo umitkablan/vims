@@ -735,7 +735,7 @@ if has('multi_byte')
 endif
 " Unite.vim --------------------------------
 let g:unite_source_history_yank_enable=1
-let g:unite_source_file_mru_limit=700
+let g:unite_source_file_mru_limit=300
 let g:unite_source_history_yank_limit=600
 let g:unite_data_directory = $HOME . '/.vim/var/unite'
 if !exists("g:unite_source_menu_menus")
