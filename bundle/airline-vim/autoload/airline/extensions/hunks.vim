@@ -42,18 +42,22 @@ endfunction
 function! airline#extensions#hunks#get_hunks()
   call <sid>init()
   let hunks = s:get_hunks()
-  let string = ''
+  let string = '/'
   if !empty(hunks)
     for i in [0, 1, 2]
       if s:non_zero_only == 0 || hunks[i] > 0
-        let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
+        let string .= printf('%s%s', s:hunk_symbols[i], hunks[i])
+      endif
+      if i < 2
+        let string .= '.'
       endif
     endfor
+    let string .= '/'
   endif
   return string
 endfunction
 
 function! airline#extensions#hunks#init(ext)
-  let g:airline_section_b .= '%{airline#extensions#hunks#get_hunks()}'
+  let g:airline_section_y .= '%{airline#extensions#hunks#get_hunks()}'
 endfunction
 
