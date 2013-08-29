@@ -93,7 +93,8 @@ default values, as long as no "Default:" section is given.
 
     let g:signify_vcs_list = [ 'git', 'hg' ]
 
-Default: ['git', 'hg', 'svn', 'darcs', 'bzr', 'fossil', 'cvs', 'rcs', 'accurev']
+Default: ['git', 'hg', 'svn', 'darcs', 'bzr', 'fossil', 'cvs', 'rcs',
+'accurev', 'perforce']
 
 This variable determines the VCS to check for and in what order. If you only
 use git and mercurial, you can shorten the list to the shown example. If you
@@ -170,6 +171,15 @@ NOTE: This also saves the buffer to disk!
 
 ============-
 
+    let g:signify_update_on_focusgained = 0
+
+Update signs when Vim gains focus.
+
+NOTE: This also saves the buffer to disk!
+
+============-
+
+
     let g:signify_line_highlight = 0
 
 Enable line highlighting in addition to using signs by default.
@@ -204,6 +214,14 @@ systems that rely on an external diff tool that supports the -U0 flag. These
 are: svn, bzr, darcs, fossil.
 
 Otherwise 'diff' will be used.
+
+Default: Does not exist.
+
+============-
+
+    let g:signify_diffoptions = { 'git': '-w', 'hg': '-w' }
+
+This will pass the given additional options to the selected VCS diff command.
 
 Default: Does not exist.
 
@@ -276,7 +294,7 @@ getting feedback! Same for issues or feature requests.
 
 Thank you for flying mhi airlines. Get the Vim on!
 
-You can also follow me on Twitter: [@_mhinz_](https://twitter.com/_mhinz_)
+You can also follow me on Twitter: @_mhinz_
 
 
 ==============================================================================
@@ -301,9 +319,6 @@ Israel Chauca Fuentes  (Raimondi)
 ==============================================================================
 8. Licence                                                     *signify-license*
 
-Copyright © Marco Hinz. Distributed under the same terms as Vim itself.
-
-See |license|.
-
+MIT license. Copyright (c) 2013 Marco Hinz.
 
 vim: tw=78

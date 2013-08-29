@@ -1630,7 +1630,7 @@ function! s:ReplaceCmd(cmd,...) abort
   endtry
   silent exe 'keepalt file '.tmp
   silent edit!
-  silent exe 'keepalt file '.s:fnameescape(fn)
+  silent! exe 'keepalt file '.s:fnameescape(fn)
   call delete(tmp)
   silent exe 'doau BufReadPost '.s:fnameescape(fn)
 endfunction
