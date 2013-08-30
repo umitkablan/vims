@@ -1,7 +1,7 @@
 "=============================================================================
-" FILE: matcher_hide_hidden_files.vim
+" FILE: sorter_ftime.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 04 Aug 2013.
+" Last Modified: 06 Aug 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -27,22 +27,21 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! unite#filters#matcher_hide_hidden_files#define() "{{{
-  return s:matcher
+function! unite#filters#sorter_ftime#define() "{{{
+  return s:sorter
 endfunction"}}}
 
-let s:matcher = {
-      \ 'name' : 'matcher_hide_hidden_files',
-      \ 'description' : 'hide hidden files matcher',
+let s:sorter = {
+      \ 'name' : 'sorter_ftime',
+      \ 'description' : 'sort by getftime() order',
       \}
 
-function! s:matcher.filter(candidates, context) "{{{
-  if stridx(a:context.input, '.') >= 0
-    return unite#filters#filter_matcher(
-          \ a:candidates, '', a:context)
-  endif
-
-  return filter(a:candidates, "v:val.action__path !~ '/\\.[^/]*$\\|^\\.[^/]*$'")
+function! s:sorter.filter(candidates, context) "{{{
+  return unite#util#sort_by(a:candidates, '
+      \   has_key(v:val, "action__path")      ? getftime(v:val.action__path)
+      \ : has_key(v:val, "action__directory") ? getftime(v:val.action__directory)
+      \ : 0
+      \ ')
 endfunction"}}}
 
 let &cpo = s:save_cpo

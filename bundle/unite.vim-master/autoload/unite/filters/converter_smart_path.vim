@@ -1,5 +1,5 @@
 "=============================================================================
-" FILE: matcher_hide_hidden_files.vim
+" FILE: converter_smart_path.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
 " Last Modified: 04 Aug 2013.
 " License: MIT license  {{{
@@ -27,22 +27,22 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! unite#filters#matcher_hide_hidden_files#define() "{{{
-  return s:matcher
+function! unite#filters#converter_smart_path#define() "{{{
+  return s:converter
 endfunction"}}}
 
-let s:matcher = {
-      \ 'name' : 'matcher_hide_hidden_files',
-      \ 'description' : 'hide hidden files matcher',
+let s:converter = {
+      \ 'name' : 'converter_smart_path',
+      \ 'description' : 'converts word to smart path of filename',
       \}
 
-function! s:matcher.filter(candidates, context) "{{{
-  if stridx(a:context.input, '.') >= 0
-    return unite#filters#filter_matcher(
-          \ a:candidates, '', a:context)
+function! s:converter.filter(candidates, context) "{{{
+  if a:context.input =~ '^\%(\a\+:/\|/\)'
+    return unite#filters#converter_full_path#define().filter(
+          \ a:candidates, a:context)
   endif
 
-  return filter(a:candidates, "v:val.action__path !~ '/\\.[^/]*$\\|^\\.[^/]*$'")
+  return a:candidates
 endfunction"}}}
 
 let &cpo = s:save_cpo
