@@ -51,6 +51,8 @@ let s:OUTLINE_ALIASES = {
 
 let s:OUTLINE_CACHE_DIR = g:unite_data_directory . '/outline'
 
+let s:supported_arguments = [ 'filetype', 'folding', 'update' ]
+
 " Rename the cache directory if its name is still old, dotted style name.
 " See http://d.hatena.ne.jp/tyru/20110824/unite_file_mru
 "
@@ -643,6 +645,10 @@ function! s:Source_gather_candidates(source_args, unite_context)
 endfunction
 let s:source.gather_candidates = function(s:SID . 'Source_gather_candidates')
 
+function! s:source.complete(args, context, arglead, cmdline, cursorpos) "{{{
+	return s:supported_arguments
+endfunction"}}}
+
 function! s:parse_source_arguments(source_args, unite_context)
   let options = {
         \ 'is_force': 0,
@@ -793,10 +799,12 @@ function! s:extract_headings(context)
   let save_lazyredraw  = &lazyredraw
   try
     set eventignore=all
-    set winheight=1
-    set winwidth=1
+
     " NOTE: To keep the window size on :wincmd, set 'winheight' and 'winwidth'
     " to a small value.
+    let &winheight=&winminheight
+    let &winwidth=&winminwidth
+
     set lazyredraw
 
     " Switch: current window -> source buffer's window
@@ -839,9 +847,9 @@ function! s:extract_headings(context)
 
   finally
     " Remove the temporary context data.
-    unlet a:context.lines
-    unlet a:context.heading_lnum
-    unlet a:context.matched_lnum
+    unlet! a:context.lines
+    unlet! a:context.heading_lnum
+    unlet! a:context.matched_lnum
 
     " Restore the cursor and scroll.
     let save_scrolloff = &scrolloff
@@ -1005,7 +1013,7 @@ function! s:builtin_extract_headings(context)
           let heading = oinfo.create_heading(
                 \ which[submatch], heading_line, matched_line, a:context)
         else
-          let heading = heading_line
+          let heading = {'word':heading_line}
         endif
         if !empty(heading)
           call add(headings, s:normalize_heading(heading, a:context))
@@ -1133,7 +1141,7 @@ function! s:skip_while(pattern, from)
 endfunction
 
 function! s:skip_until(pattern, from)
-  let lnum = a:from + 1 | let num_lines = line('$')
+  let lnum = a:from | let num_lines = line('$')
   while lnum <= num_lines
     let line = getline(lnum)
     let lnum += 1
