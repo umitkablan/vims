@@ -1,4 +1,0 @@
-NrrwRgn-0.29.vmb: call delete('~/.vim/bundle/NrrwRgn/plugin/NrrwRgn.vim')|call delete('~/.vim/bundle/NrrwRgn/autoload/nrrwrgn.vim')|call delete('~/.vim/bundle/NrrwRgn/doc/NarrowRegion.txt')
-NrrwRgn-0.29.vmb: call delete('~/.vim/bundle/NrrwRgn/plugin/NrrwRgn.vim')|call delete('~/.vim/bundle/NrrwRgn/autoload/nrrwrgn.vim')|call delete('~/.vim/bundle/NrrwRgn/doc/NarrowRegion.txt')
-NrrwRgn-0.29.vmb: call delete('~/.vim/bundle/NrrwRgn/plugin/NrrwRgn.vim')|call delete('~/.vim/bundle/NrrwRgn/autoload/nrrwrgn.vim')|call delete('~/.vim/bundle/NrrwRgn/doc/NarrowRegion.txt')
-NrrwRgn-0.30.vmb: call delete('/home/ukablan/.vim/bundle/NrrwRgn/plugin/NrrwRgn.vim')|call delete('/home/ukablan/.vim/bundle/NrrwRgn/autoload/nrrwrgn.vim')|call delete('/home/ukablan/.vim/bundle/NrrwRgn/doc/NarrowRegion.txt')
