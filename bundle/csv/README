@@ -54,15 +54,12 @@ NO WARRANTY, EXPRESS OR IMPLIED.  USE AT-YOUR-OWN-RISK.
     4.13 Using Comments.........................|csv-comments|
 5. Functions....................................|CSV-Functions|
     5.1 CSVPat()................................|CSVPat()|
-    5.2 CSVField()..............................|CSVField()|
-    5.3 CSVCol()................................|CSVCol()|
 6. CSV Tips and Tricks..........................|csv-tips|
     6.1 Statusline..............................|csv-stl|
     6.2 Slow ArrangeCol.........................|csv-slow|
     6.3 Defining custom aggregate functions.....|csv-aggregate-functions|
     6.4 Autocommand on opening/closing files....|csv-arrange-autocmd|
     6.5 CSV Syntax error........................|csv-syntax-error|
-    6.6 Calculating new column values...........|csv-calculate-column|
 7. CSV Changelog................................|csv-changelog|
 
 ==============================================================================
@@ -138,40 +135,32 @@ To have Vim automatically detect csv files, you need to do the following.
 ==============================================================================
 3. Commands							*csv-commands*
 
-The CSV ftplugin provides several Commands. All commands are also provided
-with the prefix :CSV (e.g. |:CSVNrColumns|)
+The CSV ftplugin provides several Commands:
 
-                                                            *:CSVWhatColumn*
 3.1 WhatColumn                                                *WhatColumn_CSV*
 --------------
 
 If you would like to know, on which column the cursor is, use >
     :WhatColumn
-<
-or >
-    :CSVWhatColumn
-<
+
 Use the bang attribute, if you have a heading in the first line and you want
 to know the name of the column in which the cursor is: >
     :WhatColumn!
 <
 
-                                                            *:CSVNrColumns*
 3.2 NrColumns                                                 *NrColumns_CSV*
 --------------
 
-`:NrColumns` and `:CSVNrColumns` outputs the maximum number of columns
-available. It does this by testing the first 10 lines for the number of
-columns. This usually should be enough. If you use the '!' attribute, it
-outputs the number of columns in the current line.
+:NrColumns outputs the maximum number of columns available. It does this by
+testing the first 10 lines for the number of columns. This usually should be
+enough. If you use the '!' attribute, it outputs the number of columns in the
+current line.
 
-                                                        *:CSVSearchInColumn*
 3.3 SearchInColumn                                        *SearchInColumn_CSV*
 ------------------
 
-Use `:SearchInColumn` or `:CSVSearchInColumn` to search for a pattern within a
-specific column. The usage is: >
-
+Use :SearchInColumn to search for a pattern within a specific column. The
+usage is: >
     :SearchInColumn [<nr>] /{pat}/
 <
 
@@ -182,13 +171,12 @@ So if you would like to search in Column 1 for the word foobar, you enter >
 Instead of / as delimiter, you can use any other delimiter you like. If you
 don't enter a column, the current column will be used.
 
-                                                            *:CSVHiColumn*
 3.4 HiColumn                                                    *HiColumn_CSV*
 ------------
 
-`:HiColumn` or `:CSVHiColumn` <nr> can be used to highlight Column <nr>.
-Currently the plugin uses the WildMenu Highlight Group. If you would like to
-change this, you need to define the variable |g:csv_hiGroup|.
+:HiColumn <nr> can be used to highlight Column <nr>. Currently the plugin uses
+the WildMenu Highlight Group. If you would like to change this, you need to
+define the variable |g:csv_hiGroup|.
 
 If you do not specify a <nr>, HiColumn will highlight the column on which the
 cursor is. Use >
@@ -199,16 +187,15 @@ to remove any highlighting.
 
 If you want to automatically highlight a column, see |csv-hicol|
 
-                                            *:ArrangeColumn* *:CSVArrangeColumn*
+                                                          *:ArrangeColumn*
 3.5 ArrangeColumn                                          *ArrangeColumn_CSV*
 -----------------
 
-If you would like all columns to be visually arranged, you can use the
-`:ArrangeColumn` or `:CSVArrangeColumn` command: >
+If you would like all columns to be visually arranged, you can use the >
 
     :[range]ArrangeColumn[!]
 
-Beware, that this will change your file and depending on the size of
+command. Beware, that this will change your file and depending on the size of
 your file may slow down Vim significantly. This is highly experimental.
 :ArrangeCommand will try to vertically align all columns by their maximum
 column size.
@@ -230,12 +217,11 @@ afterwards. Note: this command does not work for fixed width columns
 See also |csv-arrange-autocmd| on how to have vim automaticaly arrange a CSV
 file upon entering it.
 
-                                                        *:CSVUnArrangeColumn*
 3.6 UnArrangeColumn                                    *UnArrangeColumn_CSV*
 -----------------
 
 If you would like to undo a previous :ArrangeColumn command, you can use this
-`:UnArrangeColumn` or `:CSVUnArrangeColumn` command: >
+command: >
 
     :[range]UnArrangeColumn
 
@@ -245,11 +231,10 @@ only some blanks, this command will strip all blanks.
 
 If [range] is given, it defaults to the current line.
 
-                                                        *:CSVDeleteColumn*
 3.7 DeleteColumn                                           *DeleteColumn_CSV*
 ----------------
 
-The command `:DeleteColumn` or `:CSVDeleteColumn` can be used to delete a specific column. >
+The command :DeleteColumn can be used to delete a specific column. >
 
     :DeleteColumn 2
 
@@ -264,24 +249,22 @@ that match the pattern: >
 <
 will delete all columns where the pattern "foobar" matches.
 
-                                                                *:CSVInitCSV*
 3.8 InitCSV							*InitCSV*
 -----------
 
 Reinitialize the Plugin. Use this, if you have changed the configuration
 of the plugin (see |csv-configuration| ).
 
-                                                                *:CSVHeader*
 3.9 Header lines						 *Header_CSV*
 ----------------
 
-The `:Header` or `:CSVHeader` command splits the csv-buffer and adds a window,
-that holds a small fraction of the csv file. This is useful, if the first line
-contains some kind of a heading and you want always to display it. This works
-similar to fixing a certain line at the top. As optional argument, you can
-give the number of columns from the top, that shall be displayed. By default,
-1 is used (You can define youre own default by setting the b:csv_headerline
-variable, see |csv-header|). Use the '!' to close this window. So this >
+This command splits the csv-buffer and adds a window, that holds a small
+fraction of the csv file. This is useful, if the first line contains some kind
+of a heading and you want always to display it. This works similar to fixing a
+certain line at the top. As optional argument, you can give the number of
+columns from the top, that shall be displayed. By default, 1 is used (You can
+define youre own default by setting the b:csv_headerline variable, see
+|csv-header|). Use the '!' to close this window. So this >
 
     :Header 3
 
@@ -302,10 +285,9 @@ its scrolling vertically.
 
 Note: this command does not work for fixed width columns |csv-fixedwidth|
 
-                                                            *:CSVVHeader*
                                                             *VHeader_CSV*
 
-If you want a vertical header line, use `:VHeader` or `:CSVVHeader`. This works similar to the
+If you want a vertical header line, use :VHeader. This works similar to the
 |Header_CSV| command, except that it will open a vertical split window with
 the first column always visible. It will always open the first column in the
 new split window. Use the '!' to close the window.
@@ -314,23 +296,19 @@ Note, this won't work with linebreaks in the column.
 Note also: this command does not work for fixed width columns |csv-fixedwidth|
 
 
-                                        *:CSVVHeaderToggle* *:CSVHeaderToggle*
                                         *VHeaderToggle_CSV* *HeaderToggle_CSV*
 
-Use the `:HeaderToggle` and `:VHeaderToggle` command to toggle displaying the
-horizontal or vertical header line. Alternatively, use `:CSVHeaderToggle` or
-`:CSVVHeaderToggle`
+Use the :HeaderToggle and :VHeaderToggle command to toggle displaying the
+horizontal or vertical header line.
 
 
-                                                                *:CSVSort*
 3.10 Sort							*Sort_CSV*
 --------
 
-The command `:Sort` or `:CSVSort` can be used to sort the csv file on a
-certain column. If no range is given, is sorts the whole file. Specify the
-column number to sort on as argument. Use the '!' attribute to reverse the
-sort order. For example, the following command sorts line 1 til 10 on the 3
-column >
+This command can be used to sort the csv file on a certain column. If no range
+is given, is sorts the whole file. Specify the column number to sort on as
+argument. Use the '!' attribute to reverse the sort order. For example, the
+following command sorts line 1 til 10 on the 3 column >
 
     :1,10Sort 3
 
@@ -344,12 +322,10 @@ Instead of a column, you can give the flag 'n' to have it sort numerically.
 When no column number is given, it will sort by the column, on which the
 cursor is currently.
 
-                                                                *:CSVColumn*
 3.11 Copy Column        					 *Copy_CSV*
 ----------------
 
-If you need to copy a specific column, you can use the command `:CSVColumn` or
-`:Column` >
+If you need to copy a specific column, you can use the command :Column >
 
     :[N]Column [a]
 
@@ -361,12 +337,11 @@ If no register is given, the default register
 |quotequote| is used.
 
 
-                                                                *:CSVMoveCol*
 3.12 Move A Column        					 *MoveCol_CSV*
 ------------------
 
 You can move one column to the right of another column by using the
-`:CSVMoveColumn` or `:MoveColumn` command >
+:MoveColumn command >
 
     :[range]MoveColumn [source] [dest]
 
@@ -383,12 +358,10 @@ this would move column 1 behind the last column, while keeping the header line
 as is.
 
 
-                                                                *:CSVSumCol*
 3.13 Sum of a Column        					 *SumCol_CSV*
 --------------------
 
-You can let Vim output the sum of a column using the `:CSVSumCol` or `:SumCol`
-command >
+You can let Vim output the sum of a column using the :SumCol command >
 
     :[range]SumCol [nr] [/format/]
 
@@ -421,12 +394,11 @@ argument in the /format/ specifier.
 
 See also |csv-aggregate-functions|
 
-                                                            *:CSVNewRecord*
 3.14 Create new Records                                      *NewRecord_CSV*
 -----------------------
 
-If you want to create one or several records, you can use the `:NewRecord` or
-`:CSVNewRecord` command: >
+If you want to create one or several records, you can use the :NewRecord
+command: >
 
     :[range]NewRecord [count]
 
@@ -435,23 +407,20 @@ records. If [range] is not specified, creates a new line below the line the
 cursor is on and if count is not given, it defaults to 1.
 
 
-                                                            *:CSVNewDelimiter*
 3.15 Change the delimiter                                    *NewDelimiter_CSV*
 -------------------------
 
 If you want to change the field delimiter of your file you can use the
-`:CSVNewDelimiter` or `:NewDelimiter` command: >
+:NewDelimiter command: >
 
     :NewDelimiter char
 
 This changes the field delimiter of your file to the new delimiter "char".
 
-                                                            *:CSVDuplicate*
 3.16 Check for duplicate records                            *Duplicate_CSV*
 --------------------------------
 
-If you want to check the file for duplicate records, use the command
-`:Duplicate` or `:CSVDuplicate`: >
+If you want to check the file for duplicate records, use the command: >
 
     :Duplicate columnlist
 <
@@ -511,12 +480,11 @@ g:csv_nomap_<key> to 1, e.g. to prevent mapping of <CR> in csv files, put >
 into your |.vimrc|. Note, the keyname must be lower case.
 
 
-                                           *:CSVConvertData* *ConvertData_CSV*
+                                                            *ConvertData_CSV*
 3.18 Converting a CSV File					 *csv-convert*
 --------------------------
 
-You can convert your CSV file to a different format with the `:ConvertData`
-or `:CSVConvertData` command >
+You can convert your CSV file to a different format with the command >
 
     ConvertData
 
@@ -647,10 +615,9 @@ If you have set the g:csv_move_folds variable and the file is modifiable, all
 folded lines will be moved to the end of the file, so you can view all
 non-folded lines as one consecutive area  (see also |csv-move-folds|)
 
-                                           *:CSVFilter* *:Filter* *Filter_CSV*
-To see the active filters, you can use the `:Filter` or `:CSVFilter` command.
-This will show you a small summary, of what filters are active and looks like
-this:
+                                                         *:Filter* *Filter_CSV*
+To see the active filters, you can use the :Filter command. This will show you
+a small summary, of what filters are active and looks like this:
 
 Nr      Match   Col           Name              Value `
 ===================================================== `
@@ -676,12 +643,12 @@ Use |zX| to apply the current value of your search register as filter. Use >
 to reapply all values from the current active filter and fold non-matching
 items away.
 
-                                                    *:CSVAnalyze* *Analyze_CSV*
+                                                                *Analyze_CSV*
 3.20 Analyze a Column       					 *csv-analyze*
 ---------------------
 
 If you'd like to know, how the values are distributed among a certain column,
-you can use the `:CSVAnalyze` or `:Analyze` command. So >
+you can use the :Analyze command. So >
 
     :Analyze 3
 
@@ -698,13 +665,13 @@ This tells you, that the the value '10' in column 3 occurs 50% of the time
 (exactly 20 times) and the other 2 values '2' and '5' occur only 10 times, so
 25% of the time.
 
-                                                 *:CSVVertFold* *VertFold_CSV*
+                                                                *VertFold_CSV*
 3.21 Vertical Folding       					 *csv-vertfold*
 ---------------------
 
 Sometimes, you want to hide away certain columns to better view only certain
-columns without having to horizontally scroll. You can use the `:CSVVertFold`
-or `:VertFold` command to hide certain columns: >
+columns without having to horizontally scroll. You can use the :VertFold
+command to hide certain columns: >
 
     :VertFold [<nr>]
 <
@@ -719,12 +686,12 @@ Use >
 
 to display all hidden columns again.
 
-                                                *:CSVTranspose* *Transpose_CSV*
+                                                               *Transpose_CSV*
 3.22 Transposing a column                                      *csv-transpose*
 -------------------------
 
 Transposing means to exchange rows and columns. You can transpose the csv
-file, using the `:CSVTranspose` or `:Transpose` : >
+file, using the: >
 
     :[range]Transpose
 <
@@ -732,12 +699,11 @@ command. If [range] is not given, it will transpose the complete file,
 otherwise it will only transpose the lines in the range given. Note, comments
 will be deleted and transposing does not work with fixed-width columns.
 
-                                                          *:CSVTabularize*
+                                                          *CSV-Tabularize*
 3.23 Transforming into a table                      *Table* *csv-tabularize*
 ------------------------------
 
-You  can also transform your csv data into a visual table, using the
-`:Tabularize` or `:CSVTabularize` : >
+You  can also transform your csv data into a visual table, using the: >
 
     :Tabularize
 <
@@ -779,12 +745,11 @@ available for non-CSV files as :Table
 
 Note: Each row must contain exactly as many fields as columns.
 
-                                                            *:CSVAddColumn*
 3.24 Add new empty columns                                   *AddColumn_CSV*
 --------------------------
 
 If you want to add new empty columns to your file you can use the
-`:CSVAddColumn` or `:AddColumn` command: >
+:AddColumn command: >
 
     :[range]AddColumn [column] [count]
 
@@ -798,12 +763,11 @@ Additionally, you can also add a count number to add several columns at once
 after the specified column number. You 0 for the column number, if you want to
 add several columns after the current column.
 
-                                                            *:CSVSubstitute*
 3.25 Substitute in columns                                  *Substitute_CSV*
 --------------------------
 
 If you want to substitute only in specific columns, you can use the
-`:CSVSubstitute` or `:Substitute` command: >
+:Substitute command: >
 
     :[range]Substitute [column/]pattern/string[/flags]
 
@@ -1168,13 +1132,6 @@ languages.
 After setting this variable, you should reinitialize the plugins using
 |InitCSV|
 
-                                                            *csv-foldtext*
-By default, the csv plugin sets the 'foldtext' option. If you don't want this,
-set the variable `g:csv_disable_fdt` in your |.vimrc| >
-
-    :let g:csv_disable_fdt = 1
-<
-
 ==============================================================================
 5. Functions                                                    *CSV-Funtions*
 
@@ -1203,18 +1160,6 @@ the string 'foobar' in the third column. After you press enter, the returned
 pattern will be put after the :s command so you can directly enter / and the
 substitute string.
 
-5.2 CSVField(x,y[, orig])					*CSVField()*
------------------------
-
-This function returns the field at index (x,y) (starting from 1). If the
-parameter orig is given, returns the column "as is" (e.g. including delimiter
-and leading and trailing whitespace, otherwise that will be stripped.
-
-5.2 CSVCol([name])				        	*CSVCol()*
-------------------
-
-If the name parameter is given, returns the name of the column, else returns
-the index of the current column, starting at 1.
 
 ==============================================================================
 6. CSV Tips and Tricks						*csv-tips*
@@ -1250,7 +1195,7 @@ second line of the function. In the third line of your function, put your
 desired 'statusline' settings as |expression|. Note the section starting with
 'if exists(..)' guards against not having loaded the filetype plugin.
 
-                                                                 *CSV_WCol()*
+                                                                 *CSV_WCol*
 
 The CSV_WCol() function controls, what will be outputed. In the simplest case,
 when no argument is given, it simply returns on which column the cursor is.
@@ -1411,38 +1356,9 @@ and :filetype plugin (|:filetype-plugin-on|) statements in your |.vimrc|
 
 Alternatively, you can simply call |InitCSV| and ignore the error.
 
-6.6 Calculate new columns               *csv-calculate-column*
--------------------------
-
-Suppose you have a table like this:
-
-Index;Value1;Value2`
-1;100;3`
-2;20;4`
-
-And you need one more column, that is the calculated product of column 2 and
-3, you can make use of the provided |CSVField()| function using a
-|sub-replace-expression| of an |:s| command. In this case, you would do this: >
-
-    :2,3s/$/\=printf("%s%.2f", b:delimiter,
-    (CSVField(2,line('.'))+0.0)*(CSVField(3,line('.'))+0.0/
-
-Note: Enter as single line. The result will be this: >
-
-Index;Value1;Value2`
-1;100;3;300.00`
-2;20;4;80.00`
 ==============================================================================
 7. CSV Changelog					       *csv-changelog*
 
-0.30 (unreleased) {{{1
-- |:CSVSubstitute| should substitute all matches in a column, when 'g' flag is
-  given
-- Don't override 'fdt' setting (https://github.com/chrisbra/csv.vim/issues/18,
-  reported by Noah Frederick, thanks!)
-- Consistent Commands naming (https://github.com/chrisbra/csv.vim/issues/19,
-  reported by Noah Frederick, thanks!)
-- New Function |CSVField()| and |CSVCol()|
 0.29 Aug 14, 2013 {{{1
 - setup |QuitPre| autocommand to quit cleanly in newer vims when using :Header
   and :VHeader
