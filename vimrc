@@ -123,6 +123,7 @@ if !has("gui_running")
   call Allmap(' <Esc>@     @')
   call Allmap(' <Esc>#     #')
   call Allmap(' <Esc>$     $')
+  call Allmap(' <Esc>\     \')
   call Allmap(' <Esc>\|    \|')
 else
   call Allmap(' <M-Left>  <Left>')
