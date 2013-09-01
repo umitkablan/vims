@@ -28,11 +28,7 @@ let s:filetype_regex_overrides = {}
 
 function! s:check_defined_section(name)
   if !exists('w:airline_section_{a:name}')
-    if g:airline_section_{a:name} == '__'
-      let w:airline_section_{a:name} = ''
-    else
-      let w:airline_section_{a:name} = g:airline_section_{a:name}
-    endif
+    let w:airline_section_{a:name} = g:airline_section_{a:name}
   endif
 endfunction
 
@@ -185,32 +181,18 @@ function! airline#extensions#load()
     call airline#extensions#virtualenv#init(s:ext)
   endif
 
-  if g:airline_section_warning == '__'
-    if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
-      call airline#extensions#whitespace#init(s:ext)
-    endif
-    if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
-          \ && exists(':SyntasticCheck')
-      call airline#extensions#syntastic#init(s:ext)
-    endif
+  if (get(g:, 'airline#extensions#whitespace#enabled', 1) && get(g:, 'airline_detect_whitespace', 1))
+    call airline#extensions#whitespace#init(s:ext)
   endif
-
-  if get(g:, 'airline#extensions#readonly#enabled', 1)
-    call airline#extensions#readonly#init()
-  endif
-
-  if (get(g:, 'airline#extensions#paste#enabled', 1) && get(g:, 'airline_detect_paste', 1))
-    call airline#extensions#paste#init()
-  endif
-
-  if get(g:, 'airline#extensions#iminsert#enabled', 0) || get(g:, 'airline_detect_iminsert', 0)
-    call airline#extensions#iminsert#init()
+  if (get(g:, 'airline#extensions#syntastic#enabled', 1) && get(g:, 'airline_enable_syntastic', 1))
+        \ && exists(':SyntasticCheck')
+    call airline#extensions#syntastic#init(s:ext)
   endif
 
   " load all other extensions not part of the default distribution
   for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
-    " check to see that both the resolved and unresolved paths do not match
-    " up with the path of the found extension
+    " we have to check both resolved and unresolved paths, since it's possible
+    " that they might not get resolved properly (see #187)
     if stridx(resolve(fnamemodify(file, ':p')), s:script_path) < 0
           \ && stridx(fnamemodify(file, ':p'), s:script_path) < 0
       let name = fnamemodify(file, ':t:r')

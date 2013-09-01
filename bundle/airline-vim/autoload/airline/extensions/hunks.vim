@@ -10,14 +10,6 @@ function! s:init()
     let s:initialized = 1
     if get(g:, 'loaded_signify', 0)
       function! s:get_hunks()
-        " this is a temporary fix (see #188)
-        let fname = fnamemodify(bufname('%'), ':p')
-        if has_key(g:sy, fname) && has_key(g:sy[fname], 'hunks')
-          if len(g:sy[fname].hunks) == 0
-            return [0, 0, 0]
-          endif
-        endif
-
         let hunks = sy#repo#get_stats()
         if hunks[0] >= 0
           return hunks
@@ -42,22 +34,18 @@ endfunction
 function! airline#extensions#hunks#get_hunks()
   call <sid>init()
   let hunks = s:get_hunks()
-  let string = '/'
+  let string = ''
   if !empty(hunks)
     for i in [0, 1, 2]
       if s:non_zero_only == 0 || hunks[i] > 0
-        let string .= printf('%s%s', s:hunk_symbols[i], hunks[i])
-      endif
-      if i < 2
-        let string .= '.'
+        let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
       endif
     endfor
-    let string .= '/'
   endif
   return string
 endfunction
 
 function! airline#extensions#hunks#init(ext)
-  let g:airline_section_y .= '%{airline#extensions#hunks#get_hunks()}'
+  call airline#parts#define_function('hunks', 'airline#extensions#hunks#get_hunks')
 endfunction
 
