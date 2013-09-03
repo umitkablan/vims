@@ -154,7 +154,7 @@ nnoremap <Leader>q gqip
 nnoremap <silent> <C-c> :pwd<CR>
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
-inoremap <C-BS> <C-W>
+imap <C-BS> <C-W>
 " swap comma (,) and semicolon (;) because my keyboard is comma-privileged
 noremap , ;
 noremap ; ,
