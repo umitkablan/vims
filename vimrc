@@ -836,6 +836,17 @@ let g:goldenview__enable_default_mapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+function! ApplyPatch()
+  let l:tmpfilename = tempname() . ".patch"
+  let l:s = @"
+  let l:ll = split(l:s, "\n")
+  call writefile(l:ll, l:tmpfilename, "b")
+  " using system() does not rewash the screen
+  let l:res = system("patch -p1 < " .  shellescape(l:tmpfilename))
+  system("rm -f " . shellescape(l:tmpfilename))
+  echom l:res
+endfunction
+
 function! Make_Tmux_Build(targets)
   update
   if a:targets == ""
