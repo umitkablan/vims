@@ -533,7 +533,7 @@ augroup END
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
 let g:pasta_disabled_filetypes = ["coffee", "markdown"]
-let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh']
+let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
