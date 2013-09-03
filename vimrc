@@ -211,6 +211,8 @@ nmap <Tab>h <C-W>h
 nmap <Tab>j <C-W>j
 nmap <Tab>k <C-W>k
 nmap <Tab>l <C-W>l
+nmap <Tab>o <C-W>o
+nmap <Tab>x <C-W>x
 nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
