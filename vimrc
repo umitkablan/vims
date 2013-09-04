@@ -712,7 +712,7 @@ let g:airline_enable_branch = 1
 let g:airline_detect_whitespace=2 "icon only
 let g:airline_section_b = '%<%1.24{getcwd()}'
 " let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
-let g:airline_section_x = ""
+" let g:airline_section_x = ""
 let g:airline_mode_map = {
       \ '__' : '------',
       \ 'n'  : 'N',
@@ -727,19 +727,22 @@ let g:airline_mode_map = {
       \ '' : 'S-BL',
       \ }
 
+if !exists("g:airline_symbols")
+  let g:airline_symbols = {}
+endif
 if has('multi_byte')
   let g:airline_left_sep  = '»'
   let g:airline_left_sep  = '▶'
   let g:airline_right_sep = '«'
   let g:airline_right_sep = '◀'
-  let g:airline_linecolumn_prefix = '␊'
-  let g:airline_linecolumn_prefix = '␤'
-  let g:airline_linecolumn_prefix = '¶'
-  let g:airline_branch_prefix = '⎇ '
-  let g:airline_paste_symbol = 'ρ'
-  let g:airline_paste_symbol = 'Þ'
-  let g:airline_paste_symbol = '∥'
-  let g:airline_whitespace_symbol = 'Ξ'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.whitespace = 'Ξ'
 endif
 " Unite.vim --------------------------------
 let g:unite_source_history_yank_enable=1
