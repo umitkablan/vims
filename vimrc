@@ -255,6 +255,7 @@ inoremap <silent> <C-A> <C-O>:exe "normal! \<C-O>g^"<CR>
 nnoremap <silent> <Leader>,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nnoremap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
 nnoremap <Leader>c "+yiw
+nnoremap ĞC        gv"+y
 vnoremap <Leader>c "+y
 " Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
