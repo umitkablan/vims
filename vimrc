@@ -719,13 +719,13 @@ let g:airline_mode_map = {
       \ 'n'  : 'N',
       \ 'i'  : 'I',
       \ 'R'  : 'R',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V-LN',
+      \ 'v'  : 'v',
+      \ 'V'  : 'V',
       \ 'c'  : 'C',
-      \ '' : 'V-BL',
-      \ 's'  : 'S',
-      \ 'S'  : 'S-LN',
-      \ '' : 'S-BL',
+      \ '' : '^v',
+      \ 's'  : 's',
+      \ 'S'  : 'S',
+      \ '' : '^s',
       \ }
 
 if !exists("g:airline_symbols")
