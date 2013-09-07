@@ -313,8 +313,8 @@ augroup tag_langs
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
 nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
-au FileType tar,man,conque_term         nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
-au FileType tagbar,qf,help,NetrwMessage nnoremap <silent> <buffer> <Backspace> :q<CR>
+au FileType tar,man,conque_term nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
+au FileType tagbar,qf,help      nnoremap <silent> <buffer> <Backspace> :q<CR>
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
 augroup END
