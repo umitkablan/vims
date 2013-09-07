@@ -837,16 +837,6 @@ let no_multiselect_maps = 1
 let g:goldenview__enable_default_mapping = 0
 "************************ }}}
 
-"let g:vimmp_server_type="mpd"
-"let g:mpd_music_directory="~/music"
-"let g:mpd_playlist_directory= "/var/lib/mpd/playlists"
-"nmap <silent> <Leader>x :py vimmp_toggle()<CR>
-"if has('python')
-  "py import os, sys
-  "py sys.path.append(os.path.expanduser("~/.vim/vimmp"))
-  "pyf ~/.vim/vimmp/main.py
-"endif
-
 "FUNCTIONS / COMMANDS
 "********* {{{
 func! FlashLocn()
@@ -1014,13 +1004,13 @@ function! GuiTabLabel()
 endfunction
 set guitablabel=%{GuiTabLabel()}
 
-function! OpenExplore() "{{{
+function! OpenExplore()
   if bufname(bufnr("%")) ==? ""
     silent! Explore
   else
     silent! Sexplore
   endif
-endfunction "}}}
+endfunction
 
 command! RandomLine ruby Vim.command 'normal! ' + (VIM::Buffer.current.length * rand).ceil.to_s + 'gg'
 " command! RandomLine execute 'normal! '.(system('sh -c "echo -n $RANDOM"') % line('$')).'G'
