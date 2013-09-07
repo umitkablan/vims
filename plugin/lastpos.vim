@@ -28,7 +28,7 @@ func! s:LastPos()
     let lastpos_want = getpos("'\"")
     if lastpos_want != [0,1,1,0] && lastpos_want[1] <= line("$")
         \ && getpos(".") == [0,1,1,0] && &buftype == ""
-        normal! g`"
+        silent! exe 'normal! g`"'
         if lastpos_want != getpos(".")
             exec printf("au! LastPos InsertEnter * call s:AdjustPos(%s, %d)",
                 \ string(getpos(".")), bufnr(""))
