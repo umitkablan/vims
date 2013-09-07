@@ -187,6 +187,7 @@ vmap . ç
 " run last command; @: is not working properly in the current scheme when some
 " thing is reexecuted from history before.
 nnoremap <silent> <F3> :<Up><CR>
+vnoremap <silent> <F3> :<Up><CR>
 " map arrow keys to move whole window up/down
 "   <C-D>/<C-U>, Lzz/Hzz or <C-F>/<C-B> may also be used for Up/Down
 nmap <Up>   5<C-Y>
