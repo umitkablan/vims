@@ -83,14 +83,14 @@ else
   let &showbreak = '> '
 endif
 
+au FileType text setlocal wrap linebreak
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
-au FileType text setlocal wrap linebreak
 au TabLeave    * stopinsert
 au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
 " delete swap file if the swapped file is 'nomodified'
-au SwapExists * if !&mod | let v:swapchoice = 'd' | endif
-au VimLeave   * if v:dying | wall | endif
+au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
+au VimLeave    * if v:dying | wall | endif
 "*************** }}}
 
 " fixing arrow keys on terminal Vim
