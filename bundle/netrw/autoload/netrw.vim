@@ -94,6 +94,7 @@ fun! netrw#ErrorMsg(level,msg,errnum)
 "    call Decho("setl ma noro")
     setl ma noro
     call setline(line("$"),level.a:msg)
+    nnoremap <silent> <buffer> <Backspace> :q<CR>
    endif
 "   call Decho("wrote msg<".level.a:msg."> to NetrwMessage win#".winnr())
    if &fo !~ '[ta]'
