@@ -849,6 +849,16 @@ let g:goldenview__enable_default_mapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+func! FlashLocn()
+   hi CursorColumn guibg=yellow
+   hi CursorLine guibg=yellow
+   set cul cuc
+   redraw!
+   "sleep 1m
+   set nocul nocuc
+endfunction
+" nmap <C-H> :set wrap! \| call FlashLocn() \| set wrap? <CR>
+
 function! ApplyPatch()
   let l:tmpfilename = tempname() . ".patch"
   let l:s = @"
