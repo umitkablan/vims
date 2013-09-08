@@ -37,14 +37,13 @@ function! s:CommandOutputToBuffer(cmd,...)
     endif
     let b:cmd = cmd
     let b:args = copy(a:000)
-    let b:[0] = a:0
+    let b:b0 = a:0
     let cmd = substitute(cmd, '^[aivnoscx]\(nore\)\?me\%[nu\]', 'menu', '')
     let cmd = substitute(cmd, '^[aivnoscxl]map', 'map', '')
     let cmd = substitute(cmd, '^\(\(no\|nno\?\|vno\?\|xno\?\|ono\|no\|ino\|lno\?\|cno\)\%[remap\]\|snor\%[emap\]\)', 'map', '')
     echomsg 'cmd: '.cmd
     let &ft=cmd.'_cmd'
     setlocal nomodifiable
-    nmap <buffer> <silent> <F7> :RandomLine<CR>
 endf
 function! ParseHi(hi)
     return filter(map(split(a:hi,'\n'), 'matchlist(v:val, ''\(^\w\+\)\s\+xxx\s\+\(cleared\)\?\(links to \)\?\(.*\)'')'), 'len(v:val) && v:val[2] == ""')
@@ -93,14 +92,14 @@ function! GotoFunction(line, col)
         return
     endif
     let id = synID(a:line, a:col, 0)
-    if synIDtrans(id) == hlID('Statement') || id == hlID('vimAutoEvent')
-        exec 'help '.name
-    endif
+   if synIDtrans(id) == hlID('Statement') || id == hlID('vimAutoEvent')
+       exec 'help '.name
+   endif
 endf
 command! GoToFunction  call GotoFunction(line('.'), col('.'))
 
 command! -nargs=* -complete=command     CommandOutput silent call s:CommandOutputToBuffer(<f-args>)
-command! -nargs=* -complete=highlight   Syntax      CommandOutput syntax <args>
+command! -nargs=* -complete=highlight   Syntax      CommandOutput syntax list <args>
 command! -nargs=* -complete=highlight   Highlight   CommandOutput hi <args>
 command! -nargs=* -complete=function    Function    call OpenFunc(<f-args>)
 command! -nargs=* -complete=command     Command     CommandOutput command <args>
@@ -116,4 +115,5 @@ for char in extend(split('aivnoscxl', '.\@='), [''])
 endfor
 delcommand LMenu
 delcommand LNoreMenu
+
 
