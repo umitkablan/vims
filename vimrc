@@ -839,6 +839,13 @@ let g:goldenview__enable_default_mapping = 0
 
 "FUNCTIONS / COMMANDS
 "********* {{{
+function s:SetSearch(sstr)
+     let @/=@/
+     return a:sstr
+endfunction
+" noremap <expr> n <SID>SetSearch('n')
+" noremap <expr> N <SID>SetSearch('N')
+
 func! FlashLocn()
    hi CursorColumn guibg=yellow
    hi CursorLine guibg=yellow
