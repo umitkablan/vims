@@ -5,9 +5,9 @@ describe 'active builder'
     let s:builder = airline#builder#new({'active': 1})
   end
 
-  it 'should have a call to check mode'
+  it 'should start with an empty statusline'
     let stl = s:builder.build()
-    Expect stl =~ '%{airline#check_mode()}'
+    Expect stl == ''
   end
 
   it 'should transition colors from one to the next'
@@ -29,6 +29,13 @@ describe 'active builder'
     call s:builder.add_section('NonText', 'world')
     let stl = s:builder.build()
     Expect stl =~ '%#Normal#hello%#Normal_to_NonText#<%#NonText#world'
+  end
+
+  it 'should not repeat the same highlight group'
+    call s:builder.add_section('Normal', 'hello')
+    call s:builder.add_section('Normal', 'hello')
+    let stl = s:builder.build()
+    Expect stl == '%#Normal#hello>hello'
   end
 end
 

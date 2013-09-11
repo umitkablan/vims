@@ -1,4 +1,6 @@
 call airline#init#bootstrap()
+call airline#init#sections()
+source plugin/airline.vim
 
 describe 'default'
   before
@@ -17,6 +19,13 @@ describe 'default'
     Expect stl =~ 'airline_b_to_airline_warning'
     Expect stl =~ 'airline_x_to_airline_z'
     Expect stl =~ 'airline_z_to_airline_y'
+  end
+
+  it 'should only render warning section in active splits'
+    wincmd s
+    Expect airline#statusline(1) =~ 'warning'
+    Expect airline#statusline(2) !~ 'warning'
+    wincmd c
   end
 end
 

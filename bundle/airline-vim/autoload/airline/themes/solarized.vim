@@ -7,29 +7,30 @@ function! s:generate()
   let s:reduced     = get(g:, 'airline_solarized_reduced', 1)
   let s:background  = get(g:, 'airline_solarized_bg', &background)
   let s:ansi_colors = get(g:, 'solarized_termcolors', 16) != 256 && &t_Co >= 16 ? 1 : 0
+  let s:tty         = &t_Co == 8
 
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Colors
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Base colors
-  let s:base03  = {'t': s:ansi_colors ?   8 : 234, 'g': '#002b36'}
-  let s:base02  = {'t': s:ansi_colors ? '0' : 235, 'g': '#073642'}
-  let s:base01  = {'t': s:ansi_colors ?  10 : 240, 'g': '#586e75'}
-  let s:base00  = {'t': s:ansi_colors ?  11 : 241, 'g': '#657b83'}
-  let s:base0   = {'t': s:ansi_colors ?  12 : 244, 'g': '#839496'}
-  let s:base1   = {'t': s:ansi_colors ?  14 : 245, 'g': '#93a1a1'}
-  let s:base2   = {'t': s:ansi_colors ?   7 : 254, 'g': '#eee8d5'}
-  let s:base3   = {'t': s:ansi_colors ?  15 : 230, 'g': '#fdf6e3'}
-  let s:yellow  = {'t': s:ansi_colors ?   3 : 136, 'g': '#b58900'}
-  let s:orange  = {'t': s:ansi_colors ?   9 : 166, 'g': '#cb4b16'}
-  let s:red     = {'t': s:ansi_colors ?   1 : 160, 'g': '#dc322f'}
-  let s:magenta = {'t': s:ansi_colors ?   5 : 125, 'g': '#d33682'}
-  let s:violet  = {'t': s:ansi_colors ?  13 : 61 , 'g': '#6c71c4'}
-  let s:blue    = {'t': s:ansi_colors ?   4 : 33 , 'g': '#268bd2'}
-  let s:cyan    = {'t': s:ansi_colors ?   6 : 37 , 'g': '#2aa198'}
-  let s:green   = {'t': s:ansi_colors ?   2 : 64 , 'g': '#859900'}
-  let s:color236= {'t': s:ansi_colors ? '0' : 236, 'g': '#303030'}
-  let s:color251= {'t': s:ansi_colors ?  14 : 251, 'g': '#c6c6c6'}
+  let s:base03  = {'t': s:ansi_colors ?   8 : (s:tty ? '0' : 234), 'g': '#002b36'}
+  let s:base02  = {'t': s:ansi_colors ? '0' : (s:tty ? '0' : 235), 'g': '#073642'}
+  let s:base01  = {'t': s:ansi_colors ?  10 : (s:tty ? '0' : 240), 'g': '#586e75'}
+  let s:base00  = {'t': s:ansi_colors ?  11 : (s:tty ? '7' : 241), 'g': '#657b83'}
+  let s:base0   = {'t': s:ansi_colors ?  12 : (s:tty ? '7' : 244), 'g': '#839496'}
+  let s:base1   = {'t': s:ansi_colors ?  14 : (s:tty ? '7' : 245), 'g': '#93a1a1'}
+  let s:base2   = {'t': s:ansi_colors ?   7 : (s:tty ? '7' : 254), 'g': '#eee8d5'}
+  let s:base3   = {'t': s:ansi_colors ?  15 : (s:tty ? '7' : 230), 'g': '#fdf6e3'}
+  let s:yellow  = {'t': s:ansi_colors ?   3 : (s:tty ? '3' : 136), 'g': '#b58900'}
+  let s:orange  = {'t': s:ansi_colors ?   9 : (s:tty ? '1' : 166), 'g': '#cb4b16'}
+  let s:red     = {'t': s:ansi_colors ?   1 : (s:tty ? '1' : 160), 'g': '#dc322f'}
+  let s:magenta = {'t': s:ansi_colors ?   5 : (s:tty ? '5' : 125), 'g': '#d33682'}
+  let s:violet  = {'t': s:ansi_colors ?  13 : (s:tty ? '5' : 61 ), 'g': '#6c71c4'}
+  let s:blue    = {'t': s:ansi_colors ?   4 : (s:tty ? '4' : 33 ), 'g': '#268bd2'}
+  let s:cyan    = {'t': s:ansi_colors ?   6 : (s:tty ? '6' : 37 ), 'g': '#2aa198'}
+  let s:green   = {'t': s:ansi_colors ?   2 : (s:tty ? '2' : 64 ), 'g': '#859900'}
+  let s:color236= {'t': s:ansi_colors ? '0' : (s:tty ? '0' : 236), 'g': '#303030'}
+  let s:color251= {'t': s:ansi_colors ?  14 : (s:tty ? '7' : 251), 'g': '#c6c6c6'}
 
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Simple mappings
@@ -55,10 +56,11 @@ function! s:generate()
   endif
 
   " Insert mode
-  let s:I1 = [s:N1[0], s:green, 'bold']
   if s:reduced
+    let s:I1 = [s:N1[0], s:green, 'bold']
     let s:I2 = s:N2
   else
+    let s:I1 = [s:N1[0], s:orange, 'bold']
     if s:background == 'dark'
       let s:I2 = [s:base00, s:color236, '']
     else
@@ -70,11 +72,12 @@ function! s:generate()
   let s:IM = s:NM
 
   " Visual mode
-  let s:V1 = [s:N1[0], s:orange, 'bold']
   if s:reduced
+    let s:V1 = [s:N1[0], s:orange, 'bold']
     let s:V2 = s:N2
     let s:V3 = s:N3
   else
+    let s:V1 = [s:N1[0], s:green, 'bold']
     let s:V2 = s:I2
     let s:V3 = s:I3
   endif
@@ -105,6 +108,8 @@ function! s:generate()
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
         \ [s:IA[0].g, s:IA[1].g, s:IA[0].t, s:IA[1].t, s:IA[2]],
         \ s:NFa)
+  let g:airline#themes#solarized#palette.inactive_modified = {
+        \ 'airline_c': [s:NM[0].g, '', s:NM[0].t, '', s:NM[2]]}
 
   let g:airline#themes#solarized#palette.normal = airline#themes#generate_color_map(
         \ [s:N1[0].g, s:N1[1].g, s:N1[0].t, s:N1[1].t, s:N1[2]],
@@ -118,6 +123,10 @@ function! s:generate()
   let g:airline#themes#solarized#palette.normal_modified = {
         \ 'airline_c': [s:NM[0].g, s:NM[1].g,
         \ s:NM[0].t, s:NM[1].t, s:NM[2]]}
+
+  let g:airline#themes#solarized#palette.normal_modified.airline_warning =
+        \ g:airline#themes#solarized#palette.normal.airline_warning
+
 
   let g:airline#themes#solarized#palette.insert = airline#themes#generate_color_map(
         \ [s:I1[0].g, s:I1[1].g, s:I1[0].t, s:I1[1].t, s:I1[2]],
@@ -138,6 +147,14 @@ function! s:generate()
   let g:airline#themes#solarized#palette.visual_modified = {
         \ 'airline_c': [s:VM[0].g, s:VM[1].g,
         \ s:VM[0].t, s:VM[1].t, s:VM[2]]}
+
+  let g:airline#themes#solarized#palette.tabline = {}
+
+  let g:airline#themes#solarized#palette.tabline.airline_tab = [
+        \ s:I2[0].g, s:I2[1].g, s:I2[0].t, s:I2[1].t, s:I2[2]]
+
+  let g:airline#themes#solarized#palette.tabline.airline_tabtype = [
+        \ s:N2[0].g, s:N2[1].g, s:N2[0].t, s:N2[1].t, s:N2[2]]
 endfunction
 
 call s:generate()
