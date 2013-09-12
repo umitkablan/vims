@@ -499,7 +499,7 @@ autocmd VimEnter * Alias up UpdateTypesFileOnly
 autocmd VimEnter * Alias ss SaveSession<Space>default
 " ag & ack -------------------------------
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
-  let g:ackprg = 'ag --nocolor --nogroup --column --smart-case'
+  let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
 else
   let g:ackprg = 'ack -H --nocolor --nogroup --column'
 endif
@@ -710,7 +710,8 @@ let g:statline_show_encoding = 0
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
 endif
-let g:airline_enable_branch = 1
+let g:airline_enable_branch = 0
+let g:airline#extensions#branch#enabled = 0
 let g:airline_detect_whitespace=2 "icon only
 let g:airline_section_b = '%<%1.24{getcwd()}'
 " let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
@@ -1288,9 +1289,12 @@ command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
-" last256 aldmeris hybrid darknight256 luna inkpot gardener
+" last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
+" Tomorrow-Night-Eighties moria
 set background=dark
-colorscheme Tomorrow-Night-Eighties
+let g:moria_style="black"
+let g:sienna_style="dark"
+colorscheme sienna
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
