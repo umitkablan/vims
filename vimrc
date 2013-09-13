@@ -316,6 +316,7 @@ augroup END
 nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
 au FileType tagbar,qf,help      nnoremap <silent> <buffer> <Backspace> :q<CR>
+au FileType netrw               nmap     <silent> <buffer> <Backspace> -
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
 augroup END
