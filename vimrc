@@ -93,49 +93,6 @@ au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
 au VimLeave    * if v:dying | wall | endif
 "*************** }}}
 
-" fixing arrow keys on terminal Vim
-" ***************** {{{
-"
-" Two ideas are..
-" 1) set <Left>=[1;3D
-" 2) (i)(nore)map <Esc>OC <Right>
-
-" using the first idea is logical for portability reasons.
-function Allmap(mapping)
-  execute 'map'  . a:mapping
-  execute 'map!' . a:mapping
-endfunction
-
-if !has("gui_running")
-  call Allmap(' <Esc>[1;3D <Left>')
-  call Allmap(' <Esc>[1;3A <Up>')
-  call Allmap(' <Esc>[1;3B <Down>')
-  call Allmap(' <Esc>[1;3C <Right>')
-  call Allmap(' <Esc>OD    <Left>')
-  call Allmap(' <Esc>OA    <Up>')
-  call Allmap(' <Esc>OB    <Down>')
-  call Allmap(' <Esc>OC    <Right>')
-  call Allmap(' <Esc>}     }')
-  call Allmap(' <Esc>{     {')
-  call Allmap(' <Esc>[     [')
-  call Allmap(' <Esc>]     ]')
-  call Allmap(' <Esc>~     ~')
-  call Allmap(' <Esc>@     @')
-  call Allmap(' <Esc>#     #')
-  call Allmap(' <Esc>$     $')
-  call Allmap(' <Esc>\     \')
-  call Allmap(' <Esc>\|    \|')
-else
-  call Allmap(' <M-Left>  <Left>')
-  call Allmap(' <M-Right> <Right>')
-  call Allmap(' <M-Up>    <Up>')
-  call Allmap(' <M-Down>  <Down>')
-  call Allmap(' þ         ~')
-  call Allmap(' À         @')
-  call Allmap(' £         #')
-endif
-"*************** }}}
-
 " personal maps: maps that do not need plugins
 "************* {{{
 nnoremap <silent> ZZ  :hide<CR>
@@ -1285,6 +1242,46 @@ function! ClearAnsiSequences(line0, line1)
   exec a:line0 . ',' . a:line1 . 's/\e\[\d\+;\d\+\w//ge'
 endfunction
 command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
+
+" fixing arrow keys on terminal Vim
+" Two ideas are..
+" 1) set <Left>=[1;3D
+" 2) (i)(nore)map <Esc>OC <Right>
+" using the first idea is logical for portability reasons.
+function! Allmap(mapping)
+  execute 'map'  . a:mapping
+  execute 'map!' . a:mapping
+endfunction
+function! FixTerminalKeys()
+  if !has("gui_running")
+    call Allmap(' <Esc>[1;3D <Left>')
+    call Allmap(' <Esc>[1;3A <Up>')
+    call Allmap(' <Esc>[1;3B <Down>')
+    call Allmap(' <Esc>[1;3C <Right>')
+    call Allmap(' <Esc>OD    <Left>')
+    call Allmap(' <Esc>OA    <Up>')
+    call Allmap(' <Esc>OB    <Down>')
+    call Allmap(' <Esc>OC    <Right>')
+    call Allmap(' <Esc>}     }')
+    call Allmap(' <Esc>{     {')
+    call Allmap(' <Esc>[     [')
+    call Allmap(' <Esc>]     ]')
+    call Allmap(' <Esc>~     ~')
+    call Allmap(' <Esc>@     @')
+    call Allmap(' <Esc>#     #')
+    call Allmap(' <Esc>$     $')
+    call Allmap(' <Esc>\     \')
+    call Allmap(' <Esc>\|    \|')
+  else
+    call Allmap(' <M-Left>  <Left>')
+    call Allmap(' <M-Right> <Right>')
+    call Allmap(' <M-Up>    <Up>')
+    call Allmap(' <M-Down>  <Down>')
+    call Allmap(' þ         ~')
+    call Allmap(' À         @')
+    call Allmap(' £         #')
+  endif
+endfunction
 "******************************************** }}}
 
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
