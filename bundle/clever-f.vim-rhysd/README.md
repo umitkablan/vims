@@ -7,6 +7,8 @@ In addition, you can customize a behavior of the mappings.
 
 ## USAGE
 
+![Screen shot](http://gifzo.net/LRNAnxYhCq.gif)
+
 I'll show some examples of usage. _ is the place of cursor, -> is a move of
 cursor, alphabets above -> is input by keyboard.
 
