@@ -1,2 +1,3 @@
 
-au BufNewFile,BufRead Makefile.lib setlocal ft=make
+au BufNewFile,BufRead Makefile.lib setf make
+
