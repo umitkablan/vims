@@ -402,6 +402,16 @@ let g:session_directory = "~/.vim/var/session"
 let g:startify_files_number = 19
 let g:startify_change_to_dir = 0
 let g:startify_bookmarks = ['~/projects', '~/.vim']
+let g:startify_custom_header = [
+            \ '   __      ___            ______ ____   ',
+            \ '   \ \    / (_)           |____  |___ \ ',
+            \ '    \ \  / / _ _ __ ___       / /  __) |',
+            \ '     \ \/ / | | ''_ ` _ \     / /  |__ <',
+            \ '      \  /  | | | | | | |   / /   ___) |',
+            \ '       \/   |_|_| |_| |_|  /_(_) |____/ ',
+            \ '',
+            \ '',
+            \ ]
 let g:textobj_comment_no_default_key_mappings = 1
 let g:buffergator_suppress_keymaps = 1
 xmap ax <Plug>(textobj-comment-a)
