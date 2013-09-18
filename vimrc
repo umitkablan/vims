@@ -750,6 +750,20 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \       'action__command' : a:value,
         \}
 endfunction
+autocmd BufLeave \[unite\]* if "nofile" ==# &buftype | bwipeout | endif
+" autocmd BufLeave \[unite\]* set bufhidden=wipe
+function! s:clearUniteBuffers()
+  "find [unite] or *unite* buffers to be wiped-out
+  let unitebuffs = filter(range(1, bufnr('$')),
+        \ '"nofile" ==# getbufvar(v:val, "&buftype")
+        \  && -1 == index(displayedbufs, v:val)
+        \  && bufname(v:val) =~# ''*unite*\|\[unite\]''')
+  " obliterate the buffers and their related state (marks especially).
+  if !empty(unitebuffs)
+    exe 'bwipeout! '.join(unitebuffs, ' ')
+  endif
+endfunction
+" autocmd BufEnter * silent call <SID>clearUniteBuffers()
 " IndentConsistencyCop ------------------------------------------
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
