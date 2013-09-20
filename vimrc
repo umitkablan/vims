@@ -132,9 +132,9 @@ noremap Y y$
 " search-replace (<comma_or_n><dot>)
 nnoremap <silent> <Bar> :norm! .<CR>
 nnoremap ç :
-vnoremap ç :
+xnoremap ç :
 nmap . ç
-vmap . ç
+xmap . ç
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
@@ -187,7 +187,7 @@ nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
 nnoremap <silent> ĞT :tab sp<CR>
 " de facto visual block indent mappings
 vnoremap < <gv
-vnoremap > >gv
+xnoremap > >gv
 nnoremap <Leader>> >i}
 nnoremap <Leader>< <i}
 nnoremap ĞD di}
@@ -214,7 +214,7 @@ nnoremap <silent> <Leader>,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nnoremap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
 nnoremap <Leader>c "+yiw
 nnoremap ĞC        gv"+y
-vnoremap <Leader>c "+y
+xnoremap <Leader>c "+y
 " Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
 inoremap <F12> <C-O>:set invpaste paste?<CR>
@@ -282,8 +282,8 @@ nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 nmap + <Plug>(expand_region_expand)
-vmap + <Plug>(expand_region_expand)
-vmap - <Plug>(expand_region_shrink)
+xmap + <Plug>(expand_region_expand)
+xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
 nnoremap <silent> - :Switch<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
@@ -315,7 +315,7 @@ nnoremap <silent> ĞE :call OpenExplore()<CR>
 nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
 nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
-vnoremap <silent> <Leader><Leader>u :Utl<CR>
+xnoremap <silent> <Leader><Leader>u :Utl<CR>
 nnoremap <silent> ĞUU :Underline<CR>
 nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
@@ -332,7 +332,7 @@ nnoremap <silent> <Leader>sc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
 nnoremap '! :Clam <Space>
-vnoremap '! :ClamVisual <Space>
+xnoremap '! :ClamVisual <Space>
 " nmap <silent> <C-z> <Plug>QAnotherWin
 " nmap <Leader>t :Shell make test<CR><CR>
 " nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
@@ -341,7 +341,7 @@ nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
 nmap CAL  <Plug>CalendarV
 nmap HCAL <Plug>CalendarH
 nmap VCAL <Plug>CalendarV
-vmap <Space><Space> <Plug>MarkSet
+xmap <Space><Space> <Plug>MarkSet
 nmap <Space><Space> <Plug>MarkSet
 nmap <Space>*  <Plug>MarkSearchNext
 nmap <Space>#  <Plug>MarkSearchPrev
@@ -352,10 +352,10 @@ nmap <S-Space>/  <Plug>MarkSearchAnyNext
 nmap <Space>nn <Plug>MarkAllClear
 nmap <Space>n  <Plug>MarkClear
 nmap <Space>r <Plug>MarkRegex
-vmap <Space>r <Plug>MarkRegex
+xmap <Space>r <Plug>MarkRegex
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
-vmap gr  <Plug>ReplaceVisual
+xmap gr  <Plug>ReplaceVisual
 " fallback to speeddating when SwapIt cannot success
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
@@ -372,7 +372,7 @@ smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expa
 nnoremap [d :call ShowBlockName('[d')<CR>
 nnoremap [i :call ShowBlockName('[i')<CR>
 nmap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
-vmap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
+xmap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
 imap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
 imap <unique> NOTUSED<M-Del> <Plug>MarkersJumpF
 map  <unique> NOTUSED<M-Del> <Plug>MarkersJumpF
@@ -1168,7 +1168,7 @@ function! TwiddleCase(str)
   endif
   return result
 endfunction
-vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
+xnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 
 let s:indentation_guides_enabled = 0
 function! ToggleIndGuides_RC()
