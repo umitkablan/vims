@@ -847,7 +847,7 @@ function! ApplyPatch()
   call writefile(l:ll, l:tmpfilename, "b")
   " using system() does not rewash the screen
   let l:res = system("patch -p1 < " .  shellescape(l:tmpfilename))
-  system("rm -f " . shellescape(l:tmpfilename))
+  call system("rm -f " . shellescape(l:tmpfilename))
   echom l:res
 endfunction
 
