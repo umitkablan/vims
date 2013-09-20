@@ -12,18 +12,19 @@ let g:loaded_unimpaired = 1
 
 function! s:MapNextFamily(map,cmd)
   let map = '<Plug>unimpaired'.toupper(a:map)
-  let end = ' ".(v:count ? v:count : "")<CR>'
-  execute 'nnoremap <silent> '.map.'Previous :<C-U>exe "'.a:cmd.'previous'.end
-  execute 'nnoremap <silent> '.map.'Next     :<C-U>exe "'.a:cmd.'next'.end
-  execute 'nnoremap <silent> '.map.'First    :<C-U>exe "'.a:cmd.'first'.end
-  execute 'nnoremap <silent> '.map.'Last     :<C-U>exe "'.a:cmd.'last'.end
+  let cmd = '".(v:count ? v:count : "")."'.a:cmd
+  let end = '"<CR>'
+  execute 'nnoremap <silent> '.map.'Previous :<C-U>exe "'.cmd.'previous'.end
+  execute 'nnoremap <silent> '.map.'Next     :<C-U>exe "'.cmd.'next'.end
+  execute 'nnoremap <silent> '.map.'First    :<C-U>exe "'.cmd.'first'.end
+  execute 'nnoremap <silent> '.map.'Last     :<C-U>exe "'.cmd.'last'.end
   execute 'nmap <silent> ['.        a:map .' '.map.'Previous'
   execute 'nmap <silent> ]'.        a:map .' '.map.'Next'
   execute 'nmap <silent> ['.toupper(a:map).' '.map.'First'
   execute 'nmap <silent> ]'.toupper(a:map).' '.map.'Last'
   if exists(':'.a:cmd.'nfile')
-    execute 'nnoremap <silent> '.map.'PFile :<C-U>exe "'.a:cmd.'pfile'.end
-    execute 'nnoremap <silent> '.map.'NFile :<C-U>exe "'.a:cmd.'nfile'.end
+    execute 'nnoremap <silent> '.map.'PFile :<C-U>exe "'.cmd.'pfile'.end
+    execute 'nnoremap <silent> '.map.'NFile :<C-U>exe "'.cmd.'nfile'.end
     execute 'nmap <silent> [<C-'.a:map.'> '.map.'PFile'
     execute 'nmap <silent> ]<C-'.a:map.'> '.map.'NFile'
   endif
@@ -182,6 +183,82 @@ xmap [e <Plug>unimpairedMoveUp
 xmap ]e <Plug>unimpairedMoveDown
 
 " }}}1
+" Option toggling {{{1
+
+function! s:toggle(op)
+  return eval('&'.a:op) ? 'no'.a:op : a:op
+endfunction
+
+function! s:option_map(letter, option)
+  exe 'nnoremap [o'.a:letter.' :set '.a:option.'<CR>'
+  exe 'nnoremap ]o'.a:letter.' :set no'.a:option.'<CR>'
+  exe 'nnoremap co'.a:letter.' :set <C-R>=<SID>toggle("'.a:option.'")<CR><CR>'
+endfunction
+
+call s:option_map('c', 'cursorline')
+call s:option_map('u', 'cursorcolumn')
+nnoremap [od :diffthis<CR>
+nnoremap ]od :diffoff<CR>
+nnoremap cod :<C-R>=&diff ? 'diffoff' : 'diffthis'<CR><CR>
+call s:option_map('h', 'hlsearch')
+call s:option_map('i', 'ignorecase')
+call s:option_map('l', 'list')
+call s:option_map('n', 'number')
+call s:option_map('r', 'relativenumber')
+call s:option_map('s', 'spell')
+call s:option_map('w', 'wrap')
+nnoremap [ox :set cursorline cursorcolumn<CR>
+nnoremap ]ox :set nocursorline nocursorcolumn<CR>
+nnoremap cox :set <C-R>=&cursorline && &cursorcolumn ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
+
+function! s:setup_paste() abort
+  let s:paste = &paste
+  set paste
+endfunction
+
+nnoremap <silent> <Plug>unimpairedPaste :call <SID>setup_paste()<CR>
+
+nnoremap <silent> yp  :call <SID>setup_paste()<CR>a
+nnoremap <silent> yP  :call <SID>setup_paste()<CR>i
+nnoremap <silent> yo  :call <SID>setup_paste()<CR>o
+nnoremap <silent> yO  :call <SID>setup_paste()<CR>O
+nnoremap <silent> yA  :call <SID>setup_paste()<CR>A
+nnoremap <silent> yI  :call <SID>setup_paste()<CR>I
+nnoremap <silent> ygi :call <SID>setup_paste()<CR>gi
+nnoremap <silent> ygI :call <SID>setup_paste()<CR>gI
+
+augroup unimpaired_paste
+  autocmd!
+  autocmd InsertLeave *
+        \ if exists('s:paste') |
+        \   let &paste = s:paste |
+        \   unlet s:paste |
+        \ endif
+augroup END
+
+" }}}1
+" Put {{{1
+
+function! s:putline(how) abort
+  let [body, type] = [getreg(v:register), getregtype(v:register)]
+  call setreg(v:register, body, 'l')
+  exe 'normal! "'.v:register.a:how
+  call setreg(v:register, body, type)
+endfunction
+
+nnoremap <silent> <Plug>unimpairedPutAbove :call <SID>putline('[p')<CR>
+nnoremap <silent> <Plug>unimpairedPutBelow :call <SID>putline(']p')<CR>
+
+nmap [p <Plug>unimpairedPutAbove
+nmap ]p <Plug>unimpairedPutBelow
+nnoremap <silent> >P :call <SID>putline('[p')<CR>>']
+nnoremap <silent> >p :call <SID>putline(']p')<CR>>']
+nnoremap <silent> <P :call <SID>putline('[p')<CR><']
+nnoremap <silent> <p :call <SID>putline(']p')<CR><']
+nnoremap <silent> =P :call <SID>putline('[p')<CR>=']
+nnoremap <silent> =p :call <SID>putline(']p')<CR>=']
+
+" }}}1
 " Encoding and decoding {{{1
 
 function! s:string_encode(str)
@@ -190,12 +267,11 @@ function! s:string_encode(str)
 endfunction
 
 function! s:string_decode(str)
-  let map = {'n': "\n", 'r': "\r", 't': "\t", 'b': "\b", 'f': "\f", 'e': "\e", 'a': "\001", 'v': "\013"}
+  let map = {'n': "\n", 'r': "\r", 't': "\t", 'b': "\b", 'f': "\f", 'e': "\e", 'a': "\001", 'v': "\013", "\n": ''}
   let str = a:str
   if str =~ '^\s*".\{-\}\\\@<!\%(\\\\\)*"\s*\n\=$'
     let str = substitute(substitute(str,'^\s*\zs"','',''),'"\ze\s*\n\=$','','')
   endif
-  let str = substitute(str,'\\n\%(\n$\)\=','\n','g')
   return substitute(str,'\\\(\o\{1,3\}\|x\x\{1,2\}\|u\x\{1,4\}\|.\)','\=get(map,submatch(1),submatch(1) =~? "^[0-9xu]" ? nr2char("0".substitute(submatch(1),"^[Uu]","x","")) : submatch(1))','g')
 endfunction
 
