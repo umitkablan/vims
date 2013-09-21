@@ -285,6 +285,7 @@ nmap + <Plug>(expand_region_expand)
 xmap + <Plug>(expand_region_expand)
 xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
+xnoremap <silent> <Enter> :EasyAlign<CR>
 nnoremap <silent> - :Switch<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
