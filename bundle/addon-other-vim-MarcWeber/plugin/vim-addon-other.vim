@@ -1,4 +1,3 @@
-
 " m-X key jump to tab X
 for i in range(1,8)
   exec 'map <m-'.i.'> '.i.'gt'
@@ -30,26 +29,31 @@ for i in split("abdgimnpqrstuxyzABDGHIJKLMNPQRSTUXYZ0123456789",'.\zs')
 endfor
 
 
-nnoremap g<Space> :<C-U>call vim_addon_other#SmartGotoLine()<CR>
+nnoremap \G :<C-U>call vim_addon_other#SmartGotoLine(0)<CR>
+onoremap \G :<C-u>call vim_addon_other#SmartGotoLine(1)<CR>
+vnoremap \G :<C-u>call vim_addon_other#SmartGotoLine(1)<CR>
 
-noremap <Leader>kl :call vim_addon_other#KeepOrDropLines("keep")<cr>
-noremap <Leader>dl :call vim_addon_other#KeepOrDropLines("drop")<cr>
+" yank a document
+" onoremap D :<C-U>normal! ggVG
+
+noremap \kl :call vim_addon_other#KeepOrDropLines("keep")<cr>
+noremap \dl :call vim_addon_other#KeepOrDropLines("drop")<cr>
 
 
 " grep
 " memo: -g -r = grep -r
-noremap <m-g><m-r> :call vim_addon_other#GrepR()<cr>
+noremap \gr :call vim_addon_other#GrepR()<cr>
 
-noremap <Leader>mid :call vim_addon_other#GnuIdutils_Mkid()<cr>
-noremap <Leader>lid :call vim_addon_other#GnuIdutils_Lid()<cr>
+noremap \mid :call vim_addon_other#GnuIdutils_Mkid()<cr>
+noremap \lid :call vim_addon_other#GnuIdutils_Lid()<cr>
 
 " gnu id utils
 
 command! -nargs=1 -complete=file RenameFile call vim_addon_other#RenameFile(<f-args>)<cr>
 command! -nargs=1 -complete=file ContinueWorkOnCopy call vim_addon_other#ContinueWorkOnCopy(<f-args>)<cr>
 
-noremap <Leader>cp :RenameFile<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
-noremap <Leader>mv :ContinueWorkOnCopy<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
+noremap \cp :RenameFile<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
+noremap \mv :ContinueWorkOnCopy<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
 
 " insert filename or path into commandline
 cmap >fn <c-r>=expand('%:p')<cr>
@@ -70,3 +74,7 @@ command! -nargs=1 RubyLibGrep exec 'grep -ri '.shellescape(<f-args>).' '.join(ma
 augroup GOTO_LINE
   autocmd BufNewFile *:* call vim_addon_other#GotoFileLine()
 augroup end
+
+" delete, yank a document
+noremap dad ggGVd
+noremap yad ggVGy
