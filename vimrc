@@ -372,21 +372,21 @@ smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expa
 " show block name maps
 nnoremap [d :call ShowBlockName('[d')<CR>
 nnoremap [i :call ShowBlockName('[i')<CR>
-nmap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
-xmap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
-imap <unique> NOTUSED<M-Insert> <Plug>MarkersMark
-imap <unique> NOTUSED<M-Del> <Plug>MarkersJumpF
-map  <unique> NOTUSED<M-Del> <Plug>MarkersJumpF
-imap <unique> NOTUSED<M-S-Del> <Plug>MarkersJumpB
-map  <unique> NOTUSED<M-S-Del> <Plug>MarkersJumpB
-map <unique> UNUSED<LocalLeader>p <Plug>JavagetsetInsertGetterSetter
-map <unique> UNUSED<LocalLeader>g <Plug>JavagetsetInsertGetterOnly
-map <unique> UNUSED<LocalLeader>s <Plug>JavagetsetInsertSetterOnly
-map <unique> UNUSED<LocalLeader>b <Plug>JavagetsetInsertBothGetterSetter
-nmap <unique> NOTUSED<Leader>a <Plug>ToggleAutoCloseMappings
-imap <unique> NOTUSED<C-S> <Plug>Isurround
-nmap <unique> NOTUSED<Leader>st <plug>SmartputToggle
-nmap <unique> NOTUSED<Leader>sh <Plug>DBHistory
+nmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
+xmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
+imap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
+imap <unique> NOTUSED<M-Del>         <Plug>MarkersJumpF
+map  <unique> NOTUSED<M-Del>         <Plug>MarkersJumpF
+imap <unique> NOTUSED<M-S-Del>       <Plug>MarkersJumpB
+map  <unique> NOTUSED<M-S-Del>       <Plug>MarkersJumpB
+map  <unique> NOTNUSED<LocalLeader>p <Plug>JavagetsetInsertGetterSetter
+map  <unique> NOTNUSED<LocalLeader>g <Plug>JavagetsetInsertGetterOnly
+map  <unique> NOTNUSED<LocalLeader>s <Plug>JavagetsetInsertSetterOnly
+map  <unique> NOTNUSED<LocalLeader>b <Plug>JavagetsetInsertBothGetterSetter
+nmap <unique> NOTUSED<Leader>a       <Plug>ToggleAutoCloseMappings
+imap <unique> NOTUSED<C-S>           <Plug>Isurround
+nmap <unique> NOTUSED<Leader>st      <plug>SmartputToggle
+nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
 "************* }}}
 
 "plugin configuration
