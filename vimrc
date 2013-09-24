@@ -372,6 +372,7 @@ smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expa
 " show block name maps
 nnoremap [d :call ShowBlockName('[d')<CR>
 nnoremap [i :call ShowBlockName('[i')<CR>
+" NOTUSED mappings in order to prevent the default maps load.
 nmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
 xmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
 imap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
