@@ -287,6 +287,7 @@ xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
 xnoremap <silent> <Enter> :EasyAlign<CR>
 nnoremap <silent> - :Switch<CR>
+nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
@@ -300,19 +301,18 @@ nnoremap  X         :CoremoSearchAdd<CR>
 xnoremap  X         :CoremoSearchAddV<CR>
 nnoremap  <Leader>X :CoremoSearchRemove<CR>
 xnoremap  <Leader>X :CoremoSearchRemoveV<CR>
-nnoremap -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
 nnoremap <silent> ĞSH :VimShellPop<CR>
-nnoremap <silent> <Leader>sh :ConqueTermSplit bash<CR>
-nnoremap <silent> <Leader><Leader>sh :ConqueTerm bash<CR>
-nnoremap <silent> <Leader>p2 :ConqueTermSplit ipython2<CR>
-nnoremap <silent> <Leader>p3 :ConqueTermSplit python3<CR>
+nnoremap <silent> <Leader>sh  :ConqueTermSplit bash<CR>
+nnoremap <silent> <Leader>p2  :ConqueTermSplit ipython2<CR>
+nnoremap <silent> <Leader>p3  :ConqueTermSplit python3<CR>
 nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
+nnoremap <silent> <Leader><Leader>sh :ConqueTerm bash<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
-nnoremap <silent> ĞE :call OpenExplore()<CR>
+nnoremap <silent> ĞE  :call OpenExplore()<CR>
 nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
 nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
