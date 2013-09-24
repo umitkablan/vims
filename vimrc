@@ -301,62 +301,63 @@ nnoremap  X         :CoremoSearchAdd<CR>
 xnoremap  X         :CoremoSearchAddV<CR>
 nnoremap  <Leader>X :CoremoSearchRemove<CR>
 xnoremap  <Leader>X :CoremoSearchRemoveV<CR>
-nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
+nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 nnoremap <silent> ĞSH :VimShellPop<CR>
 nnoremap <silent> <Leader>sh  :ConqueTermSplit bash<CR>
 nnoremap <silent> <Leader>p2  :ConqueTermSplit ipython2<CR>
 nnoremap <silent> <Leader>p3  :ConqueTermSplit python3<CR>
 nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
 nnoremap <silent> <Leader><Leader>sh :ConqueTerm bash<CR>
-nnoremap <silent> ĞĞE :Explore<CR>
-nnoremap <silent> ĞE  :call OpenExplore()<CR>
-nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
-nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 xnoremap <silent> <Leader><Leader>u :Utl<CR>
 nnoremap <silent> ĞUU :Underline<CR>
 nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
-nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
 nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-nnoremap <silent> <C-p> :Unite -start-insert source<CR>
+nnoremap <silent> ĞĞE :Explore<CR>
+nnoremap <silent> ĞE  :call OpenExplore()<CR>
+nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
+nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
+nnoremap <silent> <C-p>     :Unite -start-insert source<CR>
 nnoremap <silent> <Leader>b :Unite -start-insert -auto-preview bookmark<CR>
-nnoremap <silent> ĞB :UniteBookmarkAdd <CR>
-nnoremap <silent> <C-B> :Unite -start-insert buffer file_rec/async<CR>
-nnoremap <silent> MRU :Unite -no-split -start-insert file_mru directory_mru<CR>
-nnoremap <silent> <C--> :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
+nnoremap <silent> ĞB        :UniteBookmarkAdd <CR>
+nnoremap <silent> <C-B>     :Unite -start-insert buffer file_rec/async<CR>
+nnoremap <silent> MRU       :Unite -no-split -start-insert file_mru directory_mru<CR>
+nnoremap <silent> <C-->     :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 nnoremap <silent> <Leader>t  :CtrlPBufTag<CR>
 nnoremap <silent> <Leader>sc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
-" nmap <silent> <C-z> <Plug>QAnotherWin
-" nmap <Leader>t :Shell make test<CR><CR>
-" nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
-" nmap <silent> <unique> <Leader>b <Plug>SelectBuf
 nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
+" Calendar
 nmap CAL  <Plug>CalendarV
 nmap HCAL <Plug>CalendarH
 nmap VCAL <Plug>CalendarV
-xmap <Space><Space> <Plug>MarkSet
-nmap <Space><Space> <Plug>MarkSet
-nmap <Space>*  <Plug>MarkSearchNext
-nmap <Space>#  <Plug>MarkSearchPrev
+" Mark mappings
+xmap <Space><Space>   <Plug>MarkSet
+nmap <Space><Space>   <Plug>MarkSet
+nmap <Space>*         <Plug>MarkSearchNext
+nmap <Space>#         <Plug>MarkSearchPrev
 nmap <Space><Leader>* <Plug>MarkSearchCurrentNext
 nmap <Space><Leader># <Plug>MarkSearchCurrentPrev
-nmap <S-Space>?  <Plug>MarkSearchAnyPrev
-nmap <S-Space>/  <Plug>MarkSearchAnyNext
-nmap <Space>nn <Plug>MarkAllClear
-nmap <Space>n  <Plug>MarkClear
-nmap <Space>r <Plug>MarkRegex
-xmap <Space>r <Plug>MarkRegex
+nmap <S-Space>?       <Plug>MarkSearchAnyPrev
+nmap <S-Space>/       <Plug>MarkSearchAnyNext
+nmap <Space>nn        <Plug>MarkAllClear
+nmap <Space>n         <Plug>MarkClear
+nmap <Space>r         <Plug>MarkRegex
+xmap <Space>r         <Plug>MarkRegex
+" replace wout overwriting default register
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
 xmap gr  <Plug>ReplaceVisual
+nnoremap <silent> GL :call EchoLocationPath()<CR>
+nnoremap <silent> [d :call ShowBlockName('[d')<CR>
+nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 " fallback to speeddating when SwapIt cannot success
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
@@ -369,9 +370,6 @@ inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
 " inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
-" show block name maps
-nnoremap [d :call ShowBlockName('[d')<CR>
-nnoremap [i :call ShowBlockName('[i')<CR>
 " NOTUSED mappings in order to prevent the default maps load.
 nmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
 xmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
@@ -388,6 +386,10 @@ nmap <unique> NOTUSED<Leader>a       <Plug>ToggleAutoCloseMappings
 imap <unique> NOTUSED<C-S>           <Plug>Isurround
 nmap <unique> NOTUSED<Leader>st      <plug>SmartputToggle
 nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
+" nmap <silent> <C-z> <Plug>QAnotherWin
+" nmap <Leader>t :Shell make test<CR><CR>
+" nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
+" nmap <silent> <unique> <Leader>b <Plug>SelectBuf
 "************* }}}
 
 "plugin configuration
