@@ -37,15 +37,17 @@ and extract in ~/.vim or
 [plugin](https://github.com/Shougo/neobundle.vim)
 [manager](https://github.com/MarcWeber/vim-addon-manager).
 
-### With Vundle
-
-Add the following line to your .vimrc,
-
-```vim
-Bundle 'junegunn/vim-easy-align'
-```
-
-then execute `:BundleInstall` command.
+- [Pathogen](https://github.com/tpope/vim-pathogen)
+  - `git clone https://github.com/junegunn/vim-easy-align.git ~/.vim/bundle/vim-easy-align`
+- [Vundle](https://github.com/gmarik/vundle)
+  1. Add `Bundle 'junegunn/vim-easy-align'` to .vimrc
+  2. Run `:BundleInstall`
+- [NeoBundle](https://github.com/Shougo/neobundle.vim)
+  1. Add `NeoBundle 'junegunn/vim-easy-align'` to .vimrc
+  2. Run `:NeoBundleInstall`
+- [vim-plug](https://github.com/junegunn/vim-plug)
+  1. Add `Plug 'junegunn/vim-easy-align'` to .vimrc
+  2. Run `:PlugInstall`
 
 Usage
 -----
@@ -56,8 +58,8 @@ variant `:EasyAlign!`) for visual mode.
 | Mode                      | Command                                          |
 | ------------------------- | ------------------------------------------------ |
 | Interactive mode          | `:EasyAlign[!] [OPTIONS]`                        |
-| Using predefined rules    | `:EasyAlign[!] [FIELD#] DELIMITER_KEY [OPTIONS]` |
-| Using regular expressions | `:EasyAlign[!] [FIELD#] /REGEXP/ [OPTIONS]`      |
+| Using predefined rules    | `:EasyAlign[!] [N-th] DELIMITER_KEY [OPTIONS]`   |
+| Using regular expressions | `:EasyAlign[!] [N-th] /REGEXP/ [OPTIONS]`        |
 
 ### Concept of _alignment rule_
 
@@ -83,8 +85,8 @@ vnoremap <silent> <Enter> :EasyAlign<cr>
 With the mapping, you can align selected lines of text with only a few keystrokes.
 
 1. `<Enter>` key to start interactive EasyAlign command
-1. Optional Enter keys to select alignment mode (left, right, or center)
-1. Optional field index (default: 1)
+1. Optional: Enter keys to select alignment mode (left, right, or center)
+1. Optional: N-th delimiter (default: 1)
     - `1`         Around the 1st occurrences of delimiters
     - `2`         Around the 2nd occurrences of delimiters
     - ...
@@ -176,10 +178,10 @@ Instead of going into the interactive mode, you can type in arguments to
 
 ```vim
 " Using predefined alignment rules
-:EasyAlign[!] [FIELD#] DELIMITER_KEY [OPTIONS]
+:EasyAlign[!] [N-th] DELIMITER_KEY [OPTIONS]
 
 " Using arbitrary regular expressions
-:EasyAlign[!] [FIELD#] /REGEXP/ [OPTIONS]
+:EasyAlign[!] [N-th] /REGEXP/ [OPTIONS]
 ```
 
 For example, when aligning the following lines around colons and semi-colons,
@@ -247,7 +249,7 @@ my_hash = { :a   => 1,
 ```
 
 However, in this case, we don't really need blockwise visual mode
-since the same can be easily done using the negative field index: `<Enter>-=`
+since the same can be easily done using the negative N-th parameter: `<Enter>-=`
 
 Alignment options
 -----------------
@@ -508,7 +510,7 @@ let g:easy_align_bang_interactive_modes = ['c', 'r']
 
 ### Alignments over multiple occurrences of delimiters
 
-As stated above, "field index" is used to target specific occurrences of
+As stated above, "N-th" parameter is used to target specific occurrences of
 the delimiter when it appears multiple times in each line.
 
 To recap:
