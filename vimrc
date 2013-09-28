@@ -481,6 +481,9 @@ call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
+call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
 " syntastic --------------------------------------------- {{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-std=gnu99
@@ -523,8 +526,10 @@ let g:speeddating_no_mappings = 1
 let g:DeleteTrailingWhitespace = 1
 let g:DeleteTrailingWhitespace_Action = 'ask'
 " TComment --------------------------------
-let g:tcommentMapLeader1="_"
-let g:tcommentMapLeader2 = '<Leader>-_0'
+let g:tcommentMapLeader1=""
+let g:tcommentMapLeader2=""
+nnoremap <silent> __ :TComment<CR>
+vnoremap <silent> __ :TCommentMaybeInline<CR>
 " AutoPairs -------------------------------
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMapCR = 0
@@ -721,6 +726,7 @@ if has('multi_byte')
   let g:airline_symbols.whitespace = 'Ξ'
 endif
 " Unite.vim --------------------------------
+let g:unite_prompt = '» '
 let g:unite_source_history_yank_enable=1
 let g:unite_source_file_mru_limit=300
 let g:unite_source_history_yank_limit=600
