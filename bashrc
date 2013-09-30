@@ -18,6 +18,7 @@ alias s="sudo"
 alias pwroff="sudo poweroff"
 alias mm="make menuconfig"
 alias m="make"
+alias ps="ps -ef"
 
 export PATH=$PATH:/sbin
 export PATH=$PATH:~/.gem/ruby/1.9.1/bin
