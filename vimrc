@@ -392,7 +392,7 @@ nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
 " nmap <silent> <unique> <Leader>b <Plug>SelectBuf
 "************* }}}
 
-"plugin configuration
+" plugin configuration
 "******************** {{{
 let g:signify_sign_overwrite = 0
 let g:signify_line_highlight = 0
@@ -831,7 +831,7 @@ let no_multiselect_maps = 1
 let g:goldenview__enable_default_mapping = 0
 "************************ }}}
 
-"FUNCTIONS / COMMANDS
+" FUNCTIONS / COMMANDS
 "********* {{{
 function s:SetSearch(sstr)
      let @/=@/
