@@ -258,6 +258,10 @@ call pathogen#infect('bundle/*')
 autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
+" Vundle
+set rtp+=~/.vim/packs/vundle/
+call vundle#rc("~/.vim/packs")
+
 " personal plugin maps
 " ******************** {{{
 augroup tag_langs
@@ -274,13 +278,13 @@ nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
 au FileType tagbar,qf,help      nnoremap <silent> <buffer> <Backspace> :q<CR>
 au FileType netrw               nmap     <silent> <buffer> <Backspace> -
+au FileType vundle              nmap     <silent> <buffer> <Backspace> q
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
 augroup END
 
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
-call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 nmap + <Plug>(expand_region_expand)
 xmap + <Plug>(expand_region_expand)
 xmap - <Plug>(expand_region_shrink)
@@ -293,10 +297,6 @@ inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
-call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
-call tinykeymap#Map('changelocs', ',', 'norm! g,')
-call tinykeymap#Map('changelocs', ';', 'norm! g;')
-let g:tinykeymap#map#windows#map = "gw"
 nnoremap  X         :CoremoSearchAdd<CR>
 xnoremap  X         :CoremoSearchAddV<CR>
 nnoremap  <Leader>X :CoremoSearchRemove<CR>
@@ -393,7 +393,7 @@ nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
 "************* }}}
 
 " plugin configuration
-"******************** {{{
+" ******************** {{{
 let g:signify_sign_overwrite = 0
 let g:signify_line_highlight = 0
 let g:signify_vcs_list = [ 'git', 'svn' ]
@@ -831,8 +831,166 @@ let no_multiselect_maps = 1
 let g:goldenview__enable_default_mapping = 0
 "************************ }}}
 
+" Bundles
+" ******************* {{{
+Bundle 'gmarik/vundle'
+Bundle 'AnsiEsc.vim'
+Bundle 'AsyncCommand'
+Bundle 'CSApprox'
+"Bundle 'ColorSchemeMenuMaker'
+Bundle 'Colorizer--Brabandt'
+"Bundle 'CountJump'
+Bundle 'CursorLineCurrentWindow'
+Bundle 'DeleteTrailingWhitespace'
+Bundle 'EasyGrep'
+Bundle 'zhaocai/GoldenView.Vim'
+"Bundle 'IndGuide'
+Bundle 'IndentConsistencyCop'
+Bundle 'IndentConsistencyCopAutoCmds'
+Bundle 'chrisbra/NrrwRgn'
+Bundle 'ReplaceWithRegister'
+"Bundle 'Replay'
+Bundle 'ShowTrailingWhitespace'
+Bundle 'SingleCompile'
+Bundle 'wesleyche/SrcExpl'
+Bundle 'chrisbra/SudoEdit.vim'
+Bundle 'UnconditionalPaste'
+Bundle 'VimSpy'
+"Bundle 'Vimpy-monokrome'
+Bundle 'pafcu/Vimsplain'
+"Bundle 'WhereFrom'
+"Bundle 'WinWalker'
+Bundle 'ZoomWin'
+"Bundle 'accelerated-smooth-scroll'
+Bundle 'ack.vim'
+Bundle 'MarcWeber/vim-addon-other'
+Bundle 'bling/vim-airline'
+Bundle 'kana/vim-arpeggio'
+call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'calendar.vim'
+Bundle 'camelcasemotion'
+Bundle 'cecutil'
+Bundle 'Clam'
+Bundle 'rhysd/clever-f.vim'
+"Bundle 'code_upstairs'
+Bundle 'Conque-Shell'
+Bundle 'csv.vim'
+Bundle 'ctrlp.vim'
+Bundle 'dbext.vim'
+Bundle 'junegunn/vim-easy-align'
+Bundle 'supasorn/vim-easymotion'
+"Bundle 'editorconfig-vim'
+Bundle 'mattn/emmet-vim'
+Bundle 'terryma/vim-expand-region'
+"Bundle 'explainpat'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-speeddating'
+Bundle 'genutils'
+"Bundle 'gf-ext'
+Bundle 'kana/gf-user'
+"Bundle 'gist-vim'
+Bundle 'Gundo'
+Bundle 'Headlights'
+Bundle 'Indent-Guides'
+Bundle 'AndrewRadev/inline_edit.vim'
+Bundle 'javacomplete'
+Bundle 'L9'
+"Bundle 'lh-vim-lib-read-only'
+"Bundle 'libview'
+Bundle 'linediff.vim'
+"Bundle 'locator'
+Bundle 'Mark'
+Bundle 'matchit.zip'
+Bundle 'metarw-git'
+"Bundle 'misc'
+Bundle 'multiselect'
+Bundle 'Shougo/neocomplete.vim'
+Bundle 'Shougo/neosnippet.vim'
+Bundle 'netrw.vim'
+Bundle 'Notes'
+Bundle 'OmniCppComplete'
+Bundle 'sickill/vim-pasta'
+Bundle 'ProtoDef'
+"Bundle 'pyclewn'
+Bundle 'quickfixsigns'
+"Bundle 'quilt'
+"Bundle 'quit_another_window'
+"Bundle 'relops'
+"Bundle 'replay'
+"Bundle 'resizewin'
+Bundle 'session.vim'
+Bundle 'kshenoy/vim-signature'
+Bundle 'mhinz/vim-signify'
+"Bundle 'slimux'
+Bundle 'Smartput'
+Bundle 'tpope/vim-speeddating'
+Bundle 'AndrewRadev/splitjoin.vim'
+Bundle 'SQLUtilities'
+Bundle 'mhinz/vim-startify'
+Bundle 'SuperTab'
+Bundle 'tpope/vim-surround'
+Bundle 'mjbrownie/swapit'
+Bundle 'AndrewRadev/switch.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'godlygeek/tabular'
+Bundle 'majutsushi/tagbar'
+Bundle 'git@bitbucket.org:abudden/taghighlight.git'
+Bundle 'davidoc/taskpaper.vim'
+Bundle 'tomtom/tcomment_vim'
+"Bundle 'tdd-dubgeiser-vim'
+Bundle 'kana/vim-textobj-user'
+Bundle 'kana/vim-textobj-datetime'
+Bundle 'kana/vim-textobj-entire'
+Bundle 'kana/vim-textobj-function'
+Bundle 'kana/vim-textobj-fold'
+Bundle 'kana/vim-textobj-indent'
+"Bundle 'textobj-line-vim-scripts'
+Bundle 'vim-textobj-quoted'
+"Bundle 'textobj-word-column.vim-master'
+Bundle 'killphi/vim-textobj-signify-hunk'
+Bundle 'tomtom/tinykeymap'
+call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
+call tinykeymap#Map('changelocs', ',', 'norm! g,')
+call tinykeymap#Map('changelocs', ';', 'norm! g;')
+let g:tinykeymap#map#windows#map = "gw"
+Bundle 'tomtom/tlib'
+"Bundle 'toggle_unit_tests'
+Bundle 'unicode.vim'
+Bundle 'tpope/vim-unimpaired'
+"Bundle 'unite-colorscheme-1.3'
+"Bundle 'unite-grep-Sixeight'
+"Bundle 'tsukkee/unite-help'
+"Bundle 'thinca/vim-unite-history'
+"Bundle 'h1mesuke/unite-outline'
+Bundle 'unite-locate'
+"Bundle 'hakobe/unite-script'
+"Bundle 'unite-tag'
+Bundle 'Shougo/unite.vim'
+"Bundle 'utl'
+Bundle 'vcscommand.vim'
+Bundle 'viewdoc'
+Bundle 'ManPageView'
+"Bundle 'viki'
+"Bundle 'vim-lint'
+Bundle 'Vimball'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/vimshell'
+"Bundle 'vimux-master'
+Bundle 'VisIncr'
+Bundle 'visualrepeat'
+Bundle 'WebAPI.vim'
+"Bundle 'filesearch'
+"Bundle 'filtering2'
+"Bundle 'fortune-vimtips'
+"Bundle 'FSwitch'
+"Bundle 'changesPlugin'
+"Bundle 'diffchanges.vim-jmcantrell'
+"Bundle 'golden-ratio'
+" ******************* }}}
+
 " FUNCTIONS / COMMANDS
-"********* {{{
+" ******************************************** {{{
 function s:SetSearch(sstr)
      let @/=@/
      return a:sstr
@@ -1317,7 +1475,7 @@ function! FixTerminalKeys()
     call Allmap(' £         #')
   endif
 endfunction
-"******************************************** }}}
+" ******************************************** }}}
 
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
