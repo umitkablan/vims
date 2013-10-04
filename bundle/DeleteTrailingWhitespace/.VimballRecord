@@ -1,1 +1,0 @@
-DeleteTrailingWhitespace.vba: call delete('/home/arch/.vim/bundle/DeleteTrailingWhitespace/autoload/DeleteTrailingWhitespace.vim')|call delete('/home/arch/.vim/bundle/DeleteTrailingWhitespace/plugin/DeleteTrailingWhitespace.vim')|call delete('/home/arch/.vim/bundle/DeleteTrailingWhitespace/doc/DeleteTrailingWhitespace.txt')
