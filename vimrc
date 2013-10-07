@@ -26,7 +26,7 @@ Bundle 'cecutil'
 Bundle 'tomtom/tlib_vim'
 Bundle 'L9'
 Bundle 'genutils'
-Bundle 'frawor'
+"Bundle 'frawor'
 "Bundle 'lh-vim-lib-read-only'
 Bundle 'AnsiEsc.vim'
 Bundle 'pydave/AsyncCommand'
@@ -89,6 +89,79 @@ Bundle 'Mark'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
 Bundle 'multiselect'
+" neocomplete & neosnippet ---------------
+let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_ignore_case = 0
+let g:neocomplete#enable_smart_case = 0
+let g:neocomplete#enable_camel_case_completion = 1
+let g:neocomplete#enable_underbar_completion = 1
+let g:neocomplete#min_syntax_length = 3
+let g:neocomplete#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#max_list = 25
+let g:neocomplete#enable_cursor_hold_i = 1
+let g:neocomplete#enable_auto_delimiter = 0
+let g:neocomplete#temporary_dir = $HOME . '/.vim/var/neocomplete_tmp'
+" NeoComplete
+" inoremap <expr> <C-y> neocomplete#close_popup()
+" inoremap <expr> <C-e> neocomplete#cancel_popup()
+inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
+" inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
+imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
+smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+let g:neocomplete#source_completion_length = {
+  \ 'buffer_complete'    : 1,
+  \ 'eclim_complete'     : 1,
+  \ 'snippets_complete'  : 2,
+  \ 'keyword_complete'   : 2,
+  \ 'include_complete'   : 3,
+  \ 'dictionary_complete': 3,
+  \ 'syntax_complete'    : 3
+  \ }
+let g:neocomplete#dictionary_filetype_lists = {
+  \ 'default'      : '',
+  \ 'javascript'   : $HOME . '/.vimrc/dict/javascript.dict',
+  \ 'actionscript' : $HOME . '/.vimrc/dict/actionscript.dict',
+  \ 'python'       : $HOME . '/.vimrc/dict/python.dict',
+  \ 'ruby'         : $HOME . '/.vimrc/dict/ruby.dict',
+  \ 'java'         : $HOME . '/.vimrc/dict/java.dict',
+  \ 'php'          : $HOME . '/.vimrc/dict/php.dict',
+  \ }
+"autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
+autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
+" Enable heavy omni completion.
+if !exists('g:neocomplete#omni_patterns')
+        let g:neocomplete#omni_patterns = {}
+endif
+"let g:neocomplete#omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"let g:neocomplete#omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#omni_patterns.c    = '\h\w*\%(\.\|->\)'
+let g:neocomplete#omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+let g:neocomplete#omni_patterns.java = '\h\w*\%(\.\)'
+" if !exists('g:neocomplete#force_omni_patterns')
+"   let g:neocomplete#force_omni_patterns = {}
+" endif
+" let g:neocomplete#force_overwrite_completefunc = 1
+" if !exists('g:neocomplete#omni_functions')
+"   let g:neocomplete#omni_functions = {}
+" endif
+" let g:neocomplete#force_omni_patterns.python = '[^. \t]\.\w*'
+" let g:neocomplete#omni_functions.python = 'jedi#complete'
+" let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
 Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'netrw.vim'
@@ -114,7 +187,13 @@ Bundle 'sickill/vim-pasta'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'SQLUtilities'
 Bundle 'mhinz/vim-startify'
-Bundle 'SuperTab'
+" SuperTab ------------------------------------------
+let g:SuperTabMappingForward = '<C-Space>'
+let g:SuperTabMappingBackward = '<S-C-Space>'
+let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
+let g:SuperTabLongestEnhanced = 0
+let g:SuperTabCrMapping = 0
+"Bundle 'SuperTab'
 Bundle 'tpope/vim-surround'
 Bundle 'mjbrownie/swapit'
 Bundle 'AndrewRadev/switch.vim'
@@ -339,6 +418,7 @@ nmap <Tab>l <C-W>l
 nmap <Tab>o <C-W>o
 nmap <Tab>x <C-W>x
 nmap <Tab>_ <C-W>_
+nmap <Tab><Bar> <C-W><Bar>
 nmap <Tab>- <C-W>-
 nmap <Tab>+ <C-W>+
 nmap <Tab><Tab> <C-W><C-W>
@@ -524,15 +604,6 @@ nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 " fallback to speeddating when SwapIt cannot success
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
-" NeoComplete
-" inoremap <expr> <C-y> neocomplete#close_popup()
-" inoremap <expr> <C-e> neocomplete#cancel_popup()
-inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
-" inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
-imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
-smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 " NOTUSED mappings in order to prevent the default maps load.
 nmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
 xmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
@@ -747,70 +818,6 @@ let g:netrw_home = $HOME . '/.vim/var'
 let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
-"neocomplete & neosnippet ---------------
-let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_ignore_case = 0
-let g:neocomplete#enable_smart_case = 0
-let g:neocomplete#enable_camel_case_completion = 1
-let g:neocomplete#enable_underbar_completion = 1
-let g:neocomplete#min_syntax_length = 3
-let g:neocomplete#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplete#enable_auto_select = 0
-let g:neocomplete#max_list = 25
-let g:neocomplete#enable_cursor_hold_i = 1
-let g:neocomplete#enable_auto_delimiter = 0
-let g:neocomplete#temporary_dir = $HOME . '/.vim/var/neocomplete_tmp'
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-let g:neocomplete#source_completion_length = {
-  \ 'buffer_complete'    : 1,
-  \ 'eclim_complete'     : 1,
-  \ 'snippets_complete'  : 2,
-  \ 'keyword_complete'   : 2,
-  \ 'include_complete'   : 3,
-  \ 'dictionary_complete': 3,
-  \ 'syntax_complete'    : 3
-  \ }
-let g:neocomplete#dictionary_filetype_lists = {
-  \ 'default'      : '',
-  \ 'javascript'   : $HOME . '/.vimrc/dict/javascript.dict',
-  \ 'actionscript' : $HOME . '/.vimrc/dict/actionscript.dict',
-  \ 'python'       : $HOME . '/.vimrc/dict/python.dict',
-  \ 'ruby'         : $HOME . '/.vimrc/dict/ruby.dict',
-  \ 'java'         : $HOME . '/.vimrc/dict/java.dict',
-  \ 'php'          : $HOME . '/.vimrc/dict/php.dict',
-  \ }
-"autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
-autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
-" Enable heavy omni completion.
-if !exists('g:neocomplete#omni_patterns')
-        let g:neocomplete#omni_patterns = {}
-endif
-"let g:neocomplete#omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"let g:neocomplete#omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#omni_patterns.c    = '\h\w*\%(\.\|->\)'
-let g:neocomplete#omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-let g:neocomplete#omni_patterns.java = '\h\w*\%(\.\)'
-" if !exists('g:neocomplete#force_omni_patterns')
-"   let g:neocomplete#force_omni_patterns = {}
-" endif
-" let g:neocomplete#force_overwrite_completefunc = 1
-" if !exists('g:neocomplete#omni_functions')
-"   let g:neocomplete#omni_functions = {}
-" endif
-" let g:neocomplete#force_omni_patterns.python = '[^. \t]\.\w*'
-" let g:neocomplete#omni_functions.python = 'jedi#complete'
-" let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
 "------------------------------------------
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 1
@@ -948,12 +955,6 @@ let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
 let g:indentconsistencycop_CheckOnLoad = 0
 let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
-" SuperTab ------------------------------------------
-let g:SuperTabMappingForward = '<C-Space>'
-let g:SuperTabMappingBackward = '<S-C-Space>'
-let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
-let g:SuperTabLongestEnhanced = 0
-let g:SuperTabCrMapping = 0
 "------------------------------------------
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 let g:inline_edit_autowrite=1
