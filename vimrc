@@ -53,9 +53,10 @@ Bundle 'VimSpy'
 Bundle 'pafcu/Vimsplain'
 "Bundle 'WhereFrom'
 "Bundle 'WinWalker'
-Bundle 'ZoomWin'
+"Bundle 'ZoomWin'
 "Bundle 'accelerated-smooth-scroll'
 Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
 Bundle 'MarcWeber/vim-addon-other'
 Bundle 'bling/vim-airline'
 Bundle 'kana/vim-arpeggio'
@@ -673,6 +674,8 @@ autocmd VimEnter * Alias do diffoff
 autocmd VimEnter * Alias did DirDiff
 autocmd VimEnter * Alias ie InlineEdit
 autocmd VimEnter * Alias E e
+autocmd VimEnter * Alias er Errors
+autocmd VimEnter * Alias Er Errors
 autocmd VimEnter * Alias un Underline
 autocmd VimEnter * Alias git  Git
 autocmd VimEnter * Alias gl   Glog
@@ -680,13 +683,12 @@ autocmd VimEnter * Alias gt   Git
 autocmd VimEnter * Alias gs   Gstatus
 autocmd VimEnter * Alias ge   Gedit
 autocmd VimEnter * Alias gvsp Gvsplit
-autocmd VimEnter * Alias er Errors
 autocmd VimEnter * Alias ag  LAck!
 autocmd VimEnter * Alias agg LAckAdd!
-autocmd VimEnter * Alias ac  Ack!
-autocmd VimEnter * Alias Ac  Ack!
-autocmd VimEnter * Alias acc AckAdd!
-autocmd VimEnter * Alias Acc AckAdd!
+autocmd VimEnter * Alias ac  Ag!
+autocmd VimEnter * Alias Ac  Ag!
+autocmd VimEnter * Alias acc AgAdd!
+autocmd VimEnter * Alias Acc AgAdd!
 autocmd VimEnter * Alias gr  Grep
 autocmd VimEnter * Alias Gr  Grep
 autocmd VimEnter * Alias rg  Rgrep
@@ -1086,6 +1088,10 @@ function! YieldSemicolonIfAppropriate()
 endfunction
 
 "------------------------------------------
+function! IsTagsActiveFileType(ft)
+  return stridx("c,cpp,java,javascript,python,actionscript,sh", a:ft) >= 0
+endfunction
+
 "wrapper on signs' update: wraps quickfixsigns and DynamicSigns
 function! UpdateSigns_()
   if exists('g:loaded_quickfixsigns') && g:loaded_quickfixsigns == 0
@@ -1127,6 +1133,10 @@ function! QFixCloseAndCheck()
     cclose
     unlet! g:qfix_win
     return 1
+  else
+    if !IsTagsActiveFileType(&ft)
+      execute "q"
+    endif
   endif
   return 0
 endfunction
