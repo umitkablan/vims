@@ -422,6 +422,9 @@ nmap <Tab>l <C-W>l
 nmap <Tab>o <C-W>o
 nmap <Tab>x <C-W>x
 nmap <Tab>_ <C-W>_
+nmap <Tab>\| <C-W>\|
+nmap <Tab>v <C-W>v
+nmap <Tab>s <C-W>s
 nmap <Tab><Bar> <C-W><Bar>
 nmap <Tab>- <C-W>-
 nmap <Tab>+ <C-W>+
