@@ -1087,6 +1087,9 @@ endfunction
 
 "------------------------------------------
 function! IsTagsActiveFileType(ft)
+  if a:ft == ""
+    return 0
+  endif
   return stridx("c,cpp,java,javascript,python,actionscript,sh", a:ft) >= 0
 endfunction
 
