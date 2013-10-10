@@ -90,7 +90,7 @@ Bundle 'Mark'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
 Bundle 'multiselect'
-" neocomplete & neosnippet ---------------
+" NeoComplete
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 0
@@ -107,7 +107,6 @@ let g:neocomplete#enable_cursor_hold_i = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
 let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
-" NeoComplete
 " inoremap <expr> <C-y> neocomplete#close_popup()
 " inoremap <expr> <C-e> neocomplete#cancel_popup()
 inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
