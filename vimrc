@@ -36,7 +36,7 @@ Bundle 'Colorizer--Brabandt'
 "Bundle 'CountJump'
 Bundle 'CursorLineCurrentWindow'
 Bundle 'DeleteTrailingWhitespace'
-"Bundle 'EasyGrep'
+Bundle 'EasyGrep'
 Bundle 'zhaocai/GoldenView.Vim'
 "Bundle 'IndGuide'
 Bundle 'IndentConsistencyCop'
@@ -95,16 +95,18 @@ let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 0
 let g:neocomplete#enable_smart_case = 0
-let g:neocomplete#enable_camel_case_completion = 1
-let g:neocomplete#enable_underbar_completion = 1
-let g:neocomplete#min_syntax_length = 3
-let g:neocomplete#min_keyword_length = 3
+let g:neocomplete#auto_completion_start_length = 2
+let g:neocomplete#enable_camel_case_completion = 0
+let g:neocomplete#enable_underbar_completion = 0
+let g:neocomplete#min_syntax_length = 2
+let g:neocomplete#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#enable_auto_select = 0
-let g:neocomplete#max_list = 25
+let g:neocomplete#max_list = 30
 let g:neocomplete#enable_cursor_hold_i = 1
 let g:neocomplete#enable_auto_delimiter = 0
-let g:neocomplete#temporary_dir = $HOME . '/.vim/var/neocomplete_tmp'
+let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
+let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 " NeoComplete
 " inoremap <expr> <C-y> neocomplete#close_popup()
 " inoremap <expr> <C-e> neocomplete#cancel_popup()
@@ -123,9 +125,9 @@ let g:neocomplete#source_completion_length = {
   \ 'eclim_complete'     : 1,
   \ 'snippets_complete'  : 2,
   \ 'keyword_complete'   : 2,
-  \ 'include_complete'   : 3,
-  \ 'dictionary_complete': 3,
-  \ 'syntax_complete'    : 3
+  \ 'include_complete'   : 2,
+  \ 'dictionary_complete': 2,
+  \ 'syntax_complete'    : 2
   \ }
 let g:neocomplete#dictionary_filetype_lists = {
   \ 'default'      : '',
@@ -145,22 +147,22 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
 autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
 " Enable heavy omni completion.
-if !exists('g:neocomplete#omni_patterns')
-        let g:neocomplete#omni_patterns = {}
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"let g:neocomplete#omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#omni_patterns.c    = '\h\w*\%(\.\|->\)'
-let g:neocomplete#omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-let g:neocomplete#omni_patterns.java = '\h\w*\%(\.\)'
+let g:neocomplete#sources#omni#input_patterns.c    = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.cpp  = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\%(\.\)'
+let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
 " if !exists('g:neocomplete#force_omni_patterns')
 "   let g:neocomplete#force_omni_patterns = {}
 " endif
+" let g:neocomplete#force_omni_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+" let g:neocomplete#force_omni_patterns.python = '[^. \t]\.\w*'
 " let g:neocomplete#force_overwrite_completefunc = 1
 " if !exists('g:neocomplete#omni_functions')
 "   let g:neocomplete#omni_functions = {}
 " endif
-" let g:neocomplete#force_omni_patterns.python = '[^. \t]\.\w*'
 " let g:neocomplete#omni_functions.python = 'jedi#complete'
 " let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
 Bundle 'Shougo/neocomplete.vim'
@@ -170,6 +172,7 @@ Bundle 'Notes'
 Bundle 'OmniCppComplete'
 Bundle 'javacomplete'
 "Bundle 'nosami/Omnisharp'
+"Bundle 'marijnh/tern_for_vim'
 Bundle 'derekwyatt/vim-protodef'
 "Bundle 'pyclewn'
 "Bundle 'quilt'
@@ -490,11 +493,6 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
-augroup END
-
-augroup hide_pum
-  au!
-  autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 augroup END
 
 augroup preprocessor_langs
