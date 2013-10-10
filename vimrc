@@ -100,11 +100,11 @@ let g:neocomplete#enable_camel_case_completion = 0
 let g:neocomplete#enable_underbar_completion = 0
 let g:neocomplete#min_syntax_length = 2
 let g:neocomplete#min_keyword_length = 2
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#enable_auto_select = 0
 let g:neocomplete#max_list = 30
 let g:neocomplete#enable_cursor_hold_i = 1
-let g:neocomplete#enable_auto_delimiter = 0
+let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
 let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 " NeoComplete
