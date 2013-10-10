@@ -114,8 +114,6 @@ inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
 " inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
-imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
-smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -166,6 +164,8 @@ let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
 " let g:neocomplete#omni_functions.python = 'jedi#complete'
 " let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
 Bundle 'Shougo/neocomplete.vim'
+imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
+smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'netrw.vim'
 Bundle 'Notes'
