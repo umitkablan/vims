@@ -190,7 +190,7 @@ Bundle 'sickill/vim-pasta'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'SQLUtilities'
 Bundle 'mhinz/vim-startify'
-" SuperTab ------------------------------------------
+" SuperTab
 let g:SuperTabMappingForward = '<C-Space>'
 let g:SuperTabMappingBackward = '<S-C-Space>'
 let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
