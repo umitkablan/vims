@@ -648,13 +648,14 @@ let g:session_directory = "~/.vim/var/session"
 let g:startify_files_number = 19
 let g:startify_change_to_dir = 0
 let g:startify_bookmarks = ['~/projects', '~/.vim']
-let g:startify_custom_header = [
-            \ '   __      ___            ______ ____   ',
-            \ '   \ \    / (_)           |____  |___ \ ',
-            \ '    \ \  / / _ _ __ ___       / /  __) |',
-            \ '     \ \/ / | | ''_ ` _ \     / /  |__ <',
-            \ '      \  /  | | | | | | |   / /   ___) |',
-            \ '       \/   |_|_| |_| |_|  /_(_) |____/ ',
+let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
+let g:startify_custom_footer = [
+            \ '   __      ___            ______ _',
+            \ '   \ \    / (_)           |____  |',
+            \ '    \ \  / / _ _ __ ___       / / ',
+            \ '     \ \/ / | | ''_ ` _ \     / / ',
+            \ '      \  /  | | | | | | |   / /   ',
+            \ '       \/   |_|_| |_| |_|  /_(_)  ',
             \ '',
             \ '',
             \ ]
@@ -746,6 +747,7 @@ let g:syntastic_c_auto_refresh_includes = 1
 let g:syntastic_c_check_header = 1
 let g:syntastic_c_checkers=['gcc'] " , 'make'
 let g:syntastic_html_checkers=['tidy']
+let g:syntastic_javascript_checkers=['jshint']
 " ------------------------------------------------------- }}
 augroup no_sticky_buffers
   au!
