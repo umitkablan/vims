@@ -154,7 +154,7 @@ let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
 " if !exists('g:neocomplete#force_omni_patterns')
 "   let g:neocomplete#force_omni_patterns = {}
 " endif
-" let g:neocomplete#force_omni_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+" let g:neocomplete#force_omni_patterns.javascript = '[^. \t]\.\w*'
 " let g:neocomplete#force_omni_patterns.python = '[^. \t]\.\w*'
 " let g:neocomplete#force_overwrite_completefunc = 1
 " if !exists('g:neocomplete#omni_functions')
