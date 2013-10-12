@@ -1368,11 +1368,11 @@ xnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 let s:indentation_guides_enabled = 0
 function! ToggleIndGuides_RC()
   if s:indentation_guides_enabled == 1
-    IndGuide!
+    " IndGuide!
     IndentGuidesDisable
     let s:indentation_guides_enabled = 0
   else
-    IndGuide
+    " IndGuide
     IndentGuidesEnable
     let s:indentation_guides_enabled = 1
   endif
