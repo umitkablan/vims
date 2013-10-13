@@ -16,7 +16,7 @@ setlocal suffixesadd=.py
 setlocal comments-=:%
 setlocal commentstring=#%s
 
-setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
+" setlocal omnifunc=pythoncomplete#Complete
 
 set wildignore+=*.pyc
 
