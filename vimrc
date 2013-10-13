@@ -60,7 +60,6 @@ Bundle 'rking/ag.vim'
 Bundle 'MarcWeber/vim-addon-other'
 Bundle 'bling/vim-airline'
 Bundle 'kana/vim-arpeggio'
-Bundle 'jiangmiao/auto-pairs'
 Bundle 'calendar.vim'
 Bundle 'camelcasemotion'
 Bundle 'rhysd/clever-f.vim'
@@ -68,12 +67,10 @@ Bundle 'rhysd/clever-f.vim'
 Bundle 'Conque-Shell'
 Bundle 'sjl/clam.vim'
 Bundle 'chrisbra/csv.vim'
-Bundle 'kien/ctrlp.vim'
 Bundle 'dbext.vim'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'supasorn/vim-easymotion'
 "Bundle 'editorconfig-vim'
-Bundle 'mattn/emmet-vim'
 Bundle 'terryma/vim-expand-region'
 "Bundle 'explainpat'
 "Bundle 'gf-ext'
@@ -90,6 +87,15 @@ Bundle 'Mark'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
 Bundle 'multiselect'
+Bundle 'OmniCppComplete'
+Bundle 'javacomplete'
+"Bundle 'nosami/Omnisharp'
+"Bundle 'marijnh/tern_for_vim'
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#completions_enabled = 1
+let g:jedi#popup_on_dot = 0
+Bundle 'davidhalter/jedi-vim'
+Bundle 'mattn/emmet-vim'
 " NeoComplete
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 let g:neocomplete#enable_at_startup = 1
@@ -139,7 +145,7 @@ let g:neocomplete#dictionary_filetype_lists = {
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
 autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
@@ -151,11 +157,11 @@ let g:neocomplete#sources#omni#input_patterns.c    = '[^.[:digit:] *\t]\%(\.\|->
 let g:neocomplete#sources#omni#input_patterns.cpp  = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\%(\.\)'
 let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
-" if !exists('g:neocomplete#force_omni_patterns')
-"   let g:neocomplete#force_omni_patterns = {}
-" endif
-" let g:neocomplete#force_omni_patterns.javascript = '[^. \t]\.\w*'
-" let g:neocomplete#force_omni_patterns.python = '[^. \t]\.\w*'
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+" let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 " let g:neocomplete#force_overwrite_completefunc = 1
 " if !exists('g:neocomplete#omni_functions')
 "   let g:neocomplete#omni_functions = {}
@@ -168,10 +174,6 @@ smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expa
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'netrw.vim'
 Bundle 'Notes'
-Bundle 'OmniCppComplete'
-Bundle 'javacomplete'
-"Bundle 'nosami/Omnisharp'
-"Bundle 'marijnh/tern_for_vim'
 Bundle 'derekwyatt/vim-protodef'
 "Bundle 'pyclewn'
 "Bundle 'quilt'
@@ -199,6 +201,7 @@ let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
 "Bundle 'SuperTab'
+Bundle 'jiangmiao/auto-pairs'
 Bundle 'tpope/vim-surround'
 Bundle 'mjbrownie/swapit'
 Bundle 'AndrewRadev/switch.vim'
@@ -226,6 +229,7 @@ Bundle 'tomtom/tinykeymap_vim'
 Bundle 'tpope/vim-unimpaired'
 "Bundle 'chrisbra/unicode.vim'
 "Bundle 'toggle_unit_tests'
+Bundle 'kien/ctrlp.vim'
 Bundle 'Shougo/unite.vim'
 "Bundle 'unite-colorscheme-1.3'
 "Bundle 'unite-grep-Sixeight'
