@@ -90,7 +90,7 @@ Bundle 'multiselect'
 Bundle 'OmniCppComplete'
 Bundle 'javacomplete'
 "Bundle 'nosami/Omnisharp'
-"Bundle 'marijnh/tern_for_vim'
+Bundle 'marijnh/tern_for_vim'
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
@@ -144,7 +144,7 @@ let g:neocomplete#dictionary_filetype_lists = {
 "autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript    setlocal omnifunc=tern#Complete     "javascriptcomplete#CompleteJS
 autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
@@ -160,7 +160,7 @@ let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
-" let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 " let g:neocomplete#force_overwrite_completefunc = 1
 " if !exists('g:neocomplete#omni_functions')
