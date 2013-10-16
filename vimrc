@@ -352,6 +352,7 @@ au VimLeave    * if v:dying | wall | endif
 "************* {{{
 nnoremap <silent> ZZ  :hide<CR>
 nnoremap <silent> ZZA :qa<CR>
+nnoremap <silent> ZZE :sp .<CR>:wincmd p<CR>:bd<CR>
 nnoremap <silent> ZA  :bd<CR>
 " disable all _accidental touches_
 nnoremap QQ <Nop>
