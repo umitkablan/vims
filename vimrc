@@ -254,6 +254,7 @@ Bundle 'Vimball'
 Bundle 'VisIncr'
 "Bundle 'visualrepeat'
 Bundle 'WebAPI.vim'
+"Bundle 'jlanzarotta/bufexplorer'
 "Bundle 'filesearch'
 "Bundle 'filtering2'
 "Bundle 'fortune-vimtips'
@@ -1514,11 +1515,11 @@ endfunction
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
-" Tomorrow-Night-Eighties moria
+" Tomorrow-Night-Eighties moria felipec
 set background=dark
 let g:moria_style="black"
 let g:sienna_style="dark"
-colorscheme sienna
+colorscheme felipec
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
