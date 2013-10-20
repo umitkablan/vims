@@ -222,7 +222,7 @@ Bundle 'kana/vim-textobj-fold'
 "Bundle 'kana/vim-textobj-indent'
 "Bundle 'textobj-line-vim-scripts'
 Bundle 'vim-textobj-quoted'
-"Bundle 'textobj-word-column.vim-master'
+Bundle 'coderifous/textobj-word-column.vim'
 Bundle 'killphi/vim-textobj-signify-hunk'
 Bundle 'mattn/vim-textobj-url'
 Bundle 'bps/vim-textobj-python'
@@ -541,6 +541,12 @@ nmap + <Plug>(expand_region_expand)
 xmap + <Plug>(expand_region_expand)
 xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
+inoremap <expr> <C-K> BDG_GetDigraph()
+xmap <expr> <Left>  DVB_Drag('left')
+xmap <expr> <Right> DVB_Drag('right')
+xmap <expr> <Down>  DVB_Drag('down')
+xmap <expr> <Up>    DVB_Drag('up')
+xmap <expr> D       DVB_Duplicate()
 xnoremap <silent> <Enter> :EasyAlign<CR>
 nnoremap <silent> - :Switch<CR>
 nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
