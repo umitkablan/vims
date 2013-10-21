@@ -19,6 +19,8 @@ alias pwroff="sudo poweroff"
 alias mm="make menuconfig"
 alias m="make"
 alias ps="ps -ef"
+alias bvim="vim -u NONE -U NONE -N"
+alias bgvim="vim -u NONE -U NONE -N"
 
 export PATH=$PATH:/sbin
 export PATH=$PATH:~/.gem/ruby/1.9.1/bin
