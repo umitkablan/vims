@@ -163,10 +163,10 @@ func! s:ShowCurrentSearchIndex(force, cmd)
 
     call s:CountCurrentSearchIndex(a:force, a:cmd) " -> s:Msg, s:Highlight
 
+    call s:HLNext(0.26)
     if s:Msg != ""
         call s:ScheduleEcho(s:Msg, s:Highlight )
     endif
-    call s:HLNext(0.35)
 endfun
 
 
