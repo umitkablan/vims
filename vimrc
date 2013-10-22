@@ -95,6 +95,8 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
 Bundle 'davidhalter/jedi-vim'
+let g:user_emmet_install_global = 0
+au FileType html,css EmmetInstall
 Bundle 'mattn/emmet-vim'
 " NeoComplete
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
@@ -535,6 +537,7 @@ augroup VCSCommand
   au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
 augroup END
 
+noremap <expr> _ clever_f#reset()
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 nmap + <Plug>(expand_region_expand)
