@@ -664,14 +664,20 @@ let g:session_directory = "~/.vim/var/session"
 let g:startify_files_number = 19
 let g:startify_change_to_dir = 0
 let g:startify_bookmarks = ['~/projects', '~/.vim']
+let g:startify_list_order = [
+  \ [' Recently opened files:'], 'files',
+  \ [' Sessions:'], 'sessions',
+  \ [' Bookmarks:'], 'bookmarks',
+  \ ]
+  " \ [' Recently modified files in the current directory:'], 'dir',
 let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
 let g:startify_custom_footer = [
             \ '   __      ___            ______ _',
             \ '   \ \    / (_)           |____  |',
-            \ '    \ \  / / _ _ __ ___       / / ',
-            \ '     \ \/ / | | ''_ ` _ \     / / ',
-            \ '      \  /  | | | | | | |   / /   ',
-            \ '       \/   |_|_| |_| |_|  /_(_)  ',
+            \ '    \ \  / / _ _ __ ___       / /',
+            \ '     \ \/ / | | ''_ ` _ \     / /',
+            \ '      \  /  | | | | | | |   / /',
+            \ '       \/   |_|_| |_| |_|  /_/',
             \ '',
             \ '',
             \ ]
