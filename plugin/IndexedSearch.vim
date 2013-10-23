@@ -161,6 +161,7 @@ func! s:ShowCurrentSearchIndex(force, cmd)
     " NB: function saves and restores @/ and direction
     " this used to cause me many troubles
 
+    let @/=@/
     call s:CountCurrentSearchIndex(a:force, a:cmd) " -> s:Msg, s:Highlight
 
     call s:HLNext(0.26)
