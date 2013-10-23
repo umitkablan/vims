@@ -256,6 +256,7 @@ Bundle 'Vimball'
 Bundle 'VisIncr'
 "Bundle 'visualrepeat'
 Bundle 'WebAPI.vim'
+Bundle 'octol/vim-cpp-enhanced-highlight'
 "Bundle 'jlanzarotta/bufexplorer'
 "Bundle 'filesearch'
 "Bundle 'filtering2'
@@ -1029,6 +1030,22 @@ let g:goldenview__enable_default_mapping = 0
 
 " FUNCTIONS / COMMANDS
 " ******************************************** {{{
+function! RebuildAllDependentCTags()
+  let l:tags = &tags
+  for t in split(l:tags, ",")
+    let l:d = shellescape(fnamemodify(t, ':p:h'))
+    echom l:d
+    if isdirectory(fnamemodify(t, ':p:h')) != 0
+      call system("cd " . l:d . "; ctags -R .")
+    else
+      echohl ErrorMsg
+      echom "Directory " . l:d . " is non existent!"
+      echohl None
+    endif
+  endfor
+endfunction
+command! -nargs=0 RebuildAllCTags call RebuildAllDependentCTags()
+
 function s:SetSearch(sstr)
      let @/=@/
      return a:sstr
