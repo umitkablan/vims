@@ -1034,8 +1034,8 @@ function! RebuildAllDependentCTags()
   let l:tags = &tags
   for t in split(l:tags, ",")
     let l:d = shellescape(fnamemodify(t, ':p:h'))
-    echom l:d
     if isdirectory(fnamemodify(t, ':p:h')) != 0
+      echom l:d
       call system("cd " . l:d . "; ctags -R .")
     else
       echohl ErrorMsg
@@ -1043,6 +1043,7 @@ function! RebuildAllDependentCTags()
       echohl None
     endif
   endfor
+  echom "DONE"
 endfunction
 command! -nargs=0 RebuildAllCTags call RebuildAllDependentCTags()
 
