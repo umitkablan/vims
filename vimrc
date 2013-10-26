@@ -351,8 +351,8 @@ au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p
 au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
 au VimLeave    * if v:dying | wall | endif
 
+" Colorscheme Selection
 "*************** {{{
-" Colorschemes
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
@@ -375,7 +375,6 @@ endif
 if has("gui_running")
   winsize 170 46
 endif
-
 "*************** }}}
 
 " personal maps: maps that do not need plugins
