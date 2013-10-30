@@ -479,8 +479,8 @@ nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
-nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
-nnoremap <silent> ĞT :tab sp<CR>
+nnoremap <silent> ĞRC :tab e ~/.vim/<CR>
+nnoremap <silent> ĞT  :tab sp\|tabprev\|q\|tabnext<CR>
 " de facto visual block indent mappings
 vnoremap < <gv
 xnoremap > >gv
