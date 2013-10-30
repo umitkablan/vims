@@ -84,6 +84,7 @@ Bundle 'AndrewRadev/inline_edit.vim'
 Bundle 'linediff.vim'
 "Bundle 'locator'
 Bundle 'Mark'
+"Bundle 't9md/vim-quickhl'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
 Bundle 'multiselect'
@@ -350,6 +351,31 @@ au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p
 " delete swap file if the swapped file is 'nomodified'
 au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
 au VimLeave    * if v:dying | wall | endif
+
+" Colorscheme Selection
+"*************** {{{
+" hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
+" oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
+" candycode southernlight lucid kolor kingtop getafe phonzia blackboard
+" last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
+" Tomorrow-Night-Eighties moria felipec
+set background=dark
+let g:moria_style="black"
+let g:sienna_style="dark"
+colorscheme felipec
+" if !has("gui_running")
+"   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
+" endif
+"*************** }}}
+if has("gui")
+  set guioptions-=T
+  set guioptions-=r
+  set guioptions+=c " Use console dialogs where possible"
+  "set guioptions-=m
+endif
+if has("gui_running")
+  winsize 170 46
+endif
 "*************** }}}
 
 " personal maps: maps that do not need plugins
@@ -1543,30 +1569,6 @@ function! FixTerminalKeys()
   endif
 endfunction
 " ******************************************** }}}
-
-" hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
-" oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
-" candycode southernlight lucid kolor kingtop getafe phonzia blackboard
-" last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
-" Tomorrow-Night-Eighties moria felipec
-set background=dark
-let g:moria_style="black"
-let g:sienna_style="dark"
-colorscheme felipec
-" if !has("gui_running")
-"   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
-" endif
-
-if has("gui")
-  set guioptions-=T
-  set guioptions-=r
-  set guioptions+=c " Use console dialogs where possible"
-  "set guioptions-=m
-endif
-
-if has("gui_running")
-  winsize 170 46
-endif
 
 try
   source ~/.vimrc.local
