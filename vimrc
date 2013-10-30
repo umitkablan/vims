@@ -266,6 +266,8 @@ Bundle 'octol/vim-cpp-enhanced-highlight'
 "Bundle 'chrisbra/changesPlugin'
 "Bundle 'jmcantrell/diffchanges.vim'
 "Bundle 'golden-ratio'
+"Bundle 'christoomey/vim-tmux-navigator'
+"Bundle 'nelstrom/vim-qargs'
 " }}}
 
 filetype plugin indent on " Required for Vundle!
