@@ -118,9 +118,13 @@ let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
 let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 " inoremap <expr> <C-y> neocomplete#close_popup()
 " inoremap <expr> <C-e> neocomplete#cancel_popup()
-inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
+inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <Backspace> neocomplete#smart_close_popup()."\<Backspace>"
+inoremap <expr> <Left>   neocomplete#smart_close_popup()."\<Left>"
+inoremap <expr> <Right>  neocomplete#smart_close_popup()."\<Right>"
+inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : neocomplete#smart_close_popup()."\<Up>"
+inoremap <expr> <Down> pumvisible() ? "\<C-n>" : neocomplete#smart_close_popup()."\<Down>"
 " inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
 " For snippet_complete marker.
 if has('conceal')
@@ -268,6 +272,8 @@ Bundle 'octol/vim-cpp-enhanced-highlight'
 "Bundle 'chrisbra/changesPlugin'
 "Bundle 'jmcantrell/diffchanges.vim'
 "Bundle 'golden-ratio'
+"Bundle 'christoomey/vim-tmux-navigator'
+"Bundle 'nelstrom/vim-qargs'
 " }}}
 
 filetype plugin indent on " Required for Vundle!
@@ -475,8 +481,8 @@ nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
-nnoremap <silent> ĞRC :tabnew ~/.vim/<CR>
-nnoremap <silent> ĞT :tab sp<CR>
+nnoremap <silent> ĞRC :tab e ~/.vim/<CR>
+nnoremap <silent> ĞT  :tab sp\|tabprev\|q\|tabnext<CR>
 " de facto visual block indent mappings
 vnoremap < <gv
 xnoremap > >gv
@@ -512,8 +518,6 @@ xnoremap <Leader>c "+y
 inoremap <F12> <C-O>:set invpaste paste?<CR>
 nnoremap <F12>      :set invpaste paste?<CR>
 " behaviour on pumvisible()?
-imap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-imap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 imap <expr> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
 imap <expr> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " easy completion
@@ -1062,8 +1066,8 @@ function! RebuildAllDependentCTags()
   let l:tags = &tags
   for t in split(l:tags, ",")
     let l:d = shellescape(fnamemodify(t, ':p:h'))
-    echom l:d
     if isdirectory(fnamemodify(t, ':p:h')) != 0
+      echom l:d
       call system("cd " . l:d . "; ctags -R .")
     else
       echohl ErrorMsg
@@ -1071,6 +1075,7 @@ function! RebuildAllDependentCTags()
       echohl None
     endif
   endfor
+  echom "DONE"
 endfunction
 command! -nargs=0 RebuildAllCTags call RebuildAllDependentCTags()
 
