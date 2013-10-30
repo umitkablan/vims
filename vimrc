@@ -258,6 +258,8 @@ Bundle 'VisIncr'
 "Bundle 'visualrepeat'
 Bundle 'WebAPI.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
+"Bundle 'bigfish/vim-js-context-coloring'
+"Bundle 'klen/python-mode'
 "Bundle 'jlanzarotta/bufexplorer'
 "Bundle 'filesearch'
 "Bundle 'filtering2'
@@ -329,7 +331,7 @@ set backupdir=~/.vim/var/backup
 set directory=~/.vim/var/tmp
 set updatetime=5000
 "make a little max-delay between keypad *touches*
-set timeout timeoutlen=540 ttimeout ttimeoutlen=100
+set timeout timeoutlen=440 ttimeout ttimeoutlen=50
 " keep cursor always at the middle
 " set scrolloff=9999
 " show tabline every now and then
