@@ -96,6 +96,7 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
 Bundle 'davidhalter/jedi-vim'
+"Bundle 'klen/python-mode'
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
 Bundle 'mattn/emmet-vim'
@@ -263,7 +264,6 @@ Bundle 'VisIncr'
 Bundle 'WebAPI.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 "Bundle 'bigfish/vim-js-context-coloring'
-"Bundle 'klen/python-mode'
 "Bundle 'jlanzarotta/bufexplorer'
 "Bundle 'filesearch'
 "Bundle 'filtering2'
@@ -567,7 +567,8 @@ au FileType tagbar,qf,help      nnoremap <silent> <buffer> <Backspace> :q<CR>
 au FileType netrw               nmap     <silent> <buffer> <Backspace> -
 au FileType vundle,gitcommit    nmap     <silent> <buffer> <Backspace> q
 augroup VCSCommand
-  au VCSCommand User VCSBufferCreated silent! nnoremap <buffer> <Backspace> :bwipeout!<cr>
+  au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
+  au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
 
 noremap <expr> _ clever_f#reset()
