@@ -408,12 +408,7 @@ nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
 " swap comma (,) and semicolon (;) because my keyboard is comma-privileged
-noremap , ;
-noremap ; ,
-onoremap , ;
-onoremap ; ,
-xnoremap , ;
-xnoremap ; ,
+" call s:SwapKeys(",", ";")
 noremap g; g,
 noremap g, g;
 " Handy, go to last edit. It is frequently done twice.
@@ -1343,6 +1338,15 @@ function! s:Underline(chars)
   put =strpart(uline, 0, nr_columns)
 endfunction
 command! -nargs=? Underline call s:Underline(<q-args>)
+
+function! s:SwapKeys(a, b)
+  normal! "exec noremap  " . a:a . " " . a:b
+  normal! "exec noremap  " . a:b . " " . a:a
+  normal! "exec onoremap " . a:a . " " . a:b
+  normal! "exec onoremap " . a:b . " " . a:a
+  normal! "exec xnoremap " . a:a . " " . a:b
+  normal! "exec xnoremap " . a:b . " " . a:a
+endfunction
 
 " Execute 'cmd' while redirecting output.
 " Delete all lines that do not match regex 'filter' (if not empty).
