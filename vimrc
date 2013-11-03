@@ -264,6 +264,7 @@ Bundle 'VisIncr'
 Bundle 'WebAPI.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 "Bundle 'bigfish/vim-js-context-coloring'
+Bundle 't9md/vim-textmanip'
 "Bundle 'jlanzarotta/bufexplorer'
 "Bundle 'filesearch'
 "Bundle 'filtering2'
@@ -579,11 +580,12 @@ xmap + <Plug>(expand_region_expand)
 xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
 inoremap <expr> <C-K> BDG_GetDigraph()
-xmap <expr> <Left>  DVB_Drag('left')
-xmap <expr> <Right> DVB_Drag('right')
-xmap <expr> <Down>  DVB_Drag('down')
-xmap <expr> <Up>    DVB_Drag('up')
-xmap <expr> D       DVB_Duplicate()
+xmap <Up>    <Plug>(textmanip-move-up)
+xmap <Down>  <Plug>(textmanip-move-down)
+xmap <Left>  <Plug>(textmanip-move-left)
+xmap <Right> <Plug>(textmanip-move-right)
+xmap D       <Plug>(textmanip-duplicate-down)
+xmap DD      <Plug>(textmanip-duplicate-up)
 xnoremap <silent> <Enter> :EasyAlign<CR>
 nnoremap <silent> - :Switch<CR>
 nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
