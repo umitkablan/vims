@@ -421,6 +421,7 @@ noremap Y y$
 " Needed the 'dot' at reverse side of comma/n, which is mainly used for
 " search-replace (<comma_or_n><dot>)
 nnoremap <silent> <Bar> :norm! .<CR>
+" do not use shift-* for colon, make it one shot
 nnoremap ç :
 xnoremap ç :
 nmap . ç
