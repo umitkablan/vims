@@ -758,6 +758,7 @@ autocmd VimEnter * Alias vl VCSLog
 autocmd VimEnter * Alias vs VCSStatus
 autocmd VimEnter * Alias vi VCSInfo
 autocmd VimEnter * Alias va VCSAdd
+autocmd VimEnter * Alias vrm VCSRemove
 autocmd VimEnter * Alias vcn call<Space>Svndiff("next")
 autocmd VimEnter * Alias vcp call<Space>Svndiff("prev")
 autocmd VimEnter * Alias vcc call<Space>Svndiff("clear")
