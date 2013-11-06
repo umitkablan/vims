@@ -504,8 +504,8 @@ cnoremap <C-e> <End>
 inoremap <silent> <C-E> <C-O>:normal! "g$"<CR>
 inoremap <silent> <C-A> <C-O>:exe "normal! \<C-O>g^"<CR>
 " unnamed register to/from system clipboard
-nnoremap <silent> <Leader>,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
-nnoremap <silent> Ğ;; :set paste\|exe 'norm "*p'\|set nopaste<CR>
+nmap <silent> <Leader>,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
+nmap <silent>        Ğ;; :set paste\|exe 'norm "+p'\|set nopaste<CR>GV=
 nnoremap <Leader>c "+yiw
 nnoremap ĞC        gv"+y
 xnoremap <Leader>c "+y
