@@ -371,7 +371,7 @@ au VimLeave    * if v:dying | wall | endif
 set background=dark
 let g:moria_style="black"
 let g:sienna_style="dark"
-colorscheme felipec
+colorscheme inkpot
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
@@ -597,12 +597,11 @@ nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
-nnoremap <silent> ĞSH :VimShellPop<CR>
-nnoremap <silent> <Leader>sh  :ConqueTermSplit bash<CR>
-nnoremap <silent> <Leader>p2  :ConqueTermSplit ipython2<CR>
-nnoremap <silent> <Leader>p3  :ConqueTermSplit python3<CR>
-nnoremap <silent> <Leader>p12 :ConqueTermSplit python2<CR>
-nnoremap <silent> <Leader><Leader>sh :ConqueTerm bash<CR>
+nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
+nnoremap <silent> <Leader>sh  :VimShellPop<CR>
+nnoremap <silent> <Leader>p2  :VimShellInteractive ipython2<CR>
+nnoremap <silent> <Leader>p3  :VimShellInteractive python3<CR>
+nnoremap <silent> <Leader>p12 :VimShellInteractive python2<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 xnoremap <silent> <Leader><Leader>u :Utl<CR>
 nnoremap <silent> ĞUU :Underline<CR>
