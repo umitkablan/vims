@@ -156,7 +156,7 @@ function! s:TagSelectMain(cmd, ...) " {{{
   endif
   " This means, there was only one hit, and Vim must have already jumped to
   " the jump. Don't do anything else.
-  if a:cmd =~ 'jump' && results =~ '^\_s*$'
+  if a:cmd =~ 'jump' && results =~ '^\_s*$\|^\_s*"'
     return 0
   endif
 
