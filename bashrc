@@ -19,6 +19,7 @@ alias pwroff="sudo poweroff"
 alias mm="make menuconfig"
 alias m="make"
 alias ps="ps -ef"
+alias vim="vim --servername VIM"
 alias bvim="vim -u NONE -U NONE -N"
 alias bgvim="vim -u NONE -U NONE -N"
 
