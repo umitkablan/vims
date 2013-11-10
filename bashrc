@@ -21,7 +21,7 @@ alias m="make"
 alias ps="ps -ef"
 alias vim="vim --servername VIM"
 alias bvim="vim -u NONE -U NONE -N"
-alias bgvim="vim -u NONE -U NONE -N"
+alias bgvim="gvim -u NONE -U NONE -N"
 
 export PATH=$PATH:/sbin
 export PATH=$PATH:~/.gem/ruby/1.9.1/bin
