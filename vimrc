@@ -113,7 +113,11 @@ if has('multi_byte')
   let g:airline_symbols.whitespace = 'Ξ'
 endif
 Bundle 'bling/vim-airline'
+" Arpeggio
 Bundle 'kana/vim-arpeggio'
+call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
+Arpeggio inoremap jk <Esc>
+Arpeggio inoremap jk<Space> <Esc>:w<CR>
 Bundle 'calendar.vim'
 Bundle 'camelcasemotion'
 " Clever-f
@@ -291,6 +295,9 @@ let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
 Bundle 'netrw.vim'
+" Notes
+let g:notesRoot = expand('$HOME/.vim/var/notes')
+let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 Bundle 'Notes'
 Bundle 'derekwyatt/vim-protodef'
 "Bundle 'pyclewn'
@@ -415,7 +422,12 @@ Bundle 'coderifous/textobj-word-column.vim'
 Bundle 'killphi/vim-textobj-signify-hunk'
 Bundle 'mattn/vim-textobj-url'
 Bundle 'bps/vim-textobj-python'
+" TinyKeyMap
 Bundle 'tomtom/tinykeymap_vim'
+call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
+call tinykeymap#Map('changelocs', ',', 'norm! g,')
+call tinykeymap#Map('changelocs', ';', 'norm! g;')
+let g:tinykeymap#map#windows#map = "gw"
 Bundle 'tpope/vim-unimpaired'
 " TextManip
 xmap <Up>    <Plug>(textmanip-move-up)
@@ -922,13 +934,6 @@ nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
 
 " plugin configuration
 " ******************** {{{
-call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
-Arpeggio inoremap jk <Esc>
-Arpeggio inoremap jk<Space> <Esc>:w<CR>
-call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
-call tinykeymap#Map('changelocs', ',', 'norm! g,')
-call tinykeymap#Map('changelocs', ';', 'norm! g;')
-let g:tinykeymap#map#windows#map = "gw"
 let g:rainbow_active = 1
 let g:rainbow_operators = 1
 let g:tmuxmake_targets = ""
@@ -1039,8 +1044,6 @@ let g:rainbow_activate=1
 let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
-let g:notesRoot = expand('$HOME/.vim/var/notes')
-let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 let g:local_vimrc=".lvimrc"
 let g:Tdd_makeprg='make'
 let g:exTS_backto_editbuf = 0
