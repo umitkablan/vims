@@ -264,6 +264,9 @@ Bundle 'VisIncr'
 "Bundle 'visualrepeat'
 Bundle 'WebAPI.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
+Bundle 'sk1418/Join'
+"Bundle 'junkblocker/patchreview-vim'
+"Bundle 'lfilho/cosco.vim'
 "Bundle 'bigfish/vim-js-context-coloring'
 "Bundle 'jlanzarotta/bufexplorer'
 "Bundle 'filesearch'
@@ -676,7 +679,8 @@ nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
 
 " plugin configuration
 " ******************** {{{
-call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
+Arpeggio inoremap jk <Esc>
 call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
