@@ -35,8 +35,13 @@ Bundle 'godlygeek/csapprox'
 Bundle 'Colorizer--Brabandt'
 "Bundle 'CountJump'
 Bundle 'CursorLineCurrentWindow'
+" DeleteTrailingWhitespace
+let g:DeleteTrailingWhitespace = 1
+let g:DeleteTrailingWhitespace_Action = 'ask'
 Bundle 'DeleteTrailingWhitespace'
 Bundle 'EasyGrep'
+" GoldenView
+let g:goldenview__enable_default_mapping = 0
 Bundle 'zhaocai/GoldenView.Vim'
 "Bundle 'IndGuide'
 Bundle 'IndentConsistencyCop'
@@ -45,7 +50,15 @@ Bundle 'chrisbra/NrrwRgn'
 Bundle 'ReplaceWithRegister'
 "Bundle 'Replay'
 Bundle 'ShowTrailingWhitespace'
+" SingleCompile
+let g:SingleCompile_asyncrunmode = 'python'
+let g:SingleCompile_usequickfix = 1
+let g:SingleCompile_showquickfixiferror = 1
+let g:SingleCompile_showresultafterrun = 0
 Bundle 'xuhdev/SingleCompile'
+" SrcExpl
+let g:SrcExpl_refreshTime = 400
+let g:SrcExpl_isUpdateTags = 0
 Bundle 'wesleyche/SrcExpl'
 Bundle 'chrisbra/SudoEdit.vim'
 Bundle 'VimSpy'
@@ -58,43 +71,130 @@ Bundle 'pafcu/Vimsplain'
 Bundle 'mileszs/ack.vim'
 Bundle 'rking/ag.vim'
 Bundle 'MarcWeber/vim-addon-other'
+" Airline
+if !exists("g:airline_statusline_funcrefs")
+  let g:airline_statusline_funcrefs = []
+endif
+let g:airline_enable_branch = 0
+let g:airline#extensions#branch#enabled = 0
+let g:airline_detect_whitespace=2 "icon only
+let g:airline_section_b = '%<%1.24{getcwd()}'
+" let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
+" let g:airline_section_x = ""
+let g:airline_mode_map = {
+      \ '__' : '------',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'v'  : 'v',
+      \ 'V'  : 'V',
+      \ 'c'  : 'C',
+      \ '' : '^v',
+      \ 's'  : 's',
+      \ 'S'  : 'S',
+      \ '' : '^s',
+      \ }
+
+if !exists("g:airline_symbols")
+  let g:airline_symbols = {}
+endif
+if has('multi_byte')
+  let g:airline_left_sep  = '»'
+  let g:airline_left_sep  = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.whitespace = 'Ξ'
+endif
 Bundle 'bling/vim-airline'
 Bundle 'kana/vim-arpeggio'
 Bundle 'calendar.vim'
 Bundle 'camelcasemotion'
+" Clever-f
+noremap <expr> _ clever_f#reset()
+let g:clever_f_across_no_line = 1
 Bundle 'rhysd/clever-f.vim'
 "Bundle 'code_upstairs'
+" Conque-Shell
+let g:ConqueTerm_ReadUnfocused = 0
+let g:ConqueTerm_CloseOnEnd = 1
+let g:ConqueTerm_CWInsert = 0
+let g:ConqueTerm_ToggleKey   = '<C-F8>'
+let g:ConqueTerm_SendVisKey  = '<C-F9>'
+let g:ConqueTerm_SendFileKey = '<C-F10>'
+let g:ConqueTerm_ExecFileKey = '<C-F11>'
 Bundle 'Conque-Shell'
 Bundle 'sjl/clam.vim'
 Bundle 'chrisbra/csv.vim'
+" DBExt
+let g:dbext_default_SQLITE_bin = 'sqlite3'
 Bundle 'dbext.vim'
+" EasyAlign
+xnoremap <silent> <Enter> :EasyAlign<CR>
 Bundle 'junegunn/vim-easy-align'
+" EasyMotion
+let g:EasyMotion_leader_key = '<Tab><Tab>'
 Bundle 'supasorn/vim-easymotion'
 "Bundle 'editorconfig-vim'
+" Expand-Region
+nmap + <Plug>(expand_region_expand)
+xmap + <Plug>(expand_region_expand)
+xmap - <Plug>(expand_region_shrink)
+nmap - <Plug>(expand_region_shrink)
 Bundle 'terryma/vim-expand-region'
 "Bundle 'explainpat'
-"Bundle 'gf-ext'
+" GF-Ext
+Bundle 'gf-ext'
+call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
+call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
+call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
 "Bundle 'kana/vim-gf-user'
 "Bundle 'gist-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'Headlights'
 Bundle 'Indent-Guides'
+" Inline_Edit
+let g:inline_edit_autowrite=1
 Bundle 'AndrewRadev/inline_edit.vim'
 "Bundle 'libview'
 Bundle 'linediff.vim'
 "Bundle 'locator'
+" Mark
+let g:mwDefaultHighlightingPalette = 'maximum'
+let g:mwHistAdd = '' "'/@'
+let g:mwAutoSaveMarks = 0
+let g:mwIgnoreCase = 0
 Bundle 'Mark'
 "Bundle 't9md/vim-quickhl'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
 Bundle 'multiselect'
+" OmniCpp
+let OmniCpp_MayCompleteDot = 0
+let OmniCpp_MayCompleteArrow = 0
+let OmniCpp_MayCompleteScope = 0
+let OmniCpp_SelectFirstItem = 0
 Bundle 'OmniCppComplete'
 Bundle 'javacomplete'
 "Bundle 'nosami/Omnisharp'
 Bundle 'marijnh/tern_for_vim'
+" Jedi
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
+let g:jedi#auto_initialization = 1
+let g:jedi#show_function_definition = 0
+let g:jedi#autocompletion_command = "<M-_>"
 Bundle 'davidhalter/jedi-vim'
 "Bundle 'klen/python-mode'
 let g:user_emmet_install_global = 0
@@ -180,6 +280,16 @@ Bundle 'Shougo/neocomplete.vim'
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 Bundle 'Shougo/neosnippet.vim'
+" NetRW
+let g:tar_nomax = 1
+let g:zip_nomax = 1
+let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
+let g:netrw_use_noswf = 0
+let g:netrw_keepdir = 0
+let g:netrw_home = $HOME . '/.vim/var'
+let g:netrw_liststyle = 0
+let g:netrw_banner = 0
+"let g:netrw_browsex_viewer = 'gnome-open'
 Bundle 'netrw.vim'
 Bundle 'Notes'
 Bundle 'derekwyatt/vim-protodef'
@@ -192,15 +302,58 @@ Bundle 'derekwyatt/vim-protodef'
 "Bundle 'xolox/vim-session'
 Bundle 'tomtom/quickfixsigns_vim'
 Bundle 'kshenoy/vim-signature'
+" Signify
+let g:signify_sign_overwrite = 0
+let g:signify_line_highlight = 0
+let g:signify_vcs_list = [ 'git', 'svn' ]
 Bundle 'mhinz/vim-signify'
 "Bundle 'slimux'
 "Bundle 'vimux'
 Bundle 'sjl/vitality.vim'
 Bundle 'UnconditionalPaste'
+" Smartput & Pasta
+" smartput's mappings about p/P are deleted in favour of vim-pasta.
+" vim-pasta handles p/P while smartput handles gp/gP. Fair share.
+" Also have non-smart mundane paste's just in case
+let g:pasta_disabled_filetypes = ["coffee", "markdown"]
+let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
+let g:smartput = 1
+nnoremap ğp p
+nnoremap ĞP P
+" SwapIt & speeddating --------------------
+" use SwapIt to interface C-X/A rather than speeddating. speeddating is
+" called from SwapIt as a fallback method.
+let g:speeddating_no_mappings = 1
 Bundle 'Smartput'
 Bundle 'sickill/vim-pasta'
+Bundle 'mjbrownie/swapit'
+Bundle 'AndrewRadev/switch.vim'
+Bundle 'tpope/vim-speeddating'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'SQLUtilities'
+" Startify
+let g:startify_session_dir = '~/.vim/var/session'
+let g:session_directory = "~/.vim/var/session"
+let g:startify_files_number = 19
+let g:startify_change_to_dir = 0
+let g:startify_bookmarks = ['~/projects', '~/.vim']
+let g:startify_list_order = [
+  \ [' Recently opened files:'], 'files',
+  \ [' Sessions:'], 'sessions',
+  \ [' Bookmarks:'], 'bookmarks',
+  \ ]
+  " \ [' Recently modified files in the current directory:'], 'dir',
+let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
+let g:startify_custom_footer = [
+            \ '   __      ___            ______ _',
+            \ '   \ \    / (_)           |____  |',
+            \ '    \ \  / / _ _ __ ___       / /',
+            \ '     \ \/ / | | ''_ ` _ \     / /',
+            \ '      \  /  | | | | | | |   / /',
+            \ '       \/   |_|_| |_| |_|  /_/',
+            \ '',
+            \ '',
+            \ ]
 Bundle 'mhinz/vim-startify'
 " SuperTab
 let g:SuperTabMappingForward = '<C-Space>'
@@ -209,17 +362,45 @@ let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
 "Bundle 'SuperTab'
+" Auto-Pairs
+let g:AutoPairsMapSpace = 0
+let g:AutoPairsMapCR = 0
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'tpope/vim-surround'
-Bundle 'mjbrownie/swapit'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'tpope/vim-speeddating'
+" Syntastic
+let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
+let g:syntastic_c_compiler_options = "-std=gnu99
+                                  \  -Wall -Wextra -Wshadow -Wpointer-arith
+                                  \  -Wcast-align -Wwrite-strings -Wmissing-prototypes
+                                  \  -Wmissing-declarations -Wredundant-decls -Wnested-externs
+                                  \  -Winline -Wno-long-long -Wuninitialized -Wconversion
+                                  \  -Wstrict-prototypes"
+"-pedantic
+let g:syntastic_stl_format = '[=> ln:%F (%t)]'
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_auto_loc_list=2
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_c_no_include_search = 1
+let g:syntastic_c_auto_refresh_includes = 1
+let g:syntastic_c_check_header = 1
+let g:syntastic_c_checkers=['gcc'] " , 'make'
+let g:syntastic_html_checkers=['tidy']
+let g:syntastic_javascript_checkers=['jshint']
 Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
 Bundle 'majutsushi/tagbar'
 Bundle 'git@bitbucket.org:abudden/taghighlight.git'
 Bundle 'TagHighlight'
 "Bundle 'davidoc/taskpaper.vim'
+" TComment
+let g:tcommentMapLeader1=""
+let g:tcommentMapLeader2=""
+nnoremap <silent> __ :TComment<CR>
+xnoremap <silent> __ :TCommentMaybeInline<CR>
 Bundle 'tomtom/tcomment_vim'
 "Bundle 'tdd-dubgeiser-vim'
 Bundle 'kana/vim-textobj-user'
@@ -236,10 +417,79 @@ Bundle 'mattn/vim-textobj-url'
 Bundle 'bps/vim-textobj-python'
 Bundle 'tomtom/tinykeymap_vim'
 Bundle 'tpope/vim-unimpaired'
+" TextManip
+xmap <Up>    <Plug>(textmanip-move-up)
+xmap <Down>  <Plug>(textmanip-move-down)
+xmap <Left>  <Plug>(textmanip-move-left)
+xmap <Right> <Plug>(textmanip-move-right)
+xmap D       <Plug>(textmanip-duplicate-down)
+xmap DD      <Plug>(textmanip-duplicate-up)
 Bundle 't9md/vim-textmanip'
 "Bundle 'chrisbra/unicode.vim'
 "Bundle 'toggle_unit_tests'
+" CtrlP
+let g:ctrlp_map = '-<c-p>'
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_match_window_bottom = 0
 Bundle 'kien/ctrlp.vim'
+" Unite
+if has('multi_byte')
+  let g:unite_prompt = '» '
+endif
+let g:unite_source_history_yank_enable=1
+let g:unite_source_file_mru_limit=300
+let g:unite_source_history_yank_limit=600
+let g:unite_data_directory = $HOME . '/.vim/var/unite'
+if !exists("g:unite_source_menu_menus")
+  let g:unite_source_menu_menus = {}
+endif
+let g:unite_source_menu_menus.fenc = {
+      \     'description' : 'Change file fenc option.',
+      \ }
+let g:unite_source_menu_menus.fenc.command_candidates = [
+      \       ['utf8',      'set fenc=utf8'],
+      \       ['iso2022jp', 'set fenc=Iso2022jp'],
+      \       ['cp932',     'set fenc=Cp932'],
+      \       ['euc',       'set fenc=Euc'],
+      \       ['utf16',     'set fenc=Utf16'],
+      \       ['utf16-be',  'set fenc=Utf16be'],
+      \       ['jis',       'set fenc=Jis'],
+      \       ['sjis',      'set fenc=Sjis'],
+      \       ['unicode',   'set fenc=Unicode'],
+      \     ]
+let g:unite_source_menu_menus.vimshell = {
+      \     'description' : 'Vim Shell Interactive',
+      \ }
+let g:unite_source_menu_menus.vimshell.candidates = {
+      \       'ghci'      : 'VimShellInteractive ghci',
+      \       'python'    : 'VimShellInteractive python',
+      \}
+function g:unite_source_menu_menus.vimshell.map(key, value)
+  return {
+        \       'word' : a:key, 'kind' : 'command',
+        \       'action__command' : a:value,
+        \}
+endfunction
+autocmd BufLeave \[unite\]* if "nofile" ==# &buftype | bwipeout | endif
+" autocmd BufLeave \[unite\]* set bufhidden=wipe
+function! s:clearUniteBuffers()
+  "find [unite] or *unite* buffers to be wiped-out
+  let unitebuffs = filter(range(1, bufnr('$')),
+        \ '"nofile" ==# getbufvar(v:val, "&buftype")
+        \  && -1 == index(displayedbufs, v:val)
+        \  && bufname(v:val) =~# ''*unite*\|\[unite\]''')
+  " obliterate the buffers and their related state (marks especially).
+  if !empty(unitebuffs)
+    exe 'bwipeout! '.join(unitebuffs, ' ')
+  endif
+endfunction
+" autocmd BufEnter * silent call <SID>clearUniteBuffers()
+" IndentConsistencyCop ------------------------------------------
+let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
+let g:indentconsistencycop_CheckAfterWrite = 1
+let g:indentconsistencycop_CheckOnLoad = 0
+let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 Bundle 'Shougo/unite.vim'
 "Bundle 'unite-colorscheme-1.3'
 "Bundle 'unite-grep-Sixeight'
@@ -254,6 +504,10 @@ Bundle 'Shougo/vimshell'
 "Bundle 'utl'
 Bundle 'tpope/vim-fugitive'
 Bundle 'aurum'
+" VCSCommand
+let VCSCommandMapPrefix = "<LocalLeader>c"
+let VCSCommandVCSTypePreference = 'git'
+"let VCSCommandSVNDiffOpt = "-ignore-all-space"
 Bundle 'vcscommand.vim'
 Bundle 'viewdoc'
 "Bundle 'ManPageView'
@@ -488,7 +742,7 @@ xnoremap > >gv
 nnoremap <Leader>> >i}
 nnoremap <Leader>< <i}
 nnoremap ĞD di}
-" easier colon access
+" easier %s/%g
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap <Leader>g :%g/<C-r><C-w>/
 " vnoremap <c-j> @='jojo'<cr>
@@ -524,7 +778,7 @@ inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " ************* }}}
 
-autocmd FileType qf   nnoremap <silent> <buffer> o <CR><C-W>p
+"autocmd FileType qf nnoremap <silent> <buffer> o <CR><C-W>p
 autocmd FileType help setlocal nonumber
 
 nnoremap <silent> <F9> :QFix<CR>
@@ -570,21 +824,10 @@ augroup VCSCommand
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
 
-noremap <expr> _ clever_f#reset()
+let g:ac_smooth_scroll_no_default_key_mappings = 1
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
-nmap + <Plug>(expand_region_expand)
-xmap + <Plug>(expand_region_expand)
-xmap - <Plug>(expand_region_shrink)
-nmap - <Plug>(expand_region_shrink)
 inoremap <expr> <C-K> BDG_GetDigraph()
-xmap <Up>    <Plug>(textmanip-move-up)
-xmap <Down>  <Plug>(textmanip-move-down)
-xmap <Left>  <Plug>(textmanip-move-left)
-xmap <Right> <Plug>(textmanip-move-right)
-xmap D       <Plug>(textmanip-duplicate-down)
-xmap DD      <Plug>(textmanip-duplicate-up)
-xnoremap <silent> <Enter> :EasyAlign<CR>
 nnoremap <silent> - :Switch<CR>
 nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
@@ -681,42 +924,16 @@ nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
 " ******************** {{{
 call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
 Arpeggio inoremap jk <Esc>
+Arpeggio inoremap jk<Space> <Esc>:w<CR>
 call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 let g:tinykeymap#map#windows#map = "gw"
-let g:signify_sign_overwrite = 0
-let g:signify_line_highlight = 0
-let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:rainbow_active = 1
-let g:clever_f_across_no_line = 1
 let g:rainbow_operators = 1
-let g:ac_smooth_scroll_no_default_key_mappings = 1
 let g:tmuxmake_targets = ""
-let g:startify_session_dir = '~/.vim/var/session'
-let g:session_directory = "~/.vim/var/session"
-let g:startify_files_number = 19
-let g:startify_change_to_dir = 0
-let g:startify_bookmarks = ['~/projects', '~/.vim']
-let g:startify_list_order = [
-  \ [' Recently opened files:'], 'files',
-  \ [' Sessions:'], 'sessions',
-  \ [' Bookmarks:'], 'bookmarks',
-  \ ]
-  " \ [' Recently modified files in the current directory:'], 'dir',
-let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
-let g:startify_custom_footer = [
-            \ '   __      ___            ______ _',
-            \ '   \ \    / (_)           |____  |',
-            \ '    \ \  / / _ _ __ ___       / /',
-            \ '     \ \/ / | | ''_ ` _ \     / /',
-            \ '      \  /  | | | | | | |   / /',
-            \ '       \/   |_|_| |_| |_|  /_/',
-            \ '',
-            \ '',
-            \ ]
-let g:textobj_comment_no_default_key_mappings = 1
 let g:buffergator_suppress_keymaps = 1
+let g:textobj_comment_no_default_key_mappings = 1
 xmap ax <Plug>(textobj-comment-a)
 omap ax <Plug>(textobj-comment-a)
 xmap ix <Plug>(textobj-comment-i)
@@ -776,75 +993,14 @@ if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is f
 else
   let g:ackprg = 'ack -H --nocolor --nogroup --column'
 endif
-" gf_ext ---------------------------------
-call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
-call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
-call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
-" syntastic --------------------------------------------- {{
-let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
-let g:syntastic_c_compiler_options = "-std=gnu99
-                                  \  -Wall -Wextra -Wshadow -Wpointer-arith
-                                  \  -Wcast-align -Wwrite-strings -Wmissing-prototypes
-                                  \  -Wmissing-declarations -Wredundant-decls -Wnested-externs
-                                  \  -Winline -Wno-long-long -Wuninitialized -Wconversion
-                                  \  -Wstrict-prototypes"
-"-pedantic
-let g:syntastic_stl_format = '[=> ln:%F (%t)]'
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_auto_loc_list=2
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_c_no_include_search = 1
-let g:syntastic_c_auto_refresh_includes = 1
-let g:syntastic_c_check_header = 1
-let g:syntastic_c_checkers=['gcc'] " , 'make'
-let g:syntastic_html_checkers=['tidy']
-let g:syntastic_javascript_checkers=['jshint']
-" ------------------------------------------------------- }}
 augroup no_sticky_buffers
   au!
   au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
-" smartput & pasta ------------------------
-" smartput's mappings about p/P are deleted in favour of vim-pasta.
-" vim-pasta handles p/P while smartput handles gp/gP. Fair share.
-" Also have non-smart mundane paste's just in case
-let g:pasta_disabled_filetypes = ["coffee", "markdown"]
-let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
-let g:smartput = 1
-nnoremap ğp p
-nnoremap ĞP P
-" SwapIt & speeddating --------------------
-" use SwapIt to interface C-X/A rather than speeddating. speeddating is
-" called from SwapIt as a fallback method.
-let g:speeddating_no_mappings = 1
-" DeleteTrailingWhitespace ----------------
-let g:DeleteTrailingWhitespace = 1
-let g:DeleteTrailingWhitespace_Action = 'ask'
-" TComment --------------------------------
-let g:tcommentMapLeader1=""
-let g:tcommentMapLeader2=""
-nnoremap <silent> __ :TComment<CR>
-vnoremap <silent> __ :TCommentMaybeInline<CR>
-" AutoPairs -------------------------------
-let g:AutoPairsMapSpace = 0
-let g:AutoPairsMapCR = 0
-let g:AutoPairsFlyMode = 0
-let g:AutoPairsShortcutBackInsert = '_-<M-b>'
-" IndentGuides ----------------------------
+" IndentGuides
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
 autocmd VimEnter * IndentGuidesDisable
-" mark.vim --------------------------------
-let g:mwDefaultHighlightingPalette = 'maximum'
-let g:mwHistAdd = '' "'/@'
-let g:mwAutoSaveMarks = 0
-let g:mwIgnoreCase = 0
 " signs bar: DynamicSigns, quickfixsigns, signature
 let g:loaded_Signs = 1
 let g:SignsMixedIndentation = 1
@@ -857,7 +1013,7 @@ let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints',
 au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
 " let g:loaded_Signature = "disable"
 let g:SignaturePeriodicRefresh = 0
-" EasyTags --------------------------------
+" EasyTags
 let g:loaded_easytags = "disable_"
 let g:easytags_file = "~/.vim/easytags_TAGS"
 let g:easytags_always_enabled = 1
@@ -866,165 +1022,17 @@ autocmd FileType conque_term let b:easytags_auto_highlight = 0
 autocmd FileType conque_term let b:easytags_on_cursorhold = 0
 autocmd FileType conque_term let b:easytags_auto_update = 0
 let g:easytags_updatetime_autodisable = 1
-"VCSCommand ------------------------------
-let VCSCommandMapPrefix = "<LocalLeader>c"
-let VCSCommandVCSTypePreference = 'git'
-" let VCSCommandSVNDiffOpt = "-ignore-all-space"
-" netrw ----------------------------------
-let g:tar_nomax = 1
-let g:zip_nomax = 1
-let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
-let g:netrw_use_noswf = 0
-let g:netrw_keepdir = 0
-let g:netrw_home = $HOME . '/.vim/var'
-let g:netrw_liststyle = 0
-let g:netrw_banner = 0
-"let g:netrw_browsex_viewer = 'gnome-open'
-"------------------------------------------
-let g:jedi#popup_on_dot = 0
-let g:jedi#auto_initialization = 1
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#show_function_definition = "0"
-let g:jedi#autocompletion_command = "<M-_>"
-" OmniCpp ------------------------------------------
-let OmniCpp_MayCompleteDot = 0
-let OmniCpp_MayCompleteArrow = 0
-let OmniCpp_MayCompleteScope = 0
-let OmniCpp_SelectFirstItem = 0
-" TxtBrowser ------------------------------
+" TxtBrowser
 let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
 let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
 let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
-" SingleCompile ---------------------------
-let g:SingleCompile_asyncrunmode = 'python'
-let g:SingleCompile_usequickfix = 1
-let g:SingleCompile_showquickfixiferror = 1
-let g:SingleCompile_showresultafterrun = 0
-" ConqueTerm ------------------------------ {{
-let g:ConqueTerm_ReadUnfocused = 0
-let g:ConqueTerm_CloseOnEnd = 1
-let g:ConqueTerm_CWInsert = 0
-let g:ConqueTerm_ToggleKey   = '<C-F8>'
-let g:ConqueTerm_SendVisKey  = '<C-F9>'
-let g:ConqueTerm_SendFileKey = '<C-F10>'
-let g:ConqueTerm_ExecFileKey = '<C-F11>'
 "------------------------------------------
 let g:ctags_path = '/usr/bin/ctags'
 let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
 let g:ctags_statusline = 1
 let generate_tags = 1
-" statline-umt ----------------------------
-let g:statline_filename_relative = 0
-let g:statline_mixed_indent = 0
-let g:statline_show_charcode = 0
-let g:statline_show_tagname = 1
-let g:statline_syntastic = 1
-let g:statline_show_encoding = 0
-" airline-vim -----------------------------
-if !exists("g:airline_statusline_funcrefs")
-  let g:airline_statusline_funcrefs = []
-endif
-let g:airline_enable_branch = 0
-let g:airline#extensions#branch#enabled = 0
-let g:airline_detect_whitespace=2 "icon only
-let g:airline_section_b = '%<%1.24{getcwd()}'
-" let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
-" let g:airline_section_x = ""
-let g:airline_mode_map = {
-      \ '__' : '------',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'v'  : 'v',
-      \ 'V'  : 'V',
-      \ 'c'  : 'C',
-      \ '' : '^v',
-      \ 's'  : 's',
-      \ 'S'  : 'S',
-      \ '' : '^s',
-      \ }
-
-if !exists("g:airline_symbols")
-  let g:airline_symbols = {}
-endif
-if has('multi_byte')
-  let g:airline_left_sep  = '»'
-  let g:airline_left_sep  = '▶'
-  let g:airline_right_sep = '«'
-  let g:airline_right_sep = '◀'
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.linenr = '␊'
-  let g:airline_symbols.linenr = '␤'
-  let g:airline_symbols.branch = '⎇'
-  let g:airline_symbols.paste = 'Þ'
-  let g:airline_symbols.paste = '∥'
-  let g:airline_symbols.paste = 'ρ'
-  let g:airline_symbols.whitespace = 'Ξ'
-endif
-" Unite.vim --------------------------------
-let g:unite_prompt = '» '
-let g:unite_source_history_yank_enable=1
-let g:unite_source_file_mru_limit=300
-let g:unite_source_history_yank_limit=600
-let g:unite_data_directory = $HOME . '/.vim/var/unite'
-if !exists("g:unite_source_menu_menus")
-  let g:unite_source_menu_menus = {}
-endif
-let g:unite_source_menu_menus.fenc = {
-      \     'description' : 'Change file fenc option.',
-      \ }
-let g:unite_source_menu_menus.fenc.command_candidates = [
-      \       ['utf8',      'set fenc=utf8'],
-      \       ['iso2022jp', 'set fenc=Iso2022jp'],
-      \       ['cp932',     'set fenc=Cp932'],
-      \       ['euc',       'set fenc=Euc'],
-      \       ['utf16',     'set fenc=Utf16'],
-      \       ['utf16-be',  'set fenc=Utf16be'],
-      \       ['jis',       'set fenc=Jis'],
-      \       ['sjis',      'set fenc=Sjis'],
-      \       ['unicode',   'set fenc=Unicode'],
-      \     ]
-let g:unite_source_menu_menus.vimshell = {
-      \     'description' : 'Vim Shell Interactive',
-      \ }
-let g:unite_source_menu_menus.vimshell.candidates = {
-      \       'ghci'      : 'VimShellInteractive ghci',
-      \       'python'    : 'VimShellInteractive python',
-      \}
-function g:unite_source_menu_menus.vimshell.map(key, value)
-  return {
-        \       'word' : a:key, 'kind' : 'command',
-        \       'action__command' : a:value,
-        \}
-endfunction
-autocmd BufLeave \[unite\]* if "nofile" ==# &buftype | bwipeout | endif
-" autocmd BufLeave \[unite\]* set bufhidden=wipe
-function! s:clearUniteBuffers()
-  "find [unite] or *unite* buffers to be wiped-out
-  let unitebuffs = filter(range(1, bufnr('$')),
-        \ '"nofile" ==# getbufvar(v:val, "&buftype")
-        \  && -1 == index(displayedbufs, v:val)
-        \  && bufname(v:val) =~# ''*unite*\|\[unite\]''')
-  " obliterate the buffers and their related state (marks especially).
-  if !empty(unitebuffs)
-    exe 'bwipeout! '.join(unitebuffs, ' ')
-  endif
-endfunction
-" autocmd BufEnter * silent call <SID>clearUniteBuffers()
-" IndentConsistencyCop ------------------------------------------
-let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
-let g:indentconsistencycop_CheckAfterWrite = 1
-let g:indentconsistencycop_CheckOnLoad = 0
-let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 "------------------------------------------
-let g:EasyMotion_leader_key = '<Tab><Tab>'
-let g:inline_edit_autowrite=1
-let g:dbext_default_SQLITE_bin = 'sqlite3'
-let g:ctrlp_map = '-<c-p>'
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-let g:ctrlp_match_window_bottom = 0
 let g:loaded_fortune_vimtips = 1
 let g:fortune_vimtips_file = "wisdom"
 let g:rainbow_activate=1
@@ -1042,8 +1050,6 @@ let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:enableUnicodeCompletion = 0
 let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
-let g:SrcExpl_refreshTime = 400
-let g:SrcExpl_isUpdateTags = 0
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 let g:no_tagselect_maps = 1
 let utl_opt_verbose=0
@@ -1059,7 +1065,6 @@ let g:loaded_headlights = 1
 let g:loaded_colorsupport = "disable_"
 let g:loaded_StatusLineHighlight = "disable_"
 let no_multiselect_maps = 1
-let g:goldenview__enable_default_mapping = 0
 "************************ }}}
 
 " FUNCTIONS / COMMANDS
