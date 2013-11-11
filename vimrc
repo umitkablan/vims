@@ -183,7 +183,8 @@ let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
-Bundle 'Mark' "}}}
+Bundle 'Mark'
+"}}}
 "Bundle 't9md/vim-quickhl'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
@@ -193,7 +194,8 @@ let OmniCpp_MayCompleteDot   = 0
 let OmniCpp_MayCompleteArrow = 0
 let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem  = 0
-Bundle 'OmniCppComplete' "}}}
+Bundle 'OmniCppComplete'
+"}}}
 Bundle 'javacomplete'
 "Bundle 'nosami/Omnisharp'
 Bundle 'marijnh/tern_for_vim'
@@ -204,7 +206,8 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 1
 let g:jedi#show_function_definition = 0
 let g:jedi#autocompletion_command = "<M-_>"
-Bundle 'davidhalter/jedi-vim' "}}}
+Bundle 'davidhalter/jedi-vim'
+"}}}
 "Bundle 'klen/python-mode'
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
@@ -285,13 +288,15 @@ let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 " endif
 " let g:neocomplete#omni_functions.python = 'jedi#complete'
 " let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
-Bundle 'Shougo/neocomplete.vim' "}}}
+Bundle 'Shougo/neocomplete.vim'
+"}}}
 " Shougo/NeoSnippet {{{
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
-Bundle 'Shougo/neosnippet.vim' "}}}
+Bundle 'Shougo/neosnippet.vim'
+"}}}
 " NetRW {{{
 let g:tar_nomax = 1
 let g:zip_nomax = 1
@@ -302,7 +307,8 @@ let g:netrw_home = $HOME . '/.vim/var'
 let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
-Bundle 'netrw.vim' "}}}
+Bundle 'netrw.vim'
+"}}}
 " Notes
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
@@ -369,7 +375,8 @@ let g:startify_custom_footer = [
             \ '',
             \ '',
             \ ]
-Bundle 'mhinz/vim-startify' "}}}
+Bundle 'mhinz/vim-startify'
+"}}}
 " SuperTab {{{
 let g:SuperTabMappingForward = '<C-Space>'
 let g:SuperTabMappingBackward = '<S-C-Space>'
@@ -377,13 +384,15 @@ let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
 " Use old version
-"Bundle 'SuperTab' "}}}
+"Bundle 'SuperTab'
+"}}}
 " Auto-Pairs {{{
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
-Bundle 'jiangmiao/auto-pairs' "}}}
+Bundle 'jiangmiao/auto-pairs'
+"}}}
 Bundle 'tpope/vim-surround'
 " scrooloose/Syntastic {{{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
@@ -405,7 +414,8 @@ let g:syntastic_c_no_include_search = 1
 let g:syntastic_c_auto_refresh_includes = 1
 let g:syntastic_c_check_header = 1
 "let g:syntastic_*_checkers=['Xxx', 'Yyy']
-Bundle 'scrooloose/syntastic' "}}}
+Bundle 'scrooloose/syntastic'
+"}}}
 Bundle 'godlygeek/tabular'
 Bundle 'majutsushi/tagbar'
 Bundle 'git@bitbucket.org:abudden/taghighlight.git'
@@ -415,7 +425,8 @@ let g:tcommentMapLeader1=""
 let g:tcommentMapLeader2=""
 nnoremap <silent> __ :TComment<CR>
 xnoremap <silent> __ :TCommentMaybeInline<CR>
-Bundle 'tomtom/tcomment_vim' "}}}
+Bundle 'tomtom/tcomment_vim'
+"}}}
 "Bundle 'tdd-dubgeiser-vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-datetime'
