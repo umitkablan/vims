@@ -35,32 +35,35 @@ Bundle 'godlygeek/csapprox'
 Bundle 'Colorizer--Brabandt'
 "Bundle 'CountJump'
 Bundle 'CursorLineCurrentWindow'
-" DeleteTrailingWhitespace
+" DeleteTrailingWhitespace {{{
 let g:DeleteTrailingWhitespace = 1
 let g:DeleteTrailingWhitespace_Action = 'ask'
 Bundle 'DeleteTrailingWhitespace'
+" }}}
 Bundle 'EasyGrep'
 " GoldenView
 let g:goldenview__enable_default_mapping = 0
 Bundle 'zhaocai/GoldenView.Vim'
 "Bundle 'IndGuide'
-" IndentConsistencyCop
+" IndentConsistencyCop {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
 let g:indentconsistencycop_CheckOnLoad = 0
 let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 Bundle 'IndentConsistencyCop'
+" }}}
 Bundle 'IndentConsistencyCopAutoCmds'
 Bundle 'chrisbra/NrrwRgn'
 Bundle 'ReplaceWithRegister'
 "Bundle 'Replay'
 Bundle 'ShowTrailingWhitespace'
-" SingleCompile
+" xuhdev/SingleCompile {{{
 let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
 let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showresultafterrun = 0
 Bundle 'xuhdev/SingleCompile'
+" }}}
 " SrcExpl
 let g:SrcExpl_refreshTime = 400
 let g:SrcExpl_isUpdateTags = 0
@@ -76,7 +79,7 @@ Bundle 'pafcu/Vimsplain'
 Bundle 'mileszs/ack.vim'
 Bundle 'rking/ag.vim'
 Bundle 'MarcWeber/vim-addon-other'
-" Airline
+" bling/Airline {{{
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
 endif
@@ -118,19 +121,22 @@ if has('multi_byte')
   let g:airline_symbols.whitespace = 'Ξ'
 endif
 Bundle 'bling/vim-airline'
-" Arpeggio
+" }}}
+" Arpeggio {{{
 Bundle 'kana/vim-arpeggio'
 call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
 Arpeggio inoremap jk <Esc>
 Arpeggio inoremap jk<Space> <Esc>:w<CR>
+" }}}
 Bundle 'calendar.vim'
 Bundle 'camelcasemotion'
-" Clever-f
+" rhysd/Clever-f {{{
 noremap <expr> _ clever_f#reset()
 let g:clever_f_across_no_line = 1
 Bundle 'rhysd/clever-f.vim'
+" }}}
 "Bundle 'code_upstairs'
-" Conque-Shell
+" Conque-Shell {{{
 let g:ConqueTerm_ReadUnfocused = 0
 let g:ConqueTerm_CloseOnEnd = 1
 let g:ConqueTerm_CWInsert = 0
@@ -139,26 +145,31 @@ let g:ConqueTerm_SendVisKey  = '<C-F9>'
 let g:ConqueTerm_SendFileKey = '<C-F10>'
 let g:ConqueTerm_ExecFileKey = '<C-F11>'
 Bundle 'Conque-Shell'
+" }}}
 Bundle 'sjl/clam.vim'
 Bundle 'chrisbra/csv.vim'
-" DBExt
+" DBExt {{{
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 Bundle 'dbext.vim'
-" EasyAlign
+" }}}
+" EasyAlign {{{
 xnoremap <silent> <Enter> :EasyAlign<CR>
 Bundle 'junegunn/vim-easy-align'
-" EasyMotion
+" }}}
+" EasyMotion {{{
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 Bundle 'supasorn/vim-easymotion'
+" }}}
 "Bundle 'editorconfig-vim'
-" Expand-Region
+" terryma/Expand-Region {{{
 nmap + <Plug>(expand_region_expand)
 xmap + <Plug>(expand_region_expand)
 xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
 Bundle 'terryma/vim-expand-region'
+" }}}
 "Bundle 'explainpat'
-" GF-Ext
+" GF-Ext {{{
 Bundle 'gf-ext'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
@@ -167,14 +178,16 @@ call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
+" }}}
 "Bundle 'kana/vim-gf-user'
 "Bundle 'gist-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'Headlights'
 Bundle 'Indent-Guides'
-" Inline_Edit
+" AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
 Bundle 'AndrewRadev/inline_edit.vim'
+" }}}
 "Bundle 'libview'
 Bundle 'linediff.vim'
 "Bundle 'locator'
@@ -184,7 +197,7 @@ let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
 Bundle 'Mark'
-"}}}
+" }}}
 "Bundle 't9md/vim-quickhl'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
