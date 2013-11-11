@@ -44,6 +44,11 @@ Bundle 'EasyGrep'
 let g:goldenview__enable_default_mapping = 0
 Bundle 'zhaocai/GoldenView.Vim'
 "Bundle 'IndGuide'
+" IndentConsistencyCop
+let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
+let g:indentconsistencycop_CheckAfterWrite = 1
+let g:indentconsistencycop_CheckOnLoad = 0
+let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 Bundle 'IndentConsistencyCop'
 Bundle 'IndentConsistencyCopAutoCmds'
 Bundle 'chrisbra/NrrwRgn'
@@ -173,38 +178,38 @@ Bundle 'AndrewRadev/inline_edit.vim'
 "Bundle 'libview'
 Bundle 'linediff.vim'
 "Bundle 'locator'
-" Mark
+" Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
-Bundle 'Mark'
+Bundle 'Mark' "}}}
 "Bundle 't9md/vim-quickhl'
 Bundle 'matchit.zip'
 Bundle 'kana/vim-metarw'
 Bundle 'multiselect'
-" OmniCpp
-let OmniCpp_MayCompleteDot = 0
+" OmniCpp {{{
+let OmniCpp_MayCompleteDot   = 0
 let OmniCpp_MayCompleteArrow = 0
 let OmniCpp_MayCompleteScope = 0
-let OmniCpp_SelectFirstItem = 0
-Bundle 'OmniCppComplete'
+let OmniCpp_SelectFirstItem  = 0
+Bundle 'OmniCppComplete' "}}}
 Bundle 'javacomplete'
 "Bundle 'nosami/Omnisharp'
 Bundle 'marijnh/tern_for_vim'
-" Jedi
+" davidhalter/Jedi {{{
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 1
 let g:jedi#show_function_definition = 0
 let g:jedi#autocompletion_command = "<M-_>"
-Bundle 'davidhalter/jedi-vim'
+Bundle 'davidhalter/jedi-vim' "}}}
 "Bundle 'klen/python-mode'
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
 Bundle 'mattn/emmet-vim'
-" NeoComplete
+" Shougo/NeoComplete {{{
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 0
@@ -280,11 +285,14 @@ let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 " endif
 " let g:neocomplete#omni_functions.python = 'jedi#complete'
 " let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
-Bundle 'Shougo/neocomplete.vim'
-imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
-smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
-Bundle 'Shougo/neosnippet.vim'
-" NetRW
+Bundle 'Shougo/neocomplete.vim' "}}}
+" Shougo/NeoSnippet {{{
+imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
+                  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
+smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
+                  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+Bundle 'Shougo/neosnippet.vim' "}}}
+" NetRW {{{
 let g:tar_nomax = 1
 let g:zip_nomax = 1
 let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
@@ -294,7 +302,7 @@ let g:netrw_home = $HOME . '/.vim/var'
 let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
-Bundle 'netrw.vim'
+Bundle 'netrw.vim' "}}}
 " Notes
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
@@ -327,18 +335,18 @@ let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'pyth
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
-" SwapIt & speeddating --------------------
-" use SwapIt to interface C-X/A rather than speeddating. speeddating is
-" called from SwapIt as a fallback method.
-let g:speeddating_no_mappings = 1
 Bundle 'Smartput'
 Bundle 'sickill/vim-pasta'
+" SwapIt & speeddating
+let g:speeddating_no_mappings = 1
+" use SwapIt to interface C-X/A rather than speeddating. speeddating is
+" called from SwapIt as a fallback method.
 Bundle 'mjbrownie/swapit'
-Bundle 'AndrewRadev/switch.vim'
 Bundle 'tpope/vim-speeddating'
+Bundle 'AndrewRadev/switch.vim'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'SQLUtilities'
-" Startify
+" mhinz/Startify {{{
 let g:startify_session_dir = '~/.vim/var/session'
 let g:session_directory = "~/.vim/var/session"
 let g:startify_files_number = 19
@@ -361,22 +369,23 @@ let g:startify_custom_footer = [
             \ '',
             \ '',
             \ ]
-Bundle 'mhinz/vim-startify'
-" SuperTab
+Bundle 'mhinz/vim-startify' "}}}
+" SuperTab {{{
 let g:SuperTabMappingForward = '<C-Space>'
 let g:SuperTabMappingBackward = '<S-C-Space>'
 let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
-"Bundle 'SuperTab'
-" Auto-Pairs
+" Use old version
+"Bundle 'SuperTab' "}}}
+" Auto-Pairs {{{
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
-Bundle 'jiangmiao/auto-pairs'
+Bundle 'jiangmiao/auto-pairs' "}}}
 Bundle 'tpope/vim-surround'
-" Syntastic
+" scrooloose/Syntastic {{{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-std=gnu99
                                   \  -Wall -Wextra -Wshadow -Wpointer-arith
@@ -386,6 +395,7 @@ let g:syntastic_c_compiler_options = "-std=gnu99
                                   \  -Wstrict-prototypes"
 "-pedantic
 let g:syntastic_stl_format = '[=> ln:%F (%t)]'
+let g:syntastic_aggregate_errors=1
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -394,21 +404,18 @@ let g:syntastic_always_populate_loc_list=1
 let g:syntastic_c_no_include_search = 1
 let g:syntastic_c_auto_refresh_includes = 1
 let g:syntastic_c_check_header = 1
-let g:syntastic_c_checkers=['gcc'] " , 'make'
-let g:syntastic_html_checkers=['tidy']
-let g:syntastic_javascript_checkers=['jshint']
-Bundle 'scrooloose/syntastic'
+"let g:syntastic_*_checkers=['Xxx', 'Yyy']
+Bundle 'scrooloose/syntastic' "}}}
 Bundle 'godlygeek/tabular'
 Bundle 'majutsushi/tagbar'
 Bundle 'git@bitbucket.org:abudden/taghighlight.git'
 Bundle 'TagHighlight'
-"Bundle 'davidoc/taskpaper.vim'
-" TComment
+" tomtom/TComment {{{
 let g:tcommentMapLeader1=""
 let g:tcommentMapLeader2=""
 nnoremap <silent> __ :TComment<CR>
 xnoremap <silent> __ :TCommentMaybeInline<CR>
-Bundle 'tomtom/tcomment_vim'
+Bundle 'tomtom/tcomment_vim' "}}}
 "Bundle 'tdd-dubgeiser-vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-datetime'
@@ -453,6 +460,51 @@ let g:unite_source_history_yank_enable=1
 let g:unite_source_file_mru_limit=300
 let g:unite_source_history_yank_limit=600
 let g:unite_data_directory = $HOME . '/.vim/var/unite'
+autocmd FileType unite call s:cust_unite_maps()
+autocmd BufLeave \[unite\]* if "nofile" ==# &buftype | bwipeout | endif
+" autocmd BufLeave \[unite\]* set bufhidden=wipe
+function! s:clearUniteBuffers() "{{{
+  "find [unite] or *unite* buffers to be wiped-out
+  let unitebuffs = filter(range(1, bufnr('$')),
+        \ '"nofile" ==# getbufvar(v:val, "&buftype")
+        \  && -1 == index(displayedbufs, v:val)
+        \  && bufname(v:val) =~# ''*unite*\|\[unite\]''')
+  " obliterate the buffers and their related state (marks especially).
+  if !empty(unitebuffs)
+    exe 'bwipeout! '.join(unitebuffs, ' ')
+  endif
+endfunction "}}}
+" autocmd BufEnter * silent call <SID>clearUniteBuffers()
+function! s:cust_unite_maps() "{{{
+  " Overwrite settings.
+  " nmap <buffer> <ESC>      <Plug>(unite_exit)
+  " imap <buffer> jk         <Plug>(unite_insert_leave)
+  " imap <buffer><expr> j unite#smart_map('j', '')
+  " imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-w>   <Plug>(unite_delete_backward_path)
+  " imap <buffer> '       <Plug>(unite_quick_match_default_action)
+  " nmap <buffer> '       <Plug>(unite_quick_match_default_action)
+  " imap <buffer> <expr> x unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
+  " nmap <buffer> x        <Plug>(unite_quick_match_choose_action)
+  " nmap <buffer> <C-z>    <Plug>(unite_toggle_transpose_window)
+  " imap <buffer> <C-z>    <Plug>(unite_toggle_transpose_window)
+  " imap <buffer> <C-y>    <Plug>(unite_narrowing_path)
+  " nmap <buffer> <C-y>    <Plug>(unite_narrowing_path)
+  " nmap <buffer> <C-j>    <Plug>(unite_toggle_auto_preview)
+  " nmap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
+  " imap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
+  " nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
+  imap <silent><buffer><expr> <C-o> unite#do_action('split')
+  let unite = unite#get_current_unite()
+  if unite.profile_name ==# 'search'
+    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+  else
+    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+  endif
+  " nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+  nnoremap <buffer><expr> S unite#mappings#set_current_filters(
+          \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+endfunction "}}}
 if !exists("g:unite_source_menu_menus")
   let g:unite_source_menu_menus = {}
 endif
@@ -483,25 +535,6 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \       'action__command' : a:value,
         \}
 endfunction
-autocmd BufLeave \[unite\]* if "nofile" ==# &buftype | bwipeout | endif
-" autocmd BufLeave \[unite\]* set bufhidden=wipe
-function! s:clearUniteBuffers()
-  "find [unite] or *unite* buffers to be wiped-out
-  let unitebuffs = filter(range(1, bufnr('$')),
-        \ '"nofile" ==# getbufvar(v:val, "&buftype")
-        \  && -1 == index(displayedbufs, v:val)
-        \  && bufname(v:val) =~# ''*unite*\|\[unite\]''')
-  " obliterate the buffers and their related state (marks especially).
-  if !empty(unitebuffs)
-    exe 'bwipeout! '.join(unitebuffs, ' ')
-  endif
-endfunction
-" autocmd BufEnter * silent call <SID>clearUniteBuffers()
-" IndentConsistencyCop ------------------------------------------
-let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
-let g:indentconsistencycop_CheckAfterWrite = 1
-let g:indentconsistencycop_CheckOnLoad = 0
-let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 Bundle 'Shougo/unite.vim'
 "Bundle 'unite-colorscheme-1.3'
 "Bundle 'unite-grep-Sixeight'
@@ -531,6 +564,7 @@ Bundle 'VisIncr'
 Bundle 'WebAPI.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'sk1418/Join'
+"Bundle 'davidoc/taskpaper.vim'
 "Bundle 'junkblocker/patchreview-vim'
 "Bundle 'lfilho/cosco.vim'
 "Bundle 'bigfish/vim-js-context-coloring'
@@ -991,7 +1025,7 @@ autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
 autocmd VimEnter * Alias up UpdateTypesFileOnly
-autocmd VimEnter * Alias ss SaveSession<Space>default
+autocmd VimEnter * Alias ss SaveSession!<Space>default
 " ag & ack -------------------------------
 if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
