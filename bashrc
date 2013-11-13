@@ -32,8 +32,8 @@ export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
 
 BASHCOMPLETE_RCDIR="/etc/bash_completion.d"
 for i in "$BASHCOMPLETE_RCDIR"/*; do
-    if [ -x "$BASHCOMPLETE_RCDIR/$i" ]; then
-        source "$BASHCOMPLETE_RCDIR/$i"
+    if [ -x "$i" ]; then
+        source "$i"
     fi
 done
 
