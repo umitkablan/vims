@@ -9,7 +9,7 @@ bind '"\e[1;3B":history-search-forward'
 
 export LS_COLORS="di=01;37:fi=00;35"
 alias ls='ls --color=auto'
-if [ "PS1" == "" ]; then
+if [ "$PS1" == "" ]; then
     PS1='[\u@\h \W]\$ '
 fi
 
@@ -31,8 +31,12 @@ export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
 export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
 
 BASHCOMPLETE_RCDIR="/etc/bash_completion.d"
-for i in $(ls "$BASHCOMPLETE_RCDIR"); do
+for i in "$BASHCOMPLETE_RCDIR"/*; do
     if [ -x "$BASHCOMPLETE_RCDIR/$i" ]; then
         source "$BASHCOMPLETE_RCDIR/$i"
     fi
 done
+
+if [ -e "$HOME/.bashrc.local" ]; then
+    source "$HOME/.bashrc.local"
+fi
