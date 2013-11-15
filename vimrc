@@ -222,9 +222,11 @@ let g:jedi#autocompletion_command = "<M-_>"
 Bundle 'davidhalter/jedi-vim'
 "}}}
 "Bundle 'klen/python-mode'
+" mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
 Bundle 'mattn/emmet-vim'
+" }}}
 " Shougo/NeoComplete {{{
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 let g:neocomplete#enable_at_startup = 1
@@ -588,6 +590,7 @@ Bundle 'VisIncr'
 Bundle 'WebAPI.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'sk1418/Join'
+Bundle 'elzr/vim-json'
 "Bundle 'davidoc/taskpaper.vim'
 "Bundle 'junkblocker/patchreview-vim'
 "Bundle 'lfilho/cosco.vim'
