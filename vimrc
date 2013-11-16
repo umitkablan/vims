@@ -489,14 +489,15 @@ Bundle 'coderifous/textobj-word-column.vim'
 Bundle 'killphi/vim-textobj-signify-hunk'
 Bundle 'mattn/vim-textobj-url'
 Bundle 'bps/vim-textobj-python'
-" TinyKeyMap
+" tomtom/TinyKeyMap {{{
 Bundle 'tomtom/tinykeymap_vim'
 call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 let g:tinykeymap#map#windows#map = "gw"
+" }}}
 Bundle 'tpope/vim-unimpaired'
-" TextManip
+" t9md/TextManip {{{
 xmap <Up>    <Plug>(textmanip-move-up)
 xmap <Down>  <Plug>(textmanip-move-down)
 xmap <Left>  <Plug>(textmanip-move-left)
@@ -504,14 +505,16 @@ xmap <Right> <Plug>(textmanip-move-right)
 xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 Bundle 't9md/vim-textmanip'
+" }}}
 "Bundle 'chrisbra/unicode.vim'
 "Bundle 'toggle_unit_tests'
-" CtrlP
+" kien/CtrlP {{{
 let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
 Bundle 'kien/ctrlp.vim'
+" }}}
 " Shougo/Unite {{{
 if has('multi_byte')
   let g:unite_prompt = '» '
@@ -536,6 +539,7 @@ function! s:clearUniteBuffers() "{{{
 endfunction "}}}
 " autocmd BufEnter * silent call <SID>clearUniteBuffers()
 function! s:cust_unite_maps() "{{{
+  let b:SuperTabDisabled=1
   " Overwrite settings.
   " nmap <buffer> <ESC>      <Plug>(unite_exit)
   " imap <buffer> jk         <Plug>(unite_insert_leave)
@@ -601,7 +605,8 @@ nnoremap <silent> <C-p>     :Unite -start-insert source<CR>
 nnoremap <silent> <C-p>p    :Unite -start-insert register history/yank<CR>
 nnoremap <silent> <Leader>b :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB        :UniteBookmarkAdd <CR>
-nnoremap <silent> <C-B>     :Unite -start-insert buffer file_rec/async<CR>
+nnoremap <silent> <C-B>     :Unite -start-insert -quick-match buffer_tab file_rec/async<CR>
+nnoremap <silent> ĞS        :Unite grep:.<CR>
 nnoremap <silent> MRU       :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <C-->     :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 Bundle 'Shougo/unite.vim'
@@ -613,7 +618,7 @@ Bundle 'Shougo/unite.vim'
 "Bundle 'h1mesuke/unite-outline'
 Bundle 'unite-locate'
 "Bundle 'hakobe/unite-script'
-"Bundle 'unite-tag'
+Bundle 'tsukkee/unite-tag'
 Bundle 'Shougo/vimproc.vim'
 " Shougo/VimShell {{{
 nnoremap <silent> <Leader>sh  :VimShellPop<CR>
@@ -625,15 +630,16 @@ Bundle 'Shougo/vimshell'
 "Bundle 'utl'
 Bundle 'tpope/vim-fugitive'
 Bundle 'aurum'
-" VCSCommand
+" VCSCommand {{{
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 "let VCSCommandSVNDiffOpt = "-ignore-all-space"
 Bundle 'vcscommand.vim'
+" }}}
 Bundle 'viewdoc'
 "Bundle 'ManPageView'
 "Bundle 'viki'
-"Bundle 'vim-lint'
+Bundle 'dbakker/vim-lint'
 Bundle 'Vimball'
 Bundle 'VisIncr'
 "Bundle 'visualrepeat'
