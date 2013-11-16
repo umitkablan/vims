@@ -54,7 +54,12 @@ Bundle 'IndentConsistencyCop'
 " }}}
 Bundle 'IndentConsistencyCopAutoCmds'
 Bundle 'chrisbra/NrrwRgn'
+" ReplaceWithRegister {{{
+nmap gr  <Plug>ReplaceMotion
+nmap grr <Plug>ReplaceLine
+xmap gr  <Plug>ReplaceVisual
 Bundle 'ReplaceWithRegister'
+" }}}
 "Bundle 'Replay'
 Bundle 'ShowTrailingWhitespace'
 " xuhdev/SingleCompile {{{
@@ -62,6 +67,8 @@ let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
 let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showresultafterrun = 0
+nnoremap <silent> <Leader>sc :SingleCompile<CR>
+nnoremap <silent> ĞSC :SingleCompileRun<CR>
 Bundle 'xuhdev/SingleCompile'
 " }}}
 " SrcExpl
@@ -128,7 +135,12 @@ call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
 Arpeggio inoremap jk <Esc>
 Arpeggio inoremap jk<Space> <Esc>:w<CR>
 " }}}
+" Calendar {{{
+nmap CAL  <Plug>CalendarV
+nmap HCAL <Plug>CalendarH
+nmap VCAL <Plug>CalendarV
 Bundle 'calendar.vim'
+"}}}
 Bundle 'camelcasemotion'
 " rhysd/Clever-f {{{
 noremap <expr> _ clever_f#reset()
@@ -144,6 +156,7 @@ let g:ConqueTerm_ToggleKey   = '<C-F8>'
 let g:ConqueTerm_SendVisKey  = '<C-F9>'
 let g:ConqueTerm_SendFileKey = '<C-F10>'
 let g:ConqueTerm_ExecFileKey = '<C-F11>'
+nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
 Bundle 'Conque-Shell'
 " }}}
 Bundle 'sjl/clam.vim'
@@ -158,6 +171,7 @@ Bundle 'junegunn/vim-easy-align'
 " }}}
 " EasyMotion {{{
 let g:EasyMotion_leader_key = '<Tab><Tab>'
+nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 Bundle 'supasorn/vim-easymotion'
 " }}}
 "Bundle 'editorconfig-vim'
@@ -186,6 +200,8 @@ Bundle 'Headlights'
 Bundle 'Indent-Guides'
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
+nnoremap <silent> <F2> :InlineEdit<CR>
+inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 Bundle 'AndrewRadev/inline_edit.vim'
 " }}}
 "Bundle 'libview'
@@ -196,6 +212,18 @@ let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
+xmap <Space><Space>   <Plug>MarkSet
+nmap <Space><Space>   <Plug>MarkSet
+nmap <Space>*         <Plug>MarkSearchNext
+nmap <Space>#         <Plug>MarkSearchPrev
+nmap <Space><Leader>* <Plug>MarkSearchCurrentNext
+nmap <Space><Leader># <Plug>MarkSearchCurrentPrev
+nmap <S-Space>?       <Plug>MarkSearchAnyPrev
+nmap <S-Space>/       <Plug>MarkSearchAnyNext
+nmap <Space>nn        <Plug>MarkAllClear
+nmap <Space>n         <Plug>MarkClear
+nmap <Space>r         <Plug>MarkRegex
+xmap <Space>r         <Plug>MarkRegex
 Bundle 'Mark'
 " }}}
 "Bundle 't9md/vim-quickhl'
@@ -358,12 +386,15 @@ nnoremap ğp p
 nnoremap ĞP P
 Bundle 'Smartput'
 Bundle 'sickill/vim-pasta'
-" SwapIt & speeddating
+" SwapIt & SpeedDating
 let g:speeddating_no_mappings = 1
-" use SwapIt to interface C-X/A rather than speeddating. speeddating is
+" Use SwapIt to interface C-X/A rather than speeddating. Speeddating is
 " called from SwapIt as a fallback method.
+nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
+nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 Bundle 'mjbrownie/swapit'
 Bundle 'tpope/vim-speeddating'
+nnoremap <silent> - :Switch<CR>
 Bundle 'AndrewRadev/switch.vim'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'SQLUtilities'
@@ -432,7 +463,10 @@ let g:syntastic_c_check_header = 1
 Bundle 'scrooloose/syntastic'
 "}}}
 Bundle 'godlygeek/tabular'
+" majutsushi/TagBar {{{
+nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 Bundle 'majutsushi/tagbar'
+"}}}
 Bundle 'git@bitbucket.org:abudden/taghighlight.git'
 Bundle 'TagHighlight'
 " tomtom/TComment {{{
@@ -478,7 +512,7 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
 Bundle 'kien/ctrlp.vim'
-" Unite
+" Shougo/Unite {{{
 if has('multi_byte')
   let g:unite_prompt = '» '
 endif
@@ -561,7 +595,17 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \       'action__command' : a:value,
         \}
 endfunction
+nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
+nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
+nnoremap <silent> <C-p>     :Unite -start-insert source<CR>
+nnoremap <silent> <C-p>p    :Unite -start-insert register history/yank<CR>
+nnoremap <silent> <Leader>b :Unite -start-insert -auto-preview bookmark<CR>
+nnoremap <silent> ĞB        :UniteBookmarkAdd <CR>
+nnoremap <silent> <C-B>     :Unite -start-insert buffer file_rec/async<CR>
+nnoremap <silent> MRU       :Unite -no-split -start-insert file_mru directory_mru<CR>
+nnoremap <silent> <C-->     :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 Bundle 'Shougo/unite.vim'
+"}}}
 "Bundle 'unite-colorscheme-1.3'
 "Bundle 'unite-grep-Sixeight'
 "Bundle 'tsukkee/unite-help'
@@ -571,6 +615,12 @@ Bundle 'unite-locate'
 "Bundle 'hakobe/unite-script'
 "Bundle 'unite-tag'
 Bundle 'Shougo/vimproc.vim'
+" Shougo/VimShell {{{
+nnoremap <silent> <Leader>sh  :VimShellPop<CR>
+nnoremap <silent> <Leader>p2  :VimShellInteractive ipython2<CR>
+nnoremap <silent> <Leader>p3  :VimShellInteractive python3<CR>
+nnoremap <silent> <Leader>p12 :VimShellInteractive python2<CR>
+" }}}
 Bundle 'Shougo/vimshell'
 "Bundle 'utl'
 Bundle 'tpope/vim-fugitive'
@@ -807,6 +857,8 @@ nnoremap <silent> HH :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> <Leader>cd :pwd<CR>
 nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
+nnoremap <silent> ĞĞE :Explore<CR>
+nnoremap <silent> ĞE  :call OpenExplore()<CR>
 nnoremap <silent> ĞRC :tabe ~/.vim/<CR>
 nnoremap <silent> ĞT  :tab sp\|tabprev\|q\|tabnext<CR>
 " de facto visual block indent mappings
@@ -901,13 +953,8 @@ let g:ac_smooth_scroll_no_default_key_mappings = 1
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 inoremap <expr> <C-K> BDG_GetDigraph()
-nnoremap <silent> - :Switch<CR>
-nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
-autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
-nnoremap <silent> <F2> :InlineEdit<CR>
-inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 nnoremap  X         :CoremoSearchAdd<CR>
 xnoremap  X         :CoremoSearchAddV<CR>
 nnoremap  <Leader>X :CoremoSearchRemove<CR>
@@ -915,63 +962,21 @@ xnoremap  <Leader>X :CoremoSearchRemoveV<CR>
 nnoremap <silent> <Leader>a :A<CR>
 nnoremap <silent> <Leader>1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
-nnoremap <silent> TT :TagbarOpenAutoClose<CR>
-nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
-nnoremap <silent> <Leader>sh  :VimShellPop<CR>
-nnoremap <silent> <Leader>p2  :VimShellInteractive ipython2<CR>
-nnoremap <silent> <Leader>p3  :VimShellInteractive python3<CR>
-nnoremap <silent> <Leader>p12 :VimShellInteractive python2<CR>
 nnoremap <silent> <Leader><Leader>u :Utl<CR>
 xnoremap <silent> <Leader><Leader>u :Utl<CR>
+autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
 nnoremap <silent> ĞUU :Underline<CR>
 nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
 nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-nnoremap <silent> ĞĞE :Explore<CR>
-nnoremap <silent> ĞE  :call OpenExplore()<CR>
-nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
-nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
-nnoremap <silent> <C-p>     :Unite -start-insert source<CR>
-nnoremap <silent> <C-p>p    :Unite -start-insert register history/yank<CR>
-nnoremap <silent> <Leader>b :Unite -start-insert -auto-preview bookmark<CR>
-nnoremap <silent> ĞB        :UniteBookmarkAdd <CR>
-nnoremap <silent> <C-B>     :Unite -start-insert buffer file_rec/async<CR>
-nnoremap <silent> MRU       :Unite -no-split -start-insert file_mru directory_mru<CR>
-nnoremap <silent> <C-->     :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 nnoremap <silent> <Leader>t  :CtrlPBufTag<CR>
-nnoremap <silent> <Leader>sc :SingleCompile<CR>
-nnoremap <silent> ĞSC :SingleCompileRun<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
 nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
-" Calendar
-nmap CAL  <Plug>CalendarV
-nmap HCAL <Plug>CalendarH
-nmap VCAL <Plug>CalendarV
-" Mark mappings
-xmap <Space><Space>   <Plug>MarkSet
-nmap <Space><Space>   <Plug>MarkSet
-nmap <Space>*         <Plug>MarkSearchNext
-nmap <Space>#         <Plug>MarkSearchPrev
-nmap <Space><Leader>* <Plug>MarkSearchCurrentNext
-nmap <Space><Leader># <Plug>MarkSearchCurrentPrev
-nmap <S-Space>?       <Plug>MarkSearchAnyPrev
-nmap <S-Space>/       <Plug>MarkSearchAnyNext
-nmap <Space>nn        <Plug>MarkAllClear
-nmap <Space>n         <Plug>MarkClear
-nmap <Space>r         <Plug>MarkRegex
-xmap <Space>r         <Plug>MarkRegex
-" replace wout overwriting default register
-nmap gr  <Plug>ReplaceMotion
-nmap grr <Plug>ReplaceLine
-xmap gr  <Plug>ReplaceVisual
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> [d :call ShowBlockName('[d')<CR>
 nnoremap <silent> [i :call ShowBlockName('[i')<CR>
-" fallback to speeddating when SwapIt cannot success
-nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
-nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 " NOTUSED mappings in order to prevent the default maps load.
 nmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
 xmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
