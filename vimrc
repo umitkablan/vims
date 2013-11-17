@@ -12,7 +12,7 @@
 " keyboards.).
 
 " Vundle
-" ******************* {{{
+" {{{
 set nocompatible " Be iMproved
 filetype off     " Required for Vundle!
 set rtp+=~/.vim/packs/vundle/
@@ -67,7 +67,7 @@ let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
 let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showresultafterrun = 0
-nnoremap <silent> <Leader>sc :SingleCompile<CR>
+nnoremap <silent> ğsc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
 Bundle 'xuhdev/SingleCompile'
 " }}}
@@ -212,18 +212,18 @@ let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
 let g:mwAutoSaveMarks = 0
 let g:mwIgnoreCase = 0
-xmap <Space><Space>   <Plug>MarkSet
-nmap <Space><Space>   <Plug>MarkSet
-nmap <Space>*         <Plug>MarkSearchNext
-nmap <Space>#         <Plug>MarkSearchPrev
-nmap <Space><Leader>* <Plug>MarkSearchCurrentNext
-nmap <Space><Leader># <Plug>MarkSearchCurrentPrev
-nmap <S-Space>?       <Plug>MarkSearchAnyPrev
-nmap <S-Space>/       <Plug>MarkSearchAnyNext
-nmap <Space>nn        <Plug>MarkAllClear
-nmap <Space>n         <Plug>MarkClear
-nmap <Space>r         <Plug>MarkRegex
-xmap <Space>r         <Plug>MarkRegex
+xmap <Space><Space> <Plug>MarkSet
+nmap <Space><Space> <Plug>MarkSet
+nmap <Space>*       <Plug>MarkSearchNext
+nmap <Space>#       <Plug>MarkSearchPrev
+nmap <Space>ğ*      <Plug>MarkSearchCurrentNext
+nmap <Space>ğ#      <Plug>MarkSearchCurrentPrev
+nmap <S-Space>?     <Plug>MarkSearchAnyPrev
+nmap <S-Space>/     <Plug>MarkSearchAnyNext
+nmap <Space>nn      <Plug>MarkAllClear
+nmap <Space>n       <Plug>MarkClear
+nmap <Space>r       <Plug>MarkRegex
+xmap <Space>r       <Plug>MarkRegex
 Bundle 'Mark'
 " }}}
 "Bundle 't9md/vim-quickhl'
@@ -491,7 +491,7 @@ Bundle 'mattn/vim-textobj-url'
 Bundle 'bps/vim-textobj-python'
 " tomtom/TinyKeyMap {{{
 Bundle 'tomtom/tinykeymap_vim'
-call tinykeymap#EnterMap('changelocs', '<Leader>,', {'name': 'Change locations'})
+call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 let g:tinykeymap#map#windows#map = "gw"
@@ -599,17 +599,17 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \       'action__command' : a:value,
         \}
 endfunction
-nnoremap <silent> <Leader>ee :lcd %:h<CR>:Unite -start-insert file<CR>
-nnoremap <silent> <Leader>e :Unite -start-insert file<CR>
+Bundle 'Shougo/unite.vim'
+nnoremap <silent> ğee       :lcd %:h<CR>:Unite -start-insert file<CR>
+nnoremap <silent> ğe        :Unite -start-insert file<CR>
 nnoremap <silent> <C-p>     :Unite -start-insert source<CR>
 nnoremap <silent> <C-p>p    :Unite -start-insert register history/yank<CR>
-nnoremap <silent> <Leader>b :Unite -start-insert -auto-preview bookmark<CR>
+nnoremap <silent> ğb :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB        :UniteBookmarkAdd <CR>
 nnoremap <silent> <C-B>     :Unite -start-insert -quick-match buffer_tab file_rec/async<CR>
 nnoremap <silent> ĞS        :Unite grep:.<CR>
 nnoremap <silent> MRU       :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <C-->     :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
-Bundle 'Shougo/unite.vim'
 "}}}
 "Bundle 'unite-colorscheme-1.3'
 "Bundle 'unite-grep-Sixeight'
@@ -621,10 +621,10 @@ Bundle 'unite-locate'
 Bundle 'tsukkee/unite-tag'
 Bundle 'Shougo/vimproc.vim'
 " Shougo/VimShell {{{
-nnoremap <silent> <Leader>sh  :VimShellPop<CR>
-nnoremap <silent> <Leader>p2  :VimShellInteractive ipython2<CR>
-nnoremap <silent> <Leader>p3  :VimShellInteractive python3<CR>
-nnoremap <silent> <Leader>p12 :VimShellInteractive python2<CR>
+nnoremap <silent> ğsh  :VimShellPop<CR>
+nnoremap <silent> ğp2  :VimShellInteractive ipython2<CR>
+nnoremap <silent> ğp3  :VimShellInteractive python3<CR>
+nnoremap <silent> ğp12 :VimShellInteractive python2<CR>
 " }}}
 Bundle 'Shougo/vimshell'
 "Bundle 'utl'
@@ -647,8 +647,8 @@ Bundle 'WebAPI.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'sk1418/Join'
 Bundle 'elzr/vim-json'
+Bundle 'junkblocker/patchreview-vim'
 "Bundle 'davidoc/taskpaper.vim'
-"Bundle 'junkblocker/patchreview-vim'
 "Bundle 'lfilho/cosco.vim'
 "Bundle 'bigfish/vim-js-context-coloring'
 "Bundle 'jlanzarotta/bufexplorer'
@@ -664,15 +664,15 @@ Bundle 'elzr/vim-json'
 " }}}
 
 filetype plugin indent on " Required for Vundle!
-" ******************* }}}
+" }}}
 
-" global vim configuration
-"***************** {{{
+" global configuration
+" {{{
 set nocompatible
 filetype plugin on
 filetype indent on
 syntax on
-let mapleader = "ğ"
+let mapleader = "ü"
 let maplocalleader = ","
 "set term color to 256 for some colorschemes to work.
 set t_Co=256
@@ -771,7 +771,7 @@ endif
 if has("gui_running")
   winsize 170 46
 endif
-"*************** }}}
+" }}}
 
 " personal maps: maps that do not need plugins
 "************* {{{
@@ -787,7 +787,7 @@ nnoremap Q <Nop>
 nnoremap u <Nop>
 nnoremap U u
 nnoremap qQ Q
-nnoremap <Leader>q gqip
+nnoremap ğq gqip
 " CTRL-c to leave insert mode,  better not know it.
 nnoremap <silent> <C-c> :pwd<CR>
 nnoremap oo o<Esc>o
@@ -859,10 +859,10 @@ nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
 " full redraw
 nnoremap <silent> <C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
-nnoremap <silent> HH :hide<CR>
+nnoremap <silent> HH  :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
-nnoremap <silent> <Leader>cd :pwd<CR>
-nnoremap <silent> <Leader>rc :sp .lvimrc<CR>
+nnoremap <silent> ğcd :pwd<CR>
+nnoremap <silent> ğrc :sp .lvimrc<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE  :call OpenExplore()<CR>
 nnoremap <silent> ĞRC :tabe ~/.vim/<CR>
@@ -870,12 +870,12 @@ nnoremap <silent> ĞT  :tab sp\|tabprev\|q\|tabnext<CR>
 " de facto visual block indent mappings
 vnoremap < <gv
 xnoremap > >gv
-nnoremap <Leader>> >i}
-nnoremap <Leader>< <i}
+nnoremap ğ> >i}
+nnoremap ğ< <i}
 nnoremap ĞD di}
 " easier %s/%g
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
-nnoremap <Leader>g :%g/<C-r><C-w>/
+nnoremap ğs :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
+nnoremap ğg :%g/<C-r><C-w>/
 " vnoremap <c-j> @='jojo'<cr>
 " vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
 " vnoremap <c-k> @='koko'<cr>
@@ -892,11 +892,11 @@ cnoremap <C-e> <End>
 inoremap <silent> <C-E> <C-O>:normal! "g$"<CR>
 inoremap <silent> <C-A> <C-O>:exe "normal! \<C-O>g^"<CR>
 " unnamed register to/from system clipboard
-nmap <silent> <Leader>,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
-nmap <silent>        Ğ;; :set paste\|exe 'norm "+p'\|set nopaste<CR>GV=
-nnoremap <Leader>c "+yiw
-nnoremap ĞC        gv"+y
-xnoremap <Leader>c "+y
+nmap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
+nmap <silent> Ğ;; :set paste\|exe 'norm "+p'\|set nopaste<CR>GV=
+nnoremap ğc "+yiw
+nnoremap ĞC gv"+y
+xnoremap ğc "+y
 " Better than just inverting 'paste' is inverting and showing
 " set pastetoggle=<F12>
 inoremap <F12> <C-O>:set invpaste paste?<CR>
@@ -955,27 +955,38 @@ augroup VCSCommand
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
 
+onoremap <silent> an :<C-U>call <SID>NextTextObject('a', 'f')<CR>
+xnoremap <silent> an :<C-U>call <SID>NextTextObject('a', 'f')<CR>
+onoremap <silent> in :<C-U>call <SID>NextTextObject('i', 'f')<CR>
+xnoremap <silent> in :<C-U>call <SID>NextTextObject('i', 'f')<CR>
+onoremap <silent> al :<C-U>call <SID>NextTextObject('a', 'F')<CR>
+xnoremap <silent> al :<C-U>call <SID>NextTextObject('a', 'F')<CR>
+onoremap <silent> il :<C-U>call <SID>NextTextObject('i', 'F')<CR>
+xnoremap <silent> il :<C-U>call <SID>NextTextObject('i', 'F')<CR>
+" Cycle through UPPERCASE, lowercase, and Titlecase of the selection
+xnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 let g:ac_smooth_scroll_no_default_key_mappings = 1
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 inoremap <expr> <C-K> BDG_GetDigraph()
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
-nnoremap  X         :CoremoSearchAdd<CR>
-xnoremap  X         :CoremoSearchAddV<CR>
-nnoremap  <Leader>X :CoremoSearchRemove<CR>
-xnoremap  <Leader>X :CoremoSearchRemoveV<CR>
-nnoremap <silent> <Leader>a :A<CR>
-nnoremap <silent> <Leader>1 :Sscratch<CR>
+nnoremap <silent> X  :CoremoSearchAdd<CR>
+xnoremap <silent> X  :CoremoSearchAddV<CR>
+nnoremap <silent> ğX :CoremoSearchRemove<CR>
+xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
+nnoremap <silent> ğa :A<CR>
+nnoremap <silent> ğ1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
-nnoremap <silent> <Leader><Leader>u :Utl<CR>
-xnoremap <silent> <Leader><Leader>u :Utl<CR>
+nnoremap <silent> ğğu :Utl<CR>
+xnoremap <silent> ğğu :Utl<CR>
 autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
+nnoremap <silent> ĞN :redir @n<cr>:call DecAndHex(expand("<cWORD>"))<CR>:redir END<cr>
 nnoremap <silent> ĞUU :Underline<CR>
-nnoremap <silent> <Leader>w :call WinWalkerMenu()<CR>
+nnoremap <silent> ğw :call WinWalkerMenu()<CR>
 nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
 nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-nnoremap <silent> <Leader>t  :CtrlPBufTag<CR>
+nnoremap <silent> ğt  :CtrlPBufTag<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
@@ -995,18 +1006,18 @@ map  <unique> NOTNUSED<LocalLeader>p <Plug>JavagetsetInsertGetterSetter
 map  <unique> NOTNUSED<LocalLeader>g <Plug>JavagetsetInsertGetterOnly
 map  <unique> NOTNUSED<LocalLeader>s <Plug>JavagetsetInsertSetterOnly
 map  <unique> NOTNUSED<LocalLeader>b <Plug>JavagetsetInsertBothGetterSetter
-nmap <unique> NOTUSED<Leader>a       <Plug>ToggleAutoCloseMappings
+nmap <unique> NOTUSEDğa       <Plug>ToggleAutoCloseMappings
 imap <unique> NOTUSED<C-S>           <Plug>Isurround
-nmap <unique> NOTUSED<Leader>st      <plug>SmartputToggle
-nmap <unique> NOTUSED<Leader>sh      <Plug>DBHistory
+nmap <unique> NOTUSEDğst      <plug>SmartputToggle
+nmap <unique> NOTUSEDğsh      <Plug>DBHistory
 " nmap <silent> <C-z> <Plug>QAnotherWin
-" nmap <Leader>t :Shell make test<CR><CR>
-" nnoremap <unique> <silent> <Leader><Leader><Leader>tasaasd :call MakeGreen()<CR>
-" nmap <silent> <unique> <Leader>b <Plug>SelectBuf
-"************* }}}
+" nmap ğt :Shell make test<CR><CR>
+" nnoremap <unique> <silent> ğğğtasaasd :call MakeGreen()<CR>
+" nmap <silent> <unique> ğb <Plug>SelectBuf
+" }}}
 
 " plugin configuration
-" ******************** {{{
+" {{{
 let g:rainbow_active = 1
 let g:rainbow_operators = 1
 let g:tmuxmake_targets = ""
@@ -1141,10 +1152,10 @@ let g:loaded_headlights = 1
 let g:loaded_colorsupport = "disable_"
 let g:loaded_StatusLineHighlight = "disable_"
 let no_multiselect_maps = 1
-"************************ }}}
+" }}}
 
 " FUNCTIONS / COMMANDS
-" ******************************************** {{{
+" {{{
 function! RebuildAllDependentCTags()
   let l:tags = &tags
   for t in split(l:tags, ",")
@@ -1246,7 +1257,6 @@ function! YieldSemicolonIfAppropriate()
   return l:ret
 endfunction
 
-"------------------------------------------
 function! IsTagsActiveFileType(ft)
   if a:ft == ""
     return 0
@@ -1264,7 +1274,7 @@ function! UpdateSigns_()
   endif
 endfunction
 
-" save/load quickfix list
+" save/load quickfix list {{{
 function SaveQuickFixList(fname)
   let list = getqflist()
   for i in range(len(list))
@@ -1283,13 +1293,15 @@ function LoadQuickFixList(fname)
   let string = join(lines, "\n")
   call setqflist(eval(string))
 endfunction
+" }}}
 
-" used to track the quickfix window: open/closed
+" used to track the quickfix window: open/closed {{{
 augroup QFixToggle
   autocmd!
   autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
   autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
+
 function! QFixCloseAndCheck()
   if exists("g:qfix_win")
     cclose
@@ -1302,6 +1314,7 @@ function! QFixCloseAndCheck()
   endif
   return 0
 endfunction
+
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose
@@ -1311,8 +1324,10 @@ function! QFixToggle(forced)
     let g:qfix_win = bufnr("$")
   endif
 endfunction
+
 " Use :QFix! if you want to keep the qf window open, out of toggling
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
+" }}}
 
 function! GuiTabLabel()
   let label = ''
@@ -1392,7 +1407,6 @@ function! DecAndHex(number)
     echo "NaN"
   endif
 endfunction
-nnoremap <silent> ĞN :redir @n<cr>:call DecAndHex(expand("<cWORD>"))<CR>:redir END<cr>
 
 function! VimProcMake()
   let sub = vimproc#popen2(':make')
@@ -1516,8 +1530,6 @@ function! VimLock(enable)
   endif
 endfunction
 
-"Cycle through UPPERCASE, lowercase, and Titlecase: after v'ing, press ~
-"several times
 function! TwiddleCase(str)
   if a:str ==# toupper(a:str)
     let result = tolower(a:str)
@@ -1528,7 +1540,6 @@ function! TwiddleCase(str)
   endif
   return result
 endfunction
-xnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 
 let s:indentation_guides_enabled = 0
 function! ToggleIndGuides_RC()
@@ -1543,6 +1554,7 @@ function! ToggleIndGuides_RC()
   endif
 endfunction
 
+" Trans to/from Turkish dotted char form {{{
 let g:letters_map_en_tr_forward = {
       \ 'o':'ö', 'c':'ç', 'g':'ğ', 's':'ş', 'i':'ı', 'u':"ü",
       \  'O':'Ö', 'C':'Ç', 'G':'Ğ', 'S':'Ş', 'I':'İ', 'U':'Ü'
@@ -1564,6 +1576,7 @@ function! SwapTrCharsToFromEn()
   norm l
 endfunction
 autocmd FileType text nmap <buffer> <silent> <cr> :call SwapTrCharsToFromEn()<cr>
+" }}}
 
 let g:rainbowparantheses_enabled_RC=0
 function! s:RainbowParanthesisEnableAll_RC()
@@ -1598,14 +1611,6 @@ function! s:NextTextObject(motion, dir)
   endif
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
-onoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-xnoremap <silent> an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-onoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-xnoremap <silent> in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-onoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-xnoremap <silent> al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-onoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
-xnoremap <silent> il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
 " }}}
 
 " Source a range of visually selected vim
@@ -1667,7 +1672,7 @@ function! FixTerminalKeys()
     call Allmap(' £         #')
   endif
 endfunction
-" ******************************************** }}}
+" }}}
 
 try
   source ~/.vimrc.local
