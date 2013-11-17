@@ -663,6 +663,11 @@ nnoremap <silent> ğX :CoremoSearchRemove<CR>
 xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
 Bundle 'CoremoSearch'
 " }}}
+" mbbill/FencView {{{
+let g:autofenc_enable = 1
+let g:fencview_autodetect = 0
+Bundle 'mbbill/fencview'
+" }}}
 "Bundle 'davidoc/taskpaper.vim'
 "Bundle 'lfilho/cosco.vim'
 "Bundle 'bigfish/vim-js-context-coloring'
@@ -1149,8 +1154,6 @@ let utl_opt_verbose=0
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
 let g:vimball_home = $HOME . "/.vim/bundle"
-let g:autofenc_enable = 1
-let g:fencview_autodetect = 0
 " fonts and headlights plugin causing problems
 let g:loaded_fonts=1
 let g:loaded_headlights = 1
