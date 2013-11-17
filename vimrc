@@ -1153,7 +1153,6 @@ let g:no_tagselect_maps = 1
 let utl_opt_verbose=0
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
-let g:vimball_home = $HOME . "/.vim/bundle"
 " fonts and headlights plugin causing problems
 let g:loaded_fonts=1
 let g:loaded_headlights = 1
