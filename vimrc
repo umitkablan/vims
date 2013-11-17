@@ -489,6 +489,14 @@ Bundle 'coderifous/textobj-word-column.vim'
 Bundle 'killphi/vim-textobj-signify-hunk'
 Bundle 'mattn/vim-textobj-url'
 Bundle 'bps/vim-textobj-python'
+" glts/TextObj-Comment {{{
+let g:textobj_comment_no_default_key_mappings = 1
+xmap ax <Plug>(textobj-comment-a)
+omap ax <Plug>(textobj-comment-a)
+xmap ix <Plug>(textobj-comment-i)
+omap ix <Plug>(textobj-comment-i)
+Bundle 'glts/vim-textobj-comment'
+" }}}
 " tomtom/TinyKeyMap {{{
 Bundle 'tomtom/tinykeymap_vim'
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
@@ -934,7 +942,7 @@ autocmd BufWritePost ~/.vim/** Helptags
 call ipi#inspect()
 
 " personal plugin maps
-" ******************** {{{
+" {{{
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
@@ -1022,11 +1030,6 @@ let g:rainbow_active = 1
 let g:rainbow_operators = 1
 let g:tmuxmake_targets = ""
 let g:buffergator_suppress_keymaps = 1
-let g:textobj_comment_no_default_key_mappings = 1
-xmap ax <Plug>(textobj-comment-a)
-omap ax <Plug>(textobj-comment-a)
-xmap ix <Plug>(textobj-comment-i)
-omap ix <Plug>(textobj-comment-i)
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 " Alias'es --------------------------------
