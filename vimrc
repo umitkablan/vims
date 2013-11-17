@@ -109,7 +109,6 @@ let g:airline_mode_map = {
       \ 'S'  : 'S',
       \ '' : '^s',
       \ }
-
 if !exists("g:airline_symbols")
   let g:airline_symbols = {}
 endif
@@ -656,6 +655,14 @@ Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'sk1418/Join'
 Bundle 'elzr/vim-json'
 Bundle 'junkblocker/patchreview-vim'
+" CoremoSearch {{{
+let g:CoremoSearch_setDefaultMap = 0
+nnoremap <silent> X  :CoremoSearchAdd<CR>
+xnoremap <silent> X  :CoremoSearchAddV<CR>
+nnoremap <silent> ğX :CoremoSearchRemove<CR>
+xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
+Bundle 'CoremoSearch'
+" }}}
 "Bundle 'davidoc/taskpaper.vim'
 "Bundle 'lfilho/cosco.vim'
 "Bundle 'bigfish/vim-js-context-coloring'
@@ -979,10 +986,6 @@ nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 inoremap <expr> <C-K> BDG_GetDigraph()
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
-nnoremap <silent> X  :CoremoSearchAdd<CR>
-xnoremap <silent> X  :CoremoSearchAddV<CR>
-nnoremap <silent> ğX :CoremoSearchRemove<CR>
-xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
 nnoremap <silent> ğa :A<CR>
 nnoremap <silent> ğ1 :Sscratch<CR>
 nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
@@ -1143,7 +1146,6 @@ let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 let g:no_tagselect_maps = 1
 let utl_opt_verbose=0
-let g:CoremoSearch_setDefaultMap = 0
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
 let g:vimball_home = $HOME . "/.vim/bundle"
