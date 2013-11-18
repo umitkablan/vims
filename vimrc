@@ -1213,7 +1213,7 @@ function! Make_Tmux_Build(targets)
   if a:targets == ""
     make %
   else
-    exec "SlimuxShellRun make " . a:targets
+    exec "SlimuxShellRun m " . a:targets
   endif
 endfunction
 
