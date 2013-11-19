@@ -1216,6 +1216,7 @@ function! Make_Tmux_Build(targets)
     exec "SlimuxShellRun m " . a:targets
   endif
 endfunction
+command! -nargs=0 MakeTmuxBuild :call Make_Tmux_Build(g:tmuxmake_targets)
 
 function! MapPumInsert(key, insertSpaceAfter)
   if !a:insertSpaceAfter
