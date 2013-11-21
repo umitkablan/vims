@@ -613,7 +613,8 @@ nnoremap <silent> <C-p>     :Unite -start-insert source<CR>
 nnoremap <silent> <C-p>p    :Unite -start-insert register history/yank<CR>
 nnoremap <silent> ğb :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB        :UniteBookmarkAdd <CR>
-nnoremap <silent> <C-B>     :Unite -start-insert -quick-match buffer_tab file_rec/async<CR>
+" -quick-match file_rec/async
+nnoremap <silent> <C-B>     :Unite -start-insert buffer_tab<CR>
 nnoremap <silent> ĞS        :Unite grep:.<CR>
 nnoremap <silent> MRU       :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <C-->     :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
