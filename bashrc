@@ -22,6 +22,9 @@ alias ps="ps -ef"
 alias vim="vim --servername VIM"
 alias bvim="vim -u NONE -U NONE -N"
 alias bgvim="gvim -u NONE -U NONE -N"
+alias diff="diff --exclude='.svn' -x tags"
+alias cdiff="diff --exclude='.*' -x tags"
+alias ack="ack --nofollow"
 
 export PATH=$PATH:/sbin
 export PATH=$PATH:~/.gem/ruby/1.9.1/bin
