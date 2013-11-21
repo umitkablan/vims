@@ -565,6 +565,7 @@ function! s:cust_unite_maps() "{{{
   " nmap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
   " imap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
   " nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
+  imap <silent><buffer><expr> <C-T> unite#do_action('tabdrop')
   imap <silent><buffer><expr> <C-o> unite#do_action('split')
   let unite = unite#get_current_unite()
   if unite.profile_name ==# 'search'
@@ -576,7 +577,7 @@ function! s:cust_unite_maps() "{{{
   nnoremap <buffer><expr> S unite#mappings#set_current_filters(
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 endfunction "}}}
-if !exists("g:unite_source_menu_menus")
+if !exists("g:unite_source_menu_menus") "{{{
   let g:unite_source_menu_menus = {}
 endif
 let g:unite_source_menu_menus.fenc = {
@@ -606,17 +607,18 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \       'action__command' : a:value,
         \}
 endfunction
+" }}}
 Bundle 'Shougo/unite.vim'
-nnoremap <silent> ğee       :lcd %:h<CR>:Unite -start-insert file<CR>
-nnoremap <silent> ğe        :Unite -start-insert file<CR>
-nnoremap <silent> <C-p>     :Unite -start-insert source<CR>
-nnoremap <silent> <C-p>p    :Unite -start-insert register history/yank<CR>
-nnoremap <silent> ğb :Unite -start-insert -auto-preview bookmark<CR>
-nnoremap <silent> ĞB        :UniteBookmarkAdd <CR>
-nnoremap <silent> <C-B>     :Unite -start-insert -quick-match buffer_tab file_rec/async<CR>
-nnoremap <silent> ĞS        :Unite grep:.<CR>
-nnoremap <silent> MRU       :Unite -no-split -start-insert file_mru directory_mru<CR>
-nnoremap <silent> <C-->     :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
+nnoremap <silent> ğee    :lcd %:h<CR>:Unite -start-insert file<CR>
+nnoremap <silent> ğe     :Unite -start-insert file<CR>
+nnoremap <silent> <C-p>  :Unite -start-insert source<CR>
+nnoremap <silent> <C-p>p :Unite -start-insert register history/yank<CR>
+nnoremap <silent> ğb     :Unite -start-insert -auto-preview bookmark<CR>
+nnoremap <silent> ĞB     :UniteBookmarkAdd <CR>
+nnoremap <silent> <C-B>  :Unite -start-insert -quick-match buffer_tab file_rec/async<CR>
+nnoremap <silent> ĞS     :Unite grep:.<CR>
+nnoremap <silent> MRU    :Unite -no-split -start-insert file_mru directory_mru<CR>
+nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 "}}}
 "Bundle 'unite-colorscheme-1.3'
 "Bundle 'unite-grep-Sixeight'
@@ -794,7 +796,7 @@ endif
 " }}}
 
 " personal maps: maps that do not need plugins
-"************* {{{
+" {{{
 nnoremap <silent> ZZ  :hide<CR>
 nnoremap <silent> ZZA :qa<CR>
 nnoremap <silent> ZZE :sp .<CR>:wincmd p<CR>:bd<CR>
@@ -927,7 +929,7 @@ imap <expr> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<C
 " easy completion
 inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
-" ************* }}}
+" }}}
 
 "autocmd FileType qf nnoremap <silent> <buffer> o <CR><C-W>p
 autocmd FileType help setlocal nonumber
