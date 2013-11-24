@@ -20,10 +20,10 @@ if has("vim_starting")
 endif
 call neobundle#rc(expand("~/.vim/packs"))
 NeoBundleFetch 'Shougo/neobundle.vim'
+"NeoBundle 'gmarik/vundle'
 
 " Bundles
 " {{{
-NeoBundle 'gmarik/vundle'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'cecutil'
 NeoBundle 'tomtom/tlib_vim'
