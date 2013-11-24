@@ -11,57 +11,60 @@
 " your hand to press enter-backspace as it is forced by most "general-purpose"
 " keyboards.).
 
-" Vundle
+" NeoBundle
 " {{{
-set nocompatible " Be iMproved
-filetype off     " Required for Vundle!
-set rtp+=~/.vim/packs/vundle/
-call vundle#rc("~/.vim/packs")
+if has("vim_starting")
+  set nocompatible " Be iMproved
+  " filetype off     " Required for Vundle!
+  set rtp+=~/.vim/packs/neobundle.vim/
+endif
+call neobundle#rc(expand("~/.vim/packs"))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Bundles
 " {{{
-Bundle 'gmarik/vundle'
-Bundle 'xolox/vim-misc'
-Bundle 'cecutil'
-Bundle 'tomtom/tlib_vim'
-Bundle 'L9'
-Bundle 'genutils'
-"Bundle 'frawor'
-"Bundle 'lh-vim-lib-read-only'
-Bundle 'AnsiEsc.vim'
-Bundle 'pydave/AsyncCommand'
-Bundle 'godlygeek/csapprox'
-"Bundle 'ColorSchemeMenuMaker'
-Bundle 'Colorizer--Brabandt'
-"Bundle 'CountJump'
-Bundle 'CursorLineCurrentWindow'
+NeoBundle 'gmarik/vundle'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'cecutil'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
+NeoBundle 'genutils'
+NeoBundle 'https://bitbucket.org/ZyX_I/frawor'
+NeoBundle 'lh-vim-lib'
+NeoBundle 'AnsiEsc.vim'
+NeoBundle 'pydave/AsyncCommand'
+NeoBundle 'godlygeek/csapprox'
+"NeoBundle 'ColorSchemeMenuMaker'
+NeoBundle 'Colorizer--Brabandt'
+"NeoBundle 'CountJump'
+NeoBundle 'CursorLineCurrentWindow'
 " DeleteTrailingWhitespace {{{
 let g:DeleteTrailingWhitespace = 1
 let g:DeleteTrailingWhitespace_Action = 'ask'
-Bundle 'DeleteTrailingWhitespace'
+NeoBundle 'DeleteTrailingWhitespace'
 " }}}
-Bundle 'EasyGrep'
+NeoBundle 'EasyGrep'
 " GoldenView
 let g:goldenview__enable_default_mapping = 0
-Bundle 'zhaocai/GoldenView.Vim'
-"Bundle 'IndGuide'
+NeoBundle 'zhaocai/GoldenView.Vim'
+"NeoBundle 'IndGuide'
 " IndentConsistencyCop {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
 let g:indentconsistencycop_CheckOnLoad = 0
 let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
-Bundle 'IndentConsistencyCop'
+NeoBundle 'IndentConsistencyCop'
 " }}}
-Bundle 'IndentConsistencyCopAutoCmds'
-Bundle 'chrisbra/NrrwRgn'
+NeoBundle 'IndentConsistencyCopAutoCmds'
+NeoBundle 'chrisbra/NrrwRgn'
 " ReplaceWithRegister {{{
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
 xmap gr  <Plug>ReplaceVisual
-Bundle 'ReplaceWithRegister'
+NeoBundle 'ReplaceWithRegister'
 " }}}
-"Bundle 'Replay'
-Bundle 'ShowTrailingWhitespace'
+"NeoBundle 'Replay'
+NeoBundle 'ShowTrailingWhitespace'
 " xuhdev/SingleCompile {{{
 let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
@@ -69,23 +72,23 @@ let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showresultafterrun = 0
 nnoremap <silent> ğsc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
-Bundle 'xuhdev/SingleCompile'
+NeoBundle 'xuhdev/SingleCompile'
 " }}}
 " SrcExpl
 let g:SrcExpl_refreshTime = 400
 let g:SrcExpl_isUpdateTags = 0
-Bundle 'wesleyche/SrcExpl'
-Bundle 'chrisbra/SudoEdit.vim'
-Bundle 'VimSpy'
-"Bundle 'Vimpy-monokrome'
-Bundle 'pafcu/Vimsplain'
-"Bundle 'WhereFrom'
-"Bundle 'WinWalker'
-"Bundle 'ZoomWin'
-"Bundle 'accelerated-smooth-scroll'
-Bundle 'mileszs/ack.vim'
-Bundle 'rking/ag.vim'
-Bundle 'MarcWeber/vim-addon-other'
+NeoBundle 'wesleyche/SrcExpl'
+NeoBundle 'chrisbra/SudoEdit.vim'
+NeoBundle 'VimSpy'
+"NeoBundle 'Vimpy-monokrome'
+NeoBundle 'pafcu/Vimsplain'
+"NeoBundle 'WhereFrom'
+"NeoBundle 'WinWalker'
+"NeoBundle 'ZoomWin'
+NeoBundle 'yonchu/accelerated-smooth-scroll'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'rking/ag.vim'
+NeoBundle 'MarcWeber/vim-addon-other'
 " bling/Airline {{{
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
@@ -126,10 +129,10 @@ if has('multi_byte')
   let g:airline_symbols.paste = 'ρ'
   let g:airline_symbols.whitespace = 'Ξ'
 endif
-Bundle 'bling/vim-airline'
+NeoBundle 'bling/vim-airline'
 " }}}
 " Arpeggio {{{
-Bundle 'kana/vim-arpeggio'
+NeoBundle 'kana/vim-arpeggio'
 call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
 Arpeggio inoremap jk <Esc>
 Arpeggio inoremap jk<Space> <Esc>:w<CR>
@@ -138,15 +141,15 @@ Arpeggio inoremap jk<Space> <Esc>:w<CR>
 nmap CAL  <Plug>CalendarV
 nmap HCAL <Plug>CalendarH
 nmap VCAL <Plug>CalendarV
-Bundle 'calendar.vim'
+NeoBundle 'calendar.vim'
 "}}}
-Bundle 'camelcasemotion'
+NeoBundle 'camelcasemotion'
 " rhysd/Clever-f {{{
 noremap <expr> _ clever_f#reset()
 let g:clever_f_across_no_line = 1
-Bundle 'rhysd/clever-f.vim'
+NeoBundle 'rhysd/clever-f.vim'
 " }}}
-"Bundle 'code_upstairs'
+"NeoBundle 'code_upstairs'
 " Conque-Shell {{{
 let g:ConqueTerm_ReadUnfocused = 0
 let g:ConqueTerm_CloseOnEnd = 1
@@ -156,34 +159,35 @@ let g:ConqueTerm_SendVisKey  = '<C-F9>'
 let g:ConqueTerm_SendFileKey = '<C-F10>'
 let g:ConqueTerm_ExecFileKey = '<C-F11>'
 nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
-Bundle 'Conque-Shell'
+NeoBundle 'Conque-Shell'
 " }}}
-Bundle 'sjl/clam.vim'
-Bundle 'chrisbra/csv.vim'
+NeoBundle 'sjl/clam.vim'
+NeoBundle 'chrisbra/csv.vim'
+NeoBundle 'vis'
 " DBExt {{{
 let g:dbext_default_SQLITE_bin = 'sqlite3'
-Bundle 'dbext.vim'
+NeoBundle 'dbext.vim'
 " }}}
 " EasyAlign {{{
 xnoremap <silent> <Enter> :EasyAlign<CR>
-Bundle 'junegunn/vim-easy-align'
+NeoBundle 'junegunn/vim-easy-align'
 " }}}
 " EasyMotion {{{
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
-Bundle 'supasorn/vim-easymotion'
+NeoBundle 'supasorn/vim-easymotion'
 " }}}
-"Bundle 'editorconfig-vim'
+"NeoBundle 'editorconfig-vim'
 " terryma/Expand-Region {{{
 nmap + <Plug>(expand_region_expand)
 xmap + <Plug>(expand_region_expand)
 xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
-Bundle 'terryma/vim-expand-region'
+NeoBundle 'terryma/vim-expand-region'
 " }}}
-"Bundle 'explainpat'
+"NeoBundle 'explainpat'
 " GF-Ext {{{
-Bundle 'gf-ext'
+NeoBundle 'gf-ext'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
 call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
@@ -192,20 +196,21 @@ call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
 " }}}
-"Bundle 'kana/vim-gf-user'
-"Bundle 'gist-vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'Headlights'
-Bundle 'Indent-Guides'
+"NeoBundle 'kana/vim-gf-user'
+NeoBundle 'dpwright/vim-gf-ext'
+"NeoBundle 'gist-vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'Headlights'
+NeoBundle 'Indent-Guides'
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
 nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
-Bundle 'AndrewRadev/inline_edit.vim'
+NeoBundle 'AndrewRadev/inline_edit.vim'
 " }}}
-"Bundle 'libview'
-Bundle 'linediff.vim'
-"Bundle 'locator'
+"NeoBundle 'libview'
+NeoBundle 'linediff.vim'
+"NeoBundle 'locator'
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
@@ -223,22 +228,22 @@ nmap <Space>nn      <Plug>MarkAllClear
 nmap <Space>n       <Plug>MarkClear
 nmap <Space>r       <Plug>MarkRegex
 xmap <Space>r       <Plug>MarkRegex
-Bundle 'Mark'
+NeoBundle 'Mark'
 " }}}
-"Bundle 't9md/vim-quickhl'
-Bundle 'matchit.zip'
-Bundle 'kana/vim-metarw'
-Bundle 'multiselect'
+"NeoBundle 't9md/vim-quickhl'
+NeoBundle 'matchit.zip'
+NeoBundle 'kana/vim-metarw'
+NeoBundle 'multiselect'
 " OmniCpp {{{
 let OmniCpp_MayCompleteDot   = 0
 let OmniCpp_MayCompleteArrow = 0
 let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem  = 0
-Bundle 'OmniCppComplete'
+NeoBundle 'OmniCppComplete'
 "}}}
-Bundle 'javacomplete'
-"Bundle 'nosami/Omnisharp'
-Bundle 'marijnh/tern_for_vim'
+NeoBundle 'javacomplete'
+"NeoBundle 'nosami/Omnisharp'
+NeoBundle 'marijnh/tern_for_vim'
 " davidhalter/Jedi {{{
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
@@ -246,13 +251,13 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 1
 let g:jedi#show_function_definition = 0
 let g:jedi#autocompletion_command = "<M-_>"
-Bundle 'davidhalter/jedi-vim'
+NeoBundle 'davidhalter/jedi-vim'
 "}}}
-"Bundle 'klen/python-mode'
+"NeoBundle 'klen/python-mode'
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
-Bundle 'mattn/emmet-vim'
+NeoBundle 'mattn/emmet-vim'
 " }}}
 " Shougo/NeoComplete {{{
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
@@ -330,14 +335,14 @@ let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 " endif
 " let g:neocomplete#omni_functions.python = 'jedi#complete'
 " let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
-Bundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neocomplete.vim'
 "}}}
 " Shougo/NeoSnippet {{{
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
-Bundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet.vim'
 "}}}
 " NetRW {{{
 let g:tar_nomax = 1
@@ -349,31 +354,31 @@ let g:netrw_home = $HOME . '/.vim/var'
 let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
-Bundle 'netrw.vim'
+NeoBundle 'netrw.vim'
 "}}}
 " Notes
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
-Bundle 'Notes'
-Bundle 'derekwyatt/vim-protodef'
-"Bundle 'pyclewn'
-"Bundle 'quilt'
-"Bundle 'quit_another_window'
-"Bundle 'relops'
-"Bundle 'replay'
-"Bundle 'resizewin'
-"Bundle 'xolox/vim-session'
-Bundle 'tomtom/quickfixsigns_vim'
-Bundle 'kshenoy/vim-signature'
+NeoBundle 'Notes'
+NeoBundle 'derekwyatt/vim-protodef'
+"NeoBundle 'pyclewn'
+"NeoBundle 'quilt'
+"NeoBundle 'quit_another_window'
+"NeoBundle 'relops'
+"NeoBundle 'replay'
+"NeoBundle 'resizewin'
+"NeoBundle 'xolox/vim-session'
+NeoBundle 'tomtom/quickfixsigns_vim'
+NeoBundle 'kshenoy/vim-signature'
 " Signify
 let g:signify_sign_overwrite = 0
 let g:signify_line_highlight = 0
 let g:signify_vcs_list = [ 'git', 'svn' ]
-Bundle 'mhinz/vim-signify'
-"Bundle 'slimux'
-"Bundle 'vimux'
-Bundle 'sjl/vitality.vim'
-Bundle 'UnconditionalPaste'
+NeoBundle 'mhinz/vim-signify'
+"NeoBundle 'slimux'
+"NeoBundle 'vimux'
+NeoBundle 'sjl/vitality.vim'
+NeoBundle 'UnconditionalPaste'
 " Smartput & Pasta
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
@@ -383,20 +388,20 @@ let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'pyth
 let g:smartput = 1
 nnoremap ğp p
 nnoremap ĞP P
-Bundle 'Smartput'
-Bundle 'sickill/vim-pasta'
+NeoBundle 'Smartput'
+NeoBundle 'sickill/vim-pasta'
 " SwapIt & SpeedDating
 let g:speeddating_no_mappings = 1
 " Use SwapIt to interface C-X/A rather than speeddating. Speeddating is
 " called from SwapIt as a fallback method.
 nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
-Bundle 'mjbrownie/swapit'
-Bundle 'tpope/vim-speeddating'
+NeoBundle 'mjbrownie/swapit'
+NeoBundle 'tpope/vim-speeddating'
 nnoremap <silent> - :Switch<CR>
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'SQLUtilities'
+NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'AndrewRadev/splitjoin.vim'
+NeoBundle 'SQLUtilities'
 " mhinz/Startify {{{
 let g:startify_session_dir = '~/.vim/var/session'
 let g:session_directory = "~/.vim/var/session"
@@ -420,7 +425,7 @@ let g:startify_custom_footer = [
             \ '',
             \ '',
             \ ]
-Bundle 'mhinz/vim-startify'
+NeoBundle 'mhinz/vim-startify'
 "}}}
 " SuperTab {{{
 let g:SuperTabMappingForward = '<C-Space>'
@@ -429,16 +434,16 @@ let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
 " Use old version
-"Bundle 'SuperTab'
+"NeoBundle 'SuperTab'
 "}}}
 " Auto-Pairs {{{
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
-Bundle 'jiangmiao/auto-pairs'
+NeoBundle 'jiangmiao/auto-pairs'
 "}}}
-Bundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-surround'
 " scrooloose/Syntastic {{{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-std=gnu99
@@ -459,51 +464,50 @@ let g:syntastic_c_no_include_search = 1
 let g:syntastic_c_auto_refresh_includes = 1
 let g:syntastic_c_check_header = 1
 "let g:syntastic_*_checkers=['Xxx', 'Yyy']
-Bundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic'
 "}}}
-Bundle 'godlygeek/tabular'
+NeoBundle 'godlygeek/tabular'
 " majutsushi/TagBar {{{
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
-Bundle 'majutsushi/tagbar'
+NeoBundle 'majutsushi/tagbar'
 "}}}
-Bundle 'git@bitbucket.org:abudden/taghighlight.git'
-Bundle 'TagHighlight'
+NeoBundle 'https://bitbucket.org/abudden/taghighlight'
 " tomtom/TComment {{{
 let g:tcommentMapLeader1=""
 let g:tcommentMapLeader2=""
 nnoremap <silent> __ :TComment<CR>
 xnoremap <silent> __ :TCommentMaybeInline<CR>
-Bundle 'tomtom/tcomment_vim'
+NeoBundle 'tomtom/tcomment_vim'
 "}}}
-"Bundle 'tdd-dubgeiser-vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kana/vim-textobj-datetime'
-Bundle 'kana/vim-textobj-entire'
-Bundle 'kana/vim-textobj-function'
-Bundle 'kana/vim-textobj-fold'
-"Bundle 'kana/vim-textobj-indent'
-"Bundle 'textobj-line-vim-scripts'
-Bundle 'vim-textobj-quoted'
-Bundle 'coderifous/textobj-word-column.vim'
-Bundle 'killphi/vim-textobj-signify-hunk'
-Bundle 'mattn/vim-textobj-url'
-Bundle 'bps/vim-textobj-python'
+"NeoBundle 'tdd-dubgeiser-vim'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-datetime'
+NeoBundle 'kana/vim-textobj-entire'
+NeoBundle 'kana/vim-textobj-function'
+NeoBundle 'kana/vim-textobj-fold'
+"NeoBundle 'kana/vim-textobj-indent'
+"NeoBundle 'textobj-line-vim-scripts'
+NeoBundle 'vim-textobj-quoted'
+NeoBundle 'coderifous/textobj-word-column.vim'
+NeoBundle 'killphi/vim-textobj-signify-hunk'
+NeoBundle 'mattn/vim-textobj-url'
+NeoBundle 'bps/vim-textobj-python'
 " glts/TextObj-Comment {{{
 let g:textobj_comment_no_default_key_mappings = 1
 xmap ax <Plug>(textobj-comment-a)
 omap ax <Plug>(textobj-comment-a)
 xmap ix <Plug>(textobj-comment-i)
 omap ix <Plug>(textobj-comment-i)
-Bundle 'glts/vim-textobj-comment'
+NeoBundle 'glts/vim-textobj-comment'
 " }}}
 " tomtom/TinyKeyMap {{{
-Bundle 'tomtom/tinykeymap_vim'
+NeoBundle 'tomtom/tinykeymap_vim'
 call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
 call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 let g:tinykeymap#map#windows#map = "gw"
 " }}}
-Bundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-unimpaired'
 " t9md/TextManip {{{
 xmap <Up>    <Plug>(textmanip-move-up)
 xmap <Down>  <Plug>(textmanip-move-down)
@@ -511,16 +515,16 @@ xmap <Left>  <Plug>(textmanip-move-left)
 xmap <Right> <Plug>(textmanip-move-right)
 xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
-Bundle 't9md/vim-textmanip'
+NeoBundle 't9md/vim-textmanip'
 " }}}
-"Bundle 'chrisbra/unicode.vim'
-"Bundle 'toggle_unit_tests'
+"NeoBundle 'chrisbra/unicode.vim'
+"NeoBundle 'toggle_unit_tests'
 " kien/CtrlP {{{
 let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
-Bundle 'kien/ctrlp.vim'
+NeoBundle 'kien/ctrlp.vim'
 " }}}
 " Shougo/Unite {{{
 if has('multi_byte')
@@ -608,7 +612,7 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \}
 endfunction
 " }}}
-Bundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim'
 nnoremap <silent> ğee    :lcd %:h<CR>:Unite -start-insert file<CR>
 nnoremap <silent> ğe     :Unite -start-insert file<CR>
 nnoremap <silent> <C-p>  :Unite -start-insert source<CR>
@@ -620,69 +624,70 @@ nnoremap <silent> ĞS     :Unite grep:.<CR>
 nnoremap <silent> MRU    :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 "}}}
-"Bundle 'unite-colorscheme-1.3'
-"Bundle 'unite-grep-Sixeight'
-"Bundle 'tsukkee/unite-help'
-"Bundle 'thinca/vim-unite-history'
-"Bundle 'h1mesuke/unite-outline'
-Bundle 'unite-locate'
-"Bundle 'hakobe/unite-script'
-Bundle 'tsukkee/unite-tag'
-Bundle 'Shougo/vimproc.vim'
+"NeoBundle 'unite-colorscheme-1.3'
+"NeoBundle 'unite-grep-Sixeight'
+"NeoBundle 'tsukkee/unite-help'
+"NeoBundle 'thinca/vim-unite-history'
+"NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'unite-locate'
+"NeoBundle 'hakobe/unite-script'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'Shougo/vimproc.vim'
 " Shougo/VimShell {{{
 nnoremap <silent> ğsh  :VimShellPop<CR>
 nnoremap <silent> ğp2  :VimShellInteractive ipython2<CR>
 nnoremap <silent> ğp3  :VimShellInteractive python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive python2<CR>
 " }}}
-Bundle 'Shougo/vimshell'
-"Bundle 'utl'
-Bundle 'tpope/vim-fugitive'
-Bundle 'aurum'
+NeoBundle 'Shougo/vimshell'
+"NeoBundle 'utl'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 "let VCSCommandSVNDiffOpt = "-ignore-all-space"
-Bundle 'vcscommand.vim'
+NeoBundle 'vcscommand.vim'
 " }}}
-Bundle 'viewdoc'
-"Bundle 'ManPageView'
-"Bundle 'viki'
-Bundle 'dbakker/vim-lint'
-Bundle 'Vimball'
-Bundle 'VisIncr'
-"Bundle 'visualrepeat'
-Bundle 'WebAPI.vim'
-Bundle 'octol/vim-cpp-enhanced-highlight'
-Bundle 'sk1418/Join'
-Bundle 'elzr/vim-json'
-Bundle 'junkblocker/patchreview-vim'
+NeoBundle 'viewdoc'
+"NeoBundle 'ManPageView'
+"NeoBundle 'viki'
+NeoBundle 'dbakker/vim-lint'
+NeoBundle 'Vimball'
+NeoBundle 'VisIncr'
+"NeoBundle 'visualrepeat'
+NeoBundle 'epeli/slimux'
+NeoBundle 'WebAPI.vim'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
+NeoBundle 'sk1418/Join'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
 nnoremap <silent> X  :CoremoSearchAdd<CR>
 xnoremap <silent> X  :CoremoSearchAddV<CR>
 nnoremap <silent> ğX :CoremoSearchRemove<CR>
 xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
-Bundle 'CoremoSearch'
+NeoBundle 'CoremoSearch'
 " }}}
 " mbbill/FencView {{{
 let g:autofenc_enable = 1
 let g:fencview_autodetect = 0
-Bundle 'mbbill/fencview'
+NeoBundle 'mbbill/fencview'
 " }}}
-"Bundle 'davidoc/taskpaper.vim'
-"Bundle 'lfilho/cosco.vim'
-"Bundle 'bigfish/vim-js-context-coloring'
-"Bundle 'jlanzarotta/bufexplorer'
-"Bundle 'filesearch'
-"Bundle 'filtering2'
-"Bundle 'fortune-vimtips'
-"Bundle 'derekwyatt/vim-fswitch'
-"Bundle 'chrisbra/changesPlugin'
-"Bundle 'jmcantrell/diffchanges.vim'
-"Bundle 'golden-ratio'
-"Bundle 'christoomey/vim-tmux-navigator'
-"Bundle 'nelstrom/vim-qargs'
+"NeoBundle 'davidoc/taskpaper.vim'
+"NeoBundle 'lfilho/cosco.vim'
+"NeoBundle 'bigfish/vim-js-context-coloring'
+"NeoBundle 'jlanzarotta/bufexplorer'
+"NeoBundle 'filesearch'
+"NeoBundle 'filtering2'
+"NeoBundle 'fortune-vimtips'
+"NeoBundle 'derekwyatt/vim-fswitch'
+"NeoBundle 'chrisbra/changesPlugin'
+"NeoBundle 'jmcantrell/diffchanges.vim'
+"NeoBundle 'golden-ratio'
+"NeoBundle 'christoomey/vim-tmux-navigator'
+"NeoBundle 'nelstrom/vim-qargs'
 " }}}
 
 filetype plugin indent on " Required for Vundle!
