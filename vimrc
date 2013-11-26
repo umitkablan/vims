@@ -133,9 +133,10 @@ NeoBundle 'bling/vim-airline'
 " }}}
 " Arpeggio {{{
 NeoBundle 'kana/vim-arpeggio'
-call arpeggio#load()  "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
-Arpeggio inoremap jk <Esc>
-Arpeggio inoremap jk<Space> <Esc>:w<CR>
+call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
+Arpeggio inoremap jk           <Esc>
+Arpeggio inoremap jk<Space>    <Esc>:update<CR>
+Arpeggio nnoremap <Space><Tab> :update<CR>
 " }}}
 " Calendar {{{
 nmap CAL  <Plug>CalendarV
@@ -619,7 +620,8 @@ nnoremap <silent> <C-p>  :Unite -start-insert source<CR>
 nnoremap <silent> <C-p>p :Unite -start-insert register history/yank<CR>
 nnoremap <silent> ğb     :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB     :UniteBookmarkAdd <CR>
-nnoremap <silent> <C-B>  :Unite -start-insert -quick-match buffer_tab file_rec/async<CR>
+" -quick-match
+nnoremap <silent> <C-B>  :Unite -start-insert buffer_tab file_rec/async<CR>
 nnoremap <silent> ĞS     :Unite grep:.<CR>
 nnoremap <silent> MRU    :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
@@ -866,7 +868,6 @@ if has("gui_running")
   vmap <C-s> <Esc><C-s>gv
   imap <C-s> <C-o><C-s>
 endif
-nnoremap <silent> <Tab><space> :update<CR>
 " using TAB instead of ^W is easier
 nmap <Tab>h <C-W>h
 nmap <Tab>j <C-W>j
@@ -957,8 +958,8 @@ augroup preprocessor_langs
 augroup END
 
 call pathogen#infect('bundle/*')
-autocmd BufWritePost ~/.vim/** Helptags
-call ipi#inspect()
+"autocmd BufWritePost ~/.vim/** Helptags
+"call ipi#inspect()
 
 " personal plugin maps
 " {{{
