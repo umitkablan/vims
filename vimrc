@@ -1001,7 +1001,7 @@ nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> ğa :A<CR>
 nnoremap <silent> ğ1 :Sscratch<CR>
-nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
+"nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
 nnoremap <silent> ğğu :Utl<CR>
 xnoremap <silent> ğğu :Utl<CR>
 autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
