@@ -134,9 +134,9 @@ NeoBundle 'bling/vim-airline'
 " Arpeggio {{{
 NeoBundle 'kana/vim-arpeggio'
 call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
-Arpeggio inoremap jk           <Esc>
-Arpeggio inoremap jk<Space>    <Esc>:update<CR>
-Arpeggio nnoremap <Space><Tab> :update<CR>
+Arpeggio inoremap <expr><silent> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+Arpeggio inoremap <expr><silent> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+Arpeggio nnoremap    <silent> <Space><Tab> :update<CR>
 " }}}
 " Calendar {{{
 nmap CAL  <Plug>CalendarV
@@ -929,9 +929,6 @@ xnoremap ğc "+y
 " set pastetoggle=<F12>
 inoremap <F12> <C-O>:set invpaste paste?<CR>
 nnoremap <F12>      :set invpaste paste?<CR>
-" behaviour on pumvisible()?
-imap <expr> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
-imap <expr> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " easy completion
 inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
@@ -1221,6 +1218,7 @@ function! Make_Tmux_Build(targets)
   if a:targets == ""
     make %
   else
+    exec "SlimuxShellRun clear"
     exec "SlimuxShellRun m " . a:targets
   endif
 endfunction
