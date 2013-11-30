@@ -661,6 +661,7 @@ NeoBundle 'WebAPI.vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 NeoBundle 'sk1418/Join'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
@@ -699,6 +700,7 @@ set nocompatible
 filetype plugin on
 filetype indent on
 syntax on
+set regexpengine=1
 let mapleader = "ü"
 let maplocalleader = ","
 "set term color to 256 for some colorschemes to work.
