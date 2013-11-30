@@ -44,6 +44,7 @@ let g:DeleteTrailingWhitespace_Action = 'ask'
 NeoBundle 'DeleteTrailingWhitespace'
 " }}}
 NeoBundle 'EasyGrep'
+NeoBundle 'lastpos.vim'
 " GoldenView
 let g:goldenview__enable_default_mapping = 0
 NeoBundle 'zhaocai/GoldenView.Vim'
@@ -233,6 +234,7 @@ NeoBundle 'Mark'
 NeoBundle 'matchit.zip'
 NeoBundle 'kana/vim-metarw'
 NeoBundle 'multiselect'
+NeoBundle 'terryma/vim-multiple-cursors'
 " OmniCppComplete {{{
 let OmniCpp_MayCompleteDot   = 0
 let OmniCpp_MayCompleteArrow = 0
@@ -695,7 +697,7 @@ NeoBundle 'mbbill/fencview'
 "NeoBundle 'golden-ratio'
 "NeoBundle 'christoomey/vim-tmux-navigator'
 "NeoBundle 'nelstrom/vim-qargs'
-" }}}
+"}}}
 
 filetype plugin indent on " Required for Vundle!
 " }}}
