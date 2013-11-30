@@ -134,9 +134,7 @@ NeoBundle 'bling/vim-airline'
 " Arpeggio {{{
 NeoBundle 'kana/vim-arpeggio'
 call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
-Arpeggio inoremap jk           <Esc>
-Arpeggio inoremap jk<Space>    <Esc>:update<CR>
-Arpeggio nnoremap <Space><Tab> :update<CR>
+Arpeggio nnoremap <silent>   <Space><Tab> :update<CR>
 " }}}
 " Calendar {{{
 nmap CAL  <Plug>CalendarV
@@ -663,6 +661,7 @@ NeoBundle 'WebAPI.vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 NeoBundle 'sk1418/Join'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
@@ -702,6 +701,7 @@ set nocompatible
 filetype plugin on
 filetype indent on
 syntax on
+set regexpengine=1
 let mapleader = "ü"
 let maplocalleader = ","
 "set term color to 256 for some colorschemes to work.
@@ -930,9 +930,6 @@ xnoremap ğc "+y
 " set pastetoggle=<F12>
 inoremap <F12> <C-O>:set invpaste paste?<CR>
 nnoremap <F12>      :set invpaste paste?<CR>
-" behaviour on pumvisible()?
-imap <expr> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
-imap <expr> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " easy completion
 inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
@@ -945,13 +942,25 @@ nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
 
+" Default maps for any buffer/filetype. {{{
+inoremap <expr><silent> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+inoremap <expr><silent> kj        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+inoremap <expr><silent> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+inoremap <expr><silent> j<Space>k pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+inoremap <expr><silent> kj<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+inoremap <expr><silent> j<Space>k pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr> <buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> kj        YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> j<Space>k YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> kj<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> k<Space>j YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
+"}}}
 
 augroup preprocessor_langs
   au!
@@ -1222,6 +1231,7 @@ function! Make_Tmux_Build(targets)
   if a:targets == ""
     make %
   else
+    exec "SlimuxShellRun clear"
     exec "SlimuxShellRun m " . a:targets
   endif
 endfunction

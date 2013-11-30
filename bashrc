@@ -32,6 +32,8 @@ export PATH=$PATH:/opt/flex-sdk/bin
 
 export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
 export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
+export FLEX_SDK_HOME=/opt/flex-sdk
+export flex_sdk_home=/opt/flex-sdk
 
 BASHCOMPLETE_RCDIR="/etc/bash_completion.d"
 for i in "$BASHCOMPLETE_RCDIR"/*; do
