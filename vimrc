@@ -167,11 +167,11 @@ NeoBundle 'vis'
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 NeoBundle 'dbext.vim'
 " }}}
-" EasyAlign {{{
+" junegunn/EasyAlign {{{
 xnoremap <silent> <Enter> :EasyAlign<CR>
 NeoBundle 'junegunn/vim-easy-align'
 " }}}
-" EasyMotion {{{
+" supasorn/EasyMotion {{{
 let g:EasyMotion_leader_key = '<Tab><Tab>'
 nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 NeoBundle 'supasorn/vim-easymotion'
@@ -233,7 +233,7 @@ NeoBundle 'Mark'
 NeoBundle 'matchit.zip'
 NeoBundle 'kana/vim-metarw'
 NeoBundle 'multiselect'
-" OmniCpp {{{
+" OmniCppComplete {{{
 let OmniCpp_MayCompleteDot   = 0
 let OmniCpp_MayCompleteArrow = 0
 let OmniCpp_MayCompleteScope = 0
@@ -362,23 +362,23 @@ NeoBundle 'Notes'
 NeoBundle 'derekwyatt/vim-protodef'
 "NeoBundle 'pyclewn'
 "NeoBundle 'quilt'
-"NeoBundle 'quit_another_window'
 "NeoBundle 'relops'
 "NeoBundle 'replay'
 "NeoBundle 'resizewin'
-"NeoBundle 'xolox/vim-session'
+NeoBundle 'xolox/vim-session'
 NeoBundle 'tomtom/quickfixsigns_vim'
 NeoBundle 'kshenoy/vim-signature'
-" Signify
+" mhinz/Signify {{{
 let g:signify_sign_overwrite = 0
 let g:signify_line_highlight = 0
 let g:signify_vcs_list = [ 'git', 'svn' ]
 NeoBundle 'mhinz/vim-signify'
+" }}}
 "NeoBundle 'slimux'
 "NeoBundle 'vimux'
 NeoBundle 'sjl/vitality.vim'
 NeoBundle 'UnconditionalPaste'
-" Smartput & Pasta
+" Smartput & sickill/Pasta {{{
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
@@ -389,7 +389,8 @@ nnoremap ğp p
 nnoremap ĞP P
 NeoBundle 'Smartput'
 NeoBundle 'sickill/vim-pasta'
-" SwapIt & SpeedDating
+" }}}
+" mjbrownie/SwapIt & tpope/SpeedDating {{{
 let g:speeddating_no_mappings = 1
 " Use SwapIt to interface C-X/A rather than speeddating. Speeddating is
 " called from SwapIt as a fallback method.
@@ -397,6 +398,7 @@ nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
 nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 NeoBundle 'mjbrownie/swapit'
 NeoBundle 'tpope/vim-speeddating'
+" }}}
 nnoremap <silent> - :Switch<CR>
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'AndrewRadev/splitjoin.vim'
@@ -435,7 +437,7 @@ let g:SuperTabCrMapping = 0
 " Use old version
 "NeoBundle 'SuperTab'
 "}}}
-" Auto-Pairs {{{
+" jiangmiao/Auto-Pairs {{{
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsFlyMode = 0
@@ -479,25 +481,25 @@ xnoremap <silent> __ :TCommentMaybeInline<CR>
 NeoBundle 'tomtom/tcomment_vim'
 "}}}
 "NeoBundle 'tdd-dubgeiser-vim'
+" TextObj's {{{
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-datetime'
 NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'kana/vim-textobj-function'
 NeoBundle 'kana/vim-textobj-fold'
-"NeoBundle 'kana/vim-textobj-indent'
-"NeoBundle 'textobj-line-vim-scripts'
 NeoBundle 'vim-textobj-quoted'
 NeoBundle 'coderifous/textobj-word-column.vim'
 NeoBundle 'killphi/vim-textobj-signify-hunk'
 NeoBundle 'mattn/vim-textobj-url'
 NeoBundle 'bps/vim-textobj-python'
-" glts/TextObj-Comment {{{
 let g:textobj_comment_no_default_key_mappings = 1
 xmap ax <Plug>(textobj-comment-a)
 omap ax <Plug>(textobj-comment-a)
 xmap ix <Plug>(textobj-comment-i)
 omap ix <Plug>(textobj-comment-i)
 NeoBundle 'glts/vim-textobj-comment'
+"NeoBundle 'kana/vim-textobj-indent'
+"NeoBundle 'textobj-line-vim-scripts'
 " }}}
 " tomtom/TinyKeyMap {{{
 NeoBundle 'tomtom/tinykeymap_vim'
@@ -624,22 +626,22 @@ nnoremap <silent> ĞS     :Unite grep:.<CR>
 nnoremap <silent> MRU    :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 "}}}
+NeoBundle 'unite-locate'
+NeoBundle 'tsukkee/unite-tag'
 "NeoBundle 'unite-colorscheme-1.3'
 "NeoBundle 'unite-grep-Sixeight'
 "NeoBundle 'tsukkee/unite-help'
 "NeoBundle 'thinca/vim-unite-history'
 "NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'unite-locate'
 "NeoBundle 'hakobe/unite-script'
-NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'Shougo/vimproc.vim'
 " Shougo/VimShell {{{
 nnoremap <silent> ğsh  :VimShellPop<CR>
 nnoremap <silent> ğp2  :VimShellInteractive ipython2<CR>
 nnoremap <silent> ğp3  :VimShellInteractive python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive python2<CR>
-" }}}
 NeoBundle 'Shougo/vimshell'
+" }}}
 "NeoBundle 'utl'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'https://bitbucket.org/ZyX_I/aurum'
