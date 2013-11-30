@@ -670,6 +670,7 @@ NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-git'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'TxtBrowser'
 NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
