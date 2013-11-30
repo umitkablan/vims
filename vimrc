@@ -663,6 +663,7 @@ NeoBundle 'WebAPI.vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 NeoBundle 'sk1418/Join'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
