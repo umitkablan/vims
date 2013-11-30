@@ -1,3 +1,3 @@
 
-au BufNewFile,BufRead *.txt setf txt
+au BufNewFile,BufRead *.txt set ft=txt
 
