@@ -58,6 +58,7 @@ NeoBundle 'IndentConsistencyCop'
 " }}}
 NeoBundle 'IndentConsistencyCopAutoCmds'
 NeoBundle 'chrisbra/NrrwRgn'
+NeoBundle 'mikewest/vimroom'
 " ReplaceWithRegister {{{
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
