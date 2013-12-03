@@ -136,7 +136,7 @@ NeoBundle 'bling/vim-airline'
 " Arpeggio {{{
 NeoBundle 'kana/vim-arpeggio'
 call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
-Arpeggio nnoremap <silent>   <Space><Tab> :update<CR>
+Arpeggio nnoremap <silent> <Space><Tab> :update<CR>
 " }}}
 " Calendar {{{
 nmap CAL  <Plug>CalendarV
@@ -964,13 +964,13 @@ inoremap <expr><silent> j<Space>k pumvisible() ? neocomplete#close_popup()."\<Es
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> kj        YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> j<Space>k YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> kj<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> k<Space>j YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj        YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> j<Space>k YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 "}}}
 
