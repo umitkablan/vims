@@ -496,6 +496,9 @@ NeoBundle 'coderifous/textobj-word-column.vim'
 NeoBundle 'killphi/vim-textobj-signify-hunk'
 NeoBundle 'mattn/vim-textobj-url'
 NeoBundle 'bps/vim-textobj-python'
+NeoBundle 'thinca/vim-textobj-function-javascript'
+"NeoBundle 'kana/vim-textobj-indent'
+NeoBundle 'austintaylor/vim-indentobject'
 let g:textobj_comment_no_default_key_mappings = 1
 xmap ax <Plug>(textobj-comment-a)
 omap ax <Plug>(textobj-comment-a)
