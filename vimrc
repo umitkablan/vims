@@ -816,7 +816,7 @@ endif
 " {{{
 nnoremap <silent> ZZ  :hide<CR>
 nnoremap <silent> ZZA :qa<CR>
-nnoremap <silent> ZZE :sp .<CR>:wincmd p<CR>:bd<CR>
+nnoremap <silent> ZZE :lcd %:h\|sp .\|wincmd p\|bd<CR>
 nnoremap <silent> ZA  :bd<CR>
 " disable all _accidental touches_
 nnoremap QQ <Nop>
@@ -845,7 +845,7 @@ noremap gh ^
 noremap Y y$
 " Needed the 'dot' at reverse side of comma/n, which is mainly used for
 " search-replace (<comma_or_n><dot>)
-nnoremap <silent> <Bar> :norm! .<CR>
+nnoremap <silent> <Bar> :normal .<CR>
 " do not use shift-* for colon, make it one shot
 nnoremap ç :
 xnoremap ç :
@@ -866,7 +866,7 @@ vnoremap <silent> <F3> :<Up><CR>
 nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
-nnoremap <silent> \ :let @/=""<CR>:echo "Cleared Search Pattern"<CR>
+nnoremap <silent> \ :let @/=""\|echo "Cleared Search Pattern"<CR>
 nnoremap / /\V
 " save current file path to register
 nnoremap <silent> y@@ :let @+=expand("%:p")<CR>
