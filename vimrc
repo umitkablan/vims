@@ -675,6 +675,8 @@ NeoBundle 'tpope/vim-git'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'TxtBrowser'
+" let g:languagetool_jar='/usr/share/java/languagetool/languagetool-standalone.jar'
+" NeoBundle 'dpelle/vim-LanguageTool'
 NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
@@ -779,6 +781,7 @@ if has('multi_byte')
 else
   let &showbreak = '> '
 endif
+set spell spelllang=en
 
 au FileType text setlocal wrap linebreak
 au InsertEnter * set nocursorline
