@@ -675,7 +675,7 @@ NeoBundle 'tpope/vim-git'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'TxtBrowser'
-" let g:languagetool_jar='/usr/share/java/languagetool/languagetool-standalone.jar'
+" let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
 " NeoBundle 'dpelle/vim-LanguageTool'
 NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
@@ -1181,7 +1181,6 @@ let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:enableUnicodeCompletion = 0
-let g:languagetool_jar="/usr/share/languagetool/LanguageTool.jar"
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 let g:no_tagselect_maps = 1
 let utl_opt_verbose=0
