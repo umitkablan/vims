@@ -847,6 +847,8 @@ nnoremap g,, g,g,
 " not to press shift key
 noremap gl $
 noremap gh ^
+inoremap <silent> <C-E> <C-O>:normal! "g$"<CR>
+inoremap <silent> <C-A> <C-O>:exe "normal! \<C-O>g^"<CR>
 " behave like C and D counterparts (default is yy, which yanks line(s))
 noremap Y y$
 " Needed the 'dot' at reverse side of comma/n, which is mainly used for
@@ -884,7 +886,7 @@ if has("gui_running")
   vmap <C-s> <Esc><C-s>gv
   imap <C-s> <C-o><C-s>
 endif
-" using TAB instead of ^W is easier
+" using TAB instead of ^W is easier {{{
 nmap <Tab>h <C-W>h
 nmap <Tab>j <C-W>j
 nmap <Tab>k <C-W>k
@@ -901,6 +903,7 @@ nmap <Tab>+ <C-W>+
 nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
+" }}}
 " full redraw
 nnoremap <silent> <C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
 nnoremap <silent> HH  :hide<CR>
@@ -933,8 +936,6 @@ cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-inoremap <silent> <C-E> <C-O>:normal! "g$"<CR>
-inoremap <silent> <C-A> <C-O>:exe "normal! \<C-O>g^"<CR>
 " unnamed register to/from system clipboard
 nmap <silent> ğ,, :set paste\|exe 'norm "+p'\|set nopaste<CR>
 nmap <silent> Ğ;; :set paste\|exe 'norm "+p'\|set nopaste<CR>GV=
