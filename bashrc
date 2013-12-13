@@ -7,6 +7,9 @@ export EDITOR="vim"
 bind '"\e[1;3A":history-search-backward'
 bind '"\e[1;3B":history-search-forward'
 
+# Disable flow control so Ctrl-S/Ctrl-Q will be available for use
+stty -ixon
+
 export LS_COLORS="di=01;37:fi=00;35"
 alias ls='ls --color=auto'
 if [ "$PS1" == "" ]; then
