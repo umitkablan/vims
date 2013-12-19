@@ -45,9 +45,10 @@ NeoBundle 'DeleteTrailingWhitespace'
 " }}}
 NeoBundle 'EasyGrep'
 NeoBundle 'lastpos.vim'
-" GoldenView
+" zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
 NeoBundle 'zhaocai/GoldenView.Vim'
+"}}}
 "NeoBundle 'IndGuide'
 " IndentConsistencyCop {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
@@ -406,6 +407,7 @@ NeoBundle 'tpope/vim-speeddating'
 nnoremap <silent> - :Switch<CR>
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'AndrewRadev/splitjoin.vim'
+NeoBundle 'sk1418/Join'
 NeoBundle 'SQLUtilities'
 " mhinz/Startify {{{
 let g:startify_session_dir = '~/.vim/var/session'
@@ -661,6 +663,7 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'viewdoc'
 "NeoBundle 'ManPageView'
 "NeoBundle 'viki'
+NeoBundle 'https://bitbucket.org/madevgeny/yate.git'
 NeoBundle 'dbakker/vim-lint'
 NeoBundle 'Vimball'
 NeoBundle 'VisIncr'
@@ -668,13 +671,14 @@ NeoBundle 'tpope/vim-repeat'
 "NeoBundle 'visualrepeat'
 NeoBundle 'epeli/slimux'
 NeoBundle 'WebAPI.vim'
-NeoBundle 'octol/vim-cpp-enhanced-highlight'
-NeoBundle 'sk1418/Join'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-git'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
+" cpp-vim for better @Spell @NoSpell support
 NeoBundle 'vim-jp/cpp-vim'
+NeoBundle 'ujihisa/ft-cmake'
 NeoBundle 'TxtBrowser'
 " let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
 " NeoBundle 'dpelle/vim-LanguageTool'
