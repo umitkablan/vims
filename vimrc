@@ -11,8 +11,7 @@
 " your hand to press enter-backspace as it is forced by most "general-purpose"
 " keyboards.).
 
-" NeoBundle
-" {{{
+" NeoBundle {{{
 if has("vim_starting")
   set nocompatible " Be iMproved
   " filetype off     " Required for Vundle!
@@ -22,8 +21,7 @@ call neobundle#rc(expand("~/.vim/packs"))
 NeoBundleFetch 'Shougo/neobundle.vim'
 "NeoBundle 'gmarik/vundle'
 
-" Bundles
-" {{{
+" Bundles {{{
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'cecutil'
 NeoBundle 'tomtom/tlib_vim'
@@ -50,14 +48,14 @@ let g:goldenview__enable_default_mapping = 0
 NeoBundle 'zhaocai/GoldenView.Vim'
 "}}}
 "NeoBundle 'IndGuide'
-" IndentConsistencyCop {{{
+" IndentConsistencyCop / AutoCmds {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
 let g:indentconsistencycop_CheckOnLoad = 0
 let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 NeoBundle 'IndentConsistencyCop'
-" }}}
 NeoBundle 'IndentConsistencyCopAutoCmds'
+" }}}
 NeoBundle 'chrisbra/NrrwRgn'
 NeoBundle 'mikewest/vimroom'
 " ReplaceWithRegister {{{
@@ -89,8 +87,19 @@ NeoBundle 'pafcu/Vimsplain'
 "NeoBundle 'WinWalker'
 "NeoBundle 'ZoomWin'
 NeoBundle 'yonchu/accelerated-smooth-scroll'
+" milesz/ack.vim {{{
+if 0 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
+  let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
+else
+  let g:ackprg = 'ack -H --nocolor --nogroup --column'
+endif
 NeoBundle 'mileszs/ack.vim'
+" }}}
+" rking/Ag.vim {{{
+let g:ag_apply_qmappings = 0
+let g:ag_apply_lmappings = 0
 NeoBundle 'rking/ag.vim'
+" }}}
 NeoBundle 'MarcWeber/vim-addon-other'
 " bling/Airline {{{
 if !exists("g:airline_statusline_funcrefs")
@@ -134,7 +143,7 @@ if has('multi_byte')
 endif
 NeoBundle 'bling/vim-airline'
 " }}}
-" Arpeggio {{{
+" kana/Arpeggio {{{
 NeoBundle 'kana/vim-arpeggio'
 call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
 Arpeggio nnoremap <silent> <Space><Tab> :update<CR>
@@ -372,6 +381,13 @@ NeoBundle 'derekwyatt/vim-protodef'
 "NeoBundle 'resizewin'
 NeoBundle 'xolox/vim-session'
 NeoBundle 'tomtom/quickfixsigns_vim'
+" yssl/QFEnter {{{
+let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
+let g:qfenter_vopen_map = ['<C-V>']
+let g:qfenter_hopen_map = ['<C-H>']
+let g:qfenter_topen_map = ['<C-T>', 'T']
+NeoBundle 'yssl/QFEnter'
+" }}}
 NeoBundle 'kshenoy/vim-signature'
 " mhinz/Signify {{{
 let g:signify_sign_overwrite = 0
@@ -379,8 +395,6 @@ let g:signify_line_highlight = 0
 let g:signify_vcs_list = [ 'git', 'svn' ]
 NeoBundle 'mhinz/vim-signify'
 " }}}
-"NeoBundle 'slimux'
-"NeoBundle 'vimux'
 NeoBundle 'sjl/vitality.vim'
 NeoBundle 'UnconditionalPaste'
 " Smartput & sickill/Pasta {{{
@@ -670,6 +684,7 @@ NeoBundle 'VisIncr'
 NeoBundle 'tpope/vim-repeat'
 "NeoBundle 'visualrepeat'
 NeoBundle 'epeli/slimux'
+"NeoBundle 'vimux'
 NeoBundle 'WebAPI.vim'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-git'
@@ -679,7 +694,12 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 " cpp-vim for better @Spell @NoSpell support
 NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'ujihisa/ft-cmake'
+" TxtBrowser {{{
+let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
+let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
+let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
 NeoBundle 'TxtBrowser'
+" }}}
 " let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
 " NeoBundle 'dpelle/vim-LanguageTool'
 NeoBundle 'junkblocker/patchreview-vim'
@@ -714,8 +734,7 @@ NeoBundle 'mbbill/fencview'
 filetype plugin indent on " Required for Vundle!
 " }}}
 
-" global configuration
-" {{{
+" global configuration {{{
 set nocompatible
 filetype plugin on
 filetype indent on
@@ -823,8 +842,7 @@ if has("gui_running")
 endif
 " }}}
 
-" personal maps: maps that do not need plugins
-" {{{
+" personal maps: maps that do not need plugins {{{
 nnoremap <silent> ZZ  :hide<CR>
 nnoremap <silent> ZZA :qa<CR>
 nnoremap <silent> ZZE :lcd %:h\|sp .\|wincmd p\|bd<CR>
@@ -905,6 +923,8 @@ nmap <Tab>s <C-W>s
 nmap <Tab><Bar> <C-W><Bar>
 nmap <Tab>- <C-W>-
 nmap <Tab>+ <C-W>+
+nmap <Tab>t <C-W>T
+nmap <Tab>T <C-W>t
 nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
@@ -963,7 +983,7 @@ nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
 
-" Default maps for any buffer/filetype. {{{
+" Maps for known buffer/file types & default behaviours {{{
 inoremap <expr><silent> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
 inoremap <expr><silent> kj        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
 inoremap <expr><silent> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
@@ -981,7 +1001,7 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
-"}}}
+" }}}
 
 augroup preprocessor_langs
   au!
@@ -992,8 +1012,7 @@ call pathogen#infect('bundle/*')
 "autocmd BufWritePost ~/.vim/** Helptags
 "call ipi#inspect()
 
-" personal plugin maps
-" {{{
+" personal plugin maps {{{
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
@@ -1071,15 +1090,14 @@ nmap <unique> NOTUSEDğsh      <Plug>DBHistory
 " nmap <silent> <unique> ğb <Plug>SelectBuf
 " }}}
 
-" plugin configuration
-" {{{
+" plugin configuration {{{
 let g:rainbow_active = 1
 let g:rainbow_operators = 1
 let g:tmuxmake_targets = ""
 let g:buffergator_suppress_keymaps = 1
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
-" Alias'es --------------------------------
+" Aliases {{{
 autocmd VimEnter * Alias te tabedit
 autocmd VimEnter * Alias tee tabedit<Space>~/
 autocmd VimEnter * Alias tec tabedit<Space>%
@@ -1126,12 +1144,7 @@ autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con ConqueTermSplit
 autocmd VimEnter * Alias up UpdateTypesFileOnly
 autocmd VimEnter * Alias ss SaveSession!<Space>default
-" ag & ack -------------------------------
-if 1 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
-  let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
-else
-  let g:ackprg = 'ack -H --nocolor --nogroup --column'
-endif
+" }}}
 augroup no_sticky_buffers
   au!
   au BufReadPost fugitive://* setlocal bufhidden=delete
@@ -1161,10 +1174,6 @@ autocmd FileType conque_term let b:easytags_auto_highlight = 0
 autocmd FileType conque_term let b:easytags_on_cursorhold = 0
 autocmd FileType conque_term let b:easytags_auto_update = 0
 let g:easytags_updatetime_autodisable = 1
-" TxtBrowser
-let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
-let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
-let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
 "------------------------------------------
 let g:ctags_path = '/usr/bin/ctags'
 let g:ctags_args = '-I __declspec+'
@@ -1199,8 +1208,7 @@ let g:loaded_StatusLineHighlight = "disable_"
 let no_multiselect_maps = 1
 " }}}
 
-" FUNCTIONS / COMMANDS
-" {{{
+" FUNCTIONS / COMMANDS {{{
 function! RebuildAllDependentCTags()
   let l:tags = &tags
   for t in split(l:tags, ",")
@@ -1251,7 +1259,6 @@ function! Make_Tmux_Build(targets)
   if a:targets == ""
     make %
   else
-    exec "SlimuxShellRun clear"
     exec "SlimuxShellRun m " . a:targets
   endif
 endfunction
