@@ -28,6 +28,7 @@ alias bgvim="gvim -u NONE -U NONE -N"
 alias diff="diff --exclude='.svn' -x tags"
 alias cdiff="diff --exclude='.*' -x tags"
 alias ack="ack --nofollow"
+alias ag="ag --column --smart-case"
 
 export PATH=$PATH:/sbin
 export PATH=$PATH:~/.gem/ruby/1.9.1/bin
