@@ -98,6 +98,7 @@ NeoBundle 'mileszs/ack.vim'
 " rking/Ag.vim {{{
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
+let g:agprg = "ag --column --smart-case"
 NeoBundle 'rking/ag.vim'
 " }}}
 NeoBundle 'MarcWeber/vim-addon-other'
@@ -938,7 +939,7 @@ nnoremap <silent> ğrc :sp .lvimrc<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE  :call OpenExplore()<CR>
 nnoremap <silent> ĞRC :tabe ~/.vim/<CR>
-nnoremap <silent> ĞT  :tab sp\|tabprev\|q\|tabnext<CR>
+nnoremap <silent> ĞT  :sp .<CR><C-W>T
 " de facto visual block indent mappings
 vnoremap < <gv
 xnoremap > >gv
