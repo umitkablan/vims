@@ -157,9 +157,21 @@ NeoBundle 'calendar.vim'
 "}}}
 NeoBundle 'camelcasemotion'
 " rhysd/Clever-f {{{
-noremap <expr> _ clever_f#reset()
-let g:clever_f_across_no_line = 1
-NeoBundle 'rhysd/clever-f.vim'
+" noremap <expr> _ clever_f#reset()
+" let g:clever_f_across_no_line = 1
+" NeoBundle 'rhysd/clever-f.vim'
+" }}}
+" justinmk/vim-sneak {{{
+nmap f <Plug>SneakForward
+nmap F <Plug>SneakBackward
+nmap , <Plug>SneakNext
+nmap ; <Plug>SneakPrevious
+" xmap ? <Plug>VSneakForward
+" xmap ? <Plug>VSneakBackward
+" xmap ? <Plug>VSneakNext
+" xmap ? <Plug>VSneakPrevious
+let g:sneak#streak = 1
+NeoBundle 'justinmk/vim-sneak'
 " }}}
 "NeoBundle 'code_upstairs'
 " Conque-Shell {{{
@@ -858,7 +870,7 @@ nnoremap U u
 nnoremap qQ Q
 nnoremap ğq gqip
 " CTRL-c to leave insert mode,  better not know it.
-nnoremap <silent> <C-c> :pwd<CR>
+nnoremap <silent> <C-c> :echo expand("%:p:~")<CR>
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
