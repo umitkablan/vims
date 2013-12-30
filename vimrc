@@ -821,6 +821,7 @@ endif
 set spell spelllang=en
 
 au FileType text setlocal wrap linebreak
+au FileType qf   setlocal nospell
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
 au TabLeave    * stopinsert
