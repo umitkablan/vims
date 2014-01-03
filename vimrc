@@ -101,7 +101,6 @@ let g:ag_apply_lmappings = 0
 let g:agprg = "ag --column --smart-case"
 NeoBundle 'rking/ag.vim'
 " }}}
-NeoBundle 'MarcWeber/vim-addon-other'
 " bling/Airline {{{
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
@@ -201,15 +200,6 @@ let g:EasyMotion_leader_key = '<Tab><Tab>'
 nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 NeoBundle 'supasorn/vim-easymotion'
 " }}}
-"NeoBundle 'editorconfig-vim'
-" terryma/Expand-Region {{{
-nmap + <Plug>(expand_region_expand)
-xmap + <Plug>(expand_region_expand)
-xmap - <Plug>(expand_region_shrink)
-nmap - <Plug>(expand_region_shrink)
-NeoBundle 'terryma/vim-expand-region'
-" }}}
-"NeoBundle 'explainpat'
 " GF-Ext {{{
 NeoBundle 'gf-ext'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
@@ -650,7 +640,7 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
 endfunction
 " }}}
 NeoBundle 'Shougo/unite.vim'
-nnoremap <silent> ğee    :lcd %:h<CR>:Unite -start-insert file<CR>
+nnoremap <silent> ğee    :UniteWithBufferDir -start-insert file<CR>
 nnoremap <silent> ğe     :Unite -start-insert file<CR>
 nnoremap <silent> <C-p>  :Unite -start-insert source<CR>
 nnoremap <silent> <C-p>p :Unite -start-insert register history/yank<CR>
@@ -729,6 +719,16 @@ let g:autofenc_enable = 1
 let g:fencview_autodetect = 0
 NeoBundle 'mbbill/fencview'
 " }}}
+"NeoBundle 'MarcWeber/vim-addon-other'
+"NeoBundle 'editorconfig-vim'
+"terryma/Expand-Region {{{
+"nmap + <Plug>(expand_region_expand)
+"xmap + <Plug>(expand_region_expand)
+"xmap - <Plug>(expand_region_shrink)
+"nmap - <Plug>(expand_region_shrink)
+"NeoBundle 'terryma/vim-expand-region'
+"}}}
+"NeoBundle 'explainpat'
 "NeoBundle 'davidoc/taskpaper.vim'
 "NeoBundle 'lfilho/cosco.vim'
 "NeoBundle 'bigfish/vim-js-context-coloring'
