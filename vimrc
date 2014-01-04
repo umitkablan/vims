@@ -195,11 +195,6 @@ NeoBundle 'dbext.vim'
 xnoremap <silent> <Enter> :EasyAlign<CR>
 NeoBundle 'junegunn/vim-easy-align'
 " }}}
-" supasorn/EasyMotion {{{
-let g:EasyMotion_leader_key = '<Tab><Tab>'
-nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
-NeoBundle 'supasorn/vim-easymotion'
-" }}}
 " GF-Ext {{{
 NeoBundle 'gf-ext'
 call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
@@ -721,6 +716,12 @@ NeoBundle 'mbbill/fencview'
 " }}}
 "NeoBundle 'MarcWeber/vim-addon-other'
 "NeoBundle 'editorconfig-vim'
+"supasorn/EasyMotion {{{
+"let g:EasyMotion_leader_key = '<Tab><Tab>'
+"nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
+"NeoBundle 'supasorn/vim-easymotion'
+"NeoBundle 'haya14busa/vim-easymotion'
+"}}}
 "terryma/Expand-Region {{{
 "nmap + <Plug>(expand_region_expand)
 "xmap + <Plug>(expand_region_expand)
@@ -840,7 +841,7 @@ au VimLeave    * if v:dying | wall | endif
 set background=dark
 let g:moria_style="black"
 let g:sienna_style="dark"
-colorscheme inkpot
+colorscheme southernlights
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
