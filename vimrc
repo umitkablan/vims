@@ -143,11 +143,6 @@ if has('multi_byte')
 endif
 NeoBundle 'bling/vim-airline'
 " }}}
-" kana/Arpeggio {{{
-NeoBundle 'kana/vim-arpeggio'
-call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
-Arpeggio nnoremap <silent> <Space><Tab> :update<CR>
-" }}}
 " Calendar {{{
 nmap CAL  <Plug>CalendarV
 nmap HCAL <Plug>CalendarH
@@ -171,18 +166,6 @@ nmap ; <Plug>SneakPrevious
 " xmap ? <Plug>VSneakPrevious
 let g:sneak#streak = 1
 NeoBundle 'justinmk/vim-sneak'
-" }}}
-"NeoBundle 'code_upstairs'
-" Conque-Shell {{{
-let g:ConqueTerm_ReadUnfocused = 0
-let g:ConqueTerm_CloseOnEnd = 1
-let g:ConqueTerm_CWInsert = 0
-let g:ConqueTerm_ToggleKey   = '<C-F8>'
-let g:ConqueTerm_SendVisKey  = '<C-F9>'
-let g:ConqueTerm_SendFileKey = '<C-F10>'
-let g:ConqueTerm_ExecFileKey = '<C-F11>'
-nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
-NeoBundle 'Conque-Shell'
 " }}}
 NeoBundle 'sjl/clam.vim'
 NeoBundle 'chrisbra/csv.vim'
@@ -675,7 +658,6 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'viewdoc'
 "NeoBundle 'ManPageView'
 "NeoBundle 'viki'
-NeoBundle 'https://bitbucket.org/madevgeny/yate.git'
 NeoBundle 'dbakker/vim-lint'
 NeoBundle 'Vimball'
 NeoBundle 'VisIncr'
@@ -728,6 +710,24 @@ NeoBundle 'mbbill/fencview'
 "xmap - <Plug>(expand_region_shrink)
 "nmap - <Plug>(expand_region_shrink)
 "NeoBundle 'terryma/vim-expand-region'
+"}}}
+"NeoBundle 'https://bitbucket.org/madevgeny/yate.git'
+"NeoBundle 'code_upstairs'
+"kana/Arpeggio {{{
+"NeoBundle 'kana/vim-arpeggio'
+"call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
+"Arpeggio nnoremap <silent> <Space><Tab> :update<CR>
+"}}}
+"Conque-Shell {{{
+"let g:ConqueTerm_ReadUnfocused = 0
+"let g:ConqueTerm_CloseOnEnd = 1
+"let g:ConqueTerm_CWInsert = 0
+"let g:ConqueTerm_ToggleKey   = '<C-F8>'
+"let g:ConqueTerm_SendVisKey  = '<C-F9>'
+"let g:ConqueTerm_SendFileKey = '<C-F10>'
+"let g:ConqueTerm_ExecFileKey = '<C-F11>'
+"nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
+"NeoBundle 'Conque-Shell'
 "}}}
 "NeoBundle 'explainpat'
 "NeoBundle 'davidoc/taskpaper.vim'
@@ -997,6 +997,8 @@ autocmd FileType help setlocal nonumber
 nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
+nnoremap <silent> <Tab><Space> :update<CR>
+nnoremap <silent> <Space><Tab> :update<CR>
 
 " Maps for known buffer/file types & default behaviours {{{
 inoremap <expr><silent> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
