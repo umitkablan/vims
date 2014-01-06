@@ -481,7 +481,6 @@ nnoremap <silent> __ :TComment<CR>
 xnoremap <silent> __ :TCommentMaybeInline<CR>
 NeoBundle 'tomtom/tcomment_vim'
 "}}}
-"NeoBundle 'tdd-dubgeiser-vim'
 " TextObj's {{{
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-datetime'
@@ -522,8 +521,6 @@ xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 NeoBundle 't9md/vim-textmanip'
 " }}}
-"NeoBundle 'chrisbra/unicode.vim'
-"NeoBundle 'toggle_unit_tests'
 " kien/CtrlP {{{
 let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
@@ -638,7 +635,14 @@ NeoBundle 'tsukkee/unite-tag'
 "NeoBundle 'thinca/vim-unite-history'
 "NeoBundle 'h1mesuke/unite-outline'
 "NeoBundle 'hakobe/unite-script'
-NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \     'windows' : 'make -f make_mingw32.mak',
+  \     'cygwin' : 'make -f make_cygwin.mak',
+  \     'mac' : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak',
+  \    },
+  \ }
 " Shougo/VimShell {{{
 nnoremap <silent> ğsh  :VimShellPop<CR>
 nnoremap <silent> ğp2  :VimShellInteractive ipython2<CR>
@@ -680,8 +684,6 @@ let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
 let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
 NeoBundle 'TxtBrowser'
 " }}}
-" let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
-" NeoBundle 'dpelle/vim-LanguageTool'
 NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
@@ -696,6 +698,17 @@ let g:autofenc_enable = 1
 let g:fencview_autodetect = 0
 NeoBundle 'mbbill/fencview'
 " }}}
+" Load Local Bundles {{{
+NeoBundleLocal ~/.vim/bundle
+"autocmd BufWritePost ~/.vim/** Helptags
+"call ipi#inspect()
+"}}}
+"let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
+"NeoBundle 'dpelle/vim-LanguageTool'
+"NeoBundle 'tdd-dubgeiser-vim'
+"NeoBundle 'chrisbra/unicode.vim'
+"NeoBundle 'toggle_unit_tests'
+"NeoBundle 'LimpidTech/vimpy'
 "NeoBundle 'MarcWeber/vim-addon-other'
 "NeoBundle 'editorconfig-vim'
 "supasorn/EasyMotion {{{
@@ -1024,10 +1037,6 @@ augroup preprocessor_langs
   au!
   au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>k
 augroup END
-
-call pathogen#infect('bundle/*')
-"autocmd BufWritePost ~/.vim/** Helptags
-"call ipi#inspect()
 
 " personal plugin maps {{{
 augroup tag_langs

@@ -1,7 +1,0 @@
-*.pyc
-
-.*
-!.gitignore
-!.gitmodules
-!.gitslave
-
