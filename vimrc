@@ -1243,6 +1243,29 @@ function! RebuildAllDependentCTags()
 endfunction
 command! -nargs=0 RebuildAllCTags call RebuildAllDependentCTags()
 
+" jump to nearest line ending with v:count
+" thus if you are on line 20234500 and you type 80 you'll jump to 20234480
+" credits to ujihisa who had this idea
+" problem: you cannot jump to 05, becaues 5 will be passed via v:count
+"
+" https://github.com/MarcWeber/vim-addon-other/blob/master/autoload/vim_addon_other.vim
+function! SmartGotoLine_WithoutInitials(visual_select)
+    let c = v:count
+    let half = ('1'.repeat('0',len(c))) / 2
+    let lnum = line('.')[:-len(c)-1].c
+    if lnum > half + line('.')
+      let lnum -= 2* half
+    endif
+    if a:visual_select
+      exec 'normal! V'.lnum.'G'
+    else
+      exec 'normal '.lnum.'G'
+    endif
+endfunction
+nnoremap ĞG :<C-U>call SmartGotoLine_WithoutInitials(0)<CR>
+onoremap ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
+vnoremap ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
+
 function s:SetSearch(sstr)
      let @/=@/
      return a:sstr
