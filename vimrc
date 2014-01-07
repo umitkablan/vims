@@ -17,9 +17,9 @@ if has("vim_starting")
   " filetype off     " Required for Vundle!
   set rtp+=~/.vim/packs/neobundle.vim/
 endif
+
 call neobundle#rc(expand("~/.vim/packs"))
 NeoBundleFetch 'Shougo/neobundle.vim'
-"NeoBundle 'gmarik/vundle'
 
 " Bundles {{{
 NeoBundle 'xolox/vim-misc'
@@ -75,10 +75,11 @@ nnoremap <silent> ğsc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
 NeoBundle 'xuhdev/SingleCompile'
 " }}}
-" SrcExpl
+" wesleyche/SrcExpl {{{
 let g:SrcExpl_refreshTime = 400
 let g:SrcExpl_isUpdateTags = 0
 NeoBundle 'wesleyche/SrcExpl'
+" }}}
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'VimSpy'
 NeoBundle 'pafcu/Vimsplain'
