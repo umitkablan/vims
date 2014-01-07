@@ -81,11 +81,7 @@ let g:SrcExpl_isUpdateTags = 0
 NeoBundle 'wesleyche/SrcExpl'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'VimSpy'
-"NeoBundle 'Vimpy-monokrome'
 NeoBundle 'pafcu/Vimsplain'
-"NeoBundle 'WhereFrom'
-"NeoBundle 'WinWalker'
-"NeoBundle 'ZoomWin'
 NeoBundle 'yonchu/accelerated-smooth-scroll'
 " milesz/ack.vim {{{
 if 0 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
@@ -737,6 +733,10 @@ NeoBundleLocal ~/.vim/bundle
 "nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
 "NeoBundle 'Conque-Shell'
 "}}}
+"NeoBundle 'Vimpy-monokrome'
+"NeoBundle 'WhereFrom'
+"NeoBundle 'WinWalker'
+"NeoBundle 'ZoomWin'
 "NeoBundle 'explainpat'
 "NeoBundle 'davidoc/taskpaper.vim'
 "NeoBundle 'lfilho/cosco.vim'
