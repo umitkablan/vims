@@ -143,12 +143,7 @@ if has('multi_byte')
 endif
 NeoBundle 'bling/vim-airline'
 " }}}
-" Calendar {{{
-nmap CAL  <Plug>CalendarV
-nmap HCAL <Plug>CalendarH
-nmap VCAL <Plug>CalendarV
-NeoBundle 'calendar.vim'
-"}}}
+NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'camelcasemotion'
 " rhysd/Clever-f {{{
 " noremap <expr> _ clever_f#reset()
@@ -1050,10 +1045,10 @@ augroup tag_langs
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
 nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
-au FileType tar,man,conque_term nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
-au FileType tagbar,qf,help      nnoremap <silent> <buffer> <Backspace> :q<CR>
-au FileType netrw               nmap     <silent> <buffer> <Backspace> -
-au FileType vundle,gitcommit    nmap     <silent> <buffer> <Backspace> q
+au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
+au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
+au FileType netrw                     nmap     <silent> <buffer> <Backspace> -
+au FileType vundle,gitcommit,calendar nmap     <silent> <buffer> <Backspace> q
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
