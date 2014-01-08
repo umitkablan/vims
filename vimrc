@@ -690,15 +690,15 @@ let g:autofenc_enable = 1
 let g:fencview_autodetect = 0
 NeoBundle 'mbbill/fencview'
 " }}}
+" edkolev/TmuxLine.vim {{{
+let g:tmuxline_powerline_separators=0
+NeoBundle 'edkolev/tmuxline.vim'
+" }}}
 " Load Local Bundles {{{
 NeoBundleLocal ~/.vim/bundle
 "autocmd BufWritePost ~/.vim/** Helptags
 "call ipi#inspect()
 "}}}
-" edkolev/TmuxLine.vim {{{
-let g:tmuxline_powerline_separators=0
-NeoBundle 'edkolev/tmuxline.vim'
-" }}}
 "let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
 "NeoBundle 'dpelle/vim-LanguageTool'
 "NeoBundle 'tdd-dubgeiser-vim'
