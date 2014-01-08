@@ -717,6 +717,10 @@ NeoBundleLocal ~/.vim/bundle
 "autocmd BufWritePost ~/.vim/** Helptags
 "call ipi#inspect()
 "}}}
+"luochen1990/rainbow {{{
+"let g:rainbow_active=1
+"NeoBundle 'luochen1990/rainbow'
+"}}}
 "let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
 "NeoBundle 'dpelle/vim-LanguageTool'
 "NeoBundle 'tdd-dubgeiser-vim'
@@ -874,11 +878,11 @@ au VimLeave    * if v:dying | wall | endif
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
-" Tomorrow-Night-Eighties moria felipec
+" Tomorrow-Night-Eighties moria felipec radicalgoodspeed
 set background=dark
 let g:moria_style="black"
 let g:sienna_style="dark"
-colorscheme radicalgoodspeed
+colorscheme southernlights
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
