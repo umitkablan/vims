@@ -83,7 +83,12 @@ NeoBundle 'wesleyche/SrcExpl'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'VimSpy'
 NeoBundle 'pafcu/Vimsplain'
+" yonchu/accelerated-smooth-scroll {{{
+let g:ac_smooth_scroll_no_default_key_mappings = 1
+nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
+nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 NeoBundle 'yonchu/accelerated-smooth-scroll'
+" }}}
 " milesz/ack.vim {{{
 if 0 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
@@ -159,7 +164,11 @@ nmap ; <Plug>SneakPrevious
 let g:sneak#streak = 1
 NeoBundle 'justinmk/vim-sneak'
 " }}}
+" sjl/Clam.vim {{{
+nnoremap '! :Clam <Space>
+xnoremap '! :ClamVisual <Space>
 NeoBundle 'sjl/clam.vim'
+" }}}
 NeoBundle 'chrisbra/csv.vim'
 NeoBundle 'vis'
 " DBExt {{{
@@ -185,7 +194,12 @@ NeoBundle 'dpwright/vim-gf-ext'
 "NeoBundle 'gist-vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'Headlights'
+" Indent-Guides {{{
+let g:indent_guides_color_change_percent = 20
+let g:indent_guides_enable_on_vim_startup = 0
+autocmd VimEnter * IndentGuidesDisable
 NeoBundle 'Indent-Guides'
+" }}}
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
 nnoremap <silent> <F2> :InlineEdit<CR>
@@ -217,7 +231,10 @@ NeoBundle 'Mark'
 "NeoBundle 't9md/vim-quickhl'
 NeoBundle 'matchit.zip'
 NeoBundle 'kana/vim-metarw'
+" Multiselect {{{
+let no_multiselect_maps = 1
 NeoBundle 'multiselect'
+" }}}
 NeoBundle 'terryma/vim-multiple-cursors'
 " OmniCppComplete {{{
 let OmniCpp_MayCompleteDot   = 0
@@ -353,7 +370,6 @@ NeoBundle 'derekwyatt/vim-protodef'
 "NeoBundle 'replay'
 "NeoBundle 'resizewin'
 NeoBundle 'xolox/vim-session'
-NeoBundle 'tomtom/quickfixsigns_vim'
 " yssl/QFEnter {{{
 let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
 let g:qfenter_vopen_map = ['<C-V>']
@@ -518,6 +534,7 @@ let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
+nnoremap <silent> ğt :CtrlPBufTag<CR>
 NeoBundle 'kien/ctrlp.vim'
 " }}}
 " Shougo/Unite {{{
@@ -712,6 +729,12 @@ NeoBundleLocal ~/.vim/bundle
 "nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 "NeoBundle 'supasorn/vim-easymotion'
 "NeoBundle 'haya14busa/vim-easymotion'
+"}}}
+"tomtom/quickfixsigns_vim {{{
+"let loaded_quickfixsigns = 1
+"let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
+"au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
+"NeoBundle 'tomtom/quickfixsigns_vim'
 "}}}
 "terryma/Expand-Region {{{
 "nmap + <Plug>(expand_region_expand)
@@ -1069,9 +1092,6 @@ onoremap <silent> il :<C-U>call <SID>NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call <SID>NextTextObject('i', 'F')<CR>
 " Cycle through UPPERCASE, lowercase, and Titlecase of the selection
 xnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
-let g:ac_smooth_scroll_no_default_key_mappings = 1
-nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
-nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 inoremap <expr> <C-K> BDG_GetDigraph()
 nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
 inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
@@ -1084,12 +1104,11 @@ autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
 nnoremap <silent> ĞN :redir @n<cr>:call DecAndHex(expand("<cWORD>"))<CR>:redir END<cr>
 nnoremap <silent> ĞUU :Underline<CR>
 nnoremap <silent> ğw :call WinWalkerMenu()<CR>
-nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
-nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-nnoremap <silent> ğt  :CtrlPBufTag<CR>
+" let g:exTS_backto_editbuf = 0
+" let g:exTS_close_when_selected = 1
+" nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
+" nnoremap <silent> ĞTT :ExtsStackToggle<CR>
 nnoremap <silent> TDD :call Tdd_RunTest()<CR>
-nnoremap '! :Clam <Space>
-xnoremap '! :ClamVisual <Space>
 nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> [d :call ShowBlockName('[d')<CR>
@@ -1175,22 +1194,6 @@ augroup no_sticky_buffers
   au!
   au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
-" IndentGuides
-let g:indent_guides_color_change_percent = 20
-let g:indent_guides_enable_on_vim_startup = 0
-autocmd VimEnter * IndentGuidesDisable
-" signs bar: DynamicSigns, quickfixsigns, signature
-let g:loaded_Signs = 1
-let g:SignsMixedIndentation = 1
-let g:Signs_Diff = 0
-let g:Signs_QFList = 1
-let g:Signs_Alternate = 0
-" au VimEnter * SignExpression getline(v:lnum)=~'TODO'
-let loaded_quickfixsigns = 1
-let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
-au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
-" let g:loaded_Signature = "disable"
-let g:SignaturePeriodicRefresh = 0
 " EasyTags
 let g:loaded_easytags = "disable_"
 let g:easytags_file = "~/.vim/easytags_TAGS"
@@ -1215,8 +1218,6 @@ let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:local_vimrc=".lvimrc"
 let g:Tdd_makeprg='make'
-let g:exTS_backto_editbuf = 0
-let g:exTS_close_when_selected = 1
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
@@ -1231,7 +1232,6 @@ let g:loaded_fonts=1
 let g:loaded_headlights = 1
 let g:loaded_colorsupport = "disable_"
 let g:loaded_StatusLineHighlight = "disable_"
-let no_multiselect_maps = 1
 " }}}
 
 " FUNCTIONS / COMMANDS {{{
