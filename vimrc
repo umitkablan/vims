@@ -709,6 +709,7 @@ NeoBundle 'mbbill/fencview'
 " }}}
 " edkolev/TmuxLine.vim {{{
 let g:tmuxline_powerline_separators=0
+let g:tmuxline_preset='full'
 NeoBundle 'edkolev/tmuxline.vim'
 " }}}
 " Load Local Bundles {{{
