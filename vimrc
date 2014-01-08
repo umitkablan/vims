@@ -695,6 +695,10 @@ NeoBundleLocal ~/.vim/bundle
 "autocmd BufWritePost ~/.vim/** Helptags
 "call ipi#inspect()
 "}}}
+" edkolev/TmuxLine.vim {{{
+let g:tmuxline_powerline_separators=0
+NeoBundle 'edkolev/tmuxline.vim'
+" }}}
 "let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
 "NeoBundle 'dpelle/vim-LanguageTool'
 "NeoBundle 'tdd-dubgeiser-vim'
@@ -850,7 +854,7 @@ au VimLeave    * if v:dying | wall | endif
 set background=dark
 let g:moria_style="black"
 let g:sienna_style="dark"
-colorscheme southernlights
+colorscheme radicalgoodspeed
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
