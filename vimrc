@@ -646,10 +646,10 @@ NeoBundle 'tsukkee/unite-tag'
 "NeoBundle 'hakobe/unite-script'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
-  \     'windows' : 'make -f make_mingw32.mak',
+  \     'windows': 'make -f make_mingw32.mak',
   \     'cygwin' : 'make -f make_cygwin.mak',
-  \     'mac' : 'make -f make_mac.mak',
-  \     'unix' : 'make -f make_unix.mak',
+  \     'mac'    : 'make -f make_mac.mak',
+  \     'unix'   : 'make -f make_unix.mak',
   \    },
   \ }
 " Shougo/VimShell {{{
