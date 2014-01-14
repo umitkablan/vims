@@ -669,7 +669,8 @@ let VCSCommandVCSTypePreference = 'git'
 "let VCSCommandSVNDiffOpt = "-ignore-all-space"
 NeoBundle 'vcscommand.vim'
 " }}}
-NeoBundle 'viewdoc'
+"NeoBundle 'viewdoc'
+NeoBundle 'thinca/vim-ref'
 "NeoBundle 'ManPageView'
 "NeoBundle 'viki'
 NeoBundle 'dbakker/vim-lint'
@@ -1192,7 +1193,8 @@ autocmd VimEnter * Alias vcp call<Space>Svndiff("prev")
 autocmd VimEnter * Alias vcc call<Space>Svndiff("clear")
 autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
-autocmd VimEnter * Alias con ConqueTermSplit
+autocmd VimEnter * Alias con VimShellPop
+autocmd VimEnter * Alias ref Ref
 autocmd VimEnter * Alias up UpdateTypesFileOnly
 autocmd VimEnter * Alias ss SaveSession!<Space>default
 " }}}
