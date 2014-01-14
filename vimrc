@@ -1195,6 +1195,7 @@ autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con VimShellPop
 autocmd VimEnter * Alias ref Ref
+autocmd VimEnter * Alias man Ref man
 autocmd VimEnter * Alias up UpdateTypesFileOnly
 autocmd VimEnter * Alias ss SaveSession!<Space>default
 " }}}
