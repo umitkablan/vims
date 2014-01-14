@@ -667,6 +667,8 @@ NeoBundle 'https://bitbucket.org/ZyX_I/aurum'
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
 "let VCSCommandSVNDiffOpt = "-ignore-all-space"
+" Turn off spell other than commit message writing
+au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
 NeoBundle 'vcscommand.vim'
 " }}}
 "NeoBundle 'viewdoc'
