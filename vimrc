@@ -89,6 +89,7 @@ nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 NeoBundle 'yonchu/accelerated-smooth-scroll'
 " }}}
+NeoBundle 'grep.vim'
 " milesz/ack.vim {{{
 if 0 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
