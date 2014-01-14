@@ -264,8 +264,8 @@ NeoBundle 'mattn/emmet-vim'
 " Shougo/NeoComplete {{{
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_ignore_case = 0
-let g:neocomplete#enable_smart_case = 0
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#auto_completion_start_length = 2
 let g:neocomplete#enable_camel_case_completion = 0
 let g:neocomplete#enable_underbar_completion = 0
@@ -863,7 +863,7 @@ endif
 set spell spelllang=en
 
 au FileType text setlocal wrap linebreak
-au FileType qf,tagselect,startify setlocal nospell
+au FileType qf,tagselect,startify,diff setlocal nospell
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
 au TabLeave    * stopinsert
@@ -882,7 +882,7 @@ au VimLeave    * if v:dying | wall | endif
 set background=dark
 let g:moria_style="black"
 let g:sienna_style="dark"
-colorscheme southernlights
+colorscheme harlequin
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
