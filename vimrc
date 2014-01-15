@@ -263,7 +263,6 @@ au FileType html,css EmmetInstall
 NeoBundle 'mattn/emmet-vim'
 " }}}
 " Shougo/NeoComplete {{{
-let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 1
 let g:neocomplete#enable_smart_case = 1
@@ -341,11 +340,14 @@ let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 NeoBundle 'Shougo/neocomplete.vim'
 "}}}
 " Shougo/NeoSnippet {{{
+let g:neosnippet#enable_snipmate_compatibility = 0
+let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 "}}}
 " NetRW {{{
 let g:tar_nomax = 1
