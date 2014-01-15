@@ -339,15 +339,16 @@ let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 " let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
 NeoBundle 'Shougo/neocomplete.vim'
 "}}}
-" Shougo/NeoSnippet {{{
-let g:neosnippet#enable_snipmate_compatibility = 0
+" Shougo/NeoSnippet & Snippet Sources {{{
+let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'honza/vim-snippets'
+"NeoBundle 'Shougo/neosnippet-snippets'
 "}}}
 " NetRW {{{
 let g:tar_nomax = 1
