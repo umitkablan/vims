@@ -411,8 +411,8 @@ nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 NeoBundle 'mjbrownie/swapit'
 NeoBundle 'tpope/vim-speeddating'
 " }}}
-nnoremap <silent> - :Switch<CR>
-NeoBundle 'AndrewRadev/switch.vim'
+"nnoremap <silent> - :Switch<CR>
+"NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'sk1418/Join'
 NeoBundle 'SQLUtilities'
