@@ -430,14 +430,10 @@ let g:startify_list_order = [
   " \ [' Recently modified files in the current directory:'], 'dir',
 let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
 let g:startify_custom_footer = [
-            \ '   __      ___            ______ _',
-            \ '   \ \    / (_)           |____  |',
-            \ '    \ \  / / _ _ __ ___       / /',
-            \ '     \ \/ / | | ''_ ` _ \     / /',
-            \ '      \  /  | | | | | | |   / /',
-            \ '       \/   |_|_| |_| |_|  /_/',
-            \ '',
-            \ '',
+            \ ' _  _  ____  __  __    ___  __',
+            \ '( \/ )(_  _)(  \/  )  (__ )/. |',
+            \ ' \  /  _)(_  )    (    / /(_  _)',
+            \ '  \/  (____)(_/\/\_)  (_/() (_)',
             \ ]
 NeoBundle 'mhinz/vim-startify'
 "}}}
