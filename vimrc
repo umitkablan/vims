@@ -288,10 +288,6 @@ inoremap <expr> <Right>  neocomplete#smart_close_popup()."\<Right>"
 inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : neocomplete#smart_close_popup()."\<Up>"
 inoremap <expr> <Down> pumvisible() ? "\<C-n>" : neocomplete#smart_close_popup()."\<Down>"
 " inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
 let g:neocomplete#source_completion_length = {
   \ 'buffer_complete'    : 1,
   \ 'eclim_complete'     : 1,
@@ -340,6 +336,9 @@ let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 NeoBundle 'Shougo/neocomplete.vim'
 "}}}
 " Shougo/NeoSnippet & Snippet Sources {{{
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
