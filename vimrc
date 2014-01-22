@@ -35,7 +35,6 @@ NeoBundle 'godlygeek/csapprox'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
 "NeoBundle 'lilydjwg/colorizer'
-"NeoBundle 'CountJump'
 NeoBundle 'CursorLineCurrentWindow'
 " DeleteTrailingWhitespace {{{
 let g:DeleteTrailingWhitespace = 1
@@ -65,7 +64,6 @@ nmap grr <Plug>ReplaceLine
 xmap gr  <Plug>ReplaceVisual
 NeoBundle 'ReplaceWithRegister'
 " }}}
-"NeoBundle 'Replay'
 NeoBundle 'ShowTrailingWhitespace'
 " xuhdev/SingleCompile {{{
 let g:SingleCompile_asyncrunmode = 'python'
@@ -369,11 +367,6 @@ let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 NeoBundle 'Notes'
 "}}}
 NeoBundle 'derekwyatt/vim-protodef'
-"NeoBundle 'pyclewn'
-"NeoBundle 'quilt'
-"NeoBundle 'relops'
-"NeoBundle 'replay'
-"NeoBundle 'resizewin'
 NeoBundle 'xolox/vim-session'
 " yssl/QFEnter {{{
 let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
@@ -413,8 +406,6 @@ nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 NeoBundle 'mjbrownie/swapit'
 NeoBundle 'tpope/vim-speeddating'
 " }}}
-NeoBundle 'AndrewRadev/splitjoin.vim'
-NeoBundle 'sk1418/Join'
 NeoBundle 'SQLUtilities'
 " mhinz/Startify {{{
 let g:startify_session_dir = '~/.vim/var/session'
@@ -668,8 +659,6 @@ nnoremap <silent> ğp3  :VimShellInteractive python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive python2<CR>
 NeoBundle 'Shougo/vimshell'
 " }}}
-"let utl_opt_verbose=0
-"NeoBundle 'utl'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
@@ -680,8 +669,8 @@ let VCSCommandVCSTypePreference = 'git'
 au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
 NeoBundle 'vcscommand.vim'
 " }}}
-"NeoBundle 'viewdoc'
 NeoBundle 'thinca/vim-ref'
+"NeoBundle 'viewdoc'
 "NeoBundle 'ManPageView'
 "NeoBundle 'viki'
 NeoBundle 'dbakker/vim-lint'
@@ -730,6 +719,17 @@ NeoBundleLocal ~/.vim/bundle
 "autocmd BufWritePost ~/.vim/** Helptags
 "call ipi#inspect()
 "}}}
+"let utl_opt_verbose=0
+"NeoBundle 'utl'
+"NeoBundle 'pyclewn'
+"NeoBundle 'quilt'
+"NeoBundle 'CountJump'
+"NeoBundle 'Replay'
+"NeoBundle 'relops'
+"NeoBundle 'replay'
+"NeoBundle 'resizewin'
+"NeoBundle 'AndrewRadev/splitjoin.vim'
+"NeoBundle 'sk1418/Join'
 "luochen1990/rainbow {{{
 "let g:rainbow_active=1
 "let g:rainbow_operators = 1
