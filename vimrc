@@ -413,8 +413,6 @@ nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
 NeoBundle 'mjbrownie/swapit'
 NeoBundle 'tpope/vim-speeddating'
 " }}}
-"nnoremap <silent> - :Switch<CR>
-"NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'sk1418/Join'
 NeoBundle 'SQLUtilities'
@@ -478,6 +476,7 @@ let g:syntastic_c_check_header = 1
 "let g:syntastic_*_checkers=['Xxx', 'Yyy']
 NeoBundle 'scrooloose/syntastic'
 "}}}
+NeoBundle 'Chiel92/vim-autoformat'
 NeoBundle 'godlygeek/tabular'
 " majutsushi/TagBar {{{
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
@@ -819,6 +818,7 @@ NeoBundleLocal ~/.vim/bundle
 "NeoBundle 'golden-ratio'
 "NeoBundle 'christoomey/vim-tmux-navigator'
 "NeoBundle 'nelstrom/vim-qargs'
+"NeoBundle 'AndrewRadev/switch.vim'
 "}}}
 
 filetype plugin indent on " Required for Vundle!
@@ -1276,9 +1276,18 @@ function! SmartGotoLine_WithoutInitials(visual_select)
       exec 'normal '.lnum.'G'
     endif
 endfunction
-nnoremap ĞG :<C-U>call SmartGotoLine_WithoutInitials(0)<CR>
-onoremap ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
-vnoremap ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
+nnoremap <silent> ĞG :<C-U>call SmartGotoLine_WithoutInitials(0)<CR>
+onoremap <silent> ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
+vnoremap <silent> ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
+
+function! SearchForwLastSearch()
+  if @/ == ""
+    return "/\<Up>\<CR>"
+  else
+    return "/\<CR>"
+  endif
+endfunction
+" nnoremap <silent> <expr> gn '' . SearchForwLastSearch() . ''
 
 function s:SetSearch(sstr)
      let @/=@/
@@ -1326,15 +1335,6 @@ function! MapPumInsert(key, insertSpaceAfter)
   endif
 endfunction
 " call MapPumInsert(",", 1)
-
-function! SearchForwLastSearch()
-  if @/ == ""
-    return "/\<Up>\<CR>"
-  else
-    return "/\<CR>"
-  endif
-endfunction
-" nnoremap <silent> <expr> gn '' . SearchForwLastSearch() . ''
 
 function! IsHereAComment()
   let syn = synIDtrans(synID(line("."), col(".")-1, 1))
@@ -1561,7 +1561,7 @@ endfunction
 " Delete any blank lines.
 " Delete '<whitespace><number>:<whitespace>' from start of each line.
 " Display result in a scratch buffer.
-function! s:Filter_lines(cmd, filter)
+function! s:Filter_Lines(cmd, filter)
   let save_more = &more
   set nomore
   redir => lines
@@ -1578,7 +1578,7 @@ function! s:Filter_lines(cmd, filter)
   endif
   0
 endfunction
-command! -nargs=? Scriptnames call s:Filter_lines('scriptnames', <q-args>)
+command! -nargs=? Scriptnames call s:Filter_Lines('scriptnames', <q-args>)
 
 " command PP: print lines like :p or :# but with with current search pattern highlighted
 function! s:PrintWithSearchHighlighted(line1,line2,arg)
@@ -1683,7 +1683,7 @@ function! SwapTrCharsToFromEn()
   endif
   norm l
 endfunction
-autocmd FileType text nmap <buffer> <silent> <cr> :call SwapTrCharsToFromEn()<cr>
+autocmd FileType text nmap <buffer> <silent> <CR> :call SwapTrCharsToFromEn()<CR>
 " }}}
 
 let g:rainbowparantheses_enabled_RC=0
@@ -1721,7 +1721,7 @@ function! s:NextTextObject(motion, dir)
 endfunction
 " }}}
 
-" Source a range of visually selected vim
+" Source a range of visually selected vimscript
 function! SourceRange() range
   let l:tmp = tempname()
   call writefile(getline(a:firstline, a:lastline), l:tmp)
