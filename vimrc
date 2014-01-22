@@ -207,9 +207,7 @@ nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 NeoBundle 'AndrewRadev/inline_edit.vim'
 " }}}
-"NeoBundle 'libview'
 NeoBundle 'linediff.vim'
-"NeoBundle 'locator'
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
@@ -721,6 +719,8 @@ NeoBundleLocal ~/.vim/bundle
 "}}}
 "let utl_opt_verbose=0
 "NeoBundle 'utl'
+"NeoBundle 'libview'
+"NeoBundle 'locator'
 "NeoBundle 'pyclewn'
 "NeoBundle 'quilt'
 "NeoBundle 'CountJump'
