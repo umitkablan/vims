@@ -657,7 +657,13 @@ nnoremap <silent> ğp3  :VimShellInteractive python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive python2<CR>
 NeoBundle 'Shougo/vimshell'
 " }}}
+" tpope/Fugitive {{{
+augroup no_sticky_buffers
+  au!
+  au BufReadPost fugitive://* setlocal bufhidden=delete
+augroup END
 NeoBundle 'tpope/vim-fugitive'
+" }}}
 NeoBundle 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
 let VCSCommandMapPrefix = "<LocalLeader>c"
@@ -711,6 +717,7 @@ NeoBundle 'mbbill/fencview'
 let g:tmuxline_powerline_separators=0
 let g:tmuxline_preset='full'
 NeoBundle 'edkolev/tmuxline.vim'
+NeoBundle 'umitkablan/umisc'
 " }}}
 " Load Local Bundles {{{
 NeoBundleLocal ~/.vim/bundle
@@ -1089,13 +1096,13 @@ inoremap <expr><silent> j<Space>k pumvisible() ? neocomplete#close_popup()."\<Es
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk        YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj        YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> j<Space>k YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj<Space> YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR> pumvisible() ? neocomplete#close_popup() : IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk        umisc#YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj        umisc#YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk<Space> umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> j<Space>k umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj<Space> umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR> pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 " }}}
 
@@ -1113,9 +1120,9 @@ augroup tag_langs
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
   au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
+  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
-nnoremap <silent> <Backspace> :call QFixCloseAndCheck()<CR>
+nnoremap <silent> <Backspace> :call umisc#QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
 au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
 au FileType netrw                     nmap     <silent> <buffer> <Backspace> -
@@ -1125,19 +1132,19 @@ augroup VCSCommand
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
 
-onoremap <silent> an :<C-U>call <SID>NextTextObject('a', 'f')<CR>
-xnoremap <silent> an :<C-U>call <SID>NextTextObject('a', 'f')<CR>
-onoremap <silent> in :<C-U>call <SID>NextTextObject('i', 'f')<CR>
-xnoremap <silent> in :<C-U>call <SID>NextTextObject('i', 'f')<CR>
-onoremap <silent> al :<C-U>call <SID>NextTextObject('a', 'F')<CR>
-xnoremap <silent> al :<C-U>call <SID>NextTextObject('a', 'F')<CR>
-onoremap <silent> il :<C-U>call <SID>NextTextObject('i', 'F')<CR>
-xnoremap <silent> il :<C-U>call <SID>NextTextObject('i', 'F')<CR>
+onoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
+xnoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
+onoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
+xnoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
+onoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
+xnoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
+onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
+xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 " Cycle through UPPERCASE, lowercase, and Titlecase of the selection
-xnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
+xnoremap ~ ygv"=umisc#TwiddleCase(@")<CR>Pgv
 inoremap <expr> <C-K> BDG_GetDigraph()
-nnoremap <silent> <F5> :call Make_Tmux_Build(g:tmuxmake_targets)<CR>
-inoremap <silent> <F5> <Esc>:call Make_Tmux_Build(g:tmuxmake_targets)<CR>
+nnoremap <silent> <F5> :call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
+inoremap <silent> <F5> <Esc>:call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> ğa :A<CR>
 nnoremap <silent> ğ1 :Sscratch<CR>
 "nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
@@ -1203,9 +1210,6 @@ autocmd VimEnter * Alias vs VCSStatus
 autocmd VimEnter * Alias vi VCSInfo
 autocmd VimEnter * Alias va VCSAdd
 autocmd VimEnter * Alias vrm VCSRemove
-autocmd VimEnter * Alias vcn call<Space>Svndiff("next")
-autocmd VimEnter * Alias vcp call<Space>Svndiff("prev")
-autocmd VimEnter * Alias vcc call<Space>Svndiff("clear")
 autocmd VimEnter * Alias sw SudoWrite
 autocmd VimEnter * Alias sr SudoRead
 autocmd VimEnter * Alias con VimShellPop
@@ -1214,10 +1218,6 @@ autocmd VimEnter * Alias man Ref<Space>man
 autocmd VimEnter * Alias up UpdateTypesFileOnly
 autocmd VimEnter * Alias ss SaveSession!<Space>default
 " }}}
-augroup no_sticky_buffers
-  au!
-  au BufReadPost fugitive://* setlocal bufhidden=delete
-augroup END
 let g:ctags_path = '/usr/bin/ctags'
 let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
@@ -1243,586 +1243,38 @@ let g:github_user = "umitkablan"
 let g:loaded_fonts=1
 " }}}
 
-" FUNCTIONS / COMMANDS {{{
-function! RebuildAllDependentCTags()
-  let l:tags = &tags
-  for t in split(l:tags, ",")
-    let l:d = shellescape(fnamemodify(t, ':p:h'))
-    if isdirectory(fnamemodify(t, ':p:h')) != 0
-      echom l:d
-      call system("cd " . l:d . "; ctags -R .")
-    else
-      echohl ErrorMsg
-      echom "Directory " . l:d . " is non existent!"
-      echohl None
-    endif
-  endfor
-  echom "DONE"
-endfunction
-command! -nargs=0 RebuildAllCTags call RebuildAllDependentCTags()
-
-" jump to nearest line ending with v:count
-" thus if you are on line 20234500 and you type 80 you'll jump to 20234480
-" credits to ujihisa who had this idea
-" problem: you cannot jump to 05, becaues 5 will be passed via v:count
-"
-" https://github.com/MarcWeber/vim-addon-other/blob/master/autoload/vim_addon_other.vim
-function! SmartGotoLine_WithoutInitials(visual_select)
-    let c = v:count
-    let half = ('1'.repeat('0',len(c))) / 2
-    let lnum = line('.')[:-len(c)-1].c
-    if lnum > half + line('.')
-      let lnum -= 2* half
-    endif
-    if a:visual_select
-      exec 'normal! V'.lnum.'G'
-    else
-      exec 'normal '.lnum.'G'
-    endif
-endfunction
-nnoremap <silent> ĞG :<C-U>call SmartGotoLine_WithoutInitials(0)<CR>
-onoremap <silent> ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
-vnoremap <silent> ĞG :<C-U>call SmartGotoLine_WithoutInitials(1)<CR>
-
-function! SearchForwLastSearch()
-  if @/ == ""
-    return "/\<Up>\<CR>"
-  else
-    return "/\<CR>"
-  endif
-endfunction
-" nnoremap <silent> <expr> gn '' . SearchForwLastSearch() . ''
-
-function s:SetSearch(sstr)
-     let @/=@/
-     return a:sstr
-endfunction
-" noremap <expr> n <SID>SetSearch('n')
-" noremap <expr> N <SID>SetSearch('N')
-
-func! FlashLocn()
-   hi CursorColumn guibg=yellow
-   hi CursorLine guibg=yellow
-   set cul cuc
-   redraw!
-   "sleep 1m
-   set nocul nocuc
-endfunction
-" nmap <C-H> :set wrap! \| call FlashLocn() \| set wrap? <CR>
-
-function! ApplyPatch()
-  let l:tmpfilename = tempname() . ".patch"
-  let l:s = @"
-  let l:ll = split(l:s, "\n")
-  call writefile(l:ll, l:tmpfilename, "b")
-  " using system() does not rewash the screen
-  let l:res = system("patch -p1 < " .  shellescape(l:tmpfilename))
-  call system("rm -f " . shellescape(l:tmpfilename))
-  echom l:res
-endfunction
-
-function! Make_Tmux_Build(targets)
-  update
-  if a:targets == ""
-    make %
-  else
-    exec "SlimuxShellRun m " . a:targets
-  endif
-endfunction
-command! -nargs=0 MakeTmuxBuild :call Make_Tmux_Build(g:tmuxmake_targets)
-
-function! MapPumInsert(key, insertSpaceAfter)
-  if !a:insertSpaceAfter
-    exec "imap <expr> " . a:key . " pumvisible() ? \"\<C-y>".a:key."\" : \"".a:key."\""
-  else
-    exec "imap <expr> " . a:key . " pumvisible() ? neocomplete#close_popup()".a:key."\<Space>\" : \"".a:key."\""
-  endif
-endfunction
-" call MapPumInsert(",", 1)
-
-function! IsHereAComment()
-  let syn = synIDtrans(synID(line("."), col(".")-1, 1))
-  return syn == hlID("Comment")
-endfunction
-
-function! IsSemicolonAppropriateHere()
-  " TODO:
-  " Write a regex which will execute faster
-  " Think about plugin extraction of the idea
-  let cline = getline(".")
-  let lastchar  = cline[col("$")-2]
-  let firstchar = cline[0]
-  if col("$") == col(".") && lastchar != ";" && lastchar != "{" && lastchar != "}" && lastchar != "," && lastchar != ":" && firstchar != "#" && cline !~ '^\s*$' && lastchar != "\\" && !IsHereAComment()
-    return 1
-  endif
-  return 0
-endfunction
-
-function! YieldSemicolonIfAppropriate()
-  let l:ret = ""
-  if pumvisible()
-    let l:ret = neocomplete#smart_close_popup()
-  endif
-  if IsSemicolonAppropriateHere()
-    let l:ret = l:ret . ";"
-  endif
-  return l:ret
-endfunction
-
-function! IsTagsActiveFileType(ft)
-  if a:ft == ""
-    return 0
-  endif
-  return stridx("c,cpp,java,javascript,python,actionscript,sh", a:ft) >= 0
-endfunction
-
-"wrapper on signs' update: wraps quickfixsigns and DynamicSigns
-function! UpdateSigns_()
-  if exists('g:loaded_quickfixsigns') && g:loaded_quickfixsigns == 0
-    call QuickfixsignsUpdate()
-  endif
-  if exists('g:loaded_Signs') && g:loaded_Signs == 0
-    UpdateSigns
-  endif
-endfunction
-
-" save/load quickfix list {{{
-function SaveQuickFixList(fname)
-  let list = getqflist()
-  for i in range(len(list))
-    if has_key(list[i], 'bufnr')
-      let list[i].filename = fnamemodify(bufname(list[i].bufnr), ':p')
-      unlet list[i].bufnr
-    endif
-  endfor
-  let string = string(list)
-  let lines = split(string, "\n")
-  call writefile(lines, a:fname)
-endfunction
-
-function LoadQuickFixList(fname)
-  let lines = readfile(a:fname)
-  let string = join(lines, "\n")
-  call setqflist(eval(string))
-endfunction
-" }}}
-
 " used to track the quickfix window: open/closed {{{
 augroup QFixToggle
   autocmd!
   autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
   autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
-
-function! QFixCloseAndCheck()
-  if exists("g:qfix_win")
-    cclose
-    unlet! g:qfix_win
-    return 1
-  else
-    if !IsTagsActiveFileType(&ft)
-      execute "q"
-    endif
-  endif
-  return 0
-endfunction
-
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet! g:qfix_win
-  else
-    copen 15
-    let g:qfix_win = bufnr("$")
-  endif
-endfunction
-
-" Use :QFix! if you want to keep the qf window open, out of toggling
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
+command -bang -nargs=? QFix call umisc#QFixToggle(<bang>0)
 " }}}
 
-function! GuiTabLabel()
-  let label = ''
-  let bufnrlist = tabpagebuflist(v:lnum)
-  " Add '+' if one of the buffers in the tab page is modified
-  for bufnr in bufnrlist
-    if getbufvar(bufnr, "&modified")
-      let label = '+'
-      break
-    endif
-  endfor
-  " Append the tab number
-  let label .= v:lnum.': '
-  " Append the buffer name
-  let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
-  if name == ''
-    " give a name to no-name documents
-    if &buftype=='quickfix'
-      let name = '[Quickfix List]'
-    else
-      let name = '[No Name]'
-    endif
-  else
-    " get only the file name
-    let name = fnamemodify(name,":t")
-  endif
-  let label .= name
-  " Append the number of windows in the tab page
-  let wincount = tabpagewinnr(v:lnum, '$')
-  return label . '  [' . wincount . ']'
-endfunction
-set guitablabel=%{GuiTabLabel()}
-
-function! OpenExplore()
-  if bufname(bufnr("%")) ==? ""
-    silent! Explore
-  else
-    silent! Sexplore
-  endif
-endfunction
-
-command! RandomLine ruby Vim.command 'normal! ' + (VIM::Buffer.current.length * rand).ceil.to_s + 'gg'
-" command! RandomLine execute 'normal! '.(system('sh -c "echo -n $RANDOM"') % line('$')).'G'
-" command! RandomLine execute 'normal! '.(matchstr(system('od -vAn -N3 -tu4 /dev/urandom'), '^\_s*\zs.\{-}\ze\_s*$') % line('$')).'G'
-" nmap <silent> <buffer> <F7> :RandomLine<CR>
-
-" command! range=% -nargs=0 Tab2space exe "<line1>,<line2>s/^\\t\\+/\\=substitute(submatch(0), '\\t', repeat(' ', ".&ts."), 'g')"
-" command! range=% -nargs=0 Space2tab exe "<line1>,<line2>s/^\\(\\ \\{".&ts."\\}\\)\\+/\\=substitute(submatch(0), ' \\{".&ts."\\}', '\\t', 'g')"
-
-" with ctags you can search for tags.DB upward hieararchy via :set tags=tags;/
-" but cscope cannot do that withuot helper like this one
-function! LoadCscope()
-  let db = findfile("cscope.out", ".;")
-  if (!empty(db))
-    let path = strpart(db, 0, match(db, "/cscope.out$"))
-    set nocscopeverbose " suppress 'duplicate connection' error
-    exe "cs add " . db . " " . path
-    set cscopeverbose
-  endif
-endfunction
-"au BufEnter * call LoadCscope()
-
-function! DecAndHex(number)
-  let ns = '[.,;:''"<>()^_lL"]'      " number separators
-  if a:number =~? '^' . ns. '*[-+]\?\d\+' . ns . '*$'
-    let dec = substitute(a:number, '[^0-9+-]*\([+-]\?\d\+\).*','\1','')
-    echo dec . printf('  ->  0x%X, -(0x%X)', dec, -dec)
-  elseif a:number =~? '^' . ns. '*\%\(h''\|0x\|#\)\?\(\x\+\)' . ns . '*$'
-    let hex = substitute(a:number, '.\{-}\%\(h''\|0x\|#\)\?\(\x\+\).*','\1','')
-    echon '0x' . hex . printf('  ->  %d', eval('0x'.hex))
-    if strpart(hex, 0,1) =~? '[89a-f]' && strlen(hex) =~? '2\|4\|6'
-      " for 8/16/24 bits numbers print the equivalent negative number
-      echon ' ('. float2nr(eval('0x'. hex) - pow(2,4*strlen(hex))) . ')'
-    endif
-    echo
-  else
-    echo "NaN"
-  endif
-endfunction
-
-function! VimProcMake()
-  let sub = vimproc#popen2(':make')
-  let res = ''
-  while !sub.stdout.eof
-    let res .= sub.stdout.read()
-  endwhile
-  let [cond, status] = sub.waitpid()
-  call setqflist([])
-  call vimproc#write("/dev/quickfix", res)
-  if status == 0
-    cclose
-  else
-    copen
-  endif
-endfunction
-nnoremap ĞMM :call VimProcMake()<CR>
-
-function! TDD_Mode()
-  SyntasticToggleMode
-  " au BufWritePost * :call QuickfixsignsClear('qfl')|call VimProcMake()
-  au BufWritePost * call VimProcMake()
-endfunction
-
-function! s:Underline(chars)
-  let chars = empty(a:chars) ? '-' : a:chars
-  let nr_columns = virtcol('$') - 1
-  let uline = repeat(chars, (nr_columns / len(chars)) + 1)
-  put =strpart(uline, 0, nr_columns)
-endfunction
-command! -nargs=? Underline call s:Underline(<q-args>)
-
-function! s:SwapKeys(a, b)
-  normal! "exec noremap  " . a:a . " " . a:b
-  normal! "exec noremap  " . a:b . " " . a:a
-  normal! "exec onoremap " . a:a . " " . a:b
-  normal! "exec onoremap " . a:b . " " . a:a
-  normal! "exec xnoremap " . a:a . " " . a:b
-  normal! "exec xnoremap " . a:b . " " . a:a
-endfunction
-
-" Execute 'cmd' while redirecting output.
-" Delete all lines that do not match regex 'filter' (if not empty).
-" Delete any blank lines.
-" Delete '<whitespace><number>:<whitespace>' from start of each line.
-" Display result in a scratch buffer.
-function! s:Filter_Lines(cmd, filter)
-  let save_more = &more
-  set nomore
-  redir => lines
-  silent execute a:cmd
-  redir END
-  let &more = save_more
-  new
-  setlocal buftype=nofile bufhidden=hide noswapfile
-  put =lines
-  g/^\s*$/d
-  %s/^\s*\d\+:\s*//e
-  if !empty(a:filter)
-    execute 'v/' . a:filter . '/d'
-  endif
-  0
-endfunction
-command! -nargs=? Scriptnames call s:Filter_Lines('scriptnames', <q-args>)
-
-" command PP: print lines like :p or :# but with with current search pattern highlighted
-function! s:PrintWithSearchHighlighted(line1,line2,arg)
-  let line=a:line1
-  while line <= a:line2
-    echo ""
-    if a:arg =~ "#"
-      echohl LineNr
-      echo strpart(" ",0,7-strlen(line)).line."\t"
-      echohl None
-    endif
-    let l=getline(line)
-    let index=0
-    while 1
-      let b=match(l,@/,index)
-      if b==-1 |
-        echon strpart(l,index)
-        break
-      endif
-      let e=matchend(l,@/,index) |
-      echon strpart(l,index,b-index)
-      echohl Search
-      echon strpart(l,b,e-b)
-      echohl None
-      let index = e
-    endw
-    let line=line+1
-  endw
-endfunction
-command! -nargs=? -range -bar PP :call s:PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
-
-function! VimLock(enable)
-  if a:enable
-    inoremap a 1
-    inoremap s 2
-    inoremap d 3
-    inoremap f 4
-    inoremap g 5
-    inoremap h 6
-    inoremap j 7
-    inoremap k 8
-    inoremap l 9
-    inoremap ; 0
-    inoremap <Esc> <Esc>:call VimLock(0)<CR>
-  else
-    iunmap a
-    iunmap s
-    iunmap d
-    iunmap f
-    iunmap g
-    iunmap h
-    iunmap j
-    iunmap k
-    iunmap l
-    iunmap ;
-    iunmap <Esc>
-  endif
-endfunction
-
-function! TwiddleCase(str)
-  if a:str ==# toupper(a:str)
-    let result = tolower(a:str)
-  elseif a:str ==# tolower(a:str)
-    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
-  else
-    let result = toupper(a:str)
-  endif
-  return result
-endfunction
-
-let s:indentation_guides_enabled = 0
-function! ToggleIndGuides_RC()
-  if s:indentation_guides_enabled == 1
-    " IndGuide!
-    IndentGuidesDisable
-    let s:indentation_guides_enabled = 0
-  else
-    " IndGuide
-    IndentGuidesEnable
-    let s:indentation_guides_enabled = 1
-  endif
-endfunction
-
-" Trans to/from Turkish dotted char form {{{
-let g:letters_map_en_tr_forward = {
-      \ 'o':'ö', 'c':'ç', 'g':'ğ', 's':'ş', 'i':'ı', 'u':"ü",
-      \  'O':'Ö', 'C':'Ç', 'G':'Ğ', 'S':'Ş', 'I':'İ', 'U':'Ü'
-      \ }
-let g:letters_map_en_tr_reverse = {
-      \ 'ö':'o', 'ç':'c', 'ğ':'g', 'ş':'s', 'ı':'i', 'ü':'u',
-      \  'Ö':'O', 'Ç':'C', 'Ğ':'G', 'Ş':'S', 'İ':'I', 'Ü':'U'
-      \ }
-function! SwapTrCharsToFromEn()
-  let l:saved_reg = @k
-  norm "kyl
-  let l:curletter = @k
-  let @k = l:saved_reg
-  if has_key(g:letters_map_en_tr_forward, l:curletter)
-    exec "norm \"_xi" . g:letters_map_en_tr_forward[l:curletter]
-  elseif has_key(g:letters_map_en_tr_reverse, l:curletter)
-    exec "norm \"_xi" . g:letters_map_en_tr_reverse[l:curletter]
-  endif
-  norm l
-endfunction
-autocmd FileType text nmap <buffer> <silent> <CR> :call SwapTrCharsToFromEn()<CR>
-" }}}
-
-let g:rainbowparantheses_enabled_RC=0
-function! s:RainbowParanthesisEnableAll_RC()
-  if g:rainbowparantheses_enabled_RC == 0
-    RainbowParenthesesToggle
-    " ToggleRaibowParenthesis
-    " RainbowParenthesesLoadRound
-    " call rainbow_parenthsis#LoadRound ()
-    RainbowParenthesesLoadSquare
-    " call rainbow_parenthsis#LoadSquare ()
-    RainbowParenthesesLoadBraces
-    " call rainbow_parenthsis#LoadBraces ()
-    RainbowParenthesesLoadChevrons
-    " call rainbow_parenthsis#LoadChevrons ()
-    let g:rainbowparantheses_enabled_RC=1
-  endif
-endfunction
-
-" Next and Last {{{
-" Motion for "next/last object". For example, "din(" would go to the next "()" pair
-" and delete its contents.
-function! s:NextTextObject(motion, dir)
-  let c = nr2char(getchar())
-  if c ==# "b"
-      let c = "("
-  elseif c ==# "B"
-      let c = "{"
-  elseif c ==# "d"
-      let c = "["
-  elseif c ==# "q"
-      let c = "\""
-  endif
-  exe "normal! ".a:dir.c."v".a:motion.c
-endfunction
-" }}}
-
-" Source a range of visually selected vimscript
-function! SourceRange() range
-  let l:tmp = tempname()
-  call writefile(getline(a:firstline, a:lastline), l:tmp)
-  execute "source " . l:tmp
-endfunction
-command! -range Source <line1>,<line2>call SourceRange()
-
-" there is also a program named 'ansifilter' which filters out ansi escapes
-" unsuccessfully.
-function! ClearAnsiSequences(line0, line1)
-  exec a:line0 . ',' . a:line1 . 's/\e\[[[:digit:];]*m//ge'
-  exec a:line0 . ',' . a:line1 . 's/\e(B//ge'
-  " TODO: This substitution sometimes remains comma behind because of the
-  " pattern '[36;1H,'. The situation should be fixed after deeper
-  " understanding of the issue.
-  exec a:line0 . ',' . a:line1 . 's/\e\[\d\+;\d\+\w//ge'
-endfunction
-command! -range=% ClearAnsi call ClearAnsiSequences(<line1>, <line2>)
-
-" fixing arrow keys on terminal Vim
-" Two ideas are..
-" 1) set <Left>=[1;3D
-" 2) (i)(nore)map <Esc>OC <Right>
-" using the first idea is logical for portability reasons.
-function! Allmap(mapping)
-  execute 'map'  . a:mapping
-  execute 'map!' . a:mapping
-endfunction
-function! FixTerminalKeys()
-  if !has("gui_running")
-    call Allmap(' <Esc>[1;3D <Left>')
-    call Allmap(' <Esc>[1;3A <Up>')
-    call Allmap(' <Esc>[1;3B <Down>')
-    call Allmap(' <Esc>[1;3C <Right>')
-    call Allmap(' <Esc>OD    <Left>')
-    call Allmap(' <Esc>OA    <Up>')
-    call Allmap(' <Esc>OB    <Down>')
-    call Allmap(' <Esc>OC    <Right>')
-    call Allmap(' <Esc>}     }')
-    call Allmap(' <Esc>{     {')
-    call Allmap(' <Esc>[     [')
-    call Allmap(' <Esc>]     ]')
-    call Allmap(' <Esc>~     ~')
-    call Allmap(' <Esc>@     @')
-    call Allmap(' <Esc>#     #')
-    call Allmap(' <Esc>$     $')
-    call Allmap(' <Esc>\     \')
-    call Allmap(' <Esc>\|    \|')
-  else
-    call Allmap(' <M-Left>  <Left>')
-    call Allmap(' <M-Right> <Right>')
-    call Allmap(' <M-Up>    <Up>')
-    call Allmap(' <M-Down>  <Down>')
-    call Allmap(' þ         ~')
-    call Allmap(' À         @')
-    call Allmap(' £         #')
-  endif
-endfunction
-
-function ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
-    endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
-endfunction
-command -bar Hexmode call ToggleHex()
-" }}}
+command! -nargs=0 RebuildAllCTags call umisc#RebuildAllDependentCTags()
+command! RandomLine call umisc#GoToRandomLine()
+nnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(0)<CR>
+onoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
+xnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
+nnoremap ĞMM :call umisc#VimProcMake()<CR>
+command! -nargs=0 MakeTmuxBuild :call umisc#Make_Tmux_Build(g:tmuxmake_targets)
+command! -nargs=? Underline call umisc#Underline(<q-args>)
+command! -nargs=? Scriptnames call umisc#Filter_Lines('scriptnames', <q-args>)
+command! -nargs=? -range -bar PP :call umisc#PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
+autocmd FileType text nmap <buffer> <silent> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
+command! -range Source <line1>,<line2>call umisc#SourceRange()
+command! -range=% ClearAnsi call umisc#ClearAnsiSequences(<line1>, <line2>)
+command -bar Hexmode call umisc#ToggleHex()
+"set guitablabel=%{umisc#GuiTabLabel()}
+"nnoremap <silent> <expr> gn '' . umisc#SearchForwLastSearch() . ''
+"call s:MapPumInsert(",", 1)
+"noremap <expr> n <SID>SetSearch('n')
+"noremap <expr> N <SID>SetSearch('N')
+"nmap <C-H> :set wrap! \| call umisc#FlashLocn() \| set wrap? <CR>
+"command! range=% -nargs=0 Tab2space exe "<line1>,<line2>s/^\\t\\+/\\=substitute(submatch(0), '\\t', repeat(' ', ".&ts."), 'g')"
+"command! range=% -nargs=0 Space2tab exe "<line1>,<line2>s/^\\(\\ \\{".&ts."\\}\\)\\+/\\=substitute(submatch(0), ' \\{".&ts."\\}', '\\t', 'g')"
+"au BufEnter * call umisc#LoadCscope()
 
 try
   source ~/.vimrc.local
