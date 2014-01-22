@@ -34,6 +34,7 @@ NeoBundle 'pydave/AsyncCommand'
 NeoBundle 'godlygeek/csapprox'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
+"NeoBundle 'lilydjwg/colorizer'
 "NeoBundle 'CountJump'
 NeoBundle 'CursorLineCurrentWindow'
 " DeleteTrailingWhitespace {{{
@@ -174,6 +175,7 @@ NeoBundle 'chrisbra/csv.vim'
 NeoBundle 'vis'
 " DBExt {{{
 let g:dbext_default_SQLITE_bin = 'sqlite3'
+nmap <unique> NOTUSEDğsh <Plug>DBHistory
 NeoBundle 'dbext.vim'
 " }}}
 " junegunn/EasyAlign {{{
@@ -396,6 +398,7 @@ NeoBundle 'UnconditionalPaste'
 let g:pasta_disabled_filetypes = ["coffee", "markdown"]
 let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
 let g:smartput = 1
+nmap <unique> NOTUSEDğst <Plug>SmartputToggle
 nnoremap ğp p
 nnoremap ĞP P
 NeoBundle 'Smartput'
@@ -528,6 +531,14 @@ xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 NeoBundle 't9md/vim-textmanip'
 " }}}
+" kien/rainbow_parentheses {{{
+" let g:rainbow_activate=1
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+NeoBundle 'kien/rainbow_parentheses.vim'
+" }}}
 " kien/CtrlP {{{
 let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
@@ -658,6 +669,7 @@ nnoremap <silent> ğp3  :VimShellInteractive python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive python2<CR>
 NeoBundle 'Shougo/vimshell'
 " }}}
+"let utl_opt_verbose=0
 "NeoBundle 'utl'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'https://bitbucket.org/ZyX_I/aurum'
@@ -721,6 +733,7 @@ NeoBundleLocal ~/.vim/bundle
 "}}}
 "luochen1990/rainbow {{{
 "let g:rainbow_active=1
+"let g:rainbow_operators = 1
 "NeoBundle 'luochen1990/rainbow'
 "}}}
 "let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
@@ -752,6 +765,15 @@ NeoBundleLocal ~/.vim/bundle
 "}}}
 "NeoBundle 'https://bitbucket.org/madevgeny/yate.git'
 "NeoBundle 'code_upstairs'
+"Valloric/YouCompleteMe {{{
+"let g:ycm_key_list_select_completion = []
+"let g:ycm_key_list_previous_completion = []
+"NeoBundle 'Valloric/YouCompleteMe'
+"}}}
+"jeetsukumaran/Buffergator {{{
+"let g:buffergator_suppress_keymaps = 1
+"NeoBundle 'jeetsukumaran/vim-buffergator'
+"}}}
 "kana/Arpeggio {{{
 "NeoBundle 'kana/vim-arpeggio'
 "call arpeggio#load() "Arpeggio nmap wh/l/j/k <C-w>h/l/j/k
@@ -767,6 +789,17 @@ NeoBundleLocal ~/.vim/bundle
 "let g:ConqueTerm_ExecFileKey = '<C-F11>'
 "nnoremap <silent> ĞSH :ConqueTermSplit bash<CR>
 "NeoBundle 'Conque-Shell'
+"}}}
+"EasyTags {{{
+"let g:loaded_easytags = "disable_"
+"let g:easytags_file = "~/.vim/easytags_TAGS"
+"let g:easytags_always_enabled = 1
+"let g:easytags_updatetime_min = 2000
+"let g:easytags_updatetime_autodisable = 1
+" autocmd FileType conque_term let b:easytags_auto_highlight = 0
+" autocmd FileType conque_term let b:easytags_on_cursorhold = 0
+" autocmd FileType conque_term let b:easytags_auto_update = 0
+"NeoBundle 'EasyTags'
 "}}}
 "NeoBundle 'Vimpy-monokrome'
 "NeoBundle 'WhereFrom'
@@ -822,10 +855,9 @@ set cmdheight=2
 set history=450
 "move the viminfo file to .vim to avoid the vim-related rubbish outside .vim/.
 set viminfo+=n~/.vim/var/viminfo
-" astyle is artistic style program working like gnu indent.
-" set equalprg=astyle
-" uncrustify is a sophisticated code beautifier.
-" set formatprg=uncrustify
+"'astyle' is artistic style program working like gnu indent;
+"'uncrustify' is a sophisticated code beautifier.
+"set equalprg=astyle formatprg=uncrustify
 set matchpairs+=<:>
 " those indent values will be overridden by an automatic indent finder. (like
 " sleuth, yaifa): sleuth now almost never makes use of these settings.
@@ -1120,22 +1152,6 @@ nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> [d :call ShowBlockName('[d')<CR>
 nnoremap <silent> [i :call ShowBlockName('[i')<CR>
-" NOTUSED mappings in order to prevent the default maps load.
-nmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
-xmap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
-imap <unique> NOTUSED<M-Insert>      <Plug>MarkersMark
-imap <unique> NOTUSED<M-Del>         <Plug>MarkersJumpF
-map  <unique> NOTUSED<M-Del>         <Plug>MarkersJumpF
-imap <unique> NOTUSED<M-S-Del>       <Plug>MarkersJumpB
-map  <unique> NOTUSED<M-S-Del>       <Plug>MarkersJumpB
-map  <unique> NOTNUSED<LocalLeader>p <Plug>JavagetsetInsertGetterSetter
-map  <unique> NOTNUSED<LocalLeader>g <Plug>JavagetsetInsertGetterOnly
-map  <unique> NOTNUSED<LocalLeader>s <Plug>JavagetsetInsertSetterOnly
-map  <unique> NOTNUSED<LocalLeader>b <Plug>JavagetsetInsertBothGetterSetter
-nmap <unique> NOTUSEDğa       <Plug>ToggleAutoCloseMappings
-imap <unique> NOTUSED<C-S>           <Plug>Isurround
-nmap <unique> NOTUSEDğst      <plug>SmartputToggle
-nmap <unique> NOTUSEDğsh      <Plug>DBHistory
 " nmap <silent> <C-z> <Plug>QAnotherWin
 " nmap ğt :Shell make test<CR><CR>
 " nnoremap <unique> <silent> ğğğtasaasd :call MakeGreen()<CR>
@@ -1143,12 +1159,7 @@ nmap <unique> NOTUSEDğsh      <Plug>DBHistory
 " }}}
 
 " plugin configuration {{{
-let g:rainbow_active = 1
-let g:rainbow_operators = 1
 let g:tmuxmake_targets = ""
-let g:buffergator_suppress_keymaps = 1
-let g:ycm_key_list_select_completion = []
-let g:ycm_key_list_previous_completion = []
 " Aliases {{{
 autocmd VimEnter * Alias te tabedit
 autocmd VimEnter * Alias tee tabedit<Space>~/
@@ -1203,16 +1214,6 @@ augroup no_sticky_buffers
   au!
   au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
-" EasyTags
-let g:loaded_easytags = "disable_"
-let g:easytags_file = "~/.vim/easytags_TAGS"
-let g:easytags_always_enabled = 1
-let g:easytags_updatetime_min = 2000
-autocmd FileType conque_term let b:easytags_auto_highlight = 0
-autocmd FileType conque_term let b:easytags_on_cursorhold = 0
-autocmd FileType conque_term let b:easytags_auto_update = 0
-let g:easytags_updatetime_autodisable = 1
-"------------------------------------------
 let g:ctags_path = '/usr/bin/ctags'
 let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
@@ -1221,7 +1222,6 @@ let generate_tags = 1
 "------------------------------------------
 let g:loaded_fortune_vimtips = 1
 let g:fortune_vimtips_file = "wisdom"
-let g:rainbow_activate=1
 let g:locator_disable_mappings = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
@@ -1233,14 +1233,10 @@ let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so
 let g:enableUnicodeCompletion = 0
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 let g:no_tagselect_maps = 1
-let utl_opt_verbose=0
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
 " fonts and headlights plugin causing problems
 let g:loaded_fonts=1
-let g:loaded_headlights = 1
-let g:loaded_colorsupport = "disable_"
-let g:loaded_StatusLineHighlight = "disable_"
 " }}}
 
 " FUNCTIONS / COMMANDS {{{
