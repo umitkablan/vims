@@ -1249,28 +1249,28 @@ augroup END
 command -bang -nargs=? QFix call umisc#QFixToggle(<bang>0)
 " }}}
 
-command! -nargs=0 RebuildAllCTags call umisc#RebuildAllDependentCTags()
-command! RandomLine call umisc#GoToRandomLine()
+nnoremap ĞMM :call umisc#VimProcMake()<CR>
 nnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(0)<CR>
 onoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
 xnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
-nnoremap ĞMM :call umisc#VimProcMake()<CR>
-command! -nargs=0 MakeTmuxBuild :call umisc#Make_Tmux_Build(g:tmuxmake_targets)
-command! -nargs=? Underline call umisc#Underline(<q-args>)
-command! -nargs=? Scriptnames call umisc#Filter_Lines('scriptnames', <q-args>)
-command! -nargs=? -range -bar PP :call umisc#PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
 autocmd FileType text nmap <buffer> <silent> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
-command! -range Source <line1>,<line2>call umisc#SourceRange()
-command! -range=% ClearAnsi call umisc#ClearAnsiSequences(<line1>, <line2>)
-command -bar Hexmode call umisc#ToggleHex()
+command! -nargs=0 RandomLine      call umisc#GoToRandomLine()
+command! -nargs=0 RebuildAllCTags call umisc#RebuildAllDependentCTags()
+command! -nargs=0 MakeTmuxBuild   call umisc#Make_Tmux_Build(g:tmuxmake_targets)
+command! -nargs=? Underline       call umisc#Underline(<q-args>)
+command! -nargs=? Scriptnames     call umisc#Filter_Lines('scriptnames', <q-args>)
+command! -range=% Source          call umisc#SourceRange(<line1>,<line2>)
+command! -range=% ClearAnsi       call umisc#ClearAnsiSequences(<line1>, <line2>)
+command! -nargs=0 -bar        Hexmode   call umisc#ToggleHex()
+command! -nargs=? -range -bar PP        call umisc#PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
+command! -nargs=0 range=%     Tab2Space call umisc#Tab2Space(<line1>,<line2>)
+command! -nargs=0 range=%     Space2Tab call umisc#Space2Tab(<line1>,<line2>)
 "set guitablabel=%{umisc#GuiTabLabel()}
+"call umisc#MapPumInsert(",", 1)
 "nnoremap <silent> <expr> gn '' . umisc#SearchForwLastSearch() . ''
-"call s:MapPumInsert(",", 1)
-"noremap <expr> n <SID>SetSearch('n')
-"noremap <expr> N <SID>SetSearch('N')
+"noremap <expr> n umisc#SetSearch('n')
+"noremap <expr> N umisc#SetSearch('N')
 "nmap <C-H> :set wrap! \| call umisc#FlashLocn() \| set wrap? <CR>
-"command! range=% -nargs=0 Tab2space exe "<line1>,<line2>s/^\\t\\+/\\=substitute(submatch(0), '\\t', repeat(' ', ".&ts."), 'g')"
-"command! range=% -nargs=0 Space2tab exe "<line1>,<line2>s/^\\(\\ \\{".&ts."\\}\\)\\+/\\=substitute(submatch(0), ' \\{".&ts."\\}', '\\t', 'g')"
 "au BufEnter * call umisc#LoadCscope()
 
 try
