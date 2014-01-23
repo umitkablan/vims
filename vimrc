@@ -1265,8 +1265,8 @@ command! -range=% Source          call umisc#SourceRange(<line1>,<line2>)
 command! -range=% ClearAnsi       call umisc#ClearAnsiSequences(<line1>, <line2>)
 command! -nargs=0 -bar        Hexmode   call umisc#ToggleHex()
 command! -nargs=? -range -bar PP        call umisc#PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
-command! -nargs=0 range=%     Tab2Space call umisc#Tab2Space(<line1>,<line2>)
-command! -nargs=0 range=%     Space2Tab call umisc#Space2Tab(<line1>,<line2>)
+command! -nargs=0 -range=%    Tab2Space call umisc#Tab2Space(<line1>,<line2>)
+command! -nargs=0 -range=%    Space2Tab call umisc#Space2Tab(<line1>,<line2>)
 "set guitablabel=%{umisc#GuiTabLabel()}
 "call umisc#MapPumInsert(",", 1)
 "nnoremap <silent> <expr> gn '' . umisc#SearchForwLastSearch() . ''
