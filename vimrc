@@ -344,8 +344,8 @@ imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'honza/vim-snippets'
-"NeoBundle 'Shougo/neosnippet-snippets'
+"NeoBundle 'honza/vim-snippets'
+NeoBundle 'Shougo/neosnippet-snippets'
 "}}}
 " NetRW {{{
 let g:tar_nomax = 1
@@ -364,6 +364,7 @@ let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 NeoBundle 'Notes'
 "}}}
+let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 NeoBundle 'derekwyatt/vim-protodef'
 NeoBundle 'xolox/vim-session'
 " yssl/QFEnter {{{
@@ -745,6 +746,7 @@ NeoBundleLocal ~/.vim/bundle
 "let g:languagetool_jar='/usr/share/java/languagetool/languagetool-commandline.jar'
 "NeoBundle 'dpelle/vim-LanguageTool'
 "NeoBundle 'tdd-dubgeiser-vim'
+"let g:enableUnicodeCompletion = 0
 "NeoBundle 'chrisbra/unicode.vim'
 "NeoBundle 'toggle_unit_tests'
 "NeoBundle 'LimpidTech/vimpy'
@@ -1151,15 +1153,15 @@ nnoremap <silent> ğ1 :Sscratch<CR>
 nnoremap <silent> ğğu :Utl<CR>
 xnoremap <silent> ğğu :Utl<CR>
 autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
-nnoremap <silent> ĞN :redir @n<cr>:call DecAndHex(expand("<cWORD>"))<CR>:redir END<cr>
+nnoremap <silent> ĞN :redir @n<cr>:call umisc#DecAndHex(expand("<cWORD>"))<CR>:redir END<cr>
 nnoremap <silent> ĞUU :Underline<CR>
-nnoremap <silent> ğw :call WinWalkerMenu()<CR>
+" nnoremap <silent> ğw :call WinWalkerMenu()<CR>
 " let g:exTS_backto_editbuf = 0
 " let g:exTS_close_when_selected = 1
 " nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
 " nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-nnoremap <silent> TDD :call Tdd_RunTest()<CR>
-nmap <silent> <Tab><Space><Space> :call ToggleIndGuides_RC()<CR>
+" nnoremap <silent> TDD :call Tdd_RunTest()<CR>
+nmap <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> [d :call ShowBlockName('[d')<CR>
 nnoremap <silent> [i :call ShowBlockName('[i')<CR>
@@ -1171,6 +1173,8 @@ nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 
 " plugin configuration {{{
 let g:tmuxmake_targets = ""
+let g:no_tagselect_maps = 1
+let g:locator_disable_mappings = 1
 " Aliases {{{
 autocmd VimEnter * Alias te tabedit
 autocmd VimEnter * Alias tee tabedit<Space>~/
@@ -1223,10 +1227,7 @@ let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
 let g:ctags_statusline = 1
 let generate_tags = 1
-"------------------------------------------
-let g:loaded_fortune_vimtips = 1
-let g:fortune_vimtips_file = "wisdom"
-let g:locator_disable_mappings = 1
+" let g:fortune_vimtips_file = "wisdom"
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:local_vimrc=".lvimrc"
@@ -1234,12 +1235,8 @@ let g:Tdd_makeprg='make'
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
-let g:enableUnicodeCompletion = 0
-let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
-let g:no_tagselect_maps = 1
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
-" fonts and headlights plugin causing problems
 let g:loaded_fonts=1
 " }}}
 
