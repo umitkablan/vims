@@ -88,7 +88,11 @@ nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
 nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 NeoBundle 'yonchu/accelerated-smooth-scroll'
 " }}}
+" grep.vim {{{
+let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
+let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 NeoBundle 'grep.vim'
+" }}}
 " milesz/ack.vim {{{
 if 0 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
@@ -1035,7 +1039,7 @@ nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> ğcd :pwd<CR>
 nnoremap <silent> ğrc :sp .lvimrc<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
-nnoremap <silent> ĞE  :call OpenExplore()<CR>
+nnoremap <silent> ĞE  :call umisc#OpenExplore()<CR>
 nnoremap <silent> ĞRC :tabe ~/.vim/<CR>
 nnoremap <silent> ĞT  :sp .<CR><C-W>T
 " de facto visual block indent mappings
@@ -1232,8 +1236,6 @@ let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:local_vimrc=".lvimrc"
 let g:Tdd_makeprg='make'
-let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
-let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
