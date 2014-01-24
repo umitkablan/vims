@@ -1022,8 +1022,10 @@ augroup tag_langs
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
+  au FileType c,cpp,java,javascript,python,actionscript,sh
+          \ nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
+  au FileType c,cpp,java,javascript,python,actionscript,sh
+          \ nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
 augroup END
 nnoremap <silent> <Backspace> :call umisc#QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
@@ -1035,41 +1037,14 @@ augroup VCSCommand
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
 
-onoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
-xnoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
-onoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
-xnoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
-onoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
-xnoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
-onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
-xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
-" Cycle through UPPERCASE, lowercase, and Titlecase of the selection
-xnoremap ~ ygv"=umisc#TwiddleCase(@")<CR>Pgv
 inoremap <expr> <C-K> BDG_GetDigraph()
-nnoremap <silent> <F5> :call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
-inoremap <silent> <F5> <Esc>:call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nnoremap <silent> ğa :A<CR>
 nnoremap <silent> ğ1 :Sscratch<CR>
-"nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
 nnoremap <silent> ğğu :Utl<CR>
 xnoremap <silent> ğğu :Utl<CR>
-autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
-nnoremap <silent> ĞN :redir @n<cr>:call umisc#DecAndHex(expand("<cWORD>"))<CR>:redir END<cr>
-nnoremap <silent> ĞUU :Underline<CR>
-" nnoremap <silent> ğw :call WinWalkerMenu()<CR>
-" let g:exTS_backto_editbuf = 0
-" let g:exTS_close_when_selected = 1
-" nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
-" nnoremap <silent> ĞTT :ExtsStackToggle<CR>
-" nnoremap <silent> TDD :call Tdd_RunTest()<CR>
-nmap <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> [d :call ShowBlockName('[d')<CR>
 nnoremap <silent> [i :call ShowBlockName('[i')<CR>
-" nmap <silent> <C-z> <Plug>QAnotherWin
-" nmap ğt :Shell make test<CR><CR>
-" nnoremap <unique> <silent> ğğğtasaasd :call MakeGreen()<CR>
-" nmap <silent> <unique> ğb <Plug>SelectBuf
 " }}}
 
 " plugin configuration {{{
@@ -1128,11 +1103,9 @@ let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
 let g:ctags_statusline = 1
 let generate_tags = 1
-" let g:fortune_vimtips_file = "wisdom"
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:local_vimrc=".lvimrc"
-let g:Tdd_makeprg='make'
 let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
@@ -1148,10 +1121,25 @@ augroup END
 command -bang -nargs=? QFix call umisc#QFixToggle(<bang>0)
 " }}}
 
-nnoremap ĞMM :call umisc#VimProcMake()<CR>
+autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
+" Cycle through UPPERCASE, lowercase, and Titlecase of the selection
+xnoremap ~ ygv"=umisc#TwiddleCase(@")<CR>Pgv
+nnoremap <silent> ĞN   :redir @n\|call umisc#DecAndHex(expand("<cWORD>"))\|redir END<CR>
+nnoremap <silent> ĞMM  :call umisc#VimProcMake()<CR>
+nnoremap <silent> <F5> :call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
+inoremap <silent> <F5> <Esc>:call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
+nmap     <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
 nnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(0)<CR>
 onoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
 xnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
+onoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
+xnoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
+onoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
+xnoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
+onoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
+xnoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
+onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
+xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 autocmd FileType text nmap <buffer> <silent> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
 command! -nargs=0 RandomLine      call umisc#GoToRandomLine()
 command! -nargs=0 RebuildAllCTags call umisc#RebuildAllDependentCTags()
@@ -1164,13 +1152,6 @@ command! -nargs=0 -bar        Hexmode   call umisc#ToggleHex()
 command! -nargs=? -range -bar PP        call umisc#PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
 command! -nargs=0 -range=%    Tab2Space call umisc#Tab2Space(<line1>,<line2>)
 command! -nargs=0 -range=%    Space2Tab call umisc#Space2Tab(<line1>,<line2>)
-"set guitablabel=%{umisc#GuiTabLabel()}
-"call umisc#MapPumInsert(",", 1)
-"nnoremap <silent> <expr> gn '' . umisc#SearchForwLastSearch() . ''
-"noremap <expr> n umisc#SetSearch('n')
-"noremap <expr> N umisc#SetSearch('N')
-"nmap <C-H> :set wrap! \| call umisc#FlashLocn() \| set wrap? <CR>
-"au BufEnter * call umisc#LoadCscope()
 
 try
   source ~/.vimrc.local

@@ -103,3 +103,24 @@ NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'nelstrom/vim-qargs'
 NeoBundle 'AndrewRadev/switch.vim'
 
+call umisc#MapPumInsert(",", 1)
+nnoremap <silent> <expr> gn '' . umisc#SearchForwLastSearch() . ''
+noremap <expr> n umisc#SetSearch('n')
+noremap <expr> N umisc#SetSearch('N')
+nmap <C-H> :set wrap! \| call umisc#FlashLocn() \| set wrap? <CR>
+au BufEnter * call umisc#LoadCscope()
+set guitablabel=%{umisc#GuiTabLabel()}
+let g:fortune_vimtips_file = "wisdom"
+nnoremap <silent> <space><space><space> :ResizeWinMaxHV<CR>
+nmap <silent> <C-z> <Plug>QAnotherWin
+nmap ğt :Shell make test<CR><CR>
+nnoremap <unique> <silent> ğğğtasaasd :call MakeGreen()<CR>
+nmap <silent> <unique> ğb <Plug>SelectBuf
+nnoremap <silent> ĞUU :Underline<CR>
+nnoremap <silent> ğw :call WinWalkerMenu()<CR>
+let g:exTS_backto_editbuf = 0
+let g:exTS_close_when_selected = 1
+nnoremap <silent> ĞTS :ExtsSelectToggle<CR>
+nnoremap <silent> ĞTT :ExtsStackToggle<CR>
+let g:Tdd_makeprg='make'
+nnoremap <silent> TDD :call Tdd_RunTest()<CR>
