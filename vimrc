@@ -35,6 +35,9 @@ NeoBundle 'godlygeek/csapprox'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
 "NeoBundle 'lilydjwg/colorizer'
+nnoremap <silent> ğa :A<CR>
+NeoBundle 'a.vim'
+NeoBundle 'craigemery/vim-autotag'
 NeoBundle 'CursorLineCurrentWindow'
 " DeleteTrailingWhitespace {{{
 let g:DeleteTrailingWhitespace = 1
@@ -277,13 +280,13 @@ let g:neocomplete#min_keyword_length = 2
 let g:neocomplete#enable_auto_select = 0
 let g:neocomplete#max_list = 30
 let g:neocomplete#enable_cursor_hold_i = 1
-let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#enable_auto_delimiter = 0
 let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
 let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 " inoremap <expr> <C-y> neocomplete#close_popup()
 " inoremap <expr> <C-e> neocomplete#cancel_popup()
 inoremap <expr> <CR> pumvisible() ? neocomplete#smart_close_popup() : "\<CR>"
-inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <C-h>       neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <Backspace> neocomplete#smart_close_popup()."\<Backspace>"
 inoremap <expr> <Left>   neocomplete#smart_close_popup()."\<Left>"
 inoremap <expr> <Right>  neocomplete#smart_close_popup()."\<Right>"
@@ -293,8 +296,8 @@ inoremap <expr> <Down> pumvisible() ? "\<C-n>" : neocomplete#smart_close_popup()
 let g:neocomplete#source_completion_length = {
   \ 'buffer_complete'    : 1,
   \ 'eclim_complete'     : 1,
-  \ 'snippets_complete'  : 2,
-  \ 'keyword_complete'   : 2,
+  \ 'snippets_complete'  : 1,
+  \ 'keyword_complete'   : 1,
   \ 'include_complete'   : 2,
   \ 'dictionary_complete': 2,
   \ 'syntax_complete'    : 2
@@ -307,6 +310,8 @@ let g:neocomplete#dictionary_filetype_lists = {
   \ 'ruby'         : $HOME . '/.vimrc/dict/ruby.dict',
   \ 'java'         : $HOME . '/.vimrc/dict/java.dict',
   \ 'php'          : $HOME . '/.vimrc/dict/php.dict',
+  \ 'txt'          : '/usr/share/dict/words',
+  \ 'text'         : '/usr/share/dict/words',
   \ }
 "autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
@@ -411,6 +416,7 @@ NeoBundle 'tpope/vim-speeddating'
 " }}}
 NeoBundle 'SQLUtilities'
 " mhinz/Startify {{{
+au FileType startify setlocal nospell
 let g:startify_session_dir = '~/.vim/var/session'
 let g:session_directory = "~/.vim/var/session"
 let g:startify_files_number = 19
@@ -676,6 +682,9 @@ let VCSCommandVCSTypePreference = 'git'
 "let VCSCommandSVNDiffOpt = "-ignore-all-space"
 " Turn off spell other than commit message writing
 au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
+augroup VCSCommand
+  au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
+augroup END
 NeoBundle 'vcscommand.vim'
 " }}}
 NeoBundle 'thinca/vim-ref'
@@ -739,7 +748,7 @@ set nocompatible
 filetype plugin on
 filetype indent on
 syntax on
-set regexpengine=1
+" set regexpengine=1
 let mapleader = "ü"
 let maplocalleader = ","
 "set term color to 256 for some colorschemes to work.
@@ -756,24 +765,21 @@ set nowrapscan
 set ignorecase
 set smartcase
 set backspace=indent,eol,start
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
-"i am a software craftsman. want to see line numbers!
+"absolute number  is better than relative
 set number "relativenumber
-" highlight current line
-set wmw=0 "minimum window height
+set winminwidth=0
 set cmdheight=2
 set history=450
 "move the viminfo file to .vim to avoid the vim-related rubbish outside .vim/.
 set viminfo+=n~/.vim/var/viminfo
-"'astyle' is artistic style program working like gnu indent;
-"'uncrustify' is a sophisticated code beautifier.
 "set equalprg=astyle formatprg=uncrustify
 set matchpairs+=<:>
 " those indent values will be overridden by an automatic indent finder. (like
 " sleuth, yaifa): sleuth now almost never makes use of these settings.
 set tabstop=4 shiftwidth=4 expandtab
 set incsearch
-" clear tags n path; use some other technique to decide
+" clear tags and path; use some other technique to decide later (depending on
+" project settings)
 set tags=
 set path=.
 set wildmenu
@@ -781,6 +787,8 @@ set wildmode=list:longest,full
 set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc
 set wildignore+=*.pyo,*.pyd,*.class,*.lock
 set wildignore+=.git,.svn,.hg
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg
+set suffixes+=.toc,.out,.inx
 " can leave a buffer without saving
 set hidden
 " backup and temp dirs
@@ -807,7 +815,8 @@ endif
 set spell spelllang=en
 
 au FileType text setlocal wrap linebreak
-au FileType qf,tagselect,startify,diff setlocal nospell
+au FileType help setlocal nonumber
+au FileType qf,tagselect,diff setlocal nospell
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
 au TabLeave    * stopinsert
@@ -837,9 +846,9 @@ if has("gui")
   set guioptions+=c " Use console dialogs where possible"
   "set guioptions-=m
 endif
-if has("gui_running")
-  winsize 170 46
-endif
+" if has("gui_running")
+"   winsize 170 46
+" endif
 " }}}
 
 " personal maps: maps that do not need plugins {{{
@@ -942,9 +951,7 @@ nnoremap <silent> ĞT  :sp .<CR><C-W>T
 " de facto visual block indent mappings
 vnoremap < <gv
 xnoremap > >gv
-nnoremap ğ> >i}
-nnoremap ğ< <i}
-nnoremap ĞD di}
+" nnoremap ğ> >i} AND ğ< <i}
 " easier %s/%g
 nnoremap ğs :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap ğg :%g/<C-r><C-w>/
@@ -976,9 +983,6 @@ inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
 " }}}
 
-"autocmd FileType qf nnoremap <silent> <buffer> o <CR><C-W>p
-autocmd FileType help setlocal nonumber
-
 nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
@@ -989,23 +993,36 @@ nnoremap <silent> <Space><Tab> :update<CR>
 nnoremap <silent> <Esc><Space> :update<CR>
 nnoremap <silent> <Space><Esc> :update<CR>
 
-" Maps for known buffer/file types & default behaviours {{{
-inoremap <expr><silent> jk        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
-inoremap <expr><silent> kj        pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
-inoremap <expr><silent> jk<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-inoremap <expr><silent> j<Space>k pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-inoremap <expr><silent> kj<Space> pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
-inoremap <expr><silent> j<Space>k pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+" j/k/Space Behaviour {{{
+inoremap <expr><silent> jk
+      \ pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+inoremap <expr><silent> kj
+      \ pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+inoremap <expr><silent> jk<Space>
+      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+inoremap <expr><silent> j<Space>k
+      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+inoremap <expr><silent> kj<Space>
+      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+inoremap <expr><silent> k<Space>j
+      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk        umisc#YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj        umisc#YieldSemicolonIfAppropriate()."\<Esc>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk<Space> umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> j<Space>k umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj<Space> umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
-  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR> pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk
+       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj
+       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk<Space>
+       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> j<Space>k
+       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj<Space>
+       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j
+       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+  au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR>
+       \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 " }}}
 
@@ -1015,6 +1032,7 @@ augroup preprocessor_langs
 augroup END
 
 " personal plugin maps {{{
+" Enter/Backspace Behaviour {{{
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
@@ -1033,12 +1051,11 @@ au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<
 au FileType netrw                     nmap     <silent> <buffer> <Backspace> -
 au FileType vundle,gitcommit,calendar nmap     <silent> <buffer> <Backspace> q
 augroup VCSCommand
-  au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
+" }}}
 
 inoremap <expr> <C-K> BDG_GetDigraph()
-nnoremap <silent> ğa :A<CR>
 nnoremap <silent> ğ1 :Sscratch<CR>
 nnoremap <silent> ğğu :Utl<CR>
 xnoremap <silent> ğğu :Utl<CR>
