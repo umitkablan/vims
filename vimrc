@@ -977,12 +977,14 @@ inoremap <C-j> <C-X><C-O>
 nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
+" :update key combinations {{{
 " These are the key combos that I always press while I'm aiming to
 " <Tab><Space>, all are valid for me to :update.
 nnoremap <silent> <Tab><Space> :update<CR>
 nnoremap <silent> <Space><Tab> :update<CR>
 nnoremap <silent> <Esc><Space> :update<CR>
 nnoremap <silent> <Space><Esc> :update<CR>
+" }}}
 
 " j/k/Space Behaviour {{{
 inoremap <expr><silent> jk
