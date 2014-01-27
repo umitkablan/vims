@@ -872,7 +872,6 @@ endif
 "   winsize 170 46
 " endif
 " }}}
-
 " personal maps: maps that do not need plugins {{{
 nnoremap <silent> ZZ  :hide<CR>
 nnoremap <silent> ZZA :qa<CR>
@@ -1004,10 +1003,11 @@ inoremap <C-j> <C-X><C-O>
 " call s:SwapKeys(",", ";")
 " }}}
 
+" Quickfix/Location List Toggle/Clear {{{
 nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
-
+" }}}
 " :update key combinations {{{
 " These are the key combos that I always press while I'm aiming to
 " <Tab><Space>, all are valid for me to :update.
