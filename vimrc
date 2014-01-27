@@ -772,15 +772,13 @@ set history=450
 set viminfo+=n~/.vim/var/viminfo
 "set equalprg=astyle formatprg=uncrustify
 set matchpairs+=<:>
-" those indent values will be overridden by an automatic indent finder. (like
-" sleuth, yaifa): sleuth now almost never makes use of these settings.
+" those indent values will be overridden by automatic indent finders (like
+" yaifa, sleuth)
 set tabstop=4 shiftwidth=4 expandtab
 " clear tags and path; use some other technique to decide later (depending on
 " project settings)
-set tags=
-set path=.
-set wildmenu
-set wildmode=list:longest,full
+set tags= path=.
+set wildmenu wildmode=list:longest,full
 set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc
 set wildignore+=*.pyo,*.pyd,*.class,*.lock
 set wildignore+=.git,.svn,.hg
@@ -796,9 +794,6 @@ set directory=~/.vim/var/tmp
 set updatetime=5000
 "make a little max-delay between keypad *touches*
 set timeout timeoutlen=440 ttimeout ttimeoutlen=50
-" keep cursor always at the middle
-" set scrolloff=9999
-" show tabline every now and then
 set cursorline nocursorcolumn
 set wrap linebreak
 if has('multi_byte')
@@ -807,6 +802,8 @@ else
   let &showbreak = '> '
 endif
 set spell spelllang=en
+" keep cursor always at the middle
+" set scrolloff=9999
 
 au FileType text setlocal wrap linebreak
 au FileType help setlocal nonumber
