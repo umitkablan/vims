@@ -214,6 +214,10 @@ nnoremap <silent> <F2> :InlineEdit<CR>
 inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 NeoBundle 'AndrewRadev/inline_edit.vim'
 " }}}
+" DirDiff {{{
+let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
+NeoBundle 'DirDiff.vim'
+" }}}
 NeoBundle 'linediff.vim'
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
@@ -1142,7 +1146,6 @@ let generate_tags = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:local_vimrc=".lvimrc"
-let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
 let g:loaded_fonts=1
