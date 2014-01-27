@@ -215,7 +215,7 @@ inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 NeoBundle 'AndrewRadev/inline_edit.vim'
 " }}}
 " DirDiff {{{
-let g:DirDiffExcludes = ".svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
+let g:DirDiffExcludes = ".svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so,*.ko"
 NeoBundle 'DirDiff.vim'
 " }}}
 NeoBundle 'linediff.vim'
