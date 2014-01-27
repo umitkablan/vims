@@ -215,7 +215,7 @@ inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 NeoBundle 'AndrewRadev/inline_edit.vim'
 " }}}
 " DirDiff {{{
-let g:DirDiffExcludes = "CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
+let g:DirDiffExcludes = ".svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so"
 NeoBundle 'DirDiff.vim'
 " }}}
 NeoBundle 'linediff.vim'
@@ -1086,7 +1086,6 @@ nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> [d :call ShowBlockName('[d')<CR>
 nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 " }}}
-
 " plugin configuration {{{
 let g:tmuxmake_targets = ""
 let g:no_tagselect_maps = 1
