@@ -888,12 +888,9 @@ nnoremap <silent> <C-c> :echo expand("%:p:~")<CR>
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 imap <C-BS> <C-W>
-" swap comma (,) and semicolon (;) because my keyboard is comma-privileged
-" call s:SwapKeys(",", ";")
 noremap g; g,
 noremap g, g;
-" Handy, go to last edit. It is frequently done twice.
-nnoremap g,, g,g,
+nmap g,, g,g,
 " not to press shift key
 noremap gl $
 noremap gh ^
@@ -916,7 +913,7 @@ xmap . ç
 " navigate cline history and executed a command. This command is not seen as
 " last command.
 " run last command; @: is not working properly in the current scheme when some
-" thing is reexecuted from history before.
+" thing is re-executed from history before.
 nnoremap <silent> <F3> :<Up><CR>
 vnoremap <silent> <F3> :<Up><CR>
 " map arrow keys to move whole window up/down
@@ -973,10 +970,6 @@ xnoremap > >gv
 " easier %s/%g
 nnoremap ğs :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap ğg :%g/<C-r><C-w>/
-" vnoremap <c-j> @='jojo'<cr>
-" vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
-" vnoremap <c-k> @='koko'<cr>
-" vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 nnoremap <silent> <Space> :exe 'silent! normal! '.((foldclosed('.')>0)? "zMzxzt" : 'zc')<CR>
@@ -999,11 +992,18 @@ nnoremap <F12>      :set invpaste paste?<CR>
 " easy completion
 inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
+" vnoremap <c-j> @='jojo'<cr>
+" vnoremap <expr> <c-j> 'jo'.v:count1.'jo'
+" vnoremap <c-k> @='koko'<cr>
+" vnoremap <expr> <c-k> 'ko'.v:count1.'ko'
+" swap comma (,) and semicolon (;) because my keyboard is comma-privileged
+" call s:SwapKeys(",", ";")
 " }}}
 
 nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
 nnoremap <silent> <F10><F9> :call setqflist([])\|call setloclist(0, [])\|call UpdateSigns_()<CR>
+
 " :update key combinations {{{
 " These are the key combos that I always press while I'm aiming to
 " <Tab><Space>, all are valid for me to :update.
@@ -1012,7 +1012,6 @@ nnoremap <silent> <Space><Tab> :update<CR>
 nnoremap <silent> <Esc><Space> :update<CR>
 nnoremap <silent> <Space><Esc> :update<CR>
 " }}}
-
 " j/k/Space Behaviour {{{
 inoremap <expr><silent> jk
       \ pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
