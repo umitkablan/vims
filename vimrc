@@ -755,12 +755,11 @@ let maplocalleader = ","
 "set term color to 256 for some colorschemes to work.
 set t_Co=256
 "show statusbar all the time
-set laststatus=2
-set noruler
-"set the terminal title
-set title
+set laststatus=2 showtabline=2
+set cmdheight=2 winminwidth=0
+set noruler showmode title
 " highlight the search, don't start from beginning when you reach end.
-set hlsearch
+set hlsearch incsearch
 set nowrapscan
 " case sensitivity: smart
 set ignorecase
@@ -768,8 +767,6 @@ set smartcase
 set backspace=indent,eol,start
 "absolute number  is better than relative
 set number "relativenumber
-set winminwidth=0
-set cmdheight=2
 set history=450
 "move the viminfo file to .vim to avoid the vim-related rubbish outside .vim/.
 set viminfo+=n~/.vim/var/viminfo
@@ -778,7 +775,6 @@ set matchpairs+=<:>
 " those indent values will be overridden by an automatic indent finder. (like
 " sleuth, yaifa): sleuth now almost never makes use of these settings.
 set tabstop=4 shiftwidth=4 expandtab
-set incsearch
 " clear tags and path; use some other technique to decide later (depending on
 " project settings)
 set tags=
@@ -793,8 +789,7 @@ set suffixes+=.toc,.out,.inx
 " can leave a buffer without saving
 set hidden
 " backup and temp dirs
-set backup
-set undofile
+set backup undofile
 set undodir=~/.vim/var/backup
 set backupdir=~/.vim/var/backup
 set directory=~/.vim/var/tmp
@@ -804,10 +799,8 @@ set timeout timeoutlen=440 ttimeout ttimeoutlen=50
 " keep cursor always at the middle
 " set scrolloff=9999
 " show tabline every now and then
-set showtabline=2
 set cursorline nocursorcolumn
 set wrap linebreak
-set showmode
 if has('multi_byte')
   let &showbreak = '↳ '
 else
