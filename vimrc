@@ -732,8 +732,35 @@ NeoBundle 'mbbill/fencview'
 let g:tmuxline_powerline_separators=0
 let g:tmuxline_preset='full'
 NeoBundle 'edkolev/tmuxline.vim'
+" }}}
+" umitkablan/umisc {{{
+autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
+autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
+autocmd FileType text nmap     <silent><buffer> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
+" Cycle through UPPERCASE, lowercase, and Titlecase of the selection
+xnoremap <silent> ~    ygv"=umisc#TwiddleCase(@")<CR>Pgv
+nnoremap <silent> ĞN   :redir @n\|call umisc#DecAndHex(expand("<cWORD>"))\|redir END<CR>
+nnoremap <silent> ĞMM  :call umisc#VimProcMake()<CR>
+nnoremap <silent> <F5> :call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
+inoremap <silent> <F5> <Esc>:call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
+nmap     <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
+" Go To LineNum With Locals Prefix
+nnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(0)<CR>
+onoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
+xnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
+" All/Inner Next
+onoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
+xnoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
+onoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
+xnoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
+" All/Inner Last
+onoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
+xnoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
+onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
+xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 NeoBundle 'umitkablan/umisc'
 " }}}
+
 " Load Local Bundles {{{
 NeoBundleLocal ~/.vim/bundle
 "autocmd BufWritePost ~/.vim/** Helptags
@@ -1121,28 +1148,6 @@ let g:hybrid_use_Xresources = 0
 let g:github_user = "umitkablan"
 let g:loaded_fonts=1
 " }}}
-
-autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
-autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
-autocmd FileType text nmap     <silent><buffer> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
-" Cycle through UPPERCASE, lowercase, and Titlecase of the selection
-xnoremap <silent> ~    ygv"=umisc#TwiddleCase(@")<CR>Pgv
-nnoremap <silent> ĞN   :redir @n\|call umisc#DecAndHex(expand("<cWORD>"))\|redir END<CR>
-nnoremap <silent> ĞMM  :call umisc#VimProcMake()<CR>
-nnoremap <silent> <F5> :call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
-inoremap <silent> <F5> <Esc>:call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
-nmap     <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
-nnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(0)<CR>
-onoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
-xnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
-onoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
-xnoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
-onoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
-xnoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
-onoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
-xnoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
-onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
-xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 
 try
   source ~/.vimrc.local
