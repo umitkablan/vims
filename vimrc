@@ -1122,18 +1122,11 @@ let g:github_user = "umitkablan"
 let g:loaded_fonts=1
 " }}}
 
-" used to track the quickfix window: open/closed {{{
-augroup QFixToggle
-  autocmd!
-  autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
-  autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
-augroup END
-command -bang -nargs=? QFix call umisc#QFixToggle(<bang>0)
-" }}}
-
-autocmd FileType vim vnoremap <silent> <buffer> <F2> :Source<CR>
+autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
+autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
+autocmd FileType text nmap     <silent><buffer> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
 " Cycle through UPPERCASE, lowercase, and Titlecase of the selection
-xnoremap ~ ygv"=umisc#TwiddleCase(@")<CR>Pgv
+xnoremap <silent> ~    ygv"=umisc#TwiddleCase(@")<CR>Pgv
 nnoremap <silent> ĞN   :redir @n\|call umisc#DecAndHex(expand("<cWORD>"))\|redir END<CR>
 nnoremap <silent> ĞMM  :call umisc#VimProcMake()<CR>
 nnoremap <silent> <F5> :call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
@@ -1150,18 +1143,6 @@ onoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
 xnoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
 onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
-autocmd FileType text nmap <buffer> <silent> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
-command! -nargs=0 RandomLine      call umisc#GoToRandomLine()
-command! -nargs=0 RebuildAllCTags call umisc#RebuildAllDependentCTags()
-command! -nargs=0 MakeTmuxBuild   call umisc#Make_Tmux_Build(g:tmuxmake_targets)
-command! -nargs=? Underline       call umisc#Underline(<q-args>)
-command! -nargs=? Scriptnames     call umisc#Filter_Lines('scriptnames', <q-args>)
-command! -range=% Source          call umisc#SourceRange(<line1>,<line2>)
-command! -range=% ClearAnsi       call umisc#ClearAnsiSequences(<line1>, <line2>)
-command! -nargs=0 -bar        Hexmode   call umisc#ToggleHex()
-command! -nargs=? -range -bar PP        call umisc#PrintWithSearchHighlighted(<line1>,<line2>,<q-args>)
-command! -nargs=0 -range=%    Tab2Space call umisc#Tab2Space(<line1>,<line2>)
-command! -nargs=0 -range=%    Space2Tab call umisc#Space2Tab(<line1>,<line2>)
 
 try
   source ~/.vimrc.local
