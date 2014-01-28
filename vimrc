@@ -41,6 +41,7 @@ NeoBundle 'a.vim'
 " }}}
 NeoBundle 'craigemery/vim-autotag'
 NeoBundle 'gcmt/surfer.vim'
+"NeoBundle 'yate'
 NeoBundle 'CursorLineCurrentWindow'
 " DeleteTrailingWhitespace {{{
 let g:DeleteTrailingWhitespace = 1
@@ -708,6 +709,7 @@ NeoBundle 'epeli/slimux'
 NeoBundle 'WebAPI.vim'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-git'
+NeoBundle 'zaiste/tmux.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
