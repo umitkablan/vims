@@ -35,9 +35,12 @@ NeoBundle 'godlygeek/csapprox'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
 "NeoBundle 'lilydjwg/colorizer'
+" a.vim alternate {{{
 nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
+" }}}
 NeoBundle 'craigemery/vim-autotag'
+NeoBundle 'gcmt/surfer.vim'
 NeoBundle 'CursorLineCurrentWindow'
 " DeleteTrailingWhitespace {{{
 let g:DeleteTrailingWhitespace = 1
@@ -1003,6 +1006,12 @@ inoremap <C-j> <C-X><C-O>
 " call s:SwapKeys(",", ";")
 " }}}
 
+" preprocessor #if 0 over selected line(s) {{{
+augroup preprocessor_langs
+  au!
+  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>k
+augroup END
+" }}}
 " Quickfix/Location List Toggle/Clear {{{
 nnoremap <silent> <F9> :QFix<CR>
 nnoremap <silent> <F10> :lclose\|cclose<CR>
@@ -1048,11 +1057,6 @@ augroup semicolon_langs
        \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 " }}}
-
-augroup preprocessor_langs
-  au!
-  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>k
-augroup END
 
 " personal plugin maps {{{
 " Enter/Backspace Behaviour {{{
