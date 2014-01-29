@@ -965,8 +965,8 @@ nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
 " These mappings might require vim-fixkey bundle
-nnoremap <silent> <C-S-h> :tabprev<CR>
-nnoremap <silent> <C-S-l> :tabnext<CR>
+" nnoremap <silent> <C-S-h> :tabprev<CR>
+" nnoremap <silent> <C-S-l> :tabnext<CR>
 " }}}
 " full redraw
 nnoremap <silent> <C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
