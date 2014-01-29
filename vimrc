@@ -366,6 +366,7 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 "}}}
 " NetRW {{{
+nmap <unique> NOTUSED_NETRW_HIDELISTEDIT <Plug>NetrwHideEdit
 let g:tar_nomax = 1
 let g:zip_nomax = 1
 let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
@@ -959,8 +960,13 @@ nmap <Tab>+ <C-W>+
 nmap <Tab>t <C-W>T
 nmap <Tab>T <C-W>t
 nmap <Tab><Tab> <C-W><C-W>
+" }}}
+" easier tab navigation prev/next {{{
 nnoremap <silent> <Tab><Tab>l :tabnext<CR>
 nnoremap <silent> <Tab><Tab>h :tabprev<CR>
+" These mappings might require vim-fixkey bundle
+nnoremap <silent> <C-S-h> :tabprev<CR>
+nnoremap <silent> <C-S-l> :tabnext<CR>
 " }}}
 " full redraw
 nnoremap <silent> <C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
