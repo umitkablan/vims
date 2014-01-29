@@ -985,8 +985,8 @@ xnoremap > >gv
 " easier %s/%g
 nnoremap ğs :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap ğg :%g/<C-r><C-w>/
-inoremap <c-u> <c-g>u<c-u>
-inoremap <c-w> <c-g>u<c-w>
+inoremap <C-u> <C-g>u<C-u>
+inoremap <C-w> <C-g>u<C-w>
 nnoremap <silent> <Space> :exe 'silent! normal! '.((foldclosed('.')>0)? "zMzxzt" : 'zc')<CR>
 nnoremap <expr> GV '`[' . strpart(getregtype(), 0, 1) . '`]'
 " ease cmdline 0/$ movement
