@@ -40,8 +40,16 @@ NeoBundle 'Colorizer--Brabandt'
 nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
+NeoBundle 'CmdlineComplete'
 NeoBundle 'craigemery/vim-autotag'
-NeoBundle 'gcmt/surfer.vim'
+NeoBundle 'gcmt/surfer.vim', {
+  \ 'build' : {
+  \     'windows': './install.sh',
+  \     'cygwin' : './install.sh',
+  \     'mac'    : './install.sh',
+  \     'unix'   : './install.sh',
+  \    },
+  \ }
 "NeoBundle 'yate'
 NeoBundle 'CursorLineCurrentWindow'
 " DeleteTrailingWhitespace {{{
@@ -49,7 +57,6 @@ let g:DeleteTrailingWhitespace = 1
 let g:DeleteTrailingWhitespace_Action = 'ask'
 NeoBundle 'DeleteTrailingWhitespace'
 " }}}
-NeoBundle 'EasyGrep'
 NeoBundle 'lastpos.vim'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
@@ -221,6 +228,7 @@ NeoBundle 'AndrewRadev/inline_edit.vim'
 " }}}
 " DirDiff {{{
 let g:DirDiffExcludes = ".svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so,*.ko"
+let g:DirDiffAddArgs = "-w"
 NeoBundle 'DirDiff.vim'
 " }}}
 NeoBundle 'linediff.vim'
@@ -250,7 +258,6 @@ NeoBundle 'kana/vim-metarw'
 let no_multiselect_maps = 1
 NeoBundle 'multiselect'
 " }}}
-NeoBundle 'terryma/vim-multiple-cursors'
 " OmniCppComplete {{{
 let OmniCpp_MayCompleteDot   = 0
 let OmniCpp_MayCompleteArrow = 0
@@ -383,8 +390,10 @@ let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 NeoBundle 'Notes'
 "}}}
+" DerekWyatt/vim-ProtoDef {{{
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
-NeoBundle 'derekwyatt/vim-protodef'
+NeoBundleLazy 'derekwyatt/vim-protodef'
+" }}}
 NeoBundle 'xolox/vim-session'
 " yssl/QFEnter {{{
 let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
@@ -393,11 +402,18 @@ let g:qfenter_hopen_map = ['<C-H>']
 let g:qfenter_topen_map = ['<C-T>', 'T']
 NeoBundle 'yssl/QFEnter'
 " }}}
-NeoBundle 'kshenoy/vim-signature'
 " mhinz/Signify {{{
+let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:signify_sign_overwrite = 0
 let g:signify_line_highlight = 0
-let g:signify_vcs_list = [ 'git', 'svn' ]
+let g:signify_update_on_bufenter = 0
+let g:signify_update_on_focusgained = 0
+let g:signify_cursorhold_normal = 0
+let g:signify_cursorhold_insert = 0
+let g:signify_mapping_next_hunk = ']c'
+let g:signify_mapping_prev_hunk = '[c'
+let g:signify_mapping_toggle = ''
+let g:signify_mapping_toggle_highlight = ''
 NeoBundle 'mhinz/vim-signify'
 " }}}
 NeoBundle 'sjl/vitality.vim'
@@ -492,7 +508,6 @@ NeoBundle 'godlygeek/tabular'
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 NeoBundle 'majutsushi/tagbar'
 "}}}
-NeoBundle 'https://bitbucket.org/abudden/taghighlight'
 " tomtom/TComment {{{
 let g:tcommentMapLeader1=""
 let g:tcommentMapLeader2=""
@@ -505,21 +520,22 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-datetime'
 NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'kana/vim-textobj-function'
-NeoBundle 'kana/vim-textobj-fold'
 NeoBundle 'vim-textobj-quoted'
 NeoBundle 'coderifous/textobj-word-column.vim'
 NeoBundle 'killphi/vim-textobj-signify-hunk'
 NeoBundle 'mattn/vim-textobj-url'
 NeoBundle 'bps/vim-textobj-python'
 NeoBundle 'thinca/vim-textobj-function-javascript'
-"NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'austintaylor/vim-indentobject'
+" glts/TextObj-Comment {{{
 let g:textobj_comment_no_default_key_mappings = 1
 xmap ax <Plug>(textobj-comment-a)
 omap ax <Plug>(textobj-comment-a)
 xmap ix <Plug>(textobj-comment-i)
 omap ix <Plug>(textobj-comment-i)
 NeoBundle 'glts/vim-textobj-comment'
+" }}}
+"NeoBundle 'kana/vim-textobj-fold'
 "NeoBundle 'kana/vim-textobj-indent'
 "NeoBundle 'textobj-line-vim-scripts'
 " }}}
@@ -553,6 +569,7 @@ let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_mruf_save_on_update = 0
 nnoremap <silent> ğt :CtrlPBufTag<CR>
 NeoBundle 'kien/ctrlp.vim'
 " }}}
@@ -725,7 +742,6 @@ let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
 NeoBundle 'TxtBrowser'
 " }}}
 NeoBundle 'hexman.vim'
-NeoBundle 'junkblocker/patchreview-vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
 nnoremap <silent> X  :CoremoSearchAdd<CR>
@@ -771,6 +787,13 @@ onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 NeoBundle 'umitkablan/umisc'
 " }}}
+NeoBundleLazy 'junkblocker/patchreview-vim'
+NeoBundleLazy 'kshenoy/vim-signature'
+NeoBundleLazy 'tacahiroy/ctrlp-funky'
+NeoBundleLazy 'terryma/vim-multiple-cursors'
+NeoBundleLazy 'https://bitbucket.org/abudden/taghighlight'
+NeoBundleLazy 'bufkill.vim'
+NeoBundleLazy 'EasyGrep'
 
 " Load Local Bundles {{{
 NeoBundleLocal ~/.vim/bundle
