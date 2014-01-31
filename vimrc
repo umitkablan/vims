@@ -412,8 +412,8 @@ let g:signify_cursorhold_normal = 0
 let g:signify_cursorhold_insert = 0
 let g:signify_mapping_next_hunk = ']c'
 let g:signify_mapping_prev_hunk = '[c'
-let g:signify_mapping_toggle = ''
-let g:signify_mapping_toggle_highlight = ''
+let g:signify_mapping_toggle = 'UNUSED_SIGNIGY_MT'
+let g:signify_mapping_toggle_highlight = 'UNUSED_SIGNIGY_HH'
 NeoBundle 'mhinz/vim-signify'
 " }}}
 NeoBundle 'sjl/vitality.vim'
