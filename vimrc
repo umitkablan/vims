@@ -268,6 +268,7 @@ NeoBundle 'OmniCppComplete'
 NeoBundle 'javacomplete'
 "NeoBundle 'nosami/Omnisharp'
 NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'SQLComplete.vim'
 " davidhalter/Jedi {{{
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
@@ -727,6 +728,8 @@ NeoBundle 'epeli/slimux'
 "NeoBundle 'vimux'
 NeoBundle 'WebAPI.vim'
 NeoBundleLazy 'othree/xml.vim'
+NeoBundle 'sukima/xmledit'
+NeoBundle 'jamestomasino/actionscript-vim-bundle'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-git'
 NeoBundle 'zaiste/tmux.vim'
@@ -736,6 +739,7 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 " cpp-vim for better @Spell @NoSpell support
 NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'ujihisa/ft-cmake'
+NeoBundle 'gerw/vim-HiLinkTrace'
 " TxtBrowser {{{
 let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
 let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
