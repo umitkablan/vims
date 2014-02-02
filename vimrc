@@ -732,9 +732,10 @@ NeoBundle 'tpope/vim-git'
 NeoBundle 'zaiste/tmux.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'octol/vim-cpp-enhanced-highlight'
 " cpp-vim for better @Spell @NoSpell support
 NeoBundle 'vim-jp/cpp-vim'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
+"NeoBundle 'Mizuchi/STL-Syntax'
 NeoBundle 'ujihisa/ft-cmake'
 NeoBundle 'gerw/vim-HiLinkTrace'
 " TxtBrowser {{{
