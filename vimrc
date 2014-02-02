@@ -178,8 +178,8 @@ nmap ; <Plug>SneakPrevious
 let g:sneak#streak = 1
 NeoBundle 'justinmk/vim-sneak'
 " }}}
-" NeoBundle 'supasorn/vim-easymotion'
-" NeoBundle 'rhysd/clever-f.vim'
+"NeoBundle 'supasorn/vim-easymotion'
+"NeoBundle 'rhysd/clever-f.vim'
 " sjl/Clam.vim {{{
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
@@ -738,13 +738,13 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundle 'Mizuchi/STL-Syntax'
 NeoBundle 'ujihisa/ft-cmake'
 NeoBundle 'gerw/vim-HiLinkTrace'
+NeoBundle 'hexman.vim'
 " TxtBrowser {{{
 let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
 let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
 let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
 NeoBundle 'TxtBrowser'
 " }}}
-NeoBundle 'hexman.vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
 nnoremap <silent> X  :CoremoSearchAdd<CR>
