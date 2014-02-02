@@ -271,8 +271,8 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 1
-let g:jedi#show_function_definition = 0
-let g:jedi#autocompletion_command = "<M-_>"
+let g:jedi#show_call_signatures = 0
+let g:jedi#completions_command = "<M-_>"
 NeoBundle 'davidhalter/jedi-vim'
 "}}}
 "NeoBundle 'klen/python-mode'
