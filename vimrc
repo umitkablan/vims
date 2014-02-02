@@ -166,11 +166,6 @@ NeoBundle 'bling/vim-airline'
 " }}}
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'camelcasemotion'
-" rhysd/Clever-f {{{
-" noremap <expr> _ clever_f#reset()
-" let g:clever_f_across_no_line = 1
-" NeoBundle 'rhysd/clever-f.vim'
-" }}}
 " justinmk/vim-sneak {{{
 nmap f <Plug>SneakForward
 nmap F <Plug>SneakBackward
@@ -183,6 +178,8 @@ nmap ; <Plug>SneakPrevious
 let g:sneak#streak = 1
 NeoBundle 'justinmk/vim-sneak'
 " }}}
+" NeoBundle 'supasorn/vim-easymotion'
+" NeoBundle 'rhysd/clever-f.vim'
 " sjl/Clam.vim {{{
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
