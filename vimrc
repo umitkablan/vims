@@ -561,14 +561,6 @@ xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 NeoBundle 't9md/vim-textmanip'
 " }}}
-" kien/rainbow_parentheses {{{
-" let g:rainbow_activate=1
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-NeoBundle 'kien/rainbow_parentheses.vim'
-" }}}
 " kien/CtrlP {{{
 let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',

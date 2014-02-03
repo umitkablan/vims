@@ -32,6 +32,14 @@ nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 NeoBundle 'supasorn/vim-easymotion'
 NeoBundle 'haya14busa/vim-easymotion'
 " }}}
+" kien/rainbow_parentheses {{{
+let g:rainbow_activate=1
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+NeoBundle 'kien/rainbow_parentheses.vim'
+" }}}
 " rhysd/Clever-f {{{
 noremap <expr> _ clever_f#reset()
 let g:clever_f_across_no_line = 1
