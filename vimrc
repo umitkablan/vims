@@ -403,7 +403,6 @@ let g:qfenter_hopen_map = ['<C-H>']
 let g:qfenter_topen_map = ['<C-T>', 'T']
 NeoBundle 'yssl/QFEnter'
 " }}}
-NeoBundle 'xolox/vim-session'
 " mhinz/Signify {{{
 let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:signify_sign_overwrite = 0
@@ -443,6 +442,10 @@ NeoBundle 'mjbrownie/swapit'
 NeoBundle 'tpope/vim-speeddating'
 " }}}
 NeoBundle 'SQLUtilities'
+" xolox/vim-Session {{{
+let g:session_autoload = 'no'
+NeoBundle 'xolox/vim-session'
+" }}}
 " mhinz/Startify {{{
 au FileType startify setlocal nospell
 let g:startify_session_dir = '~/.vim/var/session'
