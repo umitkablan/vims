@@ -165,6 +165,7 @@ NeoBundle 'bling/vim-airline'
 " }}}
 " fweep/vim-Tabber {{{
 let g:tabber_divider_style = 'unicode' "'compatible', 'fancy'
+let g:tabber_filename_style = 'filename'
 NeoBundle 'fweep/vim-tabber'
 set showtabline=2 tabline=%!tabber#TabLine()
 " }}}
