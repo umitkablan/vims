@@ -396,7 +396,6 @@ NeoBundle 'Notes'
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
 NeoBundleLazy 'derekwyatt/vim-protodef'
 " }}}
-NeoBundle 'xolox/vim-session'
 " yssl/QFEnter {{{
 let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
 let g:qfenter_vopen_map = ['<C-V>']
@@ -404,6 +403,7 @@ let g:qfenter_hopen_map = ['<C-H>']
 let g:qfenter_topen_map = ['<C-T>', 'T']
 NeoBundle 'yssl/QFEnter'
 " }}}
+NeoBundle 'xolox/vim-session'
 " mhinz/Signify {{{
 let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:signify_sign_overwrite = 0
