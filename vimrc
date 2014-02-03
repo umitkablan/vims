@@ -887,11 +887,9 @@ au VimLeave    * if v:dying | wall | endif
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
-" Tomorrow-Night-Eighties moria felipec radicalgoodspeed
+" Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 set background=dark
-let g:moria_style="black"
-let g:sienna_style="dark"
-colorscheme harlequin
+colorscheme pencil
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
