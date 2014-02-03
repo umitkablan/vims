@@ -163,9 +163,11 @@ if has('multi_byte')
 endif
 NeoBundle 'bling/vim-airline'
 " }}}
+" fweep/vim-Tabber {{{
 let g:tabber_divider_style = 'unicode' "'compatible', 'fancy'
 NeoBundle 'fweep/vim-tabber'
 set showtabline=2 tabline=%!tabber#TabLine()
+" }}}
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'camelcasemotion'
 " justinmk/vim-sneak {{{
