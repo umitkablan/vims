@@ -32,6 +32,11 @@ nnoremap <silent> -- H:call EasyMotion#WB(0,0)<CR>
 NeoBundle 'supasorn/vim-easymotion'
 NeoBundle 'haya14busa/vim-easymotion'
 " }}}
+" rhysd/Clever-f {{{
+noremap <expr> _ clever_f#reset()
+let g:clever_f_across_no_line = 1
+NeoBundle 'rhysd/clever-f.vim'
+" }}}
 " tomtom/quickfixsigns_vim {{{
 let loaded_quickfixsigns = 1
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'

@@ -166,11 +166,6 @@ NeoBundle 'bling/vim-airline'
 " }}}
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'camelcasemotion'
-" rhysd/Clever-f {{{
-" noremap <expr> _ clever_f#reset()
-" let g:clever_f_across_no_line = 1
-" NeoBundle 'rhysd/clever-f.vim'
-" }}}
 " justinmk/vim-sneak {{{
 nmap f <Plug>SneakForward
 nmap F <Plug>SneakBackward
@@ -183,6 +178,8 @@ nmap ; <Plug>SneakPrevious
 let g:sneak#streak = 1
 NeoBundle 'justinmk/vim-sneak'
 " }}}
+"NeoBundle 'supasorn/vim-easymotion'
+"NeoBundle 'rhysd/clever-f.vim'
 " sjl/Clam.vim {{{
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
@@ -268,13 +265,14 @@ NeoBundle 'OmniCppComplete'
 NeoBundle 'javacomplete'
 "NeoBundle 'nosami/Omnisharp'
 NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'SQLComplete.vim'
 " davidhalter/Jedi {{{
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 1
-let g:jedi#show_function_definition = 0
-let g:jedi#autocompletion_command = "<M-_>"
+let g:jedi#show_call_signatures = 0
+let g:jedi#completions_command = "<M-_>"
 NeoBundle 'davidhalter/jedi-vim'
 "}}}
 "NeoBundle 'klen/python-mode'
@@ -726,22 +724,27 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'epeli/slimux'
 "NeoBundle 'vimux'
 NeoBundle 'WebAPI.vim'
+NeoBundleLazy 'othree/xml.vim'
+NeoBundle 'sukima/xmledit'
+NeoBundle 'jamestomasino/actionscript-vim-bundle'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-git'
 NeoBundle 'zaiste/tmux.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'octol/vim-cpp-enhanced-highlight'
 " cpp-vim for better @Spell @NoSpell support
 NeoBundle 'vim-jp/cpp-vim'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
+"NeoBundle 'Mizuchi/STL-Syntax'
 NeoBundle 'ujihisa/ft-cmake'
+NeoBundle 'gerw/vim-HiLinkTrace'
+NeoBundle 'hexman.vim'
 " TxtBrowser {{{
 let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
 let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
 let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
 NeoBundle 'TxtBrowser'
 " }}}
-NeoBundle 'hexman.vim'
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
 nnoremap <silent> X  :CoremoSearchAdd<CR>
