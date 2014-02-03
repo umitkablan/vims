@@ -32,7 +32,6 @@ NeoBundle 'lh-vim-lib'
 NeoBundle 'AnsiEsc.vim'
 NeoBundle 'pydave/AsyncCommand'
 NeoBundle 'godlygeek/csapprox'
-NeoBundle 'drmikehenry/vim-fixkey'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
 "NeoBundle 'lilydjwg/colorizer'
@@ -164,6 +163,7 @@ if has('multi_byte')
 endif
 NeoBundle 'bling/vim-airline'
 " }}}
+NeoBundle 'fweep/vim-tabber'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'camelcasemotion'
 " justinmk/vim-sneak {{{
@@ -790,6 +790,7 @@ onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 NeoBundle 'umitkablan/umisc'
 " }}}
+NeoBundleLazy 'drmikehenry/vim-fixkey'
 NeoBundleLazy 'junkblocker/patchreview-vim'
 NeoBundleLazy 'kshenoy/vim-signature'
 NeoBundleLazy 'tacahiroy/ctrlp-funky'
@@ -988,12 +989,8 @@ nmap <Tab>T <C-W>t
 nmap <Tab><Tab> <C-W><C-W>
 " }}}
 " easier tab navigation prev/next {{{
-nnoremap <silent> <Tab><Tab>l :tabnext<CR>
-nnoremap <silent> <Tab><Tab>h :tabprev<CR>
-" These mappings might require vim-fixkey bundle
-" nnoremap <silent> <C-S-h> :tabprev<CR>
-" nnoremap <silent> <C-S-l> :tabnext<CR>
-" }}}
+nnoremap <silent> <Tab><Tab>l :<C-U>call umisc#TabNextRelatively(v:count1)<CR>
+nnoremap <silent> <Tab><Tab>h :<C-U>call umisc#TabPrevRelatively(v:count1)<CR>
 " full redraw
 nnoremap <silent> <C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
 nnoremap <silent> HH  :hide<CR>
