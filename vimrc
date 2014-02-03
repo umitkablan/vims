@@ -214,7 +214,6 @@ call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
 NeoBundle 'dpwright/vim-gf-ext'
 "NeoBundle 'gist-vim'
 NeoBundle 'sjl/gundo.vim'
-NeoBundle 'Headlights'
 " Indent-Guides {{{
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
@@ -794,6 +793,7 @@ onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 NeoBundle 'umitkablan/umisc'
 " }}}
+NeoBundleLazy 'Headlights'
 NeoBundleLazy 'drmikehenry/vim-fixkey'
 NeoBundleLazy 'junkblocker/patchreview-vim'
 NeoBundleLazy 'kshenoy/vim-signature'
