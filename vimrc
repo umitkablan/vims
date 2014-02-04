@@ -730,6 +730,7 @@ NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-git'
 NeoBundle 'zaiste/tmux.vim'
 NeoBundle 'pangloss/vim-javascript'
+NeoBundleLazy 'bigfish/vim-js-context-coloring'
 NeoBundle 'plasticboy/vim-markdown'
 " cpp-vim for better @Spell @NoSpell support
 NeoBundle 'vim-jp/cpp-vim'
@@ -881,19 +882,18 @@ au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p
 au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
 au VimLeave    * if v:dying | wall | endif
 
-" Colorscheme Selection
-"*************** {{{
+" Colorscheme Selection {{{
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
 " oh-la-la ubloh hickop neverness django wombat256 fnaqevan harlequin fruity
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 set background=dark
-colorscheme pencil
+colorscheme harlequin
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
-"*************** }}}
+" }}}
 if has("gui")
   set guioptions-=T
   set guioptions-=r
