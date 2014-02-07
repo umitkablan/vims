@@ -39,8 +39,8 @@ nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
 NeoBundle 'CmdlineComplete'
-NeoBundle 'coot/CRDispatcher'
-NeoBundle 'coot/System'
+NeoBundleLazy 'coot/CRDispatcher'
+NeoBundleLazy 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
 NeoBundle 'gcmt/surfer.vim', {
   \ 'build' : {
@@ -890,7 +890,7 @@ au VimLeave    * if v:dying | wall | endif
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 set background=dark
-colorscheme freya
+colorscheme radicalgoodspeed
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
