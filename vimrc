@@ -30,6 +30,7 @@ NeoBundle 'genutils'
 NeoBundle 'https://bitbucket.org/ZyX_I/frawor'
 NeoBundle 'lh-vim-lib'
 NeoBundle 'AnsiEsc.vim'
+NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'pydave/AsyncCommand'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
@@ -94,9 +95,7 @@ let g:SrcExpl_refreshTime = 400
 let g:SrcExpl_isUpdateTags = 0
 NeoBundle 'wesleyche/SrcExpl'
 " }}}
-NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'VimSpy'
-NeoBundle 'pafcu/Vimsplain'
 " yonchu/accelerated-smooth-scroll {{{
 let g:ac_smooth_scroll_no_default_key_mappings = 1
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
@@ -788,6 +787,7 @@ xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 NeoBundle 'umitkablan/umisc'
 " }}}
 NeoBundleLazy 'jszakmeister/vim-togglecursor'
+NeoBundleLazy 'pafcu/Vimsplain'
 NeoBundleLazy 'Headlights'
 NeoBundleLazy 'drmikehenry/vim-fixkey'
 NeoBundleLazy 'junkblocker/patchreview-vim'
