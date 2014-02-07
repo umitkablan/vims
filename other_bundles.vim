@@ -96,6 +96,12 @@ autocmd FileType conque_term let b:easytags_on_cursorhold = 0
 autocmd FileType conque_term let b:easytags_auto_update = 0
 NeoBundle 'EasyTags'
 " }}}
+" TxtBrowser {{{
+let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
+let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
+let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
+NeoBundle 'TxtBrowser'
+" }}}
 NeoBundle 'Vimpy-monokrome'
 NeoBundle 'WhereFrom'
 NeoBundle 'WinWalker'

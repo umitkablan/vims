@@ -31,7 +31,6 @@ NeoBundle 'https://bitbucket.org/ZyX_I/frawor'
 NeoBundle 'lh-vim-lib'
 NeoBundle 'AnsiEsc.vim'
 NeoBundle 'pydave/AsyncCommand'
-NeoBundle 'godlygeek/csapprox'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
 "NeoBundle 'lilydjwg/colorizer'
@@ -40,6 +39,8 @@ nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
 NeoBundle 'CmdlineComplete'
+NeoBundle 'coot/CRDispatcher'
+NeoBundle 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
 NeoBundle 'gcmt/surfer.vim', {
   \ 'build' : {
@@ -720,6 +721,7 @@ NeoBundle 'Vimball'
 NeoBundle 'VisIncr'
 NeoBundle 'tpope/vim-repeat'
 "NeoBundle 'visualrepeat'
+NeoBundle 'bronson/vim-visual-star-search'
 NeoBundle 'epeli/slimux'
 "NeoBundle 'vimux'
 NeoBundle 'WebAPI.vim'
@@ -739,12 +741,6 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 NeoBundle 'ujihisa/ft-cmake'
 NeoBundle 'gerw/vim-HiLinkTrace'
 NeoBundle 'hexman.vim'
-" TxtBrowser {{{
-let TxtBrowser_Dict_Url = 'http://www.google.com.tr/dictionary?aq=f&langpair=en|tr-TR&q=text&hl=tr-TR'
-let TxtBrowser_Dict_Url = 'http://www.definitions.net/definition/text'
-let Txtbrowser_Search_Engine = 'http://www.google.com.tr/search?q=text'
-NeoBundle 'TxtBrowser'
-" }}}
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
 nnoremap <silent> X  :CoremoSearchAdd<CR>
@@ -763,6 +759,7 @@ let g:tmuxline_powerline_separators=0
 let g:tmuxline_preset='full'
 NeoBundle 'edkolev/tmuxline.vim'
 " }}}
+NeoBundle 'godlygeek/csapprox'
 " umitkablan/umisc {{{
 autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
 autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
@@ -790,6 +787,7 @@ onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 NeoBundle 'umitkablan/umisc'
 " }}}
+NeoBundleLazy 'jszakmeister/vim-togglecursor'
 NeoBundleLazy 'Headlights'
 NeoBundleLazy 'drmikehenry/vim-fixkey'
 NeoBundleLazy 'junkblocker/patchreview-vim'
@@ -868,7 +866,10 @@ else
   let &showbreak = '> '
 endif
 set spell spelllang=en
-" keep cursor always at the middle
+" Fix some terminals' up/down/right/left arrow keys
+" set t_ku=[1;1A t_kd=[1;1B
+" set t_kr=[1;1C t_kl=[1;1D
+" keep cursor always in the middle
 " set scrolloff=9999
 
 au FileType text setlocal wrap linebreak
@@ -889,7 +890,7 @@ au VimLeave    * if v:dying | wall | endif
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 set background=dark
-colorscheme harlequin
+colorscheme freya
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
