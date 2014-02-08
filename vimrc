@@ -30,6 +30,7 @@ NeoBundle 'genutils'
 NeoBundle 'https://bitbucket.org/ZyX_I/frawor'
 NeoBundle 'lh-vim-lib'
 NeoBundle 'AnsiEsc.vim'
+NeoBundle 'godlygeek/csapprox'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'pydave/AsyncCommand'
 "NeoBundle 'ColorSchemeMenuMaker'
@@ -40,8 +41,8 @@ nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
 NeoBundle 'CmdlineComplete'
-NeoBundleLazy 'coot/CRDispatcher'
-NeoBundleLazy 'coot/System'
+NeoBundle 'coot/CRDispatcher'
+NeoBundle 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
 NeoBundle 'gcmt/surfer.vim', {
   \ 'build' : {
@@ -758,7 +759,6 @@ let g:tmuxline_powerline_separators=0
 let g:tmuxline_preset='full'
 NeoBundle 'edkolev/tmuxline.vim'
 " }}}
-NeoBundle 'godlygeek/csapprox'
 " umitkablan/umisc {{{
 autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
 autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
@@ -890,7 +890,7 @@ au VimLeave    * if v:dying | wall | endif
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 set background=dark
-colorscheme radicalgoodspeed
+colorscheme harlequin
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
