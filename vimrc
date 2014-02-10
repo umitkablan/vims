@@ -53,12 +53,6 @@ NeoBundle 'gcmt/surfer.vim', {
   \    },
   \ }
 "NeoBundle 'yate'
-NeoBundle 'CursorLineCurrentWindow'
-" DeleteTrailingWhitespace {{{
-let g:DeleteTrailingWhitespace = 1
-let g:DeleteTrailingWhitespace_Action = 'ask'
-NeoBundle 'DeleteTrailingWhitespace'
-" }}}
 NeoBundle 'lastpos.vim'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
@@ -73,6 +67,14 @@ let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 NeoBundle 'IndentConsistencyCop'
 NeoBundle 'IndentConsistencyCopAutoCmds'
 " }}}
+NeoBundle 'ShowTrailingWhitespace'
+"NeoBundle 'ntpeters/vim-better-whitespace'
+" DeleteTrailingWhitespace {{{
+let g:DeleteTrailingWhitespace = 1
+let g:DeleteTrailingWhitespace_Action = 'ask'
+NeoBundle 'DeleteTrailingWhitespace'
+" }}}
+NeoBundle 'CursorLineCurrentWindow'
 NeoBundle 'chrisbra/NrrwRgn'
 NeoBundle 'mikewest/vimroom'
 " ReplaceWithRegister {{{
@@ -81,7 +83,6 @@ nmap grr <Plug>ReplaceLine
 xmap gr  <Plug>ReplaceVisual
 NeoBundle 'ReplaceWithRegister'
 " }}}
-NeoBundle 'ShowTrailingWhitespace'
 " xuhdev/SingleCompile {{{
 let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 1
