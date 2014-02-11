@@ -6,8 +6,8 @@
 "
 " Taken from: http://stackoverflow.com/questions/1278003/how-to-change-word-recognition-in-vim-spell
 
-syn match spellingException "\<\w*\d[\d\w]*\>"      transparent contained containedin=vimComment,vim.*String contains=@NoSpell
-syn match spellingException "\<\(\u\l*\)\{2,}\>"    transparent contained containedin=vimComment,vim.*String contains=@NoSpell
-syn match spellingException "\<\(\l\+\u\+\)\+\l*\>" transparent contained containedin=vimComment,vim.*String contains=@NoSpell
-syn match spellingException "\S*[/\\_`]\S*"         transparent contained containedin=vimComment,vim.*String contains=@NoSpell
-syn match spellingException "\S\+-\S*"              transparent contained containedin=vimComment,vim.*String contains=@NoSpell
+syn match spellingException "\<\w*\d[\d\w]*\>"      transparent contained containedin=vimLineComment,vim.*String contains=@NoSpell
+syn match spellingException "\<\(\u\l*\)\{2,}\>"    transparent contained containedin=vimLineComment,vim.*String contains=@NoSpell
+syn match spellingException "\<\(\l\+\u\+\)\+\l*\>" transparent contained containedin=vimLineComment,vim.*String contains=@NoSpell
+syn match spellingException "\S*[/\\_`]\S*"         transparent contained containedin=vimLineComment,vim.*String contains=@NoSpell
+syn match spellingException "\S\+-\S*"              transparent contained containedin=vimLineComment,vim.*String contains=@NoSpell
