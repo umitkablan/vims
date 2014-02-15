@@ -44,15 +44,6 @@ NeoBundle 'CmdlineComplete'
 NeoBundle 'coot/CRDispatcher'
 NeoBundle 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
-NeoBundle 'gcmt/surfer.vim', {
-  \ 'build' : {
-  \     'windows': './install.sh',
-  \     'cygwin' : './install.sh',
-  \     'mac'    : './install.sh',
-  \     'unix'   : './install.sh',
-  \    },
-  \ }
-"NeoBundle 'yate'
 NeoBundle 'lastpos.vim'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
@@ -799,6 +790,15 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'
 NeoBundleLazy 'https://bitbucket.org/abudden/taghighlight'
 NeoBundleLazy 'bufkill.vim'
 NeoBundleLazy 'EasyGrep'
+NeoBundleLazy 'gcmt/surfer.vim', {
+  \ 'build' : {
+  \     'windows': './install.sh',
+  \     'cygwin' : './install.sh',
+  \     'mac'    : './install.sh',
+  \     'unix'   : './install.sh',
+  \    },
+  \ }
+"NeoBundle 'yate'
 
 " Load Local Bundles {{{
 NeoBundleLocal ~/.vim/bundle
