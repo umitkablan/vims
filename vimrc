@@ -44,6 +44,8 @@ NeoBundle 'CmdlineComplete'
 NeoBundle 'coot/CRDispatcher'
 NeoBundle 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
+NeoBundle 'ciaranm/detectindent'
+"NeoBundle 'yaifa.vim'
 NeoBundle 'lastpos.vim'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
@@ -662,6 +664,7 @@ nnoremap <silent> ĞS     :Unite grep:.<CR>
 nnoremap <silent> MRU    :Unite -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 "}}}
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'unite-locate'
 NeoBundle 'tsukkee/unite-tag'
 "NeoBundle 'unite-colorscheme-1.3'
@@ -876,7 +879,8 @@ set spell spelllang=en
 
 au FileType text setlocal wrap linebreak
 au FileType help setlocal nonumber
-au FileType qf,tagselect,diff setlocal nospell
+au FileType qf,tagselect,diff  setlocal nospell
+au FilterWritePre * if &diff | setlocal nospell | endif
 au InsertEnter * set nocursorline
 au InsertLeave * set cursorline
 au TabLeave    * stopinsert
