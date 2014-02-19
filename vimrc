@@ -661,7 +661,7 @@ nnoremap <silent> ĞB     :UniteBookmarkAdd <CR>
 " -quick-match
 nnoremap <silent> <C-B>  :Unite -start-insert buffer_tab file_rec/async<CR>
 nnoremap <silent> ĞS     :Unite grep:.<CR>
-nnoremap <silent> MRU    :Unite -no-split -start-insert file_mru directory_mru<CR>
+nnoremap <silent> MRU    :Unite -no-split -start-insert neomru/directory neomru/file<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 "}}}
 NeoBundle 'Shougo/neomru.vim'
