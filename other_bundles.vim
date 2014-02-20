@@ -57,6 +57,9 @@ xmap + <Plug>(expand_region_expand)
 xmap - <Plug>(expand_region_shrink)
 nmap - <Plug>(expand_region_shrink)
 NeoBundle 'terryma/vim-expand-region'
+let g:wildfire_fuel_map  = "+"
+let g:wildfire_water_map = "-"
+NeoBundle 'gcmt/wildfire.vim'
 " }}}
 NeoBundle 'https://bitbucket.org/madevgeny/yate.git'
 NeoBundle 'code_upstairs'
