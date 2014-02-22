@@ -22,6 +22,14 @@ call neobundle#rc(expand("~/.vim/packs"))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Bundles {{{
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \     'windows': 'make -f make_mingw32.mak',
+  \     'cygwin' : 'make -f make_cygwin.mak',
+  \     'mac'    : 'make -f make_mac.mak',
+  \     'unix'   : 'make -f make_unix.mak',
+  \    },
+  \ }
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'cecutil'
 NeoBundle 'tomtom/tlib_vim'
@@ -673,14 +681,6 @@ NeoBundle 'tsukkee/unite-tag'
 "NeoBundle 'thinca/vim-unite-history'
 "NeoBundle 'h1mesuke/unite-outline'
 "NeoBundle 'hakobe/unite-script'
-NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \     'windows': 'make -f make_mingw32.mak',
-  \     'cygwin' : 'make -f make_cygwin.mak',
-  \     'mac'    : 'make -f make_mac.mak',
-  \     'unix'   : 'make -f make_unix.mak',
-  \    },
-  \ }
 " Shougo/VimShell {{{
 nnoremap <silent> ğsh  :VimShellPop<CR>
 nnoremap <silent> ğp2  :VimShellInteractive ipython2<CR>
