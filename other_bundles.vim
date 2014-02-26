@@ -45,12 +45,6 @@ noremap <expr> _ clever_f#reset()
 let g:clever_f_across_no_line = 1
 NeoBundle 'rhysd/clever-f.vim'
 " }}}
-" tomtom/quickfixsigns_vim {{{
-let loaded_quickfixsigns = 1
-let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
-au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
-NeoBundle 'tomtom/quickfixsigns_vim'
-" }}}
 " terryma/Expand-Region {{{
 nmap + <Plug>(expand_region_expand)
 xmap + <Plug>(expand_region_expand)

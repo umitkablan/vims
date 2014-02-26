@@ -763,7 +763,7 @@ autocmd FileType text nmap     <silent><buffer> <CR> :call umisc#SwapTrCharsToFr
 xnoremap <silent> ~    ygv"=umisc#TwiddleCase(@")<CR>Pgv
 nnoremap <silent> ĞN   :redir @n\|call umisc#DecAndHex(expand("<cWORD>"))\|redir END<CR>
 nnoremap <silent> ĞMM  :call umisc#VimProcMake()<CR>
-nnoremap <silent> <F5> :call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
+nnoremap <silent> <F5> :MakeTmuxBuild<CR>
 inoremap <silent> <F5> <Esc>:call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
 nmap     <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
 " Go To LineNum With Locals Prefix
@@ -801,6 +801,12 @@ NeoBundleLazy 'gcmt/surfer.vim', {
   \     'unix'   : './install.sh',
   \    },
   \ }
+" tomtom/quickfixsigns_vim {{{
+" let loaded_quickfixsigns = 1
+let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
+au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
+NeoBundleLazy 'tomtom/quickfixsigns_vim'
+" }}}
 "NeoBundle 'yate'
 
 " Load Local Bundles {{{
