@@ -49,10 +49,10 @@ nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
 NeoBundle 'CmdlineComplete'
+NeoBundleLazy 'coot/CRDispatcher'
 let g:system_echocmd = 1
 let g:system_expand  = 1
-NeoBundle 'coot/CRDispatcher'
-NeoBundle 'coot/System'
+NeoBundleLazy 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
 NeoBundle 'ciaranm/detectindent'
 "NeoBundle 'yaifa.vim'
