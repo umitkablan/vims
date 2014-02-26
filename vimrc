@@ -49,6 +49,8 @@ nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
 NeoBundle 'CmdlineComplete'
+let g:system_echocmd = 1
+let g:system_expand  = 1
 NeoBundle 'coot/CRDispatcher'
 NeoBundle 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
@@ -817,6 +819,15 @@ NeoBundleLocal ~/.vim/bundle
 "}}}
 
 filetype plugin indent on " Required for Vundle!
+
+NeoBundleFetch 'rkitover/vimpager', {
+  \ 'build' : {
+  \     'windows': 'make',
+  \     'cygwin' : 'make',
+  \     'mac'    : 'make',
+  \     'unix'   : 'make PREFIX=~/bin',
+  \    },
+  \ }
 " }}}
 
 " global configuration {{{
