@@ -117,7 +117,6 @@ NeoBundle 'chrisbra/changesPlugin'
 NeoBundle 'jmcantrell/diffchanges.vim'
 NeoBundle 'golden-ratio'
 NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'nelstrom/vim-qargs'
 NeoBundle 'AndrewRadev/switch.vim'
 
 call umisc#MapPumInsert(",", 1)
