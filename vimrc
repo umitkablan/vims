@@ -54,6 +54,7 @@ let g:system_echocmd = 1
 let g:system_expand  = 1
 NeoBundleLazy 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
+autocmd BufReadPost * DetectIndent
 NeoBundle 'ciaranm/detectindent'
 "NeoBundle 'yaifa.vim'
 NeoBundle 'lastpos.vim'
