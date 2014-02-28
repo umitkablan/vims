@@ -101,6 +101,8 @@ let g:SrcExpl_isUpdateTags = 0
 NeoBundle 'wesleyche/SrcExpl'
 " }}}
 NeoBundle 'VimSpy'
+NeoBundle 'nelstrom/vim-qargs'
+NeoBundle 'DirDo.vim'
 " yonchu/accelerated-smooth-scroll {{{
 let g:ac_smooth_scroll_no_default_key_mappings = 1
 nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
@@ -697,7 +699,7 @@ augroup no_sticky_buffers
 augroup END
 NeoBundle 'tpope/vim-fugitive'
 " }}}
-NeoBundle 'https://bitbucket.org/ZyX_I/aurum'
+NeoBundleLazy 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
 let VCSCommandMapPrefix = "<LocalLeader>c"
 let VCSCommandVCSTypePreference = 'git'
@@ -766,7 +768,7 @@ xnoremap <silent> ~    ygv"=umisc#TwiddleCase(@")<CR>Pgv
 nnoremap <silent> ĞN   :redir @n\|call umisc#DecAndHex(expand("<cWORD>"))\|redir END<CR>
 nnoremap <silent> ĞMM  :call umisc#VimProcMake()<CR>
 nnoremap <silent> <F5> :MakeTmuxBuild<CR>
-inoremap <silent> <F5> <Esc>:call umisc#Make_Tmux_Build(g:tmuxmake_targets)<CR>
+inoremap <silent> <F5> <Esc>:MakeTmuxBuild<CR>
 nmap     <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
 " Go To LineNum With Locals Prefix
 nnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(0)<CR>
