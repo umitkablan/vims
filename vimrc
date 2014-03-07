@@ -41,6 +41,8 @@ NeoBundle 'AnsiEsc.vim'
 NeoBundle 'godlygeek/csapprox'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'pydave/AsyncCommand'
+let g:LargeFile=2 " megabytes
+NeoBundle 'LargeFile'
 "NeoBundle 'ColorSchemeMenuMaker'
 NeoBundle 'Colorizer--Brabandt'
 "NeoBundle 'lilydjwg/colorizer'
@@ -294,6 +296,10 @@ au FileType html,css EmmetInstall
 NeoBundle 'mattn/emmet-vim'
 " }}}
 " Shougo/NeoComplete {{{
+augroup LargeFile_NeoComplete_Lock
+  au!
+  autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > 37999 | NeoCompleteLock | endif
+augroup END
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 1
 let g:neocomplete#enable_smart_case = 1
