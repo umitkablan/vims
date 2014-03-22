@@ -121,7 +121,12 @@ NeoBundle 'grep.vim'
 if 0 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
 else
-  let g:ackprg = 'ack -H --nocolor --nogroup --column'
+  if executable("ack")
+    let g:ackprg = 'ack -H --nocolor --nogroup --column'
+  endif
+  if executable("ack-grep")
+    let g:ackprg = 'ack-grep -H --nocolor --nogroup --column'
+  endif
 endif
 NeoBundle 'mileszs/ack.vim'
 " }}}
