@@ -404,7 +404,8 @@ let g:netrw_home = $HOME . '/.vim/var'
 let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
-NeoBundle 'netrw.vim'
+"NeoBundle 'netrw.vim'
+NeoBundle 'eiginn/netrw'
 "}}}
 " Notes {{{
 let g:notesRoot = expand('$HOME/.vim/var/notes')
@@ -493,8 +494,8 @@ let g:SuperTabMappingBackward = '<S-C-Space>'
 let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
-" Use old version
 "NeoBundle 'SuperTab'
+NeoBundle 'ervandew/supertab'
 "}}}
 " jiangmiao/Auto-Pairs {{{
 let g:AutoPairsMapSpace = 0
@@ -544,7 +545,8 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-datetime'
 NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'kana/vim-textobj-function'
-NeoBundle 'vim-textobj-quoted'
+NeoBundle 'beloglazov/vim-textobj-quotes'
+"NeoBundle 'vim-textobj-quoted'
 NeoBundle 'coderifous/textobj-word-column.vim'
 NeoBundle 'killphi/vim-textobj-signify-hunk'
 NeoBundle 'mattn/vim-textobj-url'
@@ -926,6 +928,7 @@ au VimLeave    * if v:dying | wall | endif
 " candycode southernlight lucid kolor kingtop getafe phonzia blackboard
 " last256 aldmeris hybrid darknight256 luna inkpot gardener sienna freya
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
+" gruvbox sorcerer apprentice
 set background=dark
 colorscheme harlequin
 " if !has("gui_running")
