@@ -931,7 +931,7 @@ au VimLeave    * if v:dying | wall | endif
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 " gruvbox sorcerer apprentice
 set background=dark
-colorscheme harlequin
+colorscheme apprentice
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
@@ -1166,55 +1166,60 @@ nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 let g:tmuxmake_targets = ""
 let g:no_tagselect_maps = 1
 let g:locator_disable_mappings = 1
+
 " Aliases {{{
-autocmd VimEnter * Alias te tabedit
-autocmd VimEnter * Alias tee tabedit<Space>~/
-autocmd VimEnter * Alias tec tabedit<Space>%
-autocmd VimEnter * Alias dd diffthis
-autocmd VimEnter * Alias do diffoff
-autocmd VimEnter * Alias did DirDiff
-autocmd VimEnter * Alias ie InlineEdit
-autocmd VimEnter * Alias E e
-autocmd VimEnter * Alias er Errors
-autocmd VimEnter * Alias Er Errors
-autocmd VimEnter * Alias un Underline
-autocmd VimEnter * Alias git  Git
-autocmd VimEnter * Alias gl   Glog
-autocmd VimEnter * Alias gt   Git
-autocmd VimEnter * Alias gs   Gstatus
-autocmd VimEnter * Alias ge   Gedit
-autocmd VimEnter * Alias gvsp Gvsplit
-autocmd VimEnter * Alias ac  LAck!
-autocmd VimEnter * Alias Ac  LAck!
-autocmd VimEnter * Alias acc LAckAdd!
-autocmd VimEnter * Alias Acc LAckAdd!
-autocmd VimEnter * Alias ag  Ag!
-autocmd VimEnter * Alias Ag  Ag!
-autocmd VimEnter * Alias agg AgAdd!
-autocmd VimEnter * Alias Agg AgAdd!
-autocmd VimEnter * Alias gr  Grep
-autocmd VimEnter * Alias Gr  Grep
-autocmd VimEnter * Alias rg  Rgrep
-autocmd VimEnter * Alias Rg  Rgrep
-autocmd VimEnter * Alias grr GrepAdd
-autocmd VimEnter * Alias vc VCSCommit
-autocmd VimEnter * Alias vd VCSDiff
-autocmd VimEnter * Alias vr VCSRevert
-autocmd VimEnter * Alias vb VCSBlame
-autocmd VimEnter * Alias vu VCSUpdate
-autocmd VimEnter * Alias vl VCSLog
-autocmd VimEnter * Alias vs VCSStatus
-autocmd VimEnter * Alias vi VCSInfo
-autocmd VimEnter * Alias va VCSAdd
-autocmd VimEnter * Alias vrm VCSRemove
-autocmd VimEnter * Alias sw SudoWrite
-autocmd VimEnter * Alias sr SudoRead
-autocmd VimEnter * Alias con VimShellPop
-autocmd VimEnter * Alias ref Ref
-autocmd VimEnter * Alias man Ref<Space>man
-autocmd VimEnter * Alias up UpdateTypesFileOnly
-autocmd VimEnter * Alias ss SaveSession!<Space>default
+augroup useful_Aliases
+  autocmd!
+  autocmd VimEnter * Alias te tabedit
+  autocmd VimEnter * Alias tee tabedit<Space>~/
+  autocmd VimEnter * Alias tec tabedit<Space>%
+  autocmd VimEnter * Alias dd diffthis
+  autocmd VimEnter * Alias do diffoff
+  autocmd VimEnter * Alias did DirDiff
+  autocmd VimEnter * Alias ie InlineEdit
+  autocmd VimEnter * Alias E e
+  autocmd VimEnter * Alias er Errors
+  autocmd VimEnter * Alias Er Errors
+  autocmd VimEnter * Alias un Underline
+  autocmd VimEnter * Alias git  Git
+  autocmd VimEnter * Alias gl   Glog
+  autocmd VimEnter * Alias gt   Git
+  autocmd VimEnter * Alias gs   Gstatus
+  autocmd VimEnter * Alias ge   Gedit
+  autocmd VimEnter * Alias gvsp Gvsplit
+  autocmd VimEnter * Alias ac  LAck!
+  autocmd VimEnter * Alias Ac  LAck!
+  autocmd VimEnter * Alias acc LAckAdd!
+  autocmd VimEnter * Alias Acc LAckAdd!
+  autocmd VimEnter * Alias ag  Ag!
+  autocmd VimEnter * Alias Ag  Ag!
+  autocmd VimEnter * Alias agg AgAdd!
+  autocmd VimEnter * Alias Agg AgAdd!
+  autocmd VimEnter * Alias gr  Grep
+  autocmd VimEnter * Alias Gr  Grep
+  autocmd VimEnter * Alias rg  Rgrep
+  autocmd VimEnter * Alias Rg  Rgrep
+  autocmd VimEnter * Alias grr GrepAdd
+  autocmd VimEnter * Alias vc VCSCommit
+  autocmd VimEnter * Alias vd VCSDiff
+  autocmd VimEnter * Alias vr VCSRevert
+  autocmd VimEnter * Alias vb VCSBlame
+  autocmd VimEnter * Alias vu VCSUpdate
+  autocmd VimEnter * Alias vl VCSLog
+  autocmd VimEnter * Alias vs VCSStatus
+  autocmd VimEnter * Alias vi VCSInfo
+  autocmd VimEnter * Alias va VCSAdd
+  autocmd VimEnter * Alias vrm VCSRemove
+  autocmd VimEnter * Alias sw SudoWrite
+  autocmd VimEnter * Alias sr SudoRead
+  autocmd VimEnter * Alias con VimShellPop
+  autocmd VimEnter * Alias ref Ref
+  autocmd VimEnter * Alias man Ref<Space>man
+  autocmd VimEnter * Alias up UpdateTypesFileOnly
+  autocmd VimEnter * Alias ss SaveSession!<Space>default
+augroup END
 " }}}
+
 let g:ctags_path = '/usr/bin/ctags'
 let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
