@@ -687,7 +687,8 @@ nnoremap <silent> ĞB     :UniteBookmarkAdd <CR>
 " -quick-match
 nnoremap <silent> <C-B>  :Unite -start-insert buffer_tab file_rec/async<CR>
 nnoremap <silent> ĞS     :Unite grep:.<CR>
-nnoremap <silent> MRU    :Unite -no-split -start-insert directory_mru file_mru<CR>
+nnoremap <silent> MRU    :UniteWithCurrentDir -no-split -start-insert file_mru directory_mru<CR>
+nnoremap <silent> MRUU   :Unite -no-split -start-insert directory_mru file_mru<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 "}}}
 NeoBundle 'Shougo/neomru.vim'
@@ -1183,12 +1184,14 @@ autocmd VimEnter * Alias gt   Git
 autocmd VimEnter * Alias gs   Gstatus
 autocmd VimEnter * Alias ge   Gedit
 autocmd VimEnter * Alias gvsp Gvsplit
-autocmd VimEnter * Alias ag  LAck!
-autocmd VimEnter * Alias agg LAckAdd!
-autocmd VimEnter * Alias ac  Ag!
-autocmd VimEnter * Alias Ac  Ag!
-autocmd VimEnter * Alias acc AgAdd!
-autocmd VimEnter * Alias Acc AgAdd!
+autocmd VimEnter * Alias ac  LAck!
+autocmd VimEnter * Alias Ac  LAck!
+autocmd VimEnter * Alias acc LAckAdd!
+autocmd VimEnter * Alias Acc LAckAdd!
+autocmd VimEnter * Alias ag  Ag!
+autocmd VimEnter * Alias Ag  Ag!
+autocmd VimEnter * Alias agg AgAdd!
+autocmd VimEnter * Alias Agg AgAdd!
 autocmd VimEnter * Alias gr  Grep
 autocmd VimEnter * Alias Gr  Grep
 autocmd VimEnter * Alias rg  Rgrep
