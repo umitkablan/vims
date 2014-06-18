@@ -748,6 +748,8 @@ NeoBundle 'zaiste/tmux.vim'
 NeoBundle 'hdima/python-syntax'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundleLazy 'bigfish/vim-js-context-coloring'
+let g:vim_markdown_initial_foldlevel=1
+let g:vim_markdown_no_default_key_mappings=1
 NeoBundle 'plasticboy/vim-markdown'
 " cpp-vim for better @Spell @NoSpell support
 NeoBundle 'vim-jp/cpp-vim'
