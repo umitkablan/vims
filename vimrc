@@ -107,10 +107,10 @@ NeoBundle 'VimSpy'
 NeoBundle 'nelstrom/vim-qargs'
 NeoBundle 'DirDo.vim'
 " yonchu/accelerated-smooth-scroll {{{
-let g:ac_smooth_scroll_no_default_key_mappings = 1
-nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
-nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
-NeoBundle 'yonchu/accelerated-smooth-scroll'
+" let g:ac_smooth_scroll_no_default_key_mappings = 1
+" nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
+" nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
+NeoBundleLazy 'yonchu/accelerated-smooth-scroll'
 " }}}
 " grep.vim {{{
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
@@ -803,6 +803,7 @@ NeoBundle 'umitkablan/umisc'
 " }}}
 NeoBundleLazy 'jszakmeister/vim-togglecursor'
 NeoBundleLazy 'pafcu/Vimsplain'
+NeoBundleLazy 'thinca/vim-prettyprint'
 NeoBundleLazy 'Headlights'
 NeoBundleLazy 'drmikehenry/vim-fixkey'
 NeoBundleLazy 'junkblocker/patchreview-vim'
@@ -812,14 +813,7 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'
 NeoBundleLazy 'https://bitbucket.org/abudden/taghighlight'
 NeoBundleLazy 'bufkill.vim'
 NeoBundleLazy 'EasyGrep'
-NeoBundleLazy 'gcmt/surfer.vim', {
-  \ 'build' : {
-  \     'windows': './install.sh',
-  \     'cygwin' : './install.sh',
-  \     'mac'    : './install.sh',
-  \     'unix'   : './install.sh',
-  \    },
-  \ }
+NeoBundleLazy 'gcmt/surfer.vim'
 " tomtom/quickfixsigns_vim {{{
 " let loaded_quickfixsigns = 1
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
