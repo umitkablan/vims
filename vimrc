@@ -927,7 +927,7 @@ au VimLeave    * if v:dying | wall | endif
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 " gruvbox sorcerer apprentice
 set background=dark
-colorscheme apprentice
+colorscheme harlequin
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
@@ -1028,7 +1028,8 @@ nmap <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <Tab><Tab>l :<C-U>call umisc#TabNextRelatively(v:count1)<CR>
 nnoremap <silent> <Tab><Tab>h :<C-U>call umisc#TabPrevRelatively(v:count1)<CR>
 " full redraw
-nnoremap <silent> <C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
+nnoremap <silent> <C-l> :let :redraw!\|set cul<CR>
+nnoremap <silent> <C-l><C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
 nnoremap <silent> HH  :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> ğcd :pwd<CR>
