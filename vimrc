@@ -1027,7 +1027,7 @@ nmap <Tab><Tab> <C-W><C-W>
 " easier tab navigation prev/next {{{
 nnoremap <silent> <Tab><Tab>l :<C-U>call umisc#TabNextRelatively(v:count1)<CR>
 nnoremap <silent> <Tab><Tab>h :<C-U>call umisc#TabPrevRelatively(v:count1)<CR>
-" full redraw
+" half/full redraw
 nnoremap <silent> <C-l> :redraw!\|set cul<CR>
 nnoremap <silent> <C-l><C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
 nnoremap <silent> HH  :hide<CR>
