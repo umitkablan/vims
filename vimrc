@@ -723,7 +723,7 @@ au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
 augroup END
-NeoBundle 'vcscommand.vim'
+NeoBundle 'git://repo.or.cz/vcscommand'
 " }}}
 NeoBundle 'thinca/vim-ref'
 "NeoBundle 'viewdoc'
