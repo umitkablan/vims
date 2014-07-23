@@ -405,7 +405,6 @@ let g:netrw_liststyle = 0
 let g:netrw_banner = 0
 "let g:netrw_browsex_viewer = 'gnome-open'
 NeoBundle 'netrw.vim'
-" NeoBundle 'eiginn/netrw'
 "}}}
 " Notes {{{
 let g:notesRoot = expand('$HOME/.vim/var/notes')
