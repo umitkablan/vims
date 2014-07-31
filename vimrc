@@ -1023,7 +1023,7 @@ nmap <Tab>t <C-W>T
 nmap <Tab>T <C-W>t
 nmap <Tab><Tab> <C-W><C-W>
 " }}}
-" easier tab navigation prev/next {{{
+" easier tab navigation prev/next
 nnoremap <silent> <Tab><Tab>l :<C-U>call umisc#TabNextRelatively(v:count1)<CR>
 nnoremap <silent> <Tab><Tab>h :<C-U>call umisc#TabPrevRelatively(v:count1)<CR>
 " half/full redraw
