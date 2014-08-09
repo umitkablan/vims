@@ -775,6 +775,7 @@ let g:tmuxline_powerline_separators=0
 let g:tmuxline_preset='full'
 NeoBundle 'edkolev/tmuxline.vim'
 " }}}
+NeoBundle 'umitkablan/vim-zeroth-colorscheme'
 " umitkablan/umisc {{{
 autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
 autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
