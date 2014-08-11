@@ -1169,6 +1169,7 @@ augroup useful_Aliases
   autocmd!
   autocmd VimEnter * Alias te tabedit
   autocmd VimEnter * Alias tee tabedit<Space>~/
+  autocmd VimEnter * Alias spp sp<Space>~/
   autocmd VimEnter * Alias tec tabedit<Space>%
   autocmd VimEnter * Alias dd diffthis
   autocmd VimEnter * Alias do diffoff
