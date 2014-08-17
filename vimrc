@@ -56,9 +56,9 @@ let g:system_echocmd = 1
 let g:system_expand  = 1
 NeoBundleLazy 'coot/System'
 NeoBundle 'craigemery/vim-autotag'
-autocmd BufReadPost * DetectIndent
-NeoBundle 'ciaranm/detectindent'
-"NeoBundle 'yaifa.vim'
+"autocmd BufReadPost * DetectIndent
+NeoBundleLazy 'ciaranm/detectindent'
+NeoBundle 'yaifa.vim'
 NeoBundle 'lastpos.vim'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
@@ -872,7 +872,7 @@ set viminfo+=n~/.vim/var/viminfo
 "set equalprg=astyle formatprg=uncrustify
 set matchpairs+=<:>
 " those indent values will be overridden by automatic indent finders (like
-" yaifa, sleuth)
+" yaifa, sleuth, detectindent)
 set tabstop=4 shiftwidth=4 expandtab
 " clear tags and path; use some other technique to decide later (depending on
 " project settings)
