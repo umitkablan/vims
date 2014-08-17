@@ -51,6 +51,7 @@ nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
 NeoBundle 'CmdlineComplete'
+NeoBundle 'tpope/vim-dispatch'
 NeoBundleLazy 'coot/CRDispatcher'
 let g:system_echocmd = 1
 let g:system_expand  = 1
