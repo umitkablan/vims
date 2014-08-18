@@ -108,10 +108,10 @@ NeoBundle 'VimSpy'
 NeoBundle 'nelstrom/vim-qargs'
 NeoBundle 'DirDo.vim'
 " yonchu/accelerated-smooth-scroll {{{
-" let g:ac_smooth_scroll_no_default_key_mappings = 1
-" nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
-" nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
-NeoBundleLazy 'yonchu/accelerated-smooth-scroll'
+let g:ac_smooth_scroll_no_default_key_mappings = 1
+nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
+nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
+NeoBundle 'yonchu/accelerated-smooth-scroll'
 " }}}
 " grep.vim {{{
 let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
