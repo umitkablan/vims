@@ -753,6 +753,7 @@ let g:vim_markdown_initial_foldlevel=1
 let g:vim_markdown_no_default_key_mappings=1
 NeoBundle 'plasticboy/vim-markdown'
 " cpp-vim for better @Spell @NoSpell support
+let c_no_curly_error = 1
 NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundle 'Mizuchi/STL-Syntax'
@@ -1082,6 +1083,8 @@ augroup preprocessor_langs
   au!
   au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>k
 augroup END
+" au BufEnter * syntax sync fromstart
+" syntax sync minlines=450
 " }}}
 " Quickfix/Location List Toggle/Clear {{{
 nnoremap <silent> <F9> :QFix<CR>
