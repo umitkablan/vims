@@ -136,6 +136,7 @@ NeoBundle 'mileszs/ack.vim'
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:agprg = "ag --column --smart-case"
+let g:aghighlight=1
 NeoBundle 'rking/ag.vim'
 " }}}
 " bling/Airline {{{
