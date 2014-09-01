@@ -40,6 +40,7 @@ NeoBundle 'lh-vim-lib'
 NeoBundle 'AnsiEsc.vim'
 NeoBundle 'godlygeek/csapprox'
 NeoBundle 'chrisbra/SudoEdit.vim'
+NeoBundle 'SyntaxMotion'
 NeoBundle 'pydave/AsyncCommand'
 let g:LargeFile=2 " megabytes
 NeoBundle 'LargeFile'
@@ -52,10 +53,6 @@ NeoBundle 'a.vim'
 " }}}
 NeoBundle 'CmdlineComplete'
 NeoBundle 'tpope/vim-dispatch'
-NeoBundleLazy 'coot/CRDispatcher'
-let g:system_echocmd = 1
-let g:system_expand  = 1
-NeoBundleLazy 'coot/System'
 NeoBundleLazy 'craigemery/vim-autotag'
 NeoBundle 'umitkablan/vim-autotag'
 "autocmd BufReadPost * DetectIndent
