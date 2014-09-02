@@ -732,7 +732,7 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'dbakker/vim-lint'
 NeoBundle 'Vimball'
 NeoBundle 'VisIncr'
-NeoBundle 'tpope/vim-repeat'
+NeoBundleLazy 'tpope/vim-repeat'
 "NeoBundle 'visualrepeat'
 NeoBundle 'bronson/vim-visual-star-search'
 NeoBundle 'epeli/slimux'
@@ -981,9 +981,6 @@ nnoremap ç :
 xnoremap ç :
 nmap . ç
 xmap . ç
-au VimEnter * nmap . ç
-au VimEnter * nnoremap U u
-au VimEnter * nmap u <Nop>
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
