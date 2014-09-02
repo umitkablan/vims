@@ -981,6 +981,9 @@ nnoremap ç :
 xnoremap ç :
 nmap . ç
 xmap . ç
+au VimEnter * nmap . ç
+au VimEnter * nnoremap U u
+au VimEnter * nmap u <Nop>
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
