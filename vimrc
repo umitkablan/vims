@@ -282,6 +282,8 @@ let OmniCpp_SelectFirstItem  = 0
 NeoBundle 'OmniCppComplete'
 "}}}
 NeoBundle 'javacomplete'
+let no_java_maps=1
+NeoBundle 'Dinduks/vim-java-get-set'
 "NeoBundle 'nosami/Omnisharp'
 NeoBundle 'marijnh/tern_for_vim'
 NeoBundle 'SQLComplete.vim'
