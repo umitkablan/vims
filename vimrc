@@ -1176,6 +1176,7 @@ let g:locator_disable_mappings = 1
 " Aliases {{{
 augroup useful_Aliases
   autocmd!
+  autocmd VimEnter * Alias m make
   autocmd VimEnter * Alias te tabedit
   autocmd VimEnter * Alias tee tabedit<Space>~/
   autocmd VimEnter * Alias spp sp<Space>~/
