@@ -18,10 +18,9 @@ if has("vim_starting")
   set rtp+=~/.vim/packs/neobundle.vim/
 endif
 
-call neobundle#rc(expand("~/.vim/packs"))
-NeoBundleFetch 'Shougo/neobundle.vim'
-
 " Bundles {{{
+call neobundle#begin(expand('~/.vim/packs'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
   \     'windows': 'make -f make_mingw32.mak',
@@ -216,16 +215,7 @@ NeoBundle 'dbext.vim'
 xnoremap <silent> <Enter> :EasyAlign<CR>
 NeoBundle 'junegunn/vim-easy-align'
 " }}}
-" GF-Ext {{{
 NeoBundle 'gf-ext'
-call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
-call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
-call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
-" }}}
 "NeoBundle 'kana/vim-gf-user'
 NeoBundle 'dpwright/vim-gf-ext'
 "NeoBundle 'gist-vim'
@@ -566,13 +556,8 @@ NeoBundle 'glts/vim-textobj-comment'
 "NeoBundle 'kana/vim-textobj-indent'
 "NeoBundle 'textobj-line-vim-scripts'
 " }}}
-" tomtom/TinyKeyMap {{{
-NeoBundle 'tomtom/tinykeymap_vim'
-call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
-call tinykeymap#Map('changelocs', ',', 'norm! g,')
-call tinykeymap#Map('changelocs', ';', 'norm! g;')
 let g:tinykeymap#map#windows#map = "gw"
-" }}}
+NeoBundle 'tomtom/tinykeymap_vim'
 NeoBundle 'tpope/vim-unimpaired'
 " t9md/TextManip {{{
 xmap <Up>    <Plug>(textmanip-move-up)
@@ -834,12 +819,7 @@ NeoBundleLazy 'tomtom/quickfixsigns_vim'
 " Load Local Bundles {{{
 NeoBundleLocal ~/.vim/bundle
 "autocmd BufWritePost ~/.vim/** Helptags
-"call ipi#inspect()
-"}}}
-"}}}
-
-filetype plugin indent on " Required for Vundle!
-
+" }}}
 NeoBundleFetch 'rkitover/vimpager', {
   \ 'build' : {
   \     'windows': 'make',
@@ -848,6 +828,26 @@ NeoBundleFetch 'rkitover/vimpager', {
   \     'unix'   : 'make PREFIX=~/bin',
   \    },
   \ }
+call neobundle#end()
+" }}}
+
+" tomtom/TinyKeyMap {{{
+call tinykeymap#EnterMap('changelocs', 'ğ,', {'name': 'Change locations'})
+call tinykeymap#Map('changelocs', ',', 'norm! g,')
+call tinykeymap#Map('changelocs', ';', 'norm! g;')
+" }}}
+" GF-Ext {{{
+call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
+call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
+call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
+call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
+" }}}
+
+filetype plugin indent on " Required for Vundle!
+NeoBundleCheck
 " }}}
 
 " global configuration {{{
