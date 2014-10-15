@@ -1,4 +1,24 @@
 
+" NeoComplete: Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.c    = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.cpp  = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\%(\.\)'
+let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+" let g:neocomplete#force_overwrite_completefunc = 1
+" if !exists('g:neocomplete#omni_functions')
+"   let g:neocomplete#omni_functions = {}
+" endif
+" let g:neocomplete#omni_functions.python = 'jedi#complete'
+" let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
+
 let utl_opt_verbose=0
 NeoBundle 'utl'
 NeoBundle 'libview'
@@ -12,6 +32,20 @@ NeoBundle 'replay'
 NeoBundle 'resizewin'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'sk1418/Join'
+NeoBundle 'svndiff'
+" NetRW {{{
+nmap <unique> NOTUSED_NETRW_HIDELISTEDIT <Plug>NetrwHideEdit
+let g:tar_nomax = 1
+let g:zip_nomax = 1
+let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
+let g:netrw_use_noswf = 0
+let g:netrw_keepdir = 0
+let g:netrw_home = $HOME . '/.vim/var'
+let g:netrw_liststyle = 0
+let g:netrw_banner = 0
+"let g:netrw_browsex_viewer = 'gnome-open'
+NeoBundle 'netrw.vim'
+"}}}
 " luochen1990/rainbow {{{
 let g:rainbow_active=1
 let g:rainbow_operators = 1
