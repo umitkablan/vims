@@ -350,25 +350,6 @@ autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomple
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
 autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.c    = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.cpp  = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\%(\.\)'
-let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
-let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-" let g:neocomplete#force_overwrite_completefunc = 1
-" if !exists('g:neocomplete#omni_functions')
-"   let g:neocomplete#omni_functions = {}
-" endif
-" let g:neocomplete#omni_functions.python = 'jedi#complete'
-" let g:neocomplete#omni_functions.c      = 'omni#cpp#complete#Main'
 NeoBundle 'Shougo/neocomplete.vim'
 "}}}
 " Shougo/NeoSnippet & Snippet Sources {{{
