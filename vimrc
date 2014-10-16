@@ -558,6 +558,7 @@ let g:ctrlp_mruf_save_on_update = 0
 nnoremap <silent> ğt :CtrlPBufTag<CR>
 NeoBundle 'kien/ctrlp.vim'
 " }}}
+NeoBundle 'Shougo/tabpagebuffer.vim'
 " Shougo/Unite {{{
 if has('multi_byte')
   let g:unite_prompt = '» '
