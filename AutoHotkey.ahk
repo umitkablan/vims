@@ -25,10 +25,11 @@
 ; Needn't shift setting since those mappings solves it perfectly!
 SC027::Enter
 Enter::SC027
-SC028::Backspace
-Backspace::SC028
 
+SC028::Backspace
+Backspace::SC017
 SC017::i
+
 Shift & SC017::Send I
 LAlt & h::Send {Left}
 LAlt & j::Send {Down}
