@@ -21,6 +21,9 @@
 ; 	Run Notepad
 ; return
 
+LAlt::RAlt
+RAlt::LAlt
+
 ;Shift & Enter::Send {Shift SC027}
 ; Needn't shift setting since those mappings solves it perfectly!
 SC027::Enter
@@ -36,9 +39,12 @@ LAlt & j::Send {Down}
 LAlt & k::Send {Up}
 LAlt & l::Send {Right}
 
+LAlt & 7::Send {{}
+LAlt & 0::Send {}}
+LAlt & 8::Send {[}
+LAlt & 9::Send {]}
+
 ;!h::Send {Left}
-;LAlt::RAlt
-;RAlt::LAlt
 ;GetKeyState, state, Shift
 ;if state = D
 ;else
