@@ -43,6 +43,12 @@ LAlt & 7::Send {{}
 LAlt & 0::Send {}}
 LAlt & 8::Send {[}
 LAlt & 9::Send {]}
+LAlt & *::Send {\}
+LAlt & 3::Send {#}
+LAlt & 4::Send {$}
+LAlt & q::Send {@}
+LAlt & SC01B::Send {~}{~}{Backspace}
+;LAlt & <::Send {|}
 
 ;!h::Send {Left}
 ;GetKeyState, state, Shift
