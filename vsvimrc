@@ -1,22 +1,26 @@
 
-nnoremap <Space><Tab> :w<CR>
-nnoremap <Tab><Space> :w<CR>
+nnoremap <silent> <Space><Tab> :w<CR>
+nnoremap <silent> <Tab><Space> :w<CR>
 nnoremap gl $
 nnoremap gh ^^
 nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
 
-nmap <BS> :vsc View.NavigateBackward<CR>
-nnoremap <Enter> <F12>
+nmap <silent> <BS> :vsc View.NavigateBackward<CR>
+nnoremap <silent> <Enter>  :vsc Edit.GoToDefinition<CR>
+nnoremap <silent> ğ<Enter> :vsc Edit.GoToDeclaration<CR>
 
-nmap <F5>     :vcs Build.BuildOnlyProject<CR>
-nmap <F6>     :vcs Build.BuildOnlyProject<CR>
-nmap <F5><F5> :vcs LoadTest.RunAllTestsInSolution<CR>
+nnoremap <silent> <F5> :vsc Build.BuildOnlyProject<CR>
+nnoremap <silent> <F6> :vsc TestExplorer.RunAllTests<CR>
 
-nnoremap ğa :vsc EditorContextMenus.CodeWindow.ToggleHeaderCodeFile<CR>
-nnoremap <Tab><Tab>l :vsc Window.NextTab<CR>
-nnoremap <Tab><Tab>h :vsc Window.PreviousTab<CR>
-vnoremap gc  :vsc Edit.CommentSelection<CR>
-nnoremap gcc :vsc Edit.CommentSelection<CR>
-nnoremap MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
-nnoremap <C-O> :vsc Schaller.SonicFileFinder.AddIn.Start<CR>
+nnoremap <silent> ğt :vsc OtherContextMenus.Views.Functions<CR>
+nnoremap <silent> TT :vsc CodeMaid.Spade<CR>
+
+nnoremap <silent> gf :vsc Edit.OpenFile<CR>
+nnoremap <silent> ğa :vsc EditorContextMenus.CodeWindow.ToggleHeaderCodeFile<CR>
+nnoremap <silent> <Tab><Tab>l :vsc Window.NextTab<CR>
+nnoremap <silent> <Tab><Tab>h :vsc Window.PreviousTab<CR>
+vnoremap <silent> gc  :vsc Edit.CommentSelection<CR>
+nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
+nnoremap <silent> MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
+nnoremap <silent> <C-O> :vsc Schaller.SonicFileFinder.AddIn.Start<CR>
