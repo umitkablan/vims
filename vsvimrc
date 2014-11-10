@@ -1,0 +1,22 @@
+
+nnoremap <Space><Tab> :w<CR>
+nnoremap <Tab><Space> :w<CR>
+nnoremap gl $
+nnoremap gh ^^
+nmap <Up>   5<C-Y>
+nmap <Down> 5<C-E>
+
+nmap <BS> :vsc View.NavigateBackward<CR>
+nnoremap <Enter> <F12>
+
+nmap <F5>     :vcs Build.BuildOnlyProject<CR>
+nmap <F6>     :vcs Build.BuildOnlyProject<CR>
+nmap <F5><F5> :vcs LoadTest.RunAllTestsInSolution<CR>
+
+nnoremap ğa :vsc EditorContextMenus.CodeWindow.ToggleHeaderCodeFile<CR>
+nnoremap <Tab><Tab>l :vsc Window.NextTab<CR>
+nnoremap <Tab><Tab>h :vsc Window.PreviousTab<CR>
+vnoremap gc  :vsc Edit.CommentSelection<CR>
+nnoremap gcc :vsc Edit.CommentSelection<CR>
+nnoremap MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
+nnoremap <C-O> :vsc Schaller.SonicFileFinder.AddIn.Start<CR>
