@@ -23,6 +23,7 @@
 
 LAlt::RAlt
 RAlt::LAlt
+LAlt & RAlt::Send {LAlt}
 
 ;Shift & Enter::Send {Shift SC027}
 ; Needn't shift setting since those mappings solves it perfectly!
