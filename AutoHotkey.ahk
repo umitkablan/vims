@@ -49,7 +49,8 @@ LAlt & 3::Send {#}
 LAlt & 4::Send {$}
 LAlt & q::Send {@}
 LAlt & SC01B::Send {~}{~}{Backspace}
-;LAlt & <::Send {|}
+; Oh my dear pipe (|): It failed to work with "<" symbol in config-line but the SC-Val.
+LAlt & SC056::Send {|}
 
 ;!h::Send {Left}
 ;GetKeyState, state, Shift
