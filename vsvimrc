@@ -13,7 +13,7 @@ nnoremap <silent> ğ<Enter> :vsc Edit.GoToDeclaration<CR>
 nnoremap <silent> <F5> :vsc Build.BuildOnlyProject<CR>
 nnoremap <silent> <F6> :vsc TestExplorer.RunAllTests<CR>
 
-nnoremap <silent> ğt :vsc OtherContextMenus.Views.Functions<CR>
+nnoremap <silent> ğt :vsc Window.MovetoNavigationBar<CR>
 nnoremap <silent> TT :vsc CodeMaid.Spade<CR>
 
 nnoremap <silent> gf :vsc Edit.OpenFile<CR>
