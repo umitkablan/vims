@@ -6,7 +6,7 @@ nnoremap gh ^^
 nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
 
-nmap <silent> <BS> :vsc View.NavigateBackward<CR>
+nnoremap <silent> <BS>     :vsc View.NavigateBackward<CR>
 nnoremap <silent> <Enter>  :vsc Edit.GoToDefinition<CR>
 nnoremap <silent> ğ<Enter> :vsc Edit.GoToDeclaration<CR>
 
