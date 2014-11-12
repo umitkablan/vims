@@ -25,4 +25,5 @@ nnoremap <silent> <Tab><Tab>h :vsc Window.PreviousTab<CR>
 vnoremap <silent> gc  :vsc Edit.CommentSelection<CR>
 nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
 nnoremap <silent> MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
+nnoremap <silent> <C-p> :vsc Window.QuickLaunch<CR>
 nnoremap <silent> <C-O> :vsc Schaller.SonicFileFinder.AddIn.Start<CR>
