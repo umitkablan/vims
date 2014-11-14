@@ -43,8 +43,8 @@ nnoremap <silent> <Tab><Tab>h :vsc Window.PreviousTab<CR>
 nnoremap <silent> <Space><Space> :vsc Edit.HighlightWord<CR>
 vnoremap <silent> <Space><Space> :vsc Edit.HighlightWord<CR>
 nnoremap <silent> <Space>nn      :vsc Edit.ClearHighlights<CR>
-nnoremap <silent> <Space>*      :vsc Edit.NextHighlightedReference<CR>
-nnoremap <silent> <Space>#      :vsc Edit.PreviousHighlightedReference<CR>
+nnoremap <silent> <Space>*       :vsc Edit.NextHighlightedReference<CR>
+nnoremap <silent> <Space>#       :vsc Edit.PreviousHighlightedReference<CR>
 
 vnoremap <silent> gc  :vsc Edit.CommentSelection<CR>
 nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
