@@ -866,7 +866,7 @@ set tabstop=4 shiftwidth=4 expandtab
 " clear tags and path; use some other technique to decide later (depending on
 " project settings)
 set tags= path=.
-set wildmenu wildmode=list:longest,full
+set wildignorecase wildmenu wildmode=list:longest,full
 set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc
 set wildignore+=*.pyo,*.pyd,*.class,*.lock
 set wildignore+=.git,.svn,.hg
