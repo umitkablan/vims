@@ -1,0 +1,66 @@
+
+nnoremap <silent> <Space><Tab> :w<CR>
+nnoremap <silent> <Tab><Space> :w<CR>
+
+nnoremap gl $
+nnoremap gh ^^
+
+nnoremap oo o<Esc>o
+nnoremap OO O<Esc>O
+
+nmap <Up>   5<C-Y>
+nmap <Down> 5<C-E>
+
+nmap . :
+nnoremap | .
+nnoremap , ;
+nnoremap ; ,
+nnoremap u <Nop>
+nnoremap U u
+
+nnoremap <silent> <BS>     :vsc View.NavigateBackward<CR>
+nnoremap <silent> <Enter>  :vsc Edit.GoToDefinition<CR>
+nnoremap <silent> ğ<Enter> :vsc Edit.GoToDeclaration<CR>
+
+vnoremap <silent> S :vsc Edit.SurroundWith<CR>
+
+nnoremap <silent> m :vsc Edit.ToggleBookmark<CR>
+
+nnoremap <silent> <F5> :vsc Build.BuildOnlyProject<CR>
+nnoremap <silent> <F6> :vsc TestExplorer.RunAllTests<CR>
+
+nnoremap <silent> ğt :vsc Window.MovetoNavigationBar<CR>
+" Depends on CodeMaid extension
+nnoremap <silent> TT :vsc CodeMaid.Spade<CR>
+
+nnoremap <silent> gf :vsc Edit.OpenFile<CR>
+nnoremap <silent> ğa :vsc EditorContextMenus.CodeWindow.ToggleHeaderCodeFile<CR>
+
+nnoremap <silent> <Tab><Tab>l :vsc Window.NextTab<CR>
+nnoremap <silent> <Tab><Tab>h :vsc Window.PreviousTab<CR>
+
+" Depends on StickyHighlight extension
+nnoremap <silent> <Space><Space> :vsc Edit.HighlightWord<CR>
+vnoremap <silent> <Space><Space> :vsc Edit.HighlightWord<CR>
+nnoremap <silent> <Space>nn      :vsc Edit.ClearHighlights<CR>
+nnoremap <silent> <Space>*       :vsc Edit.NextHighlightedReference<CR>
+nnoremap <silent> <Space>#       :vsc Edit.PreviousHighlightedReference<CR>
+
+vnoremap <silent> gc  :vsc Edit.CommentSelection<CR>
+nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
+
+nnoremap <silent> MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
+
+nnoremap <silent> <C-p> :vsc Window.QuickLaunch<CR>
+nnoremap <silent> <C-t> :vsc Edit.NavigateTo<CR>
+" Depends on SonicFileFinder extension
+nnoremap <silent> <C-b> :vsc Schaller.SonicFileFinder.AddIn.Start<CR>
+
+nnoremap <silent> [q    :vsc View.NextError<CR>
+nnoremap <silent> ]q    :vsc View.PreviousError<CR>
+nnoremap <silent> [l    :vsc Edit.GoToNextLocation<CR>
+nnoremap <silent> ]l    :vsc Edit.GoToPrevLocation<CR>
+
+" Depends on PowerCommands extension
+nnoremap <silent> y@  :vsc ProjectandSolutionContextMenus.Project.PowerCommands.CopyAsProjectReference<CR>
+nnoremap <silent> y@@ :vsc ProjectandSolutionContextMenus.Project.PowerCommands.CopyPath<CR>
