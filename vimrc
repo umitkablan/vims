@@ -518,9 +518,7 @@ NeoBundle 'kana/vim-textobj-datetime'
 NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'kana/vim-textobj-function'
 NeoBundle 'beloglazov/vim-textobj-quotes'
-"NeoBundle 'vim-textobj-quoted'
 NeoBundle 'coderifous/textobj-word-column.vim'
-NeoBundle 'killphi/vim-textobj-signify-hunk'
 NeoBundle 'mattn/vim-textobj-url'
 NeoBundle 'bps/vim-textobj-python'
 NeoBundle 'thinca/vim-textobj-function-javascript'
@@ -533,6 +531,8 @@ xmap ix <Plug>(textobj-comment-i)
 omap ix <Plug>(textobj-comment-i)
 NeoBundle 'glts/vim-textobj-comment'
 " }}}
+"NeoBundle 'vim-textobj-quoted'
+"NeoBundle 'killphi/vim-textobj-signify-hunk' "Deprecated, this functionality is in Signify itself
 "NeoBundle 'kana/vim-textobj-fold'
 "NeoBundle 'kana/vim-textobj-indent'
 "NeoBundle 'textobj-line-vim-scripts'
