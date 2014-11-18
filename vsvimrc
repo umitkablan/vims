@@ -69,10 +69,10 @@ nnoremap <silent> <C-t> :vsc View.ClassViewGoToSearchCombo<CR>
 " Depends on SonicFileFinder extension
 nnoremap <silent> <C-b> :vsc Schaller.SonicFileFinder.AddIn.Start<CR>
 
-nnoremap <silent> [q    :vsc View.NextError<CR>
-nnoremap <silent> ]q    :vsc View.PreviousError<CR>
-nnoremap <silent> [l    :vsc Edit.GoToNextLocation<CR>
-nnoremap <silent> ]l    :vsc Edit.GoToPrevLocation<CR>
+nnoremap <silent> [q :vsc View.NextError<CR>
+nnoremap <silent> ]q :vsc View.PreviousError<CR>
+nnoremap <silent> [l :vsc Edit.GoToNextLocation<CR>
+nnoremap <silent> ]l :vsc Edit.GoToPrevLocation<CR>
 
 " Depends on PowerCommands extension
 nnoremap <silent> y@  :vsc ProjectandSolutionContextMenus.Project.PowerCommands.CopyAsProjectReference<CR>
