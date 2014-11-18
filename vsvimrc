@@ -47,6 +47,9 @@ nnoremap <silent> ĞE :vsc File.OpenContainingFolder<CR>
 nnoremap <silent> <Tab><Tab>l :vsc Window.NextTab<CR>
 nnoremap <silent> <Tab><Tab>h :vsc Window.PreviousTab<CR>
 
+" Depends on EasyMotion extension
+nnoremap <silent> <Tab>f :vsc EasyMotion.Navigate<CR>
+
 " Depends on StickyHighlight extension
 nnoremap <silent> <Space><Space> :vsc Edit.HighlightWord<CR>
 vnoremap <silent> <Space><Space> :vsc Edit.HighlightWord<CR>
