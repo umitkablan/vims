@@ -1,30 +1,36 @@
 
 nnoremap <silent> <Space><Tab> :w<CR>
 nnoremap <silent> <Tab><Space> :w<CR>
-
 nnoremap gl $
 nnoremap gh ^^
-
+inoremap <C-e> <C-o>$<Right>
+inoremap <C-a> <C-o>0
+noremap Y y$
 nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
-
 nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
-
 nmap . :
 nnoremap | .
 nnoremap , ;
 nnoremap ; ,
 nnoremap u <Nop>
 nnoremap U u
+vnoremap > >gv
+vnoremap < <gv
+nnoremap <silent> <F3> :<Up><CR>
+vnoremap <silent> <F3> :<Up><CR>
+nnoremap ğs :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
+nnoremap ğg :%g/<C-r><C-w>/
 
-nnoremap <silent> <BS>     :vsc View.NavigateBackward<CR>
-nnoremap <silent> <Enter>  :vsc Edit.GoToDefinition<CR>
-nnoremap <silent> ğ<Enter> :vsc Edit.GoToDeclaration<CR>
+nnoremap <silent> <BS> :vsc View.NavigateBackward<CR>
+nnoremap <silent> <Enter>   :vsc Edit.PeekDefinition<CR>
+nnoremap <silent> <S-Enter> :vsc Edit.GoToDefinition<CR>
+nnoremap <silent> ğ<Enter>  :vsc Edit.GoToDeclaration<CR>
 
 vnoremap <silent> S :vsc Edit.SurroundWith<CR>
 
-nnoremap <silent> m :vsc Edit.ToggleBookmark<CR>
+nnoremap <silent> mm :vsc Edit.ToggleBookmark<CR>
 
 nnoremap <silent> <F5> :vsc Build.BuildOnlyProject<CR>
 nnoremap <silent> <F6> :vsc TestExplorer.RunAllTests<CR>
@@ -35,6 +41,8 @@ nnoremap <silent> TT :vsc CodeMaid.Spade<CR>
 
 nnoremap <silent> gf :vsc Edit.OpenFile<CR>
 nnoremap <silent> ğa :vsc EditorContextMenus.CodeWindow.ToggleHeaderCodeFile<CR>
+nnoremap <silent> ğe :vsc File.OpenContainingFolder<CR>
+nnoremap <silent> ĞE :vsc File.OpenContainingFolder<CR>
 
 nnoremap <silent> <Tab><Tab>l :vsc Window.NextTab<CR>
 nnoremap <silent> <Tab><Tab>h :vsc Window.PreviousTab<CR>
@@ -48,11 +56,16 @@ nnoremap <silent> <Space>#       :vsc Edit.PreviousHighlightedReference<CR>
 
 vnoremap <silent> gc  :vsc Edit.CommentSelection<CR>
 nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
+"nnoremap <silent> gcc :vsc VCmd.Command01<CR>
+"vnoremap <silent> gc  :vsc VCmd.Command01<CR>
 
-nnoremap <silent> MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
+"onoremap <silent> ae :vsc Edit.SelectAll<CR>
+"nnoremap <silent> MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
 
-nnoremap <silent> <C-p> :vsc Window.QuickLaunch<CR>
-nnoremap <silent> <C-t> :vsc Edit.NavigateTo<CR>
+nnoremap <silent> <C-l> :e<CR>
+nnoremap <silent> <C-q> :vsc Window.QuickLaunch<CR>
+nnoremap <silent> <C-p> :vsc Edit.NavigateTo<CR>
+nnoremap <silent> <C-t> :vsc View.ClassViewGoToSearchCombo<CR>
 " Depends on SonicFileFinder extension
 nnoremap <silent> <C-b> :vsc Schaller.SonicFileFinder.AddIn.Start<CR>
 
@@ -64,3 +77,5 @@ nnoremap <silent> ]l    :vsc Edit.GoToPrevLocation<CR>
 " Depends on PowerCommands extension
 nnoremap <silent> y@  :vsc ProjectandSolutionContextMenus.Project.PowerCommands.CopyAsProjectReference<CR>
 nnoremap <silent> y@@ :vsc ProjectandSolutionContextMenus.Project.PowerCommands.CopyPath<CR>
+nnoremap <silent> ğsh :vsc ProjectandSolutionContextMenus.Project.PowerCommands.OpenCommandPrompt<CR>
+nnoremap <silent> ğrc :vsc ProjectandSolutionContextMenus.Project.PowerCommands.EditProjectFile<CR>
