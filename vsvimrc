@@ -69,7 +69,7 @@ nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
 "nnoremap <silent> MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
 
 nnoremap <silent> <C-l> :e<CR>
-nnoremap <silent> <C-q> :vsc Window.QuickLaunch<CR>
+"nnoremap <silent> <C-q> :vsc Window.QuickLaunch<CR>
 nnoremap <silent> <C-p> :vsc Edit.NavigateTo<CR>
 nnoremap <silent> <C-t> :vsc View.ClassViewGoToSearchCombo<CR>
 " Depends on SonicFileFinder extension
