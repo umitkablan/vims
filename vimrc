@@ -737,6 +737,20 @@ NeoBundle 'ujihisa/ft-cmake'
 NeoBundle 'cmdalias.vim'
 NeoBundle 'gerw/vim-HiLinkTrace'
 NeoBundle 'hexman.vim'
+" vim-indexed-search {{{
+let g:indexed_search_mappings = 0
+nnoremap <silent>n nzv:ShowSearchIndex<CR>
+nnoremap <silent>N Nzv:ShowSearchIndex<CR>
+NeoBundle 'henrik/vim-indexed-search'
+" }}}
+" incsearch.vim {{{
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+let g:incsearch#consistent_n_direction = 1
+let g:incsearch#magic = '\v'
+NeoBundle 'haya14busa/incsearch.vim'
+" }}}
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
 nnoremap <silent> X  :CoremoSearchAdd<CR>
@@ -990,7 +1004,7 @@ nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
 " clearing @/ is really useful: last search's highlight distracts me more than rarely
 nnoremap <silent> \ :let @/=""\|echo "Cleared Search Pattern"<CR>
-nnoremap / /\V
+" nnoremap / /\V " unneeded, functionality provided by incsearch.vim
 " save current file path to register
 nnoremap <silent> y@@ :let @+=expand("%:p")<CR>
 nnoremap <silent> y@  :let @+=expand("%:.")<CR>
