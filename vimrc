@@ -295,7 +295,7 @@ NeoBundle 'mattn/emmet-vim'
 " Shougo/NeoComplete {{{
 augroup LargeFile_NeoComplete_Lock
   au!
-  autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > 37999 | NeoCompleteLock | endif
+  autocmd BufReadPost * if line("$")>1900 | NeoCompleteLock | endif
 augroup END
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 1
