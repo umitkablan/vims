@@ -809,7 +809,7 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'
 NeoBundleLazy 'https://bitbucket.org/abudden/taghighlight'
 NeoBundleLazy 'bufkill.vim'
 NeoBundleLazy 'EasyGrep'
-NeoBundleLazy 'gcmt/surfer.vim'
+NeoBundleLazy 'surfer.vim'
 " tomtom/quickfixsigns_vim {{{
 " let loaded_quickfixsigns = 1
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
