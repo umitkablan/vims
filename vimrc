@@ -29,6 +29,8 @@ NeoBundle 'Shougo/vimproc', {
   \     'unix'   : 'make -f make_unix.mak',
   \    },
   \ }
+NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'pydave/AsyncCommand'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'cecutil'
 NeoBundle 'tomtom/tlib_vim'
@@ -39,8 +41,6 @@ NeoBundle 'lh-vim-lib'
 NeoBundle 'AnsiEsc.vim'
 NeoBundle 'godlygeek/csapprox'
 NeoBundle 'chrisbra/SudoEdit.vim'
-NeoBundle 'SyntaxMotion.vim'
-NeoBundle 'pydave/AsyncCommand'
 let g:LargeFile=2 " megabytes
 NeoBundle 'LargeFile'
 "NeoBundle 'ColorSchemeMenuMaker'
@@ -50,8 +50,6 @@ NeoBundle 'Colorizer--Brabandt'
 nnoremap <silent> ğa :A<CR>
 NeoBundle 'a.vim'
 " }}}
-NeoBundle 'CmdlineComplete'
-NeoBundle 'tpope/vim-dispatch'
 NeoBundleLazy 'craigemery/vim-autotag'
 NeoBundle 'umitkablan/vim-autotag'
 "autocmd BufReadPost * DetectIndent
@@ -184,6 +182,7 @@ NeoBundle 'fweep/vim-tabber'
 set showtabline=2 tabline=%!tabber#TabLine()
 " }}}
 NeoBundle 'itchyny/calendar.vim'
+NeoBundle 'SyntaxMotion.vim'
 NeoBundle 'camelcasemotion'
 " justinmk/vim-sneak {{{
 nmap f <Plug>SneakForward
@@ -475,6 +474,7 @@ let g:SuperTabCrMapping = 0
 "NeoBundle 'SuperTab'
 NeoBundle 'ervandew/supertab'
 "}}}
+NeoBundle 'tpope/vim-surround'
 " jiangmiao/Auto-Pairs {{{
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMapCR = 0
@@ -482,7 +482,6 @@ let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 NeoBundle 'jiangmiao/auto-pairs'
 "}}}
-NeoBundle 'tpope/vim-surround'
 " scrooloose/Syntastic {{{
 let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
 let g:syntastic_c_compiler_options = "-std=gnu99
@@ -564,7 +563,6 @@ let g:ctrlp_mruf_save_on_update = 0
 nnoremap <silent> ğt :CtrlPBufTag<CR>
 NeoBundle 'kien/ctrlp.vim'
 " }}}
-NeoBundle 'Shougo/tabpagebuffer.vim'
 " Shougo/Unite {{{
 if has('multi_byte')
   let g:unite_prompt = '» '
@@ -664,7 +662,8 @@ nnoremap <silent> ĞS     :Unite grep:.<CR>
 nnoremap <silent> MRU    :UniteWithCurrentDir -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> MRUU   :Unite -no-split -start-insert directory_mru file_mru<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
-"}}}
+
+NeoBundle 'Shougo/tabpagebuffer.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'unite-locate'
 NeoBundle 'tsukkee/unite-tag'
@@ -674,6 +673,7 @@ NeoBundle 'tsukkee/unite-tag'
 "NeoBundle 'thinca/vim-unite-history'
 "NeoBundle 'h1mesuke/unite-outline'
 "NeoBundle 'hakobe/unite-script'
+"}}}
 " Shougo/VimShell {{{
 nnoremap <silent> ğsh  :VimShellPop<CR>
 nnoremap <silent> ğp2  :VimShellInteractive ipython2<CR>
@@ -715,7 +715,7 @@ NeoBundle 'umitkablan/vim-repeat'
 NeoBundle 'bronson/vim-visual-star-search'
 NeoBundle 'epeli/slimux'
 "NeoBundle 'vimux'
-NeoBundle 'WebAPI.vim'
+NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'othree/xml.vim'
 NeoBundle 'sukima/xmledit'
 NeoBundle 'jamestomasino/actionscript-vim-bundle'
@@ -734,22 +734,40 @@ NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundle 'Mizuchi/STL-Syntax'
 NeoBundle 'ujihisa/ft-cmake'
-NeoBundle 'cmdalias.vim'
 NeoBundle 'gerw/vim-HiLinkTrace'
 NeoBundle 'hexman.vim'
-" vim-indexed-search {{{
+NeoBundle 'CmdlineComplete'
+NeoBundle 'cmdalias.vim'
+" incsearch.vim & vim-indexed-search {{{
 let g:indexed_search_mappings = 0
-nnoremap <silent>n nzv:ShowSearchIndex<CR>
-nnoremap <silent>N Nzv:ShowSearchIndex<CR>
 NeoBundle 'henrik/vim-indexed-search'
-" }}}
-" incsearch.vim {{{
+let g:incsearch#consistent_n_direction = 1
+let g:incsearch#magic = '\v'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-let g:incsearch#consistent_n_direction = 1
-let g:incsearch#magic = '\v'
+map <silent> n  <Plug>(_incsearch-n)zv:ShowSearchIndex<CR>
+map <silent> N  <Plug>(_incsearch-N)zv:ShowSearchIndex<CR>
+map <silent> *  <Plug>(_incsearch-*)
+map <silent> #  <Plug>(_incsearch-#)
+map <silent> g* <Plug>(_incsearch-g*)
+map <silent> g# <Plug>(_incsearch-g#)
 NeoBundle 'haya14busa/incsearch.vim'
+augroup incsearch_indexed
+autocmd!
+  autocmd User IncSearchLeave ShowSearchIndex
+augroup END
+augroup incsearch_cmdlinecomplete
+  autocmd!
+  autocmd VimEnter * call s:incsearch_cmdlinecomplete_keymap()
+augroup END
+function! s:incsearch_cmdlinecomplete_keymap()
+  IncSearchNoreMap <C-n> <Over>(buffer-complete)
+  IncSearchNoreMap <C-p> <Over>(buffer-complete-prev)
+  "IncSearchNoreMap <c-p> <Plug>CmdlineCompleteBackward "not working
+  IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
+  IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
+endfunction
 " }}}
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
