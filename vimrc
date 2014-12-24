@@ -134,6 +134,12 @@ let g:aghighlight=1
 NeoBundle 'rking/ag.vim'
 " }}}
 " bling/Airline {{{
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#excludes = []
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_tab_type = 1
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
 endif
@@ -174,12 +180,6 @@ if has('multi_byte')
   let g:airline_symbols.whitespace = 'Ξ'
 endif
 NeoBundle 'bling/vim-airline'
-" }}}
-" fweep/vim-Tabber {{{
-let g:tabber_divider_style = 'unicode' "'compatible', 'fancy'
-let g:tabber_filename_style = 'filename'
-NeoBundle 'fweep/vim-tabber'
-set showtabline=2 tabline=%!tabber#TabLine()
 " }}}
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'SyntaxMotion.vim'
@@ -739,6 +739,21 @@ NeoBundle 'hexman.vim'
 NeoBundle 'CmdlineComplete'
 NeoBundle 'cmdalias.vim'
 " incsearch.vim & vim-indexed-search {{{
+let g:incsearch#separate_highlight = 1
+let g:incsearch#vim_cmdline_keymap = 0
+let g:incsearch#highlight = {
+  \   'match' : {
+  \     'group' : 'IncSearchMatch',
+  \     'priority' : '10'
+  \   },
+  \   'on_cursor' : {
+  \     'priority' : '100'
+  \   },
+  \   'cursor' : {
+  \     'group' : 'ErrorMsg',
+  \     'priority' : '1000'
+  \   }
+  \ }
 let g:indexed_search_mappings = 0
 NeoBundle 'henrik/vim-indexed-search'
 let g:incsearch#consistent_n_direction = 1
@@ -954,7 +969,7 @@ au VimLeave    * if v:dying | wall | endif
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 " gruvbox sorcerer apprentice
 set background=dark
-colorscheme harlequin
+colorscheme codeblocks_dark
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
