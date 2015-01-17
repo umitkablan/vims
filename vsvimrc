@@ -13,6 +13,7 @@ nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
+nmap <Space> za
 nmap . :
 nnoremap | .
 nnoremap , ;
@@ -27,11 +28,13 @@ nnoremap ğs :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 nnoremap ğg :%g/<C-r><C-w>/
 
 nnoremap <silent> <BS> :vsc View.NavigateBackward<CR>
+nnoremap <silent> <C-A-i> :vsc View.NavigateForward<CR>
 nnoremap <silent> <Enter>   :vsc Edit.PeekDefinition<CR>
 nnoremap <silent> <S-Enter> :vsc Edit.GoToDefinition<CR>
 nnoremap <silent> ğ<Enter>  :vsc Edit.GoToDeclaration<CR>
 
-vnoremap <silent> S :vsc Edit.SurroundWith<CR>
+" vnoremap <silent> S :vsc Edit.SurroundWith<CR>
+vnoremap <silent> S :vsc ReSharper.ReSharper_SurroundWith<CR>
 
 nnoremap <silent> mm :vsc Edit.ToggleBookmark<CR>
 
@@ -60,7 +63,9 @@ nnoremap <silent> <Space>nn      :vsc Edit.ClearHighlights<CR>
 nnoremap <silent> <Space>*       :vsc Edit.NextHighlightedReference<CR>
 nnoremap <silent> <Space>#       :vsc Edit.PreviousHighlightedReference<CR>
 
+"vnoremap <silent> gc  :vsc ReSharper.ReSharper_BlockComment<CR>
 vnoremap <silent> gc  :vsc Edit.CommentSelection<CR>
+"nnoremap <silent> gcc :vsc ReSharper.ReSharper_LineComment<CR>
 nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
 "nnoremap <silent> gcc :vsc VCmd.Command01<CR>
 "vnoremap <silent> gc  :vsc VCmd.Command01<CR>
