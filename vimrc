@@ -140,12 +140,12 @@ let g:airline#extensions#tabline#excludes = []
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#whitespace#enabled=1
+let g:airline#extensions#whitespace#show_message=0
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
 endif
-let g:airline_enable_branch = 0
-let g:airline#extensions#branch#enabled = 0
-let g:airline_detect_whitespace=2 "icon only
 let g:airline_section_b = '%<%1.24{getcwd()}'
 " let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
 " let g:airline_section_x = ""
