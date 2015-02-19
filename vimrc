@@ -129,8 +129,8 @@ NeoBundle 'mileszs/ack.vim'
 " rking/Ag.vim {{{
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
-let g:agprg = "ag --column --smart-case"
-let g:aghighlight=1
+let g:ag_prg = "ag --column --smart-case"
+let g:ag_highlight=1
 NeoBundle 'rking/ag.vim'
 " }}}
 " bling/Airline {{{
@@ -757,7 +757,7 @@ let g:incsearch#highlight = {
 let g:indexed_search_mappings = 0
 NeoBundle 'henrik/vim-indexed-search'
 let g:incsearch#consistent_n_direction = 1
-let g:incsearch#magic = '\v'
+let g:incsearch#magic = ''
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
@@ -1188,8 +1188,9 @@ augroup END
 nnoremap <silent> <Backspace> :call umisc#QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
 au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
-au FileType netrw                     nmap     <silent> <buffer> <Backspace> -
-au FileType vundle,gitcommit,calendar nmap     <silent> <buffer> <Backspace> q
+au FileType tagbar,qf                 nmap     <buffer>          <Esc>       <Backspace>
+au FileType netrw                     nmap     <buffer>          <Backspace> -
+au FileType vundle,gitcommit,calendar nmap     <buffer>          <Backspace> q
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
