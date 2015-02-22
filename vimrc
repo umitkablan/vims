@@ -969,7 +969,7 @@ au VimLeave    * if v:dying | wall | endif
 " Tomorrow-Night-Eighties moria felipec radicalgoodspeed pencil
 " gruvbox sorcerer apprentice
 set background=dark
-colorscheme codeblocks_dark
+colorscheme PerfectDark
 " if !has("gui_running")
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
