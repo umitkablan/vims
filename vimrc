@@ -1156,19 +1156,19 @@ inoremap <expr><silent> k<Space>j
 augroup semicolon_langs
   au!
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk
-       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>"
+      \ umisc#YieldSemicolonIfAppropriate()."\<Esc>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj
-       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>"
+      \ umisc#YieldSemicolonIfAppropriate()."\<Esc>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> jk<Space>
-       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+      \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> j<Space>k
-       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+      \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> kj<Space>
-       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+      \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j
-       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
+      \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR>
-       \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+      \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
 augroup END
 " }}}
 
