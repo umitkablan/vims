@@ -1189,7 +1189,7 @@ augroup END
 nnoremap <silent> <Backspace> :call umisc#QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
 au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
-au FileType tagbar,qf                 nmap     <buffer>          <Esc>       <Backspace>
+au FileType tagbar,qf,tagselect       nmap     <buffer>          <Esc>       <Backspace>
 au FileType netrw                     nmap     <buffer>          <Backspace> -
 au FileType vundle,gitcommit,calendar nmap     <buffer>          <Backspace> q
 augroup VCSCommand
