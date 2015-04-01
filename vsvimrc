@@ -13,7 +13,7 @@ nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
-nmap <Space> za
+nmap ğ<Space> za
 nmap . :
 nnoremap | .
 nnoremap , ;
@@ -29,12 +29,12 @@ nnoremap ğg :%g/<C-r><C-w>/
 
 nnoremap <silent> <BS> :vsc View.NavigateBackward<CR>
 nnoremap <silent> <C-A-i> :vsc View.NavigateForward<CR>
-nnoremap <silent> <Enter>   :vsc Edit.PeekDefinition<CR>
-nnoremap <silent> <S-Enter> :vsc Edit.GoToDefinition<CR>
+nnoremap <silent> <S-Enter> :vsc Edit.PeekDefinition<CR>
+nnoremap <silent> <Enter>   :vsc Edit.GoToDefinition<CR>
 nnoremap <silent> ğ<Enter>  :vsc Edit.GoToDeclaration<CR>
 
-" vnoremap <silent> S :vsc Edit.SurroundWith<CR>
-vnoremap <silent> S :vsc ReSharper.ReSharper_SurroundWith<CR>
+vnoremap <silent> S :vsc Edit.SurroundWith<CR>
+" vnoremap <silent> S :vsc ReSharper.ReSharper_SurroundWith<CR>
 
 nnoremap <silent> mm :vsc Edit.ToggleBookmark<CR>
 
@@ -88,5 +88,6 @@ nnoremap <silent> ]l :vsc Edit.GoToPrevLocation<CR>
 " Depends on PowerCommands extension
 nnoremap <silent> y@  :vsc ProjectandSolutionContextMenus.Project.PowerCommands.CopyAsProjectReference<CR>
 nnoremap <silent> y@@ :vsc ProjectandSolutionContextMenus.Project.PowerCommands.CopyPath<CR>
-nnoremap <silent> ğsh :vsc ProjectandSolutionContextMenus.Project.PowerCommands.OpenCommandPrompt<CR>
+nnoremap <silent> ğsh :vsc DebuggerContextMenus.ScriptProject.OpenCommandLine.Default<CR>
+" nnoremap <silent> ğsh :vsc ProjectandSolutionContextMenus.Project.PowerCommands.OpenCommandPrompt<CR>
 nnoremap <silent> ğrc :vsc ProjectandSolutionContextMenus.Project.PowerCommands.EditProjectFile<CR>
