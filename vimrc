@@ -55,6 +55,7 @@ NeoBundleLazy 'craigemery/vim-autotag'
 NeoBundle 'umitkablan/vim-autotag'
 "autocmd BufReadPost * DetectIndent
 NeoBundleLazy 'ciaranm/detectindent'
+NeoBundle 'sfiera/vim-emacsmodeline'
 NeoBundle 'yaifa.vim'
 NeoBundle 'lastpos.vim'
 " zhaocai/GoldenView {{{
@@ -80,6 +81,7 @@ NeoBundle 'DeleteTrailingWhitespace'
 NeoBundle 'CursorLineCurrentWindow'
 NeoBundle 'chrisbra/NrrwRgn'
 NeoBundle 'mikewest/vimroom'
+NeoBundle 'tommcdo/vim-exchange'
 " ReplaceWithRegister {{{
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
