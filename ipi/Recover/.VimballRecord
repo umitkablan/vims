@@ -1,2 +1,0 @@
-Recover-0.13.vmb: call delete('/home/arch/.vim/ipi/recover/plugin/recover.vim')|call delete('/home/arch/.vim/ipi/recover/autoload/recover.vim')|call delete('/home/arch/.vim/ipi/recover/doc/recoverPlugin.txt')
-Recover-0.14.vmb: call delete('/home/arch/.vim/bundle/Recover/plugin/recover.vim')|call delete('/home/arch/.vim/bundle/Recover/autoload/recover.vim')|call delete('/home/arch/.vim/bundle/Recover/doc/recoverPlugin.txt')

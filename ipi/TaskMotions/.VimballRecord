@@ -1,1 +1,0 @@
-TaskMotions.vba: call delete('/home/arch/.vim/ipi/TaskMotions/plugin/TaskMotions.vim')|call delete('/home/arch/.vim/ipi/TaskMotions/doc/TaskMotions.txt')
