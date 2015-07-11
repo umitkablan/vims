@@ -182,6 +182,7 @@ if has('multi_byte')
 endif
 NeoBundle 'bling/vim-airline'
 " }}}
+NeoBundle "ntpeters/vim-airline-colornum"
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'SyntaxMotion.vim'
 NeoBundle 'camelcasemotion'
