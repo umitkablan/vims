@@ -118,6 +118,7 @@ function! s:SourceLocal(path)
         endif
         let up_path = getcwd()
     endif
+    let l:sCd = 0
     " call confirm('crt='.a:path."\nup=".up_path."\n$HOME=".s:home, '&Ok', 1)
     " echomsg ('crt='.a:path."\nup=".up_path."\n$HOME=".s:home)
     if (a:path !~ s:re_last_path)
@@ -130,7 +131,10 @@ function! s:SourceLocal(path)
                 echo 'Check '.up_path.' for '.s:local_vimrc.' ... found!'
             endif
             let g:local_vimrc_path = up_path
-            exe 'source '.escape(up_path.'/'.s:local_vimrc, ' \$,')
+            " if filereadable(up_path.'/'.s:local_vimrc)
+            if up_path != "/"
+                exe 'source '.escape(up_path.'/'.s:local_vimrc, ' \$,')
+            endif
             if l:sCd < 1
                 "exe 'cd '.escape(up_path.'/')
                 "echoerr "cd to " . up_path

@@ -1,1 +1,0 @@
-ReplaceWithRegister.vba: call delete('/home/arch/.vim/bundle/ReplaceWithRegister/autoload/ReplaceWithRegister.vim')|call delete('/home/arch/.vim/bundle/ReplaceWithRegister/plugin/ReplaceWithRegister.vim')|call delete('/home/arch/.vim/bundle/ReplaceWithRegister/doc/ReplaceWithRegister.txt')
