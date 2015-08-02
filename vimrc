@@ -856,6 +856,7 @@ au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
 NeoBundleLazy 'tomtom/quickfixsigns_vim'
 " }}}
 "NeoBundle 'yate'
+NeoBundle 'ryanoasis/vim-devicons'
 
 " Load Local Bundles {{{
 NeoBundleLocal ~/.vim/bundle
