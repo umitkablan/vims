@@ -53,10 +53,14 @@ NeoBundle 'a.vim'
 " }}}
 NeoBundleLazy 'craigemery/vim-autotag'
 NeoBundle 'umitkablan/vim-autotag'
+NeoBundle 'brookhong/cscope.vim'
 "autocmd BufReadPost * DetectIndent
 NeoBundleLazy 'ciaranm/detectindent'
 NeoBundle 'yaifa.vim'
 NeoBundle 'lastpos.vim'
+let g:NumberToggleTrigger="!"
+nnoremap <silent> <Esc> :call NumberToggle_Absolute()<CR>
+NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
 NeoBundle 'zhaocai/GoldenView.Vim'
@@ -272,7 +276,7 @@ let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem  = 0
 NeoBundle 'OmniCppComplete'
 "}}}
-NeoBundle 'javacomplete'
+NeoBundle 'artur-shaik/vim-javacomplete2'
 let no_java_maps=1
 NeoBundle 'Dinduks/vim-java-get-set'
 "NeoBundle 'nosami/Omnisharp'
