@@ -18,6 +18,10 @@ if has("vim_starting")
   set rtp+=~/.vim/packs/neobundle.vim/
 endif
 
+set encoding=utf-8
+set fileencoding=utf-8
+language C
+
 " Bundles {{{
 call neobundle#begin(expand('~/.vim/packs'))
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -291,6 +295,8 @@ let g:jedi#show_call_signatures = 0
 let g:jedi#completions_command = "<M-_>"
 NeoBundle 'davidhalter/jedi-vim'
 "}}}
+" let g:go_auto_type_info = 1
+NeoBundle 'fatih/vim-go'
 "NeoBundle 'klen/python-mode'
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
@@ -560,14 +566,14 @@ xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 NeoBundle 't9md/vim-textmanip'
 " }}}
-" kien/CtrlP {{{
+" ctrlpvim/CtrlP {{{
 let g:ctrlp_map = '-<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_mruf_save_on_update = 0
 nnoremap <silent> ğt :CtrlPBufTag<CR>
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 " }}}
 " Shougo/Unite {{{
 if has('multi_byte')
@@ -704,7 +710,7 @@ au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
 augroup END
-NeoBundle 'git://repo.or.cz/vcscommand'
+NeoBundle 'vcscommand.vim'
 " }}}
 NeoBundle 'thinca/vim-ref'
 "NeoBundle 'viewdoc'
@@ -1085,6 +1091,7 @@ nnoremap <silent> ğcd :pwd<CR>
 nnoremap <silent> ğrc :sp .lvimrc<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE  :call umisc#OpenExplore()<CR>
+nnoremap <silent> ĞV  :call umisc#OpenExplore('vertical')<CR>
 nnoremap <silent> ĞRC :tabe ~/.vim/<CR>
 nnoremap <silent> ĞT  :sp .<CR><C-W>T
 " de facto visual block indent mappings
