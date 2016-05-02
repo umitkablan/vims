@@ -8,10 +8,14 @@
 " or
 " :let I=95
 " :%s/@/\=INC(5)/
-" to replace each occurence of character @ with numbers starting with 100 and 
+" to replace each occurence of character @ with numbers starting with 100 and
 " growing by 5 (100, 105, 110, ...)
 "=========================================================================
 
+if exists('increment_loaded')
+	finish
+endif
+let increment_loaded = '0.3'
 
 let g:I=0
 

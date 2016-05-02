@@ -31,13 +31,13 @@
 "         * "12.03.2009" - version 0.5.1 -
 "           -added command to search and exclude some buffers from the search :
 "                  :Bse <buffer_name_exclusion_regex> <search_regex>
-"            Example: 
+"            Example:
 "                  :Bse \.c$ ifdef
 "             -> this will search for 'ifdef' in all the buffers whose
 "                name is not ending with '.c'
 "           -added searching on custom buffers (buffer name filtering) command :
 "                  :Bsf <buffer_name_filter_regex> <search_regex>
-"            Example: 
+"            Example:
 "                  :Bsf \.h$ ifdef
 "             -> this will search for 'ifdef' in all the buffers whose
 "                name ends with '.h' (which could be all the '.h' files)
@@ -69,7 +69,7 @@
 "					   "J"  : toggles jumping on the buffer on Enter
 "					   "A"  : toggles auto-showing the context when j and k
 "					   "Q"  : toggles auto-quitting the results when jumping
-"					   "O"  : toggles between showing options or showing results 
+"					   "O"  : toggles between showing options or showing results
 "					   "r"  : refreshes the screen
 "					   "u"  : update the search
 "					   "i"  : toggles search match highlighting on the results buffer
@@ -143,9 +143,9 @@
 "   -the function "s:Bs_define_user_commands" defines the :Bs command;
 "    you may want to change Bs to something else
 "   -the functions "s:Bs_keys_mapping", "s:Bs_auto_jump_mapping",
-"    "s:Bs_non_auto_jump_mapping" are defining the mappings inside the 
-"    buffer that contains the search results (the keys that you use to 
-"    navigate easily) 
+"    "s:Bs_non_auto_jump_mapping" are defining the mappings inside the
+"    buffer that contains the search results (the keys that you use to
+"    navigate easily)
 "   -the function "s:Bs_syntax_highlight" contains the syntax highlight
 "    inside the buffer with the search results; you could modify its
 "    content as you prefer
@@ -153,7 +153,7 @@
 " }}}
 " {{{ Utilisation :
 " Utilisation:
-" 
+"
 "O_____________:
 " User Commands:
 "O_____________:
@@ -238,14 +238,14 @@
 "            -the window from where we called the ":Bs" command will
 "            change to the buffer that corresponds to this result
 "         -if the cursor is not on a result line, then it's quite the
-"           same result as before, except that 
-"           **if jump is enabled, the cursor position will be at the top 
+"           same result as before, except that
+"           **if jump is enabled, the cursor position will be at the top
 "             of the file : line 1, column 1
 "           **if jump is disabled, the buffer is displayed starting at
 "             line 1, column 1 (without moving the cursor)
 "   *  "J" : enables or disables jumping on the buffer when pressing
 "            Enter or <C-j>; default is disabled
-"            *This option can also be changed with the variable 
+"            *This option can also be changed with the variable
 "            g:Bs_stay_on_buffer_results_when_entering_result
 "            -if auto-show option is enabled, this
 "             option has no effect, because when auto-show is enabled,
@@ -257,7 +257,7 @@
 "            -if this is enabled, when you press j or k, the last
 "             window, from where you called ":Bs" will show you the
 "             context of the result line under the cursor
-"            -this option puts J to be enabled, to always jump when 
+"            -this option puts J to be enabled, to always jump when
 "            pressing Enter or <C-j>
 "   *  "d" : deletes the current range search result (default: current line)
 "            the deleted search results are showed at the bottom of
@@ -295,7 +295,7 @@
 "            is to show results (push ? another time to make help
 "            disappear)
 "            -when showing the help, a summary of the key maps is
-"             printed in the buffer 
+"             printed in the buffer
 "   *  "q" : the q key deletes the buffer with the results
 "
 " }}}
@@ -308,6 +308,11 @@
 "
 " }}}
 " }}}
+
+if exists('buf_search_replace_loaded')
+  finish
+endif
+let buf_search_replace_loaded = '0.3'
 
 """""""""""""""""""""""""""""""
 " User settings
@@ -378,7 +383,7 @@ endfunction
 
 "defines the main key maps
 function! s:Bs_keys_mapping()
-	
+
   "<CR> and <C-j> have the same result
 	"jumps to the buffer at the location of the phrase under cursor
   if g:Bs_auto_jump == 1
@@ -423,13 +428,13 @@ endfunction
 "}}}
 "{{{ Syntax highlight for the buffer with the results
 function! s:Bs_syntax_highlight()
-  
+
   "if we have the option to highlight matches in the results buffer
   if g:Bs_results_buffer_match == 1
     "syntax the search
     exe 'silent! mat Search /'.g:Bs_str_highlight.'/'
   endif
-  
+
   "simple number highlight
   sy match buffers_nums "\<\d\+\>"
   hi def link buffers_nums Number
@@ -441,7 +446,7 @@ function! s:Bs_syntax_highlight()
   "simple string highlight
   sy match ponctuation "\.\|?\|!\|\,\|;\|<\|>\|\~\|&\|="
   hi def link ponctuation Type
-  
+
   "simple paranthesis highlight
   sy match paranthesis "(\|)\|\[\|\]\|{\|}"
   hi def link paranthesis NonText
@@ -569,7 +574,7 @@ endfunction
 "}}}
 "{{{ s:Bs_delete_and_paste_line()
 function! s:Bs_delete_and_paste_line(delete_result, buf_number, line_number, move_to_results)
-  
+
   let l:source_results = g:Bs_deleted_results
   let l:target_results = g:Bs_results
 
@@ -595,7 +600,7 @@ function! s:Bs_delete_and_paste_line(delete_result, buf_number, line_number, mov
   endif
 
   if a:delete_result == 1
-    let l:test=search("^\" Deleted from the search results") 
+    let l:test=search("^\" Deleted from the search results")
   else
     normal! gg
   endif
@@ -644,12 +649,12 @@ function! s:Bs_delete_and_paste_line(delete_result, buf_number, line_number, mov
   "if we already have buffer results
   if l:reference_buffer_number != 0
     "move to the existing buffer or nearest existing buffer
-    let l:test=search("^-".l:reference_buffer_number.":") 
+    let l:test=search("^-".l:reference_buffer_number.":")
 
     if l:buffer_exists == 1
       let l:create_new_buffer_result = 0
       "move to the existing buffer line number
-      let l:test=search("^".l:reference_buffer_line_number."\\s\\+:") 
+      let l:test=search("^".l:reference_buffer_line_number."\\s\\+:")
       if l:line_after_exists == 1
         normal! k
       endif
@@ -669,25 +674,25 @@ function! s:Bs_delete_and_paste_line(delete_result, buf_number, line_number, mov
       else
         let l:test=search("^$")
       endif
-  
+
       if a:move_to_results == 1
        let l:buffer_name = bufname(str2nr(a:buf_number))
        let l:my_command = "normal! ".l:o_letter."-".a:buf_number.":".l:buffer_name
        execute l:my_command
       endif
-  
+
       let l:cursor_line_offset = l:cursor_line_offset + 1
     endif
-  
+
     normal! p
-  
+
     "always have an empty line at the end of the results
     let l:last_line = line('$')
     if a:delete_result != 1
-      let l:test=search("^\" Deleted from the search results", 'nc') 
+      let l:test=search("^\" Deleted from the search results", 'nc')
       let l:last_line = l:test - 2
     endif
-  
+
     let l:current_position = getpos('.')
     if l:current_position[1] == l:last_line
       normal! o
@@ -802,7 +807,7 @@ function! s:Bs_delete_action(start_line, end_line, move_to_results)
     "if we delete the latest result, move down 2 lines
     if l:we_delete_the_latest_result_in_the_buffer == 1
         let g:Bs_position[1] = g:Bs_position[1] + 2
-    endif 
+    endif
 
   endfor
 
@@ -1042,7 +1047,7 @@ function! s:Bs_search_buffers(search, research)
 
   "we save the initial cursor position
   let l:initial_position = getpos(".")
-  
+
   "we only search in the buffers once
   let l:searched_buffers = []
 
@@ -1054,14 +1059,14 @@ function! s:Bs_search_buffers(search, research)
 
   "the number of the Buffer search results
   let l:results_buffer_number = bufnr(g:Bs_results_buffer_name)
-  
+
   if g:Bs_only_current_buffer == 1
     let l:buffer_number = g:Bs_current_buffer
     if l:buffer_number <= 0
       let l:buffer_number = 1
     endif
     let l:last_buffer_number = l:buffer_number
-  endif 
+  endif
 
   "we iterate over the buffers
   while (l:buffer_number <= l:last_buffer_number)
@@ -1083,7 +1088,7 @@ function! s:Bs_search_buffers(search, research)
       endif
 
       if l:keep_buffer
-  
+
         "go to the buffer
         noautocmd exe 'b! '.l:buffer_number
 
@@ -1092,25 +1097,25 @@ function! s:Bs_search_buffers(search, research)
         if g:Bs_only_current_buffer == 1
           let g:Bs_current_buffer_number_of_lines = line('$')
         endif
-  
+
         "skip the buffer search result buffer
         if l:buffer_number == l:results_buffer_number
           call add(l:searched_buffers,l:buffer_number)
           let l:buffer_number = l:buffer_number + 1
-          if buflisted(l:buffer_number) 
+          if buflisted(l:buffer_number)
             noautocmd exe 'b! '.l:buffer_number
           endif
         endif
-    
+
         "move at the top
         normal! gg
-    
+
         "if we didn't already read this buffer
         if !s:Bs_is_in_list_int(l:searched_buffers,l:buffer_number)
-    
+
           "we put the buffer in the list
           call add(l:searched_buffers,l:buffer_number)
-    
+
           "we search over the current buffer
           let l:buffer_result = {}
           "we stock the searched lines
@@ -1132,7 +1137,7 @@ function! s:Bs_search_buffers(search, research)
                 break
               endif
             endif
-  
+
             "if the line it's not stored
             if !s:Bs_is_in_list_int(l:stocked_lines,l:line_number)
               "we store it
@@ -1144,15 +1149,15 @@ function! s:Bs_search_buffers(search, research)
               let l:buffer_result[l:line_number] = l:line_content
             endif
           endwhile "end search on the current buffer
-          
+
           "if we have results,
           if (len(l:buffer_result) > 0)
             "we store the result for this buffer
             let g:Bs_results['-'.l:buffer_number] = l:buffer_result
-          endif 
-      
+          endif
+
         endif "end is_in_list
-  
+
       endif "end l:buffer_name_match_start
 
     endif "end isbuflisted
@@ -1166,14 +1171,14 @@ function! s:Bs_search_buffers(search, research)
   exe 'b! '.l:start_buffer_number
   "we restore the initial cursor position
   call setpos('.', l:initial_position)
-  
+
   "if we have results,
   if (len(g:Bs_results) > 0)
     "we show the results
     call s:Bs_show_results()
     call s:Bs_keys_mapping()
   else
-    "if we have the Buffer search window, delete this buffer 
+    "if we have the Buffer search window, delete this buffer
     let l:results_buffer_number = s:Bs_get_go_buffer(g:Bs_results_buffer_name)
     "change to the search results buffer
     noautocmd exe 'b! '.l:results_buffer_number
@@ -1202,17 +1207,17 @@ function! s:Bs_jump_buffer(...)
 	let l:results_buffer_window_number = bufwinnr('%')
 	"we save the position in the results buffer
   let l:results_buffer_position = getpos(".")
-  
+
   if l:buffer_line == 0
     let l:buffer_line = 1
   endif
-  
+
   "don't count the ^\d+\s+: at the end of the line
   let l:buffer_column=l:buffer_column - 7
   if l:buffer_column == 0
     let l:buffer_column = 1
   endif
-	
+
   "change the window - go to the initial window
   exe g:Bs_initial_window_number.' wincmd w'
   "change the buffer
@@ -1267,7 +1272,7 @@ function! s:Bs_numerical_line_sort(i1,i2)
   "ln means line number
   let l:ln1 = str2nr(split(a:i1,':')[0])
   let l:ln2 = str2nr(split(a:i2,':')[0])
-  
+
   return l:ln1 == l:ln2 ? 0 : l:ln1 > l:ln2 ? 1 : -1
 endfunction
 
@@ -1278,7 +1283,7 @@ function! s:Bs_numerical_buffer_sort(i1,i2)
   "bn means buf number
   let l:bn1 = str2nr(strpart(a:i1,1))
   let l:bn2 = str2nr(strpart(a:i2,1))
-  
+
   return l:bn1 == l:bn2 ? 0 : l:bn1 > l:bn2 ? 1 : -1
 endfunction
 
@@ -1322,7 +1327,7 @@ function! s:Bs_process_results(results)
     endif
 
   endfor
-  
+
   return l:string_result
 
 endfunction
@@ -1330,7 +1335,7 @@ endfunction
 "}}}
 "{{{ s:Bs_show_results()
 function! s:Bs_show_results()
-  
+
   let l:print_content = "\"--------------------------------------------------------------\"\n"
 
   "Bse or Bsf
@@ -1354,7 +1359,7 @@ function! s:Bs_show_results()
       else
         let l:print_content = l:print_content.l:current_buf_str.". \"\n"
       endif
-    "Bs 
+    "Bs
     else
       let l:print_content = l:print_content."\" Search in all buffers. \"\n"
     endif
@@ -1365,7 +1370,7 @@ function! s:Bs_show_results()
 
   "we process the results
   let l:print_content = l:print_content.s:Bs_process_results(g:Bs_results)
-  
+
   let l:print_content = l:print_content."\"------------------------------------\"\n"
   let l:print_content = l:print_content."\" Deleted from the search results :  \""
   let l:print_content = l:print_content."\n\"------------------------------------\"\n\n"
@@ -1392,10 +1397,10 @@ function! s:Bs_show_results()
   if g:Bs_auto_jump == 1
     call s:Bs_jump(0)
   endif
- 
+
   "define buffer mappings + highlight
   call s:Bs_syntax_highlight()
-  
+
   let g:Bs_showed_results = 1
 
 endfunction
@@ -1404,34 +1409,34 @@ endfunction
 "{{{ s:Bs_print_in_buffer(print_content)
 "shows the results of the search
 function! s:Bs_print_in_buffer(print_content)
-  
+
   "if the search results buffer already exists
   let l:results_buffer_number = s:Bs_get_go_buffer(g:Bs_results_buffer_name)
   "we should be on the results buffer now
-  
+
   "we verify that the current buffer is the correct one
   if bufname('%') =~ g:Bs_results_buffer_name
-    
+
     "set the buffer modifiable
     setlocal modifiable
-  
+
     "we erase the buffer
     silent! 1,$ d
     "we put the results
     silent! put! = a:print_content
     "erase the last line
     $ d d
- 
+
     "no number at left
     setlocal nonumber
 		"underline the line under the cursor
 		setlocal cursorline
     "don't ask for saving buffer at exit, etc..
     setlocal buftype=nowrite
-  
+
     "set the buffer as non modifiable
     setlocal nomodifiable
-    
+
   endif "end verify if it's the currect buffer
 
   redraw
@@ -1564,7 +1569,7 @@ function! s:Bs_toggle_jump()
     if g:Bs_auto_jump == 0
 		  let g:Bs_stay_on_buffer_results_when_entering_result = 0
     endif
-	endif 
+	endif
   "if we are on the option screen, refresh
   if g:Bs_on_options == 1
     call s:Bs_show_options()
@@ -1586,7 +1591,7 @@ function! s:Bs_toggle_auto_jump()
 		unmap <buffer> <silent> k
 		unmap <buffer> <silent> j
     call s:Bs_non_auto_jump_mapping()
-	endif 
+	endif
   "if we are on the option screen, refresh
   if g:Bs_on_options == 1
     call s:Bs_show_options()
@@ -1600,7 +1605,7 @@ function! s:Bs_toggle_quit_when_enter()
 		let g:Bs_toggle_quit_enter = 1
 	else
     let g:Bs_toggle_quit_enter = 0
-	endif 
+	endif
   "if we are on the option screen, refresh
   if g:Bs_on_options == 1
     call s:Bs_show_options()
@@ -1630,7 +1635,7 @@ function! s:Bs_get_go_buffer(buffer_name)
       exe 'resize 15'
     endif
   endif
-	
+
 	"we get the window number
 	let l:window_number = bufwinnr(l:buffer_number)
 	"and we go on that window
@@ -1644,7 +1649,7 @@ endfunction
 "{{{ s:Bs_is_in_list_int(list,name) : returns 1 if int is in list
 "checks if int is in list
 function! s:Bs_is_in_list_int(list,int)
-  
+
   let l:list_length = len(a:list)
 
   if l:list_length > 0
