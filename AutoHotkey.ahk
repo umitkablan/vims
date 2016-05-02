@@ -21,6 +21,8 @@
 ; 	Run Notepad
 ; return
 
+#Include CapsLockCtrlEscape.ahk
+
 LAlt::RAlt
 RAlt::LAlt
 LAlt & RAlt::Send {LAlt}
