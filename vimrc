@@ -21,6 +21,7 @@ endif
 set encoding=utf-8
 set fileencoding=utf-8
 language C
+set completeopt-=preview
 
 " Bundles {{{
 call neobundle#begin(expand('~/.vim/packs'))
@@ -296,6 +297,12 @@ let g:jedi#completions_command = "<M-_>"
 NeoBundle 'davidhalter/jedi-vim'
 "}}}
 " let g:go_auto_type_info = 1
+let g:go_def_mapping_enabled = 1
+let g:go_autodetect_gopath = 0
+" let g:go_bin_path = expand('~/SRC/Go')
+let g:go_snippet_engine = "neosnippet"
+au FileType go nnoremap <silent> <buffer> <CR> :exec "normal \<lt>C-]>"<CR>
+au FileType go nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
 NeoBundle 'fatih/vim-go'
 "NeoBundle 'klen/python-mode'
 " mattn/Emmet {{{
