@@ -911,6 +911,7 @@ NeoBundleCheck
 
 " global configuration {{{
 set nocompatible
+set noshowmode
 filetype plugin on
 filetype indent on
 syntax on
