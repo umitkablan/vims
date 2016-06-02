@@ -308,6 +308,7 @@ au FileType go nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndChe
 au FileType go nnoremap <silent> ğa :GoAlternate<CR>
 NeoBundle 'fatih/vim-go'
 "NeoBundle 'klen/python-mode'
+NeoBundle 'ekalinin/Dockerfile.vim'
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
