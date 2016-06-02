@@ -464,6 +464,7 @@ NeoBundle 'xolox/vim-session'
 " }}}
 " mhinz/Startify {{{
 au FileType startify setlocal nospell
+au User Startified setlocal cursorline
 let g:startify_session_dir = '~/.vim/var/session'
 let g:session_directory = "~/.vim/var/session"
 let g:startify_files_number = 19
