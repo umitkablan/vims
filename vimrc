@@ -912,7 +912,6 @@ NeoBundleCheck
 
 " global configuration {{{
 set nocompatible
-set noshowmode
 filetype plugin on
 filetype indent on
 syntax on
@@ -924,7 +923,7 @@ set t_Co=256
 "show statusbar all the time
 set laststatus=2 showtabline=2
 set cmdheight=2 winminwidth=0
-set noruler showmode title
+set noruler noshowmode title
 " highlight the search, don't start from beginning when you reach end.
 set hlsearch incsearch
 set nowrapscan
