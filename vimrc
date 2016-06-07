@@ -299,7 +299,7 @@ NeoBundle 'davidhalter/jedi-vim'
 " let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 1
 let g:go_autodetect_gopath = 0
-let g:go#use_vimproc = 0
+let g:go#use_vimproc = 1
 " let g:go_bin_path = expand('~/SRC/Go')
 let g:go_snippet_engine = "neosnippet"
 let g:go_list_type = "quickfix"
