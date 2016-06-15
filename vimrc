@@ -244,6 +244,7 @@ let g:DirDiffAddArgs = "-w"
 Plug 'DirDiff.vim', {'on': 'DirDiff'}
 " }}}
 Plug 'linediff.vim', {'on': 'Linediff'}
+Plug 'rickhowe/diffchar.vim', {'on': ['SDChar','RDChar','TDChar']}
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
