@@ -120,24 +120,18 @@ let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 Plug 'grep.vim', {'on': 'Grep'}
 " }}}
 " milesz/ack.vim {{{
-if 0 " Use either ag or ack. Both are fast (if you used to run grep) but ag is faster.
+if executable("ag")
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
 else
   if executable("ack")
     let g:ackprg = 'ack -H --nocolor --nogroup --column'
-  endif
-  if executable("ack-grep")
-    let g:ackprg = 'ack-grep -H --nocolor --nogroup --column'
+  else
+    if executable("ack-grep")
+      let g:ackprg = 'ack-grep -H --nocolor --nogroup --column'
+    endif
   endif
 endif
-Plug 'mileszs/ack.vim', {'on': 'Ack'}
-" }}}
-" rking/Ag.vim {{{
-let g:ag_apply_qmappings = 0
-let g:ag_apply_lmappings = 0
-let g:ag_prg = "ag --column --smart-case"
-let g:ag_highlight=1
-Plug 'rking/ag.vim', {'on': 'Ag'}
+Plug 'mileszs/ack.vim', {'on': ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckAdd', 'AckFile', 'AckHelp', 'LAckHelp', 'AckWindow', 'LAckWindow']}
 " }}}
 " bling/Airline {{{
 let g:airline#extensions#tabline#enabled = 1
@@ -1253,10 +1247,10 @@ augroup useful_Aliases
   autocmd VimEnter * Alias Ac  LAck!
   autocmd VimEnter * Alias acc LAckAdd!
   autocmd VimEnter * Alias Acc LAckAdd!
-  autocmd VimEnter * Alias ag  Ag!
-  autocmd VimEnter * Alias Ag  Ag!
-  autocmd VimEnter * Alias agg AgAdd!
-  autocmd VimEnter * Alias Agg AgAdd!
+  autocmd VimEnter * Alias ag  Ack!
+  autocmd VimEnter * Alias Ag  Ack!
+  autocmd VimEnter * Alias agg AckAdd!
+  autocmd VimEnter * Alias Agg AckAdd!
   autocmd VimEnter * Alias gr  Grep
   autocmd VimEnter * Alias Gr  Grep
   autocmd VimEnter * Alias rg  Rgrep
