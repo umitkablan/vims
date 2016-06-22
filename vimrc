@@ -177,6 +177,7 @@ if has('multi_byte')
   let g:airline_symbols.paste = 'Þ'
   let g:airline_symbols.paste = '∥'
   let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.spell = 'Ꞩ'
   let g:airline_symbols.whitespace = 'Ξ'
 endif
 Plug 'bling/vim-airline'
