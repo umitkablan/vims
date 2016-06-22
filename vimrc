@@ -239,6 +239,7 @@ let g:DirDiffAddArgs = "-w"
 Plug 'DirDiff.vim', {'on': 'DirDiff'}
 " }}}
 Plug 'linediff.vim', {'on': 'Linediff'}
+Plug 'rickhowe/diffchar.vim', {'on': ['SDChar','RDChar','TDChar']}
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwHistAdd = '' "'/@'
@@ -294,6 +295,7 @@ let g:go#use_vimproc = 1
 " let g:go_bin_path = expand('~/SRC/Go')
 let g:go_snippet_engine = "neosnippet"
 let g:go_list_type = "quickfix"
+let g:go_def_mode = "godef"
 au FileType go nnoremap <silent> <buffer> <CR> :exec "normal \<lt>C-]>"<CR>
 au FileType go nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
 au FileType go nnoremap <silent> ğa :GoAlternate<CR>
