@@ -715,7 +715,7 @@ au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
 augroup END
-Plug 'vcscommand.vim', {'on': ['VCSDiff','VCSStatus','VCSCommit']}
+Plug 'vcscommand.vim', {'on': ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
 " }}}
 Plug 'thinca/vim-ref', {'on': 'Ref'}
 "NeoBundle 'viewdoc'
