@@ -1,3 +1,47 @@
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias minicom="minicom -w"
+alias s="sudo"
+alias pwroff="sudo poweroff"
+alias mm="make menuconfig"
+alias m="make"
+alias ps="ps -ef"
+alias top="top -d1"
+alias vim="vim --servername VIM"
+alias bvim="vim -u NONE -U NONE -N"
+alias bgvim="gvim -u NONE -U NONE -N"
+alias diff="diff --exclude='.svn' -x tags"
+alias cdiff="diff --exclude='.*' -x tags"
+alias ack="ack --nofollow"
+alias ag="ag --column --smart-case"
+alias df="df -h"
+
+export PATH=$PATH:/sbin
+export PATH=$PATH:~/.gem/ruby/1.9.1/bin
+export PATH=$PATH:/opt/flex-sdk/bin
+
+export EDITOR="vim"
+export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
+export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
+export FLEX_SDK_HOME=/opt/flex-sdk
+export flex_sdk_home=/opt/flex-sdk
+
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+if [ -e "$HOME/.bashrc.local" ]; then
+    source "$HOME/.bashrc.local"
+fi
+
+# -----------------
+# INTERACTIVE SHELL
+# -----------------
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -30,7 +74,6 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 export TERM="screen-256color"
-export EDITOR="vim"
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -83,11 +126,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -104,31 +142,6 @@ if [ "$PS1" == "" ]; then
     PS1='[\u@\h \W]\$ '
 fi
 
-alias minicom="minicom -w"
-alias s="sudo"
-alias pwroff="sudo poweroff"
-alias mm="make menuconfig"
-alias m="make"
-alias ps="ps -ef"
-alias top="top -d1"
-alias vim="vim --servername VIM"
-alias bvim="vim -u NONE -U NONE -N"
-alias bgvim="gvim -u NONE -U NONE -N"
-alias diff="diff --exclude='.svn' -x tags"
-alias cdiff="diff --exclude='.*' -x tags"
-alias ack="ack --nofollow"
-alias ag="ag --column --smart-case"
-alias df="df -h"
-
-export PATH=$PATH:/sbin
-export PATH=$PATH:~/.gem/ruby/1.9.1/bin
-export PATH=$PATH:/opt/flex-sdk/bin
-
-export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
-export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
-export FLEX_SDK_HOME=/opt/flex-sdk
-export flex_sdk_home=/opt/flex-sdk
-
 for i in "/etc/bash_completion.d"/*; do
     if [ -x "$i" ]; then
         source "$i"
@@ -144,14 +157,4 @@ if ! shopt -oq posix; then
     elif [ -f /etc/bash_completion ]; then
         . /etc/bash_completion
     fi
-fi
-
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-if [ -e "$HOME/.bashrc.local" ]; then
-    source "$HOME/.bashrc.local"
 fi
