@@ -137,7 +137,12 @@ bind '"\e[1;3B":history-search-forward'
 stty -ixon
 
 export LS_COLORS="di=01;37:fi=00;35"
-alias ls='ls --color=auto'
+if [ "$(uname)" == "Darwin" ]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto'
+fi
+
 if [ "$PS1" == "" ]; then
     PS1='[\u@\h \W]\$ '
 fi
