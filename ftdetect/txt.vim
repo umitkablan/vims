@@ -1,3 +1,3 @@
 
-au BufNewFile,BufRead *.txt set ft=txt
+au BufNewFile,BufRead *.txt if &filetype == "" | set ft=txt | endif
 
