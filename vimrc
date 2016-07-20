@@ -84,7 +84,7 @@ Plug 'DeleteTrailingWhitespace'
 " }}}
 Plug 'CursorLineCurrentWindow'
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
-Plug 'mikewest/vimroom'
+Plug 'mikewest/vimroom', {'on': 'VimroomToggle'}
 " ReplaceWithRegister {{{
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
@@ -224,8 +224,8 @@ Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
 " Indent-Guides {{{
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
-autocmd VimEnter * IndentGuidesDisable
-Plug 'Indent-Guides'
+" autocmd VimEnter * IndentGuidesDisable
+Plug 'Indent-Guides', {'on': ['IndentGuidesToggle','IndentGuidesEnable','IndentGuidesDisable']}
 " }}}
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
@@ -730,7 +730,7 @@ let g:repeat_undo_mapping = 'U'
 Plug 'umitkablan/vim-repeat'
 "Plug 'visualrepeat'
 Plug 'bronson/vim-visual-star-search'
-Plug 'embear/vim-foldsearch'
+Plug 'embear/vim-foldsearch', {'on': ['Fs','Fw','Fp','FS','Fl','Fc','Fi','Fd','Fe']}
 Plug 'epeli/slimux'
 "Plug 'vimux'
 Plug 'mattn/webapi-vim'
@@ -752,7 +752,7 @@ Plug 'vim-jp/cpp-vim', {'for': 'cpp'}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 "Plug 'Mizuchi/STL-Syntax'
 Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
-Plug 'gerw/vim-HiLinkTrace'
+Plug 'gerw/vim-HiLinkTrace', {'on': ['HLT','HLTm']}
 Plug 'hexman.vim'
 Plug 'CmdlineComplete'
 Plug 'Konfekt/vim-alias' "'cmdalias.vim'
