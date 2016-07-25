@@ -98,7 +98,7 @@ let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showresultafterrun = 0
 nnoremap <silent> ğsc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
-Plug 'xuhdev/SingleCompile', {'on': ['SCCompile','SCCompileRun']}
+Plug 'xuhdev/SingleCompile', {'on': ['SCCompile','SCCompileRun','SingleCompileRun']}
 " }}}
 " wesleyche/SrcExpl {{{
 let g:SrcExpl_refreshTime = 400
