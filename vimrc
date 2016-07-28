@@ -572,7 +572,7 @@ xmap DD      <Plug>(textmanip-duplicate-up)
 Plug 't9md/vim-textmanip'
 " }}}
 " ctrlpvim/CtrlP {{{
-let g:ctrlp_map = '-<c-p>'
+let g:ctrlp_map = '<c-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window_bottom = 0
@@ -669,8 +669,8 @@ endfunction
 Plug 'Shougo/unite.vim', {'on': 'Unite'}
 nnoremap <silent> ğee    :UniteWithBufferDir -start-insert file<CR>
 nnoremap <silent> ğe     :Unite -start-insert file<CR>
-nnoremap <silent> <C-p>  :Unite -start-insert source<CR>
-nnoremap <silent> <C-p>p :Unite -start-insert register history/yank<CR>
+nnoremap <silent> <C-f>  :Unite -start-insert source<CR>
+nnoremap <silent> <C-f>f :Unite -start-insert register history/yank<CR>
 nnoremap <silent> ğb     :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB     :UniteBookmarkAdd <CR>
 " -quick-match
