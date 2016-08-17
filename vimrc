@@ -83,6 +83,7 @@ let g:DeleteTrailingWhitespace_Action = 'ask'
 Plug 'DeleteTrailingWhitespace'
 " }}}
 Plug 'CursorLineCurrentWindow'
+Plug 'ihacklog/HiCursorWords'
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
 Plug 'mikewest/vimroom'
 " ReplaceWithRegister {{{
@@ -262,6 +263,7 @@ Plug 'Mark'
 "Plug 't9md/vim-quickhl'
 Plug 'matchit.zip'
 Plug 'kana/vim-metarw'
+Plug 'bogado/file-line'
 " Multiselect {{{
 let no_multiselect_maps = 1
 Plug 'multiselect'
@@ -283,11 +285,12 @@ Plug 'SQLComplete.vim', {'for': 'sql'}
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
-let g:jedi#auto_initialization = 1
+let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures = 0
-let g:jedi#completions_command = "<M-_>"
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
 "}}}
+Plug 'derekwyatt/vim-scala'
+" fatih/Go {{{
 " let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 1
 let g:go_autodetect_gopath = 0
@@ -300,6 +303,7 @@ au FileType go nnoremap <silent> <buffer> <CR> :exec "normal \<lt>C-]>"<CR>
 au FileType go nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
 au FileType go nnoremap <silent> ğa :GoAlternate<CR>
 Plug 'fatih/vim-go', {'for': 'go'}
+"}}}
 "Plug 'klen/python-mode'
 Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
 " mattn/Emmet {{{
@@ -578,7 +582,7 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_mruf_save_on_update = 0
 nnoremap <silent> ğt :CtrlPBufTag<CR>
-Plug 'ctrlpvim/ctrlp.vim', {'on': 'CtrlPBufTag'}
+Plug 'ctrlpvim/ctrlp.vim'
 " }}}
 " Shougo/Unite {{{
 if has('multi_byte')
