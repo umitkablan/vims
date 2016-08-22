@@ -299,9 +299,6 @@ let g:go#use_vimproc = 1
 let g:go_snippet_engine = "neosnippet"
 let g:go_list_type = "quickfix"
 let g:go_def_mode = "godef"
-au FileType go nnoremap <silent> <buffer> <CR> :exec "normal \<lt>C-]>"<CR>
-au FileType go nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
-au FileType go nnoremap <silent> ğa :GoAlternate<CR>
 Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
 "Plug 'klen/python-mode'
@@ -1203,7 +1200,12 @@ augroup tag_langs
   au FileType c,cpp,java,javascript,python,actionscript,sh
           \ nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
   au FileType c,cpp,java,javascript,python,actionscript,sh
-          \ nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>exec "normal \<lt>C-T>"<Bar>endif<CR>
+  au FileType go
+          \ nnoremap <silent> <buffer> <CR> :exec "normal \<lt>C-]>"<CR>
+  au FileType go
+          \ nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
+  au FileType go
+          \ nnoremap <silent> <buffer> ğa :GoAlternate<CR>
 augroup END
 nnoremap <silent> <Backspace> :call umisc#QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
