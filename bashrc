@@ -20,14 +20,14 @@ alias ag="ag --column --smart-case"
 alias df="df -h"
 
 export PATH=$PATH:/sbin
-export PATH=$PATH:~/.gem/ruby/1.9.1/bin
-export PATH=$PATH:/opt/flex-sdk/bin
+# export PATH=$PATH:~/.gem/ruby/1.9.1/bin
+# export PATH=$PATH:/opt/flex-sdk/bin
 
 export EDITOR="vim"
-export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
-export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
-export FLEX_SDK_HOME=/opt/flex-sdk
-export flex_sdk_home=/opt/flex-sdk
+# export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
+# export NODE_PATH=/usr/lib/jsctags:$NODE_PATH
+# export FLEX_SDK_HOME=/opt/flex-sdk
+# export flex_sdk_home=/opt/flex-sdk
 
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -39,12 +39,12 @@ if [ -e "$HOME/.bashrc.local" ]; then
     source "$HOME/.bashrc.local"
 fi
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 # -----------------
 # INTERACTIVE SHELL
 # -----------------
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
