@@ -1232,13 +1232,17 @@ let g:no_tagselect_maps = 1
 let g:locator_disable_mappings = 1
 
 " Aliases {{{
+func EatChar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunc
 augroup useful_Aliases
   autocmd!
   autocmd VimEnter * Alias m make
   autocmd VimEnter * Alias te tabedit
-  autocmd VimEnter * Alias tee tabedit<Space>~/
-  autocmd VimEnter * Alias spp sp<Space>~/
-  autocmd VimEnter * Alias tec tabedit<Space>%
+  autocmd VimEnter * Alias tee tabedit\ ~/<c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias spp sp\ ~/<c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias tec tabedit\ %<c-r>=EatChar("\ ")<cr>
   autocmd VimEnter * Alias dd diffthis
   autocmd VimEnter * Alias do diffoff
   autocmd VimEnter * Alias did DirDiff
@@ -1253,19 +1257,19 @@ augroup useful_Aliases
   autocmd VimEnter * Alias gs   Gstatus
   autocmd VimEnter * Alias ge   Gedit
   autocmd VimEnter * Alias gvsp Gvsplit
-  autocmd VimEnter * Alias ac  LAck!
-  autocmd VimEnter * Alias Ac  LAck!
-  autocmd VimEnter * Alias acc LAckAdd!
-  autocmd VimEnter * Alias Acc LAckAdd!
-  autocmd VimEnter * Alias ag  Ack!
-  autocmd VimEnter * Alias Ag  Ack!
-  autocmd VimEnter * Alias agg AckAdd!
-  autocmd VimEnter * Alias Agg AckAdd!
-  autocmd VimEnter * Alias gr  Grep
-  autocmd VimEnter * Alias Gr  Grep
-  autocmd VimEnter * Alias rg  Rgrep
-  autocmd VimEnter * Alias Rg  Rgrep
-  autocmd VimEnter * Alias grr GrepAdd
+  autocmd VimEnter * Alias ac  LAck!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias Ac  LAck!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias acc LAckAdd!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias Acc LAckAdd!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias ag  Ack!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias Ag  Ack!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias agg AckAdd!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias Agg AckAdd!\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias gr  Grep\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias Gr  Grep\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias rg  Rgrep\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias Rg  Rgrep\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias grr GrepAdd\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
   autocmd VimEnter * Alias vc VCSCommit
   autocmd VimEnter * Alias vd VCSDiff
   autocmd VimEnter * Alias vr VCSRevert
@@ -1279,10 +1283,10 @@ augroup useful_Aliases
   autocmd VimEnter * Alias sw SudoWrite
   autocmd VimEnter * Alias sr SudoRead
   autocmd VimEnter * Alias con VimShellPop
-  autocmd VimEnter * Alias ref Ref
-  autocmd VimEnter * Alias man Ref<Space>man
+  autocmd VimEnter * Alias ref Ref\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
+  autocmd VimEnter * Alias man Ref\ man\ <c-r><c-w><c-r>=EatChar("\ ")<cr>
   autocmd VimEnter * Alias up UpdateTypesFileOnly
-  autocmd VimEnter * Alias ss SaveSession!<Space>default
+  autocmd VimEnter * Alias ss SaveSession!\ default
 augroup END
 " }}}
 
