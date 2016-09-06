@@ -60,7 +60,7 @@ Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
 Plug 'yaifa.vim'
 Plug 'lastpos.vim'
 let g:NumberToggleTrigger="!"
-nnoremap <silent> <Esc> :call NumberToggle_Absolute()<CR>
+" nnoremap <silent> <Esc> :call NumberToggle_Absolute()<CR>
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
