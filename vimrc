@@ -58,7 +58,7 @@ Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
 "autocmd BufReadPost * DetectIndent
 " NeoBundleLazy 'ciaranm/detectindent'
 Plug 'yaifa.vim'
-Plug 'lastpos.vim'
+Plug 'dietsche/vim-lastplace'
 let g:NumberToggleTrigger="!"
 " nnoremap <silent> <Esc> :call NumberToggle_Absolute()<CR>
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
