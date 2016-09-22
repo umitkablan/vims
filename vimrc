@@ -755,7 +755,7 @@ Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 "Plug 'Mizuchi/STL-Syntax'
 Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
 Plug 'gerw/vim-HiLinkTrace'
-Plug 'hexman.vim'
+Plug 'hexman.vim', {'on': 'HexManager'}
 Plug 'CmdlineComplete'
 Plug 'Konfekt/vim-alias' "'cmdalias.vim'
 " incsearch.vim & vim-indexed-search {{{
