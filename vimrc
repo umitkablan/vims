@@ -398,7 +398,7 @@ Plug 'netrw.vim'
 " Notes {{{
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
-Plug 'Notes', {'on': ['Note','NoteAsNew']}
+Plug 'Notes' ", {'on': ['Note','NoteAsNew']}
 "}}}
 " DerekWyatt/vim-ProtoDef {{{
 let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
