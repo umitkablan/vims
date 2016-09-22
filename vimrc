@@ -572,6 +572,7 @@ xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 Plug 't9md/vim-textmanip'
 " }}}
+Plug 'airblade/vim-rooter'
 " ctrlpvim/CtrlP {{{
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_map = '<c-p>'
