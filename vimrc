@@ -57,6 +57,10 @@ Plug 'umitkablan/vim-autotag'
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
 "autocmd BufReadPost * DetectIndent
 " NeoBundleLazy 'ciaranm/detectindent'
+Plug 'danro/rename.vim', {'on': 'Rename'}
+Plug 'qpkorr/vim-renamer', {'on': 'Renamer'}
+Plug 'let-modeline.vim'
+Plug 'foldutil.vim', {'on': 'FoldShowLines'}
 Plug 'yaifa.vim'
 Plug 'dietsche/vim-lastplace'
 let g:NumberToggleTrigger="!"
