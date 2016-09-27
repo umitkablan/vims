@@ -759,6 +759,7 @@ Plug 'gerw/vim-HiLinkTrace'
 Plug 'hexman.vim', {'on': 'HexManager'}
 Plug 'CmdlineComplete'
 Plug 'Konfekt/vim-alias' "'cmdalias.vim'
+Plug 'tpope/vim-abolish'
 " incsearch.vim & vim-indexed-search {{{
 let g:incsearch#separate_highlight = 1
 let g:incsearch#vim_cmdline_keymap = 0
