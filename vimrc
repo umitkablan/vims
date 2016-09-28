@@ -70,7 +70,6 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 let g:goldenview__enable_default_mapping = 0
 Plug 'zhaocai/GoldenView.Vim'
 "}}}
-"NeoBundle 'IndGuide'
 " IndentConsistencyCop / AutoCmds {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
@@ -295,6 +294,7 @@ let g:jedi#show_call_signatures = 0
 au FileType python nnoremap <buffer> <silent> <C-]> :call jedi#goto()<CR>
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
 "}}}
+"Plug 'klen/python-mode', {'for': 'python'}
 Plug 'derekwyatt/vim-scala'
 " fatih/Go {{{
 " let g:go_auto_type_info = 1
@@ -308,13 +308,21 @@ let g:go_def_mode = "godef"
 au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
 Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
-"Plug 'klen/python-mode'
 Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
 Plug 'mattn/emmet-vim', {'for': 'html'}
 " }}}
+" SuperTab {{{
+let g:SuperTabMappingForward = '<C-Space>'
+let g:SuperTabMappingBackward = '<S-C-Space>'
+let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
+let g:SuperTabLongestEnhanced = 0
+let g:SuperTabCrMapping = 0
+"Plug 'SuperTab'
+Plug 'ervandew/supertab'
+"}}}
 " Shougo/NeoComplete {{{
 augroup LargeFile_NeoComplete_Lock
   au!
@@ -489,15 +497,6 @@ let g:startify_custom_footer = [
             \ '  \/  (____)(_/\/\_)  (_/() (_)',
             \ ]
 Plug 'mhinz/vim-startify'
-"}}}
-" SuperTab {{{
-let g:SuperTabMappingForward = '<C-Space>'
-let g:SuperTabMappingBackward = '<S-C-Space>'
-let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
-let g:SuperTabLongestEnhanced = 0
-let g:SuperTabCrMapping = 0
-"Plug 'SuperTab'
-Plug 'ervandew/supertab'
 "}}}
 Plug 'tpope/vim-surround'
 " jiangmiao/Auto-Pairs {{{
