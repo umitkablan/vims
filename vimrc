@@ -231,6 +231,7 @@ let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
 autocmd VimEnter * IndentGuidesDisable
 Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'Yggdroot/indentLine'
 " }}}
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
