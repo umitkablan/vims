@@ -292,6 +292,7 @@ let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures = 0
+au FileType python nnoremap <buffer> <silent> <C-]> :call jedi#goto()<CR>
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
 "}}}
 Plug 'derekwyatt/vim-scala'
@@ -304,6 +305,7 @@ let g:go#use_vimproc = 1
 let g:go_snippet_engine = "neosnippet"
 let g:go_list_type = "quickfix"
 let g:go_def_mode = "godef"
+au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
 Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
 "Plug 'klen/python-mode'
@@ -1198,6 +1200,8 @@ augroup END
 
 " personal plugin maps {{{
 " Enter/Backspace Behaviour {{{
+nnoremap <silent> <CR> :exec "normal \<lt>C-]>"<CR>
+nnoremap <silent> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
@@ -1205,17 +1209,11 @@ augroup tag_langs
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh
+  au FileType c,cpp,java,javascript,actionscript,sh
           \ nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,python,actionscript,sh
-  au FileType go
-          \ nnoremap <silent> <buffer> <CR> :exec "normal \<lt>C-]>"<CR>
-  au FileType go
-          \ nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
-  au FileType go
-          \ nnoremap <silent> <buffer> ğa :GoAlternate<CR>
+  au FileType c,cpp,java,javascript,actionscript,sh
+          \ nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:PopTagStack<Bar>endif<CR>
 augroup END
-nnoremap <silent> <Backspace> :call umisc#QFixCloseAndCheck()<CR>
 au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
 au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
 au FileType tagbar,qf,tagselect       nmap     <buffer>          <Esc>       <Backspace>
