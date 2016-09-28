@@ -230,7 +230,7 @@ Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
 autocmd VimEnter * IndentGuidesDisable
-Plug 'Indent-Guides'
+Plug 'nathanaelkane/vim-indent-guides'
 " }}}
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
