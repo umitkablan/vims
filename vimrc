@@ -453,7 +453,7 @@ Plug 'UnconditionalPaste'
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
 let g:pasta_disabled_filetypes = ["coffee", "markdown"]
-let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
+" let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
 let g:smartput = 1
 nmap <unique> NOTUSEDğst <Plug>SmartputToggle
 nnoremap ğp p
@@ -578,6 +578,7 @@ xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 Plug 't9md/vim-textmanip'
 " }}}
+let g:rooter_change_directory_for_non_project_files = 'current'
 Plug 'airblade/vim-rooter'
 " ctrlpvim/CtrlP {{{
 let g:ctrlp_working_path_mode = 'r'
