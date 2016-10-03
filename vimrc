@@ -1211,8 +1211,6 @@ augroup tag_langs
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
   au FileType c,cpp,java,javascript,actionscript,sh
           \ nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
-  au FileType c,cpp,java,javascript,actionscript,sh
-          \ nnoremap <silent> <buffer> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:PopTagStack<Bar>endif<CR>
 augroup END
 au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
 au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
