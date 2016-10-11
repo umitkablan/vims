@@ -31,7 +31,7 @@ Plug 'Shougo/vimproc', {
   \ 'do' : 'make -f make_mingw32.mak',
   \ }
 Plug 'tpope/vim-dispatch'
-Plug 'pydave/AsyncCommand'
+Plug 'idbrii/AsyncCommand'
 Plug 'xolox/vim-misc'
 Plug 'cecutil'
 Plug 'tomtom/tlib_vim'
@@ -109,7 +109,7 @@ let g:SrcExpl_refreshTime = 400
 let g:SrcExpl_isUpdateTags = 0
 Plug 'wesleyche/SrcExpl', {'on': ['SrcExpl','SrcExplToggle']}
 " }}}
-Plug 'VimSpy', {'on': ['Messages','Command','CommandOutput','Syntax','Highlight','Function','Autocmd']}
+Plug 'VimSpy', {'on': ['Messages','Map','Command','CommandOutput','Syntax','Highlight','Function','Autocmd']}
 Plug 'nelstrom/vim-qargs', {'on': 'Qargs'}
 Plug 'DirDo.vim', {'on': ['DirDo','DDO','DDD','DirDoDir','DirDoAdd','DDA','DDP','DirDoPattern']}
 " yonchu/accelerated-smooth-scroll {{{
@@ -137,9 +137,11 @@ else
 endif
 Plug 'mileszs/ack.vim', {'on': ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckAdd', 'AckFile', 'AckHelp', 'LAckHelp', 'AckWindow', 'LAckWindow']}
 " }}}
+Plug 'mhinz/vim-grepper'
 " bling/Airline {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#excludes = []
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#show_tab_nr = 1
@@ -191,14 +193,29 @@ Plug 'itchyny/calendar.vim', {'on': 'Calendar'}
 Plug 'SyntaxMotion.vim'
 Plug 'camelcasemotion'
 " justinmk/vim-sneak {{{
-nmap f <Plug>SneakForward
-nmap F <Plug>SneakBackward
+nmap gs <Plug>Sneak_s
+nmap gS <Plug>Sneak_S
+xmap gs <Plug>Sneak_s
+xmap gS <Plug>Sneak_S
+omap gs <Plug>Sneak_s
+omap gS <Plug>Sneak_S
+
 nmap , <Plug>SneakNext
 nmap ; <Plug>SneakPrevious
-" xmap ? <Plug>VSneakForward
-" xmap ? <Plug>VSneakBackward
-" xmap ? <Plug>VSneakNext
-" xmap ? <Plug>VSneakPrevious
+
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 let g:sneak#streak = 1
 Plug 'justinmk/vim-sneak'
 " }}}
@@ -491,10 +508,10 @@ let g:startify_list_order = [
   " \ [' Recently modified files in the current directory:'], 'dir',
 let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
 let g:startify_custom_footer = [
-            \ ' _  _  ____  __  __    ___  __',
-            \ '( \/ )(_  _)(  \/  )  (__ )/. |',
-            \ ' \  /  _)(_  )    (    / /(_  _)',
-            \ '  \/  (____)(_/\/\_)  (_/() (_)',
+            \ ' _  _  ____  __  __',
+            \ '( \/ )(_  _)(  \/  )',
+            \ ' \  /  _)(_  )    (',
+            \ '  \/  (____)(_/\/\_)',
             \ ]
 Plug 'mhinz/vim-startify'
 "}}}
