@@ -596,6 +596,7 @@ xmap DD      <Plug>(textmanip-duplicate-up)
 Plug 't9md/vim-textmanip'
 " }}}
 let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_silent_chdir = 1
 Plug 'airblade/vim-rooter'
 " ctrlpvim/CtrlP {{{
 let g:ctrlp_working_path_mode = 'r'
@@ -730,7 +731,7 @@ augroup no_sticky_buffers
   au!
   au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
-Plug 'tpope/vim-fugitive', {'on': ['Git','Gstatus']}
+Plug 'tpope/vim-fugitive' ", {'on': ['Git','Gstatus']}
 " }}}
 " NeoBundleLazy 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
