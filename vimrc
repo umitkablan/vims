@@ -749,13 +749,16 @@ Plug 'thinca/vim-ref', {'on': 'Ref'}
 "NeoBundle 'viewdoc'
 "NeoBundle 'ManPageView'
 "NeoBundle 'viki'
-Plug 'dbakker/vim-lint', {'for': 'vim'}
+Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
+Plug 'syngan/vim-vimlint', {'for': 'vim'}
+" Repeat.Vim {{{
 Plug 'Vimball', {'for': 'vim'}
 Plug 'VisIncr', {'on': ['I','II']}
 let g:repeat_load_via_plugin = 1
 let g:repeat_dot_mapping = '<Bar>'
 let g:repeat_undo_mapping = 'U'
 Plug 'umitkablan/vim-repeat'
+" }}}
 "Plug 'visualrepeat'
 Plug 'bronson/vim-visual-star-search'
 Plug 'embear/vim-foldsearch'
