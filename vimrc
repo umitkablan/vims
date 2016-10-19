@@ -694,7 +694,7 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \}
 endfunction
 " }}}
-Plug 'Shougo/unite.vim', {'on': 'Unite'}
+Plug 'Shougo/unite.vim', {'on': ['Unite', 'UniteWithCurrentDir']}
 nnoremap <silent> ğee    :UniteWithBufferDir -start-insert file<CR>
 nnoremap <silent> ğe     :Unite -start-insert file<CR>
 nnoremap <silent> <C-f>  :Unite -start-insert source<CR>
@@ -709,7 +709,7 @@ nnoremap <silent> MRUU   :Unite -no-split -start-insert directory_mru file_mru<C
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 
 Plug 'Shougo/tabpagebuffer.vim', {'on': 'Unite'}
-Plug 'Shougo/neomru.vim',        {'on': 'Unite'}
+Plug 'Shougo/neomru.vim',        {'on': ['Unite', 'UniteWithCurrentDir']}
 Plug 'unite-locate',             {'on': 'Unite'}
 Plug 'tsukkee/unite-tag',        {'on': 'Unite'}
 "NeoBundle 'unite-colorscheme-1.3'
