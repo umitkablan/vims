@@ -545,7 +545,16 @@ let g:syntastic_c_check_header = 1
 "let g:syntastic_*_checkers=['Xxx', 'Yyy']
 Plug 'scrooloose/syntastic'
 "}}}
+" AutoFormat {{{
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+augroup autoformat_on_bufwrite
+  autocmd!
+  au BufWrite * if &ft=='cpp' || &ft=='c'|:Autoformat|endif
+augroup END
 Plug 'Chiel92/vim-autoformat'
+"}}}
 Plug 'godlygeek/tabular'
 " majutsushi/TagBar {{{
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
