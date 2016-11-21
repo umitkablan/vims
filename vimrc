@@ -55,6 +55,8 @@ Plug 'a.vim'
 " NeoBundleLazy 'craigemery/vim-autotag'
 Plug 'umitkablan/vim-autotag'
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
+let g:no_tagselect_maps = 1
+" Plug 'asford/tagselect'
 "autocmd BufReadPost * DetectIndent
 " NeoBundleLazy 'ciaranm/detectindent'
 Plug 'danro/rename.vim', {'on': 'Rename'}
@@ -63,9 +65,10 @@ Plug 'let-modeline.vim'
 Plug 'foldutil.vim', {'on': 'FoldShowLines'}
 Plug 'yaifa.vim'
 Plug 'dietsche/vim-lastplace'
-let g:NumberToggleTrigger="!"
+" let g:NumberToggleTrigger="!"
 " nnoremap <silent> <Esc> :call NumberToggle_Absolute()<CR>
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'myusuf3/numbers.vim'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
 Plug 'zhaocai/GoldenView.Vim'
@@ -296,6 +299,7 @@ let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem  = 0
 Plug 'OmniCppComplete', {'for': 'cpp'}
 "}}}
+let g:JavaComplete_EnableDefaultMappings = 0
 Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
 let no_java_maps=1
 Plug 'Dinduks/vim-java-get-set', {'for': 'java'}
@@ -326,6 +330,7 @@ au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
 Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
 Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
+Plug 'solarnz/thrift.vim', {'for': 'thrift'}
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
@@ -418,15 +423,22 @@ Plug 'Shougo/neosnippet-snippets'
 nmap <unique> NOTUSED_NETRW_HIDELISTEDIT <Plug>NetrwHideEdit
 let g:tar_nomax = 1
 let g:zip_nomax = 1
+let g:netrw_banner = 0
+let g:netrw_silent = 1
 let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$"
 let g:netrw_use_noswf = 0
 let g:netrw_keepdir = 0
 let g:netrw_home = $HOME . '/.vim/var'
-let g:netrw_liststyle = 0
-let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_altv = 1
+let g:netrw_fastbrowse = 2
+let g:netrw_retmap = 1
+let g:netrw_special_syntax = 1
 "let g:netrw_browsex_viewer = 'gnome-open'
-Plug 'netrw.vim'
+" netrw at vim-scripts github repo is old, plainly use distro's plugin
+" Plug 'netrw.vim'
 "}}}
+Plug 'tpope/vim-vinegar'
 " Notes {{{
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
@@ -1262,7 +1274,6 @@ nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 " }}}
 " plugin configuration {{{
 let g:tmuxmake_targets = ""
-let g:no_tagselect_maps = 1
 let g:locator_disable_mappings = 1
 
 " Aliases {{{
