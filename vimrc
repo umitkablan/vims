@@ -89,7 +89,7 @@ let g:DeleteTrailingWhitespace_Action = 'ask'
 Plug 'DeleteTrailingWhitespace'
 " }}}
 Plug 'CursorLineCurrentWindow'
-Plug 'ihacklog/HiCursorWords'
+Plug 'pboettch/HiCursorWords'
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
 Plug 'mikewest/vimroom'
 " ReplaceWithRegister {{{
@@ -100,8 +100,8 @@ Plug 'ReplaceWithRegister'
 " }}}
 " xuhdev/SingleCompile {{{
 let g:SingleCompile_asyncrunmode = 'python'
-let g:SingleCompile_usequickfix = 1
-let g:SingleCompile_showquickfixiferror = 1
+let g:SingleCompile_usequickfix = 0
+let g:SingleCompile_showquickfixiferror = 0
 let g:SingleCompile_showresultafterrun = 0
 nnoremap <silent> ğsc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
@@ -429,7 +429,7 @@ let g:netrw_sort_sequence="[\/]$,\<core\%(\.\d\+\)\=\>,*,\.pyc$,\.o$,\.obj$,\.in
 let g:netrw_use_noswf = 0
 let g:netrw_keepdir = 0
 let g:netrw_home = $HOME . '/.vim/var'
-let g:netrw_liststyle = 3
+let g:netrw_liststyle = 0
 let g:netrw_altv = 1
 let g:netrw_fastbrowse = 2
 let g:netrw_retmap = 1
@@ -437,8 +437,8 @@ let g:netrw_special_syntax = 1
 "let g:netrw_browsex_viewer = 'gnome-open'
 " netrw at vim-scripts github repo is old, plainly use distro's plugin
 " Plug 'netrw.vim'
+" Plug 'tpope/vim-vinegar'
 "}}}
-Plug 'tpope/vim-vinegar'
 " Notes {{{
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
@@ -618,7 +618,7 @@ Plug 't9md/vim-textmanip'
 " }}}
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
-Plug 'airblade/vim-rooter'
+Plug 'umitkablan/vim-rooter'
 " ctrlpvim/CtrlP {{{
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_map = '<c-p>'
@@ -742,9 +742,9 @@ Plug 'tsukkee/unite-tag',        {'on': 'Unite'}
 "}}}
 " Shougo/VimShell {{{
 nnoremap <silent> ğsh  :VimShellPop<CR>
-nnoremap <silent> ğp2  :VimShellInteractive ipython2<CR>
-nnoremap <silent> ğp3  :VimShellInteractive python3<CR>
-nnoremap <silent> ğp12 :VimShellInteractive python2<CR>
+nnoremap <silent> ğp2  :VimShellInteractive --split='split' ipython2<CR>
+nnoremap <silent> ğp3  :VimShellInteractive --split='split' python3<CR>
+nnoremap <silent> ğp12 :VimShellInteractive --split='split' python2<CR>
 Plug 'Shougo/vimshell', {'on': 'VimShellPop'}
 " }}}
 " tpope/Fugitive {{{
