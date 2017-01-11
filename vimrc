@@ -367,7 +367,7 @@ let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
 let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 " inoremap <expr> <C-y> neocomplete#close_popup()
 " inoremap <expr> <C-e> neocomplete#cancel_popup()
-inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<Esc>O" : "\<CR>"
 inoremap <expr> <C-h>       neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <Backspace> neocomplete#smart_close_popup()."\<Backspace>"
 inoremap <expr> <Left>   "\<C-y>\<Left>"
@@ -1236,7 +1236,7 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j
       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR>
-      \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : "\<CR>"
+      \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<Esc>O" : "\<CR>"
 augroup END
 " }}}
 
