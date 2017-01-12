@@ -342,7 +342,6 @@ let g:SuperTabMappingBackward = '<S-C-Space>'
 let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
-"Plug 'SuperTab'
 Plug 'ervandew/supertab'
 "}}}
 " Shougo/NeoComplete {{{
@@ -370,8 +369,8 @@ let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<Esc>O" : "\<CR>"
 inoremap <expr> <C-h>       neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <Backspace> neocomplete#smart_close_popup()."\<Backspace>"
-inoremap <expr> <Left>   "\<C-y>\<Left>"
-inoremap <expr> <Right>  "\<C-y>\<Right>"
+inoremap <expr> <Left>  pumvisible() ? neocomplete#smart_close_popup() : "\<Left>"
+inoremap <expr> <Right> pumvisible() ? "\<C-y>" : "\<Right>"
 inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : neocomplete#smart_close_popup()."\<Up>"
 inoremap <expr> <Down> pumvisible() ? "\<C-n>" : neocomplete#smart_close_popup()."\<Down>"
 " inoremap <expr> <Space> pumvisible() ? neocomplete#smart_close_popup() : "\<Space>"
@@ -411,8 +410,20 @@ if has('conceal')
 endif
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory = $HOME . '/.vim/var/neocomplete_snippets'
+function! IsCharExpandableTabbable() abort
+  let i = col('.')
+  if i < 2
+    return 0
+  endif
+  let c = getline(".")[i-2]
+  if c == ''
+    return 0
+  endif
+  return stridx(' 	''"{}()[]!^+/\()=?,.;:<>|', c) < 0
+endfunction
 imap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
-                  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Plug>SuperTabForward"
+                  \ "\<Plug>(neosnippet_expand_or_jump)" : IsCharExpandableTabbable() ?
+                  \ "\<Plug>SuperTabForward" : "\<Tab>"
 smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
                   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 Plug 'Shougo/neosnippet.vim'
