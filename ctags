@@ -37,3 +37,12 @@
 --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/f,func/
 --regex-Go=/var[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/v,var/
 --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/t,type/
+
+--langdef=cmake
+--langmap=cmake:+.cmake
+--regex-cmake=/$x/x/x/e/    TODO: Couldn't introduce CMakeLists.txt as filename wout extension
+--regex-cmake=/$x/x/x/e/    --langmap=cmake:CMakeLists.txt
+--regex-cmake=/set[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)[ \t]+/\1/v,var/
+--regex-cmake=/function[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)[ \t]+/\1/v,func/
+--regex-cmake=/macro[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)[ \t]+/\1/v,func/
+
