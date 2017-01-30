@@ -286,6 +286,7 @@ Plug 'Mark'
 " }}}
 "Plug 't9md/vim-quickhl'
 Plug 'matchit.zip'
+Plug 'mbbill/echofunc'
 Plug 'kana/vim-metarw'
 Plug 'bogado/file-line'
 " Multiselect {{{
