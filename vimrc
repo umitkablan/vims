@@ -91,7 +91,7 @@ Plug 'DeleteTrailingWhitespace'
 Plug 'CursorLineCurrentWindow'
 Plug 'pboettch/HiCursorWords'
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
-Plug 'mikewest/vimroom'
+Plug 'mikewest/vimroom', {'on': ['VimroomToggle']}
 " ReplaceWithRegister {{{
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
@@ -757,7 +757,7 @@ nnoremap <silent> ğsh  :VimShellPop<CR>
 nnoremap <silent> ğp2  :VimShellInteractive --split='split' ipython2<CR>
 nnoremap <silent> ğp3  :VimShellInteractive --split='split' python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive --split='split' python2<CR>
-Plug 'Shougo/vimshell', {'on': 'VimShellPop'}
+Plug 'Shougo/vimshell', {'on': ['VimShellPop', 'VimShellInteractive']}
 " }}}
 " tpope/Fugitive {{{
 augroup no_sticky_buffers
