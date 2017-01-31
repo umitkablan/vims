@@ -1277,7 +1277,7 @@ augroup END
 " }}}
 
 inoremap <expr> <C-K> BDG_GetDigraph()
-nnoremap <silent> ğ1 :Sscratch<CR>
+nnoremap <silent> ğ1 :TScratch<CR>
 nnoremap <silent> ğğu :Utl<CR>
 xnoremap <silent> ğğu :Utl<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
