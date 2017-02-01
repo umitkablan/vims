@@ -454,6 +454,7 @@ let g:netrw_fastbrowse = 1
 let g:netrw_retmap = 1
 let g:netrw_special_syntax = 1
 "let g:netrw_browsex_viewer = 'gnome-open'
+let g:netrw_bufsettings = 'nomodifiable nomodified nobuflisted nowrap readonly' "nonumber norelativenumber
 " netrw at vim-scripts github repo is old, plainly use distro's plugin
 " Plug 'netrw.vim'
 " Plug 'tpope/vim-vinegar'
