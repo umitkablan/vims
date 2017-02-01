@@ -31,7 +31,7 @@ Plug 'Shougo/vimproc', {
   \ 'do' : 'make -f make_mingw32.mak',
   \ }
 Plug 'tpope/vim-dispatch'
-Plug 'idbrii/AsyncCommand'
+Plug 'idbrii/AsyncCommand' "skywind3000/asyncrun.vim
 Plug 'xolox/vim-misc'
 Plug 'cecutil'
 Plug 'tomtom/tlib_vim'
@@ -53,7 +53,7 @@ nnoremap <silent> ğa :A<CR>
 Plug 'a.vim'
 " }}}
 " NeoBundleLazy 'craigemery/vim-autotag'
-Plug 'umitkablan/vim-autotag'
+Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
 let g:no_tagselect_maps = 1
 " Plug 'asford/tagselect'
@@ -332,6 +332,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
 Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
 Plug 'solarnz/thrift.vim', {'for': 'thrift'}
+Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
@@ -778,10 +779,7 @@ augroup VCSCommand
 augroup END
 Plug 'vcscommand.vim', {'on': ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
 " }}}
-Plug 'thinca/vim-ref', {'on': 'Ref'}
-"NeoBundle 'viewdoc'
-"NeoBundle 'ManPageView'
-"NeoBundle 'viki'
+Plug 'thinca/vim-ref', {'on': 'Ref'} "viewdoc, ManPageView, viki
 Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
 Plug 'syngan/vim-vimlint', {'for': 'vim'}
 " Repeat.Vim {{{
@@ -790,31 +788,28 @@ Plug 'VisIncr', {'on': ['I','II']}
 let g:repeat_load_via_plugin = 1
 let g:repeat_dot_mapping = '<Bar>'
 let g:repeat_undo_mapping = 'U'
-Plug 'umitkablan/vim-repeat'
+Plug 'umitkablan/vim-repeat' "visualrepeat
 " }}}
-"Plug 'visualrepeat'
 Plug 'bronson/vim-visual-star-search'
 Plug 'embear/vim-foldsearch'
-Plug 'epeli/slimux'
-"Plug 'vimux'
+Plug 'epeli/slimux' "vimux
 Plug 'mattn/webapi-vim'
-" NeoBundleLazy 'othree/xml.vim'
-Plug 'sukima/xmledit', {'for': 'xml'}
+Plug 'diepm/vim-rest-console'
+Plug 'sukima/xmledit', {'for': 'xml'} "othree/xml.vim
 Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
 Plug 'elzr/vim-json',   {'for': 'json'}
 Plug 'tpope/vim-git',   {'for': 'git'}
 Plug 'zaiste/tmux.vim', {'for': 'tmux'}
 Plug 'hdima/python-syntax',     {'for': 'python'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-" Plug 'bigfish/vim-js-context-coloring', {'for': 'javascript'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'} "bigfish/vim-js-context-coloring
 let g:vim_markdown_initial_foldlevel=1
 let g:vim_markdown_no_default_key_mappings=1
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 " cpp-vim for better @Spell @NoSpell support
 let c_no_curly_error = 1
 Plug 'vim-jp/cpp-vim', {'for': 'cpp'}
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
-"Plug 'Mizuchi/STL-Syntax'
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'} "Mizuchi/STL-Syntax
+Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
 Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'hexman.vim', {'on': 'HexManager'}
