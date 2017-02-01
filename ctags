@@ -47,8 +47,8 @@
 --langdef=cmake
 --langmap=cmake:(CMakeLists.txt)
 --langmap=cmake:+.cmake
---regex-cmake=/^[ \t]*set[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/v,var/
---regex-cmake=/^[ \t]*function[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/f,func/
---regex-cmake=/^[ \t]*macro[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/f,func/
---regex-cmake=/^[ \t]*set_property[ \t]*\([a-zA-Z0-9_ \t]*[ \t]*PROPERTY[ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/p,property/
+--regex-cmake=/^[ \t]*set[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/v,var/i
+--regex-cmake=/^[ \t]*function[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/f,func/i
+--regex-cmake=/^[ \t]*macro[ \t]*\([ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/m,macro/i
+--regex-cmake=/^[ \t]*set_property[ \t]*\([a-zA-Z0-9_ \t${}]*[ \t]*PROPERTY[ \t]*([a-zA-Z_][a-zA-Z0-9_]+)/\1/p,property/i
 
