@@ -25,8 +25,6 @@ set completeopt-=preview
 
 " Plugins {{{
 call plug#begin('~/.vim/packs')
-" call neobundle#begin(expand('~/.vim/packs'))
-" NeoBundleFetch 'Shougo/neobundle.vim'
 Plug 'Shougo/vimproc', {
   \ 'do' : 'make -f make_mingw32.mak',
   \ }
@@ -45,30 +43,21 @@ Plug 'godlygeek/csapprox'
 Plug 'chrisbra/SudoEdit.vim', {'on': 'SudoWrite'}
 let g:LargeFile=2 " megabytes
 Plug 'LargeFile'
-"Plug 'ColorSchemeMenuMaker'
-Plug 'Colorizer--Brabandt', {'for': 'css,html'}
+Plug 'Colorizer--Brabandt', {'for': 'css,html'} "ColorSchemeMenuMaker
 "Plug 'lilydjwg/colorizer'
 " a.vim alternate {{{
 nnoremap <silent> ğa :A<CR>
 Plug 'a.vim'
 " }}}
-" NeoBundleLazy 'craigemery/vim-autotag'
 Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
-let g:no_tagselect_maps = 1
-" Plug 'asford/tagselect'
-"autocmd BufReadPost * DetectIndent
-" NeoBundleLazy 'ciaranm/detectindent'
 Plug 'danro/rename.vim', {'on': 'Rename'}
 Plug 'qpkorr/vim-renamer', {'on': 'Renamer'}
 Plug 'let-modeline.vim'
 Plug 'foldutil.vim', {'on': 'FoldShowLines'}
-Plug 'yaifa.vim'
+Plug 'yaifa.vim' "ciaranm/detectindent
 Plug 'dietsche/vim-lastplace'
-" let g:NumberToggleTrigger="!"
-" nnoremap <silent> <Esc> :call NumberToggle_Absolute()<CR>
-" Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'myusuf3/numbers.vim'
+Plug 'myusuf3/numbers.vim' "jeffkreeftmeijer/vim-numbertoggle
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
 Plug 'zhaocai/GoldenView.Vim'
@@ -81,8 +70,7 @@ let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
 Plug 'IndentConsistencyCop'
 Plug 'IndentConsistencyCopAutoCmds'
 " }}}
-Plug 'ShowTrailingWhitespace'
-"Plug 'ntpeters/vim-better-whitespace'
+Plug 'ShowTrailingWhitespace' "ntpeters/vim-better-whitespace
 " DeleteTrailingWhitespace {{{
 let g:DeleteTrailingWhitespace = 1
 let g:DeleteTrailingWhitespace_Action = 'ask'
@@ -222,8 +210,7 @@ omap T <Plug>Sneak_T
 let g:sneak#streak = 1
 Plug 'justinmk/vim-sneak'
 " }}}
-"NeoBundle 'supasorn/vim-easymotion'
-"NeoBundle 'rhysd/clever-f.vim'
+" 'supasorn/vim-easymotion' rhysd/clever-f.vim
 " sjl/Clam.vim {{{
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
@@ -240,8 +227,7 @@ Plug 'dbext.vim', {'for': 'sql'}
 xnoremap <silent> <Enter> :EasyAlign<CR>
 Plug 'junegunn/vim-easy-align'
 " }}}
-Plug 'gf-ext'
-"Plug 'kana/vim-gf-user'
+Plug 'gf-ext' "kana/vim-gf-user
 Plug 'dpwright/vim-gf-ext'
 "Plug 'gist-vim'
 Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
@@ -293,6 +279,28 @@ Plug 'bogado/file-line'
 let no_multiselect_maps = 1
 Plug 'multiselect'
 " }}}
+" LANGUAGE PACKS {{{
+Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
+Plug 'solarnz/thrift.vim', {'for': 'thrift'}
+Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
+Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
+Plug 'syngan/vim-vimlint', {'for': 'vim'}
+Plug 'sukima/xmledit', {'for': 'xml'} "othree/xml.vim
+Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
+Plug 'elzr/vim-json',   {'for': 'json'}
+Plug 'tpope/vim-git',   {'for': 'git'}
+Plug 'zaiste/tmux.vim', {'for': 'tmux'}
+Plug 'hdima/python-syntax',     {'for': 'python'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'} "bigfish/vim-js-context-coloring
+let g:vim_markdown_initial_foldlevel=1
+let g:vim_markdown_no_default_key_mappings=1
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+" cpp-vim for better @Spell @NoSpell support
+let c_no_curly_error = 1
+Plug 'vim-jp/cpp-vim', {'for': 'cpp'}
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'} "Mizuchi/STL-Syntax
+Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
+Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
 " OmniCppComplete {{{
 let OmniCpp_MayCompleteDot   = 0
 let OmniCpp_MayCompleteArrow = 0
@@ -330,13 +338,11 @@ let g:go_def_mode = "godef"
 au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
 Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
-Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
-Plug 'solarnz/thrift.vim', {'for': 'thrift'}
-Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 au FileType html,css EmmetInstall
 Plug 'mattn/emmet-vim', {'for': 'html'}
+" }}}
 " }}}
 " SuperTab {{{
 let g:SuperTabMappingForward = '<C-Space>'
@@ -780,8 +786,6 @@ augroup END
 Plug 'vcscommand.vim', {'on': ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
 " }}}
 Plug 'thinca/vim-ref', {'on': 'Ref'} "viewdoc, ManPageView, viki
-Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
-Plug 'syngan/vim-vimlint', {'for': 'vim'}
 " Repeat.Vim {{{
 Plug 'Vimball', {'for': 'vim'}
 Plug 'VisIncr', {'on': ['I','II']}
@@ -795,22 +799,6 @@ Plug 'embear/vim-foldsearch'
 Plug 'epeli/slimux' "vimux
 Plug 'mattn/webapi-vim'
 Plug 'diepm/vim-rest-console'
-Plug 'sukima/xmledit', {'for': 'xml'} "othree/xml.vim
-Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
-Plug 'elzr/vim-json',   {'for': 'json'}
-Plug 'tpope/vim-git',   {'for': 'git'}
-Plug 'zaiste/tmux.vim', {'for': 'tmux'}
-Plug 'hdima/python-syntax',     {'for': 'python'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'} "bigfish/vim-js-context-coloring
-let g:vim_markdown_initial_foldlevel=1
-let g:vim_markdown_no_default_key_mappings=1
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-" cpp-vim for better @Spell @NoSpell support
-let c_no_curly_error = 1
-Plug 'vim-jp/cpp-vim', {'for': 'cpp'}
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'} "Mizuchi/STL-Syntax
-Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
-Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'hexman.vim', {'on': 'HexManager'}
 Plug 'CmdlineComplete'
@@ -908,26 +896,15 @@ onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 Plug 'umitkablan/umisc'
 " }}}
-" NeoBundleLazy 'jszakmeister/vim-togglecursor'
-" NeoBundleLazy 'pafcu/Vimsplain'
-" NeoBundleLazy 'thinca/vim-prettyprint'
-" NeoBundleLazy 'Headlights'
-" NeoBundleLazy 'drmikehenry/vim-fixkey'
-" NeoBundleLazy 'junkblocker/patchreview-vim'
-" NeoBundleLazy 'kshenoy/vim-signature'
-" NeoBundleLazy 'tacahiroy/ctrlp-funky'
-" NeoBundleLazy 'terryma/vim-multiple-cursors'
-" NeoBundleLazy 'https://bitbucket.org/abudden/taghighlight'
-" NeoBundleLazy 'bufkill.vim'
-" NeoBundleLazy 'EasyGrep'
-" NeoBundleLazy 'surfer.vim'
+" 'jszakmeister/vim-togglecursor' 'pafcu/Vimsplain' 'thinca/vim-prettyprint' 'Headlights' 'drmikehenry/vim-fixkey'
+" 'junkblocker/patchreview-vim' 'kshenoy/vim-signature' 'tacahiroy/ctrlp-funky' 'terryma/vim-multiple-cursors'
+" 'https://bitbucket.org/abudden/taghighlight' 'bufkill.vim' 'EasyGrep' 'surfer.vim' 'yate'
 " tomtom/quickfixsigns_vim {{{
 " " let loaded_quickfixsigns = 1
 " let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
 " au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
 " NeoBundleLazy 'tomtom/quickfixsigns_vim'
 " }}}
-"NeoBundle 'yate'
 Plug 'ryanoasis/vim-devicons'
 
 " Load Local Bundles {{{
@@ -937,7 +914,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'rkitover/vimpager', {
   \ 'do' : 'make',
   \ }
-" call neobundle#end()
 call plug#end()
 " }}}
 
@@ -954,10 +930,6 @@ call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
 call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
 call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
-" }}}
-
-" filetype plugin indent on " Required for Vundle!
-" NeoBundleCheck
 " }}}
 
 " global configuration {{{
