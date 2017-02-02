@@ -585,7 +585,7 @@ augroup autoformat_on_bufwrite
   autocmd!
   au BufWrite * if &ft=='cpp' || &ft=='c'|:Autoformat|endif
 augroup END
-Plug 'Chiel92/vim-autoformat'
+Plug 'umitkablan/vim-autoformat'
 "}}}
 Plug 'godlygeek/tabular'
 " majutsushi/TagBar {{{
