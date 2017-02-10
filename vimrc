@@ -1,5 +1,6 @@
 " Global vim configuration: vimrc
 " Umit Kablan <gmail: umitkablan>
+scriptencoding utf-8
 "
 " Note that the configuration is designed for a Turkish QWERTY keyboard and
 " that supporting ~/.Xmodmap is really helpful for productivity.  Such modmap
@@ -110,8 +111,8 @@ nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
 Plug 'yonchu/accelerated-smooth-scroll'
 " }}}
 " grep.vim {{{
-let Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
-let Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
+let g:Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
+let g:Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 Plug 'grep.vim', {'on': 'Grep'}
 " }}}
 " milesz/ack.vim {{{
@@ -276,7 +277,7 @@ Plug 'mbbill/echofunc'
 Plug 'kana/vim-metarw'
 Plug 'bogado/file-line'
 " Multiselect {{{
-let no_multiselect_maps = 1
+let g:no_multiselect_maps = 1
 Plug 'multiselect'
 " }}}
 " LANGUAGE PACKS {{{
@@ -296,21 +297,21 @@ let g:vim_markdown_initial_foldlevel=1
 let g:vim_markdown_no_default_key_mappings=1
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 " cpp-vim for better @Spell @NoSpell support
-let c_no_curly_error = 1
+let g:c_no_curly_error = 1
 Plug 'vim-jp/cpp-vim', {'for': 'cpp'}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'} "Mizuchi/STL-Syntax
 Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
 Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
 " OmniCppComplete {{{
-let OmniCpp_MayCompleteDot   = 0
-let OmniCpp_MayCompleteArrow = 0
-let OmniCpp_MayCompleteScope = 0
-let OmniCpp_SelectFirstItem  = 0
+let g:OmniCpp_MayCompleteDot   = 0
+let g:OmniCpp_MayCompleteArrow = 0
+let g:OmniCpp_MayCompleteScope = 0
+let g:OmniCpp_SelectFirstItem  = 0
 Plug 'OmniCppComplete', {'for': 'cpp'}
 "}}}
 let g:JavaComplete_EnableDefaultMappings = 0
 Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
-let no_java_maps=1
+let g:no_java_maps=1
 Plug 'Dinduks/vim-java-get-set', {'for': 'java'}
 "Plug 'nosami/Omnisharp'
 Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
@@ -374,7 +375,7 @@ let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
 let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 " inoremap <expr> <C-y> neocomplete#close_popup()
 " inoremap <expr> <C-e> neocomplete#cancel_popup()
-inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<Esc>O" : "\<CR>"
+inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<C-c>O" : "\<CR>"
 inoremap <expr> <C-h>       neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <Backspace> neocomplete#smart_close_popup()."\<Backspace>"
 inoremap <expr> <Left>  pumvisible() ? neocomplete#smart_close_popup() : "\<Left>"
@@ -776,8 +777,8 @@ Plug 'tpope/vim-fugitive' ", {'on': ['Git','Gstatus']}
 " }}}
 " NeoBundleLazy 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
-let VCSCommandMapPrefix = "<LocalLeader>c"
-let VCSCommandVCSTypePreference = 'git'
+let g:VCSCommandMapPrefix = "<LocalLeader>c"
+let g:VCSCommandVCSTypePreference = 'git'
 "let VCSCommandSVNDiffOpt = "-ignore-all-space"
 " Turn off spell other than commit message writing
 au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
@@ -939,8 +940,8 @@ filetype plugin on
 filetype indent on
 syntax on
 " set regexpengine=1
-let mapleader = "ü"
-let maplocalleader = ","
+let g:mapleader = "ü"
+let g:maplocalleader = ","
 "set term color to 256 for some colorschemes to work.
 set t_Co=256
 "show statusbar all the time
@@ -950,11 +951,9 @@ set noruler noshowmode title
 " highlight the search, don't start from beginning when you reach end.
 set hlsearch incsearch
 set nowrapscan
-" case sensitivity: smart
 set ignorecase
 set smartcase
 set backspace=indent,eol,start
-"absolute number  is better than relative
 set number "relativenumber
 set history=450
 "move the viminfo file to .vim to avoid the vim-related rubbish outside .vim/.
@@ -983,7 +982,7 @@ set directory=~/.vim/var/tmp
 set updatetime=5000
 "make a little max-delay between keypad *touches*
 set timeout timeoutlen=440 ttimeout ttimeoutlen=50
-set cursorline nocursorcolumn
+set cursorline cursorcolumn
 set wrap linebreak
 if has('multi_byte')
   let &showbreak = '↳ '
@@ -1048,8 +1047,8 @@ nnoremap qQ Q
 nnoremap ğq gqip
 " CTRL-c to leave insert mode,  better not know it.
 nnoremap <silent> <C-c> :echo expand("%:p:~")<CR>
-nnoremap oo o<Esc>o
-nnoremap OO O<Esc>O
+nnoremap oo o<C-c>o
+nnoremap OO O<C-c>O
 imap <C-BS> <C-W>
 noremap g; g,
 noremap g, g;
@@ -1169,7 +1168,7 @@ inoremap <C-j> <C-X><C-O>
 " preprocessor #if 0 over selected line(s) {{{
 augroup preprocessor_langs
   au!
-  au FileType c,cpp vnoremap out "zdmzO#if 0<ESC>"zp'zi#endif<CR><ESC>k
+  au FileType c,cpp vnoremap out "zdmzO#if 0<C-c>"zp'zi#endif<CR><C-c>k
 augroup END
 " au BufEnter * syntax sync fromstart
 " syntax sync minlines=450
@@ -1216,7 +1215,7 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j
       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR>
-      \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<Esc>O" : "\<CR>"
+      \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<C-c>O" : "\<CR>"
 augroup END
 " }}}
 
@@ -1319,7 +1318,7 @@ let g:ctags_path = '/usr/bin/ctags'
 let g:ctags_args = '-I __declspec+'
 let g:ctags_title = 1
 let g:ctags_statusline = 1
-let generate_tags = 1
+let g:generate_tags = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
 let g:local_vimrc=".lvimrc"
