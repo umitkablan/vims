@@ -584,7 +584,8 @@ let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 augroup autoformat_on_bufwrite
   autocmd!
-  au BufWrite * if &ft=='cpp' || &ft=='c'|:Autoformat|endif
+  au BufWritePre * if &ft=='cpp'||&ft=='c' | AutoformatJIT | endif
+  au BufWritePost * if &ft=='cpp'||&ft=='c' | Autoformat | endif
 augroup END
 Plug 'umitkablan/vim-autoformat'
 "}}}
