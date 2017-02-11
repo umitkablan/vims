@@ -578,16 +578,11 @@ let g:syntastic_c_check_header = 1
 "let g:syntastic_*_checkers=['Xxx', 'Yyy']
 Plug 'scrooloose/syntastic'
 "}}}
-" AutoFormat {{{
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
-augroup autoformat_on_bufwrite
-  autocmd!
-  au BufWritePre * if &ft=='cpp'||&ft=='c' | AutoformatJIT | endif
-  au BufWritePost * if &ft=='cpp'||&ft=='c' | Autoformat | endif
-augroup END
-Plug 'umitkablan/vim-autoformat'
+" vim-auf {{{
+let g:auf_autoindent = 0
+let g:auf_retab = 0
+let g:auf_remove_trailing_spaces = 0
+Plug 'umitkablan/vim-auf'
 "}}}
 Plug 'godlygeek/tabular'
 " majutsushi/TagBar {{{
