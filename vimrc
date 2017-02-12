@@ -144,8 +144,20 @@ let g:airline#extensions#whitespace#show_message = 0
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
 endif
-" let g:airline_section_b = '%<%1.24{expand("%:.")}'
-let g:airline_section_x = "%{tagbar#currenttag('@%s', '')}"
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+if has("multi_byte")
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.crypt = '🔒'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.maxlinenr = ''
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.spell = 'S'
+  let g:airline_symbols.notexists = '∄'
+  let g:airline_symbols.whitespace = 'Ξ'
+endif
 let g:airline_mode_map = {
       \ '__' : '------',
       \ 'n'  : 'N',
@@ -159,6 +171,8 @@ let g:airline_mode_map = {
       \ 'S'  : 'S',
       \ '' : '^s',
       \ }
+let g:airline_section_b = '%{airline#util#shorten(airline#extensions#branch#get_head(),7,0)}'
+let g:airline_section_x = "%{tagbar#currenttag('@%s', '')}"
 Plug 'bling/vim-airline'
 " }}}
 Plug 'ntpeters/vim-airline-colornum'
