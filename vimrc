@@ -132,21 +132,20 @@ Plug 'mileszs/ack.vim', {'on': ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckA
 Plug 'mhinz/vim-grepper'
 " bling/Airline {{{
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_splits  = 1
 let g:airline#extensions#tabline#excludes = []
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type   = 1 " tab number
+let g:airline#extensions#tabline#show_tab_nr   = 1
 let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#branch#enabled = 0
-let g:airline#extensions#whitespace#enabled=1
-let g:airline#extensions#whitespace#show_message=0
+let g:airline#extensions#branch#enabled     = 1
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#whitespace#show_message = 0
 if !exists("g:airline_statusline_funcrefs")
   let g:airline_statusline_funcrefs = []
 endif
-let g:airline_section_b = '%<%1.24{getcwd()}'
-" let g:airline_section_c = "%f%m %{tagbar#currenttag('<%s> ', '')}"
-" let g:airline_section_x = ""
+" let g:airline_section_b = '%<%1.24{expand("%:.")}'
+let g:airline_section_x = "%{tagbar#currenttag('@%s', '')}"
 let g:airline_mode_map = {
       \ '__' : '------',
       \ 'n'  : 'N',
@@ -160,24 +159,6 @@ let g:airline_mode_map = {
       \ 'S'  : 'S',
       \ '' : '^s',
       \ }
-if !exists("g:airline_symbols")
-  let g:airline_symbols = {}
-endif
-if has('multi_byte')
-  let g:airline_left_sep  = '»'
-  let g:airline_left_sep  = '▶'
-  let g:airline_right_sep = '«'
-  let g:airline_right_sep = '◀'
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.linenr = '␊'
-  let g:airline_symbols.linenr = '␤'
-  let g:airline_symbols.branch = '⎇'
-  let g:airline_symbols.paste = 'Þ'
-  let g:airline_symbols.paste = '∥'
-  let g:airline_symbols.paste = 'ρ'
-  let g:airline_symbols.spell = 'Ꞩ'
-  let g:airline_symbols.whitespace = 'Ξ'
-endif
 Plug 'bling/vim-airline'
 " }}}
 Plug 'ntpeters/vim-airline-colornum'
