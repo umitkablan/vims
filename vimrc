@@ -1,7 +1,10 @@
 " Global vim configuration: vimrc
 " Umit Kablan <gmail: umitkablan>
+set encoding=utf-8
 scriptencoding utf-8
-"
+set fileencoding=utf-8
+language C
+
 " Note that the configuration is designed for a Turkish QWERTY keyboard and
 " that supporting ~/.Xmodmap is really helpful for productivity.  Such modmap
 " shall map <AltGr>-hjkl to corresponding arrow keys, and Turkish local keys
@@ -13,19 +16,20 @@ scriptencoding utf-8
 " keyboards.).
 
 " Plug {{{
-if has("vim_starting")
+if has('vim_starting')
   set nocompatible   " Be iMproved
   " filetype off     " Required for Vundle!
   " set rtp+=~/.vim/packs/neobundle.vim/
 endif
 
-set encoding=utf-8
-set fileencoding=utf-8
-language C
 set completeopt-=preview
 
 " Plugins {{{
+augroup Misc_Plugins_Au
+  autocmd!
+augroup END
 call plug#begin('~/.vim/packs')
+
 Plug 'Shougo/vimproc', {
   \ 'do' : 'make -f make_mingw32.mak',
   \ }
@@ -51,6 +55,7 @@ nnoremap <silent> ğa :A<CR>
 Plug 'a.vim'
 " }}}
 Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
+let g:cscope_ignored_dir = 'node_modules$\|dist$\|build$\|\..\+$'
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
 Plug 'danro/rename.vim', {'on': 'Rename'}
 Plug 'qpkorr/vim-renamer', {'on': 'Renamer'}
@@ -116,13 +121,13 @@ let g:Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
 Plug 'grep.vim', {'on': 'Grep'}
 " }}}
 " milesz/ack.vim {{{
-if executable("ag")
+if executable('ag')
   let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
 else
-  if executable("ack")
+  if executable('ack')
     let g:ackprg = 'ack -H --nocolor --nogroup --column'
   else
-    if executable("ack-grep")
+    if executable('ack-grep')
       let g:ackprg = 'ack-grep -H --nocolor --nogroup --column'
     endif
   endif
@@ -141,13 +146,13 @@ let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#branch#enabled     = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#whitespace#show_message = 0
-if !exists("g:airline_statusline_funcrefs")
+if !exists('g:airline_statusline_funcrefs')
   let g:airline_statusline_funcrefs = []
 endif
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-if has("multi_byte")
+if has('multi_byte')
   let g:airline_left_sep = '▶'
   let g:airline_right_sep = '◀'
   let g:airline_symbols.crypt = '🔒'
@@ -230,7 +235,9 @@ Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
 " Indent-Guides {{{
 let g:indent_guides_color_change_percent = 20
 let g:indent_guides_enable_on_vim_startup = 0
-autocmd VimEnter * IndentGuidesDisable
+augroup Misc_Plugins_Au
+  autocmd VimEnter * IndentGuidesDisable
+augroup END
 Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'Yggdroot/indentLine'
 " }}}
@@ -241,8 +248,8 @@ inoremap <silent> <F2> <Esc>:InlineEdit<CR>
 Plug 'AndrewRadev/inline_edit.vim', {'on': 'InlineEdit'}
 " }}}
 " DirDiff {{{
-let g:DirDiffExcludes = ".svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so,*.ko"
-let g:DirDiffAddArgs = "-w"
+let g:DirDiffExcludes = '.svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so,*.ko'
+let g:DirDiffAddArgs = '-w'
 Plug 'DirDiff.vim', {'on': 'DirDiff'}
 " }}}
 Plug 'linediff.vim', {'on': 'Linediff'}
@@ -317,7 +324,9 @@ let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures = 0
-au FileType python nnoremap <buffer> <silent> <C-]> :call jedi#goto()<CR>
+augroup Misc_Plugins_Au
+  au FileType python nnoremap <buffer> <silent> <C-]> :call jedi#goto()<CR>
+augroup END
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
 "}}}
 "Plug 'klen/python-mode', {'for': 'python'}
@@ -328,22 +337,26 @@ let g:go_def_mapping_enabled = 1
 let g:go_autodetect_gopath = 0
 let g:go#use_vimproc = 1
 " let g:go_bin_path = expand('~/SRC/Go')
-let g:go_snippet_engine = "neosnippet"
-let g:go_list_type = "quickfix"
-let g:go_def_mode = "godef"
-au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
+let g:go_snippet_engine = 'neosnippet'
+let g:go_list_type = 'quickfix'
+let g:go_def_mode = 'godef'
+augroup Misc_Plugins_Au
+  au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
+augroup END
 Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
-au FileType html,css EmmetInstall
+augroup Misc_Plugins_Au
+  au FileType html,css EmmetInstall
+augroup END
 Plug 'mattn/emmet-vim', {'for': 'html'}
 " }}}
 " }}}
 " SuperTab {{{
 let g:SuperTabMappingForward = '<C-Space>'
 let g:SuperTabMappingBackward = '<S-C-Space>'
-let g:SuperTabDefaultCompletionType = "context" "<C-X><C-O>
+let g:SuperTabDefaultCompletionType = 'context' "<C-X><C-O>
 let g:SuperTabLongestEnhanced = 0
 let g:SuperTabCrMapping = 0
 Plug 'ervandew/supertab'
@@ -398,14 +411,17 @@ let g:neocomplete#dictionary_filetype_lists = {
   \ 'txt'          : '/usr/share/dict/words',
   \ 'text'         : '/usr/share/dict/words',
   \ }
-"autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=tern#Complete     "javascriptcomplete#CompleteJS
-autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
-autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
+augroup Omnifuncs_Filetypes_Au
+  autocmd!
+  "autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript    setlocal omnifunc=tern#Complete     "javascriptcomplete#CompleteJS
+  autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
+  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
+  autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
+augroup END
 Plug 'Shougo/neocomplete.vim'
 "}}}
 " Shougo/NeoSnippet & Snippet Sources {{{
@@ -419,8 +435,8 @@ function! IsCharExpandableTabbable() abort
   if i < 2
     return 0
   endif
-  let c = getline(".")[i-2]
-  if c == ''
+  let c = getline('.')[i-2]
+  if c ==# ''
     return 0
   endif
   return stridx(' 	''"{}()[]!^+/\()=?,.;:<>|', c) < 0
@@ -461,7 +477,7 @@ let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 Plug 'Notes' ", {'on': ['Note','NoteAsNew']}
 "}}}
 " DerekWyatt/vim-ProtoDef {{{
-let g:protodefprotogetter=expand("$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl")
+let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
 Plug 'derekwyatt/vim-protodef', {'for': 'cpp'}
 " }}}
 " yssl/QFEnter {{{
@@ -497,7 +513,7 @@ Plug 'UnconditionalPaste'
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
 " Also have non-smart mundane paste's just in case
-let g:pasta_disabled_filetypes = ["coffee", "markdown"]
+let g:pasta_disabled_filetypes = ['coffee', 'markdown']
 " let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
 let g:smartput = 1
 nmap <unique> NOTUSEDğst <Plug>SmartputToggle
@@ -521,10 +537,12 @@ let g:session_autoload = 'no'
 Plug 'xolox/vim-session'
 " }}}
 " mhinz/Startify {{{
-au FileType startify setlocal nospell
-au User Startified setlocal cursorline
+augroup Misc_Plugins_Au
+  au FileType startify setlocal nospell
+  au User Startified setlocal cursorline
+augroup END
 let g:startify_session_dir = '~/.vim/var/session'
-let g:session_directory = "~/.vim/var/session"
+let g:session_directory = '~/.vim/var/session'
 let g:startify_files_number = 19
 let g:startify_change_to_dir = 0
 let g:startify_bookmarks = ['~/projects', '~/.vim']
@@ -552,13 +570,13 @@ let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 Plug 'jiangmiao/auto-pairs'
 "}}}
 " scrooloose/Syntastic {{{
-let g:syntastic_javascript_jshint_conf = "~/.vim/jshint.rc"
-let g:syntastic_c_compiler_options = "-std=gnu99
+let g:syntastic_javascript_jshint_conf = '~/.vim/jshint.rc'
+let g:syntastic_c_compiler_options = '-std=gnu99
                                   \  -Wall -Wextra -Wshadow -Wpointer-arith
                                   \  -Wcast-align -Wwrite-strings -Wmissing-prototypes
                                   \  -Wmissing-declarations -Wredundant-decls -Wnested-externs
                                   \  -Winline -Wno-long-long -Wuninitialized -Wconversion
-                                  \  -Wstrict-prototypes"
+                                  \  -Wstrict-prototypes'
 "-pedantic
 let g:syntastic_stl_format = '[=> ln:%F (%t)]'
 let g:syntastic_aggregate_errors=1
@@ -585,8 +603,8 @@ nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 Plug 'majutsushi/tagbar' "We need it for Startify {'on': ['TagbarOpenAutoClose', 'TagbarToggle', 'TagbarOpen']}
 "}}}
 " tomtom/TComment {{{
-let g:tcommentMapLeader1=""
-let g:tcommentMapLeader2=""
+let g:tcommentMapLeader1 = ''
+let g:tcommentMapLeader2 = ''
 nnoremap <silent> __ :TComment<CR>
 xnoremap <silent> __ :TCommentMaybeInline<CR>
 Plug 'tomtom/tcomment_vim'
@@ -616,7 +634,7 @@ Plug 'glts/vim-textobj-comment'
 "NeoBundle 'kana/vim-textobj-indent'
 "NeoBundle 'textobj-line-vim-scripts'
 " }}}
-let g:tinykeymap#map#windows#map = "gw"
+let g:tinykeymap#map#windows#map = 'gw'
 Plug 'tomtom/tinykeymap_vim'
 Plug 'tpope/vim-unimpaired'
 " t9md/TextManip {{{
@@ -649,21 +667,11 @@ let g:unite_source_history_yank_enable=1
 let g:unite_source_file_mru_limit=300
 let g:unite_source_history_yank_limit=600
 let g:unite_data_directory = $HOME . '/.vim/var/unite'
-autocmd FileType unite call s:cust_unite_maps()
-autocmd BufLeave \[unite\]* if "nofile" ==# &buftype | bwipeout | endif
-" autocmd BufLeave \[unite\]* set bufhidden=wipe
-function! s:clearUniteBuffers() "{{{
-  "find [unite] or *unite* buffers to be wiped-out
-  let unitebuffs = filter(range(1, bufnr('$')),
-        \ '"nofile" ==# getbufvar(v:val, "&buftype")
-        \  && -1 == index(displayedbufs, v:val)
-        \  && bufname(v:val) =~# ''*unite*\|\[unite\]''')
-  " obliterate the buffers and their related state (marks especially).
-  if !empty(unitebuffs)
-    exe 'bwipeout! '.join(unitebuffs, ' ')
-  endif
-endfunction "}}}
-" autocmd BufEnter * silent call <SID>clearUniteBuffers()
+augroup Misc_Plugins_Au
+  autocmd FileType unite call s:cust_unite_maps()
+  autocmd BufLeave \[unite\]* if 'nofile' ==# &buftype | bwipeout | endif
+  " autocmd BufLeave \[unite\]* set bufhidden=wipe
+augroup END
 function! s:cust_unite_maps() "{{{
   let b:SuperTabDisabled=1
   " Overwrite settings.
@@ -696,7 +704,7 @@ function! s:cust_unite_maps() "{{{
   nnoremap <buffer><expr> S unite#mappings#set_current_filters(
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 endfunction "}}}
-if !exists("g:unite_source_menu_menus") "{{{
+if !exists('g:unite_source_menu_menus') "{{{
   let g:unite_source_menu_menus = {}
 endif
 let g:unite_source_menu_menus.fenc = {
@@ -768,11 +776,13 @@ Plug 'tpope/vim-fugitive' ", {'on': ['Git','Gstatus']}
 " }}}
 " NeoBundleLazy 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
-let g:VCSCommandMapPrefix = "<LocalLeader>c"
+let g:VCSCommandMapPrefix = '<LocalLeader>c'
 let g:VCSCommandVCSTypePreference = 'git'
-"let VCSCommandSVNDiffOpt = "-ignore-all-space"
+"let VCSCommandSVNDiffOpt = '-ignore-all-space'
 " Turn off spell other than commit message writing
-au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
+augroup Misc_Plugins_Au
+  au FileType svndiff,svnlog,svnannotate,svnstatus setlocal nospell
+augroup END
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
 augroup END
@@ -863,9 +873,11 @@ Plug 'edkolev/tmuxline.vim'
 " }}}
 Plug 'umitkablan/vim-zeroth-colorscheme', {'on': 'ZerothCS'}
 " umitkablan/umisc {{{
-autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
-autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
-autocmd FileType text nmap     <silent><buffer> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
+augroup Misc_Plugins_Au
+  autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
+  autocmd FileType vim  nnoremap <silent><buffer> <F2> :Source<CR>
+  autocmd FileType text nmap     <silent><buffer> <CR> :call umisc#SwapTrCharsToFromEn()<CR>
+augroup END
 " Cycle through UPPERCASE, lowercase, and Titlecase of the selection
 xnoremap <silent> ~    ygv"=umisc#TwiddleCase(@")<CR>Pgv
 nnoremap <silent> ĞN   :redir @n\|call umisc#DecAndHex(expand("<cWORD>"))\|redir END<CR>
@@ -916,13 +928,13 @@ call tinykeymap#Map('changelocs', ',', 'norm! g,')
 call tinykeymap#Map('changelocs', ';', 'norm! g;')
 " }}}
 " GF-Ext {{{
-call gf_ext#add_handler('\.jpg$', "!firefox -new-window")
-call gf_ext#add_handler('\.avi$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.flv$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mp4$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mov$', "!mplayer -really-quiet")
-call gf_ext#add_handler('\.mkv$', "!mplayer -really-quiet")
-call gf_ext#add_handler('http://\S*$', "!firefox -new-window")
+call gf_ext#add_handler('\.jpg$', '!firefox -new-window')
+call gf_ext#add_handler('\.avi$', '!mplayer -really-quiet')
+call gf_ext#add_handler('\.flv$', '!mplayer -really-quiet')
+call gf_ext#add_handler('\.mp4$', '!mplayer -really-quiet')
+call gf_ext#add_handler('\.mov$', '!mplayer -really-quiet')
+call gf_ext#add_handler('\.mkv$', '!mplayer -really-quiet')
+call gf_ext#add_handler('http://\S*$', '!firefox -new-window')
 " }}}
 
 " global configuration {{{
@@ -931,8 +943,8 @@ filetype plugin on
 filetype indent on
 syntax on
 " set regexpengine=1
-let g:mapleader = "ü"
-let g:maplocalleader = ","
+let g:mapleader = 'ü'
+let g:maplocalleader = ','
 "set term color to 256 for some colorschemes to work.
 set t_Co=256
 "show statusbar all the time
@@ -987,17 +999,20 @@ set spell spelllang=en
 " keep cursor always in the middle
 " set scrolloff=9999
 
-au FileType text setlocal wrap linebreak
-au FileType help setlocal nonumber
-au FileType qf,tagselect,diff  setlocal nospell
-au FilterWritePre * if &diff | setlocal nospell | endif
-au InsertEnter * set nocursorline
-au InsertLeave * set cursorline
-au TabLeave    * stopinsert
-au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
-" delete swap file if the swapped file is 'nomodified'
-au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
-au VimLeave    * if v:dying | wall | endif
+augroup Misc_Au_For_Filetypes
+  autocmd!
+  au FileType text setlocal wrap linebreak
+  au FileType help setlocal nonumber
+  au FileType qf,tagselect,diff  setlocal nospell
+  au FilterWritePre * if &diff | setlocal nospell | endif
+  au InsertEnter * set nocursorline
+  au InsertLeave * set cursorline
+  au TabLeave    * stopinsert
+  au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
+  " delete swap file if the swapped file is 'nomodified'
+  au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
+  au VimLeave    * if v:dying | wall | endif
+augroup END
 
 " Colorscheme Selection {{{
 " hemisu bandit lucius solarized badwolf asu1dark burnttoast256 rastafari molokai
@@ -1012,7 +1027,7 @@ colorscheme PerfectDark
 "   au ColorScheme * hi CursorLine term=none cterm=none ctermbg=001510
 " endif
 " }}}
-if has("gui")
+if has('gui')
   set guioptions-=T
   set guioptions-=r
   set guioptions+=c " Use console dialogs where possible"
@@ -1081,7 +1096,7 @@ nnoremap <silent> y@@ :let @+=expand("%:p")<CR>
 nnoremap <silent> y@  :let @+=expand("%:.")<CR>
 " gui receives keystrokes that terminal cannot, use them for saving &
 " visual-reselect, etc.
-if has("gui_running")
+if has('gui_running')
   nnoremap <silent> <C-s> :update<CR>
   vmap <C-s> <Esc><C-s>gv
   imap <C-s> <C-o><C-s>
@@ -1224,11 +1239,14 @@ augroup tag_langs
   au FileType c,cpp,java,javascript,actionscript,sh
           \ nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
 augroup END
-au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
-au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
-au FileType tagbar,qf,tagselect       nmap     <buffer>          <Esc>       <Backspace>
-au FileType netrw                     nmap     <buffer>          <Backspace> -
-au FileType vundle,gitcommit,calendar nmap     <buffer>          <Backspace> q
+augroup Backspace_Quits_Filetype_Maps
+  au!
+  au FileType tar,man,conque_term       nnoremap <silent> <buffer> <Backspace> :bwipeout!<CR>
+  au FileType tagbar,qf,help            nnoremap <silent> <buffer> <Backspace> :q<CR>
+  au FileType tagbar,qf,tagselect       nmap     <buffer>          <Esc>       <Backspace>
+  au FileType netrw                     nmap     <buffer>          <Backspace> -
+  au FileType vundle,gitcommit,calendar nmap     <buffer>          <Backspace> q
+augroup END
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated nnoremap <silent> <buffer> <Backspace> :q!<CR>
 augroup END
@@ -1243,7 +1261,7 @@ nnoremap <silent> [d :call ShowBlockName('[d')<CR>
 nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 " }}}
 " plugin configuration {{{
-let g:tmuxmake_targets = ""
+let g:tmuxmake_targets = ''
 let g:locator_disable_mappings = 1
 
 " Aliases {{{
@@ -1312,9 +1330,9 @@ let g:ctags_statusline = 1
 let g:generate_tags = 1
 let g:valgrind_arguments='--leak-check=yes --num-callers=5000'
 let g:yankring_history_dir = expand('$HOME/.vim')
-let g:local_vimrc=".lvimrc"
+let g:local_vimrc='.lvimrc'
 let g:hybrid_use_Xresources = 0
-let g:github_user = "umitkablan"
+let g:github_user = 'umitkablan'
 let g:loaded_fonts=1
 " }}}
 
