@@ -309,7 +309,19 @@ let g:OmniCpp_MayCompleteDot   = 0
 let g:OmniCpp_MayCompleteArrow = 0
 let g:OmniCpp_MayCompleteScope = 0
 let g:OmniCpp_SelectFirstItem  = 0
-Plug 'OmniCppComplete', {'for': 'cpp'}
+Plug 'OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
+"}}}
+" Clang_Complete {{{
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_omnicppcomplete_compliance = 1
+let g:clang_make_default_keymappings = 0
+let g:clang_library_path = '/usr/local/Cellar/llvm/3.9.0/lib'
+let g:clang_debug = 1
+augroup Misc_Plugins_Au
+  au FileType c,cpp,objc,objcpp nnoremap <buffer> <silent> <C-]> :call ClangGotoDeclaration()<CR>
+augroup END
+Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp', 'objc', 'objcpp']}
 "}}}
 let g:JavaComplete_EnableDefaultMappings = 0
 Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
@@ -369,6 +381,7 @@ augroup END
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 1
 let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_fuzzy_completion = 0
 let g:neocomplete#auto_completion_start_length = 2
 let g:neocomplete#enable_camel_case_completion = 0
 let g:neocomplete#enable_underbar_completion = 0
@@ -376,6 +389,7 @@ let g:neocomplete#min_syntax_length = 2
 let g:neocomplete#min_keyword_length = 2
 " let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#sources#tags#cache_limit_size = 16777216 "16MB
 let g:neocomplete#max_list = 30
 let g:neocomplete#enable_cursor_hold_i = 1
 let g:neocomplete#enable_auto_delimiter = 0
@@ -420,8 +434,19 @@ augroup Omnifuncs_Filetypes_Au
   autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
   autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
-  autocmd Filetype c,cpp         setlocal omnifunc=omni#cpp#complete#Main
+  autocmd Filetype c,cpp,objc,objcpp setlocal omnifunc=ClangComplete
 augroup END
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.c =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:neocomplete#force_omni_input_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.objc =
+      \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+let g:neocomplete#force_omni_input_patterns.objcpp =
+      \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
 Plug 'Shougo/neocomplete.vim'
 "}}}
 " Shougo/NeoSnippet & Snippet Sources {{{
@@ -1236,7 +1261,7 @@ augroup tag_langs
   " <CR>        --:> :TS <C-R><C-W><CR>
   " <Backspace> --:> :PopTagStack<CR>
   " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
-  au FileType c,cpp,java,javascript,actionscript,sh
+  au FileType java,javascript,actionscript,sh
           \ nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
 augroup END
 augroup Backspace_Quits_Filetype_Maps
