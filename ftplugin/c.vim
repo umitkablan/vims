@@ -1,5 +1,7 @@
 " Behaves just like C
-runtime! ftplugin/c.vim ftplugin/c_*.vim ftplugin/c/*.vim
+if !exists("b:did_ftplugin")
+    silent! runtime! ftplugin/c.vim
+endif
 
 setlocal omnifunc=ClangComplete
 setlocal completefunc=ClangComplete
