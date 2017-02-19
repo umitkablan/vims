@@ -1,0 +1,2 @@
+setlocal omnifunc=ClangComplete
+setlocal completefunc=ClangComplete
