@@ -317,7 +317,6 @@ let g:clang_auto_select = 0
 let g:clang_omnicppcomplete_compliance = 1
 let g:clang_make_default_keymappings = 0
 let g:clang_library_path = '/usr/local/Cellar/llvm/3.9.0/lib'
-let g:clang_debug = 1
 augroup Misc_Plugins_Au
   au FileType c,cpp,objc,objcpp nnoremap <buffer> <silent> <C-]> :call ClangGotoDeclaration()<CR>
 augroup END
