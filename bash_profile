@@ -6,6 +6,8 @@ fi
 
 # Load RVM, if you are using it
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+# Load FZF, if you are using it
+[[ -f $HOME/.fzf.bash ]] && source ~/.fzf.bash
 
 export PATH=$PATH:~/.gem/ruby/1.8/bin:/opt/nginx/sbin
 export PATH=/usr/local/sbin:$PATH
