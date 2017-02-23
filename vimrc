@@ -39,36 +39,39 @@ Plug 'xolox/vim-misc'
 Plug 'cecutil'
 nnoremap <silent> ğ1 :TScratch<CR>
 Plug 'tomtom/tlib_vim'
-" NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
+" Plug https://bitbucket.org: ZyX_I/frawor ns9tks/vim-l9
 Plug 'genutils'
-" Plug 'https://bitbucket.org/ZyX_I/frawor'
 Plug 'lh-vim-lib'
 Plug 'ingo-library'
-Plug 'AnsiEsc.vim', {'on': 'AnsiEsc'}
-Plug 'godlygeek/csapprox'
-Plug 'chrisbra/SudoEdit.vim', {'on': 'SudoWrite'}
-let g:LargeFile=2 " megabytes
-Plug 'LargeFile'
-Plug 'Colorizer--Brabandt', {'for': 'css,html'} "ColorSchemeMenuMaker
-"Plug 'lilydjwg/colorizer'
-" a.vim alternate {{{
-nnoremap <silent> ğa :A<CR>
-Plug 'a.vim'
-" }}}
-Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
-let g:cscope_ignored_dir = 'node_modules$\|dist$\|build$\|\..\+$'
-Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
-Plug 'danro/rename.vim', {'on': 'Rename'}
-Plug 'qpkorr/vim-renamer', {'on': 'Renamer'}
 Plug 'let-modeline.vim'
-Plug 'foldutil.vim', {'on': 'FoldShowLines'}
 Plug 'yaifa.vim' "ciaranm/detectindent
 Plug 'dietsche/vim-lastplace'
 Plug 'myusuf3/numbers.vim' "jeffkreeftmeijer/vim-numbertoggle
+let g:LargeFile=2 " megabytes
+Plug 'LargeFile'
+Plug 'matchit.zip'
+Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
+let g:cscope_ignored_dir = 'node_modules$\|dist$\|build$\|\..\+$'
+Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
+Plug 'mbbill/echofunc'
+Plug 'kana/vim-metarw'
+Plug 'bogado/file-line'
+Plug 'godlygeek/csapprox'
 " zhaocai/GoldenView {{{
 let g:goldenview__enable_default_mapping = 0
 Plug 'zhaocai/GoldenView.Vim'
 "}}}
+" a.vim alternate {{{
+nnoremap <silent> ğa :A<CR>
+Plug 'a.vim'
+" }}}
+" ReplaceWithRegister {{{
+nmap gr  <Plug>ReplaceMotion
+nmap grr <Plug>ReplaceLine
+xmap gr  <Plug>ReplaceVisual
+Plug 'ReplaceWithRegister'
+" }}}
+Plug 'tpope/vim-unimpaired'
 " IndentConsistencyCop / AutoCmds {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
@@ -85,15 +88,46 @@ Plug 'DeleteTrailingWhitespace'
 " }}}
 Plug 'CursorLineCurrentWindow'
 Plug 'pboettch/HiCursorWords'
+Plug 'SyntaxMotion.vim'
+Plug 'camelcasemotion'
+" Sneak Motions {{{
+nmap gs <Plug>Sneak_s
+nmap gS <Plug>Sneak_S
+xmap gs <Plug>Sneak_s
+xmap gS <Plug>Sneak_S
+omap gs <Plug>Sneak_s
+omap gS <Plug>Sneak_S
+
+nmap , <Plug>SneakNext
+nmap ; <Plug>SneakPrevious
+
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+let g:sneak#streak = 1
+Plug 'justinmk/vim-sneak' " supasorn/vim-easymotion rhysd/clever-f.vim
+" }}}
 Plug 'ZoomWin' "szw/vim-maximizer
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
 Plug 'mikewest/vimroom', {'on': ['VimroomToggle']}
-" ReplaceWithRegister {{{
-nmap gr  <Plug>ReplaceMotion
-nmap grr <Plug>ReplaceLine
-xmap gr  <Plug>ReplaceVisual
-Plug 'ReplaceWithRegister'
-" }}}
+Plug 'tpope/vim-surround'
+" jiangmiao/Auto-Pairs {{{
+let g:AutoPairsMapSpace = 1
+let g:AutoPairsMapCR    = 1
+let g:AutoPairsFlyMode  = 0
+let g:AutoPairsShortcutBackInsert = '_-<M-b>'
+Plug 'jiangmiao/auto-pairs'
+"}}}
 " xuhdev/SingleCompile {{{
 let g:SingleCompile_asyncrunmode = 'python'
 let g:SingleCompile_usequickfix = 0
@@ -108,8 +142,99 @@ let g:SrcExpl_refreshTime = 400
 let g:SrcExpl_isUpdateTags = 0
 Plug 'wesleyche/SrcExpl', {'on': ['SrcExpl','SrcExplToggle']}
 " }}}
-Plug 'VimSpy', {'on': ['Messages','Map','Command','CommandOutput','Syntax','Highlight','Function','Autocmd']}
-Plug 'nelstrom/vim-qargs', {'on': 'Qargs'}
+Plug 'UnconditionalPaste'
+" Smartput & sickill/Pasta {{{
+" smartput's mappings about p/P are deleted in favour of vim-pasta.
+" vim-pasta handles p/P while smartput handles gp/gP. Fair share.
+" Also have non-smart mundane paste's just in case
+let g:pasta_disabled_filetypes = ['coffee', 'markdown']
+" let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
+let g:smartput = 1
+nmap <unique> NOTUSEDğst <Plug>SmartputToggle
+nnoremap ğp p
+nnoremap ĞP P
+Plug 'Smartput'
+Plug 'sickill/vim-pasta'
+" }}}
+" mjbrownie/SwapIt & tpope/SpeedDating {{{
+let g:speeddating_no_mappings = 1
+" Use SwapIt to interface C-X/A rather than speeddating. Speeddating is
+" called from SwapIt as a fallback method.
+nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
+nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
+Plug 'mjbrownie/swapit'
+Plug 'tpope/vim-speeddating'
+" }}}
+" Repeat.Vim {{{
+let g:repeat_load_via_plugin = 1
+let g:repeat_dot_mapping  = '<Bar>'
+let g:repeat_undo_mapping = 'U'
+Plug 'umitkablan/vim-repeat' "visualrepeat
+" }}}
+Plug 'CmdlineComplete'
+" Command Aliases {{{
+Plug 'Konfekt/vim-alias' "'cmdalias.vim'
+func EatChar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunc
+augroup Misc_Plugins_Au
+  autocmd VimEnter * Alias m make
+  autocmd VimEnter * Alias te tabedit
+  autocmd VimEnter * Alias tee tabedit\ ~/<C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias spp sp\ ~/<C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias tec tabedit\ %<C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias dd diffthis
+  autocmd VimEnter * Alias do diffoff
+  autocmd VimEnter * Alias did DirDiff
+  autocmd VimEnter * Alias ie InlineEdit
+  autocmd VimEnter * Alias E e
+  autocmd VimEnter * Alias er Errors
+  autocmd VimEnter * Alias Er Errors
+  autocmd VimEnter * Alias un Underline
+  autocmd VimEnter * Alias git  Git
+  autocmd VimEnter * Alias gl   Glog
+  autocmd VimEnter * Alias gt   Git
+  autocmd VimEnter * Alias gs   Gstatus
+  autocmd VimEnter * Alias ge   Gedit
+  autocmd VimEnter * Alias gvsp Gvsplit
+  autocmd VimEnter * Alias ac  LAck!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias Ac  LAck!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias acc LAckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias Acc LAckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias ag  Ack!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias Ag  Ack!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias agg AckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias Agg AckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias gr  Grep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias Gr  Grep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias rg  Rgrep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias Rg  Rgrep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias grr GrepAdd\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias vc VCSCommit
+  autocmd VimEnter * Alias vd VCSDiff
+  autocmd VimEnter * Alias vr VCSRevert
+  autocmd VimEnter * Alias vb VCSBlame
+  autocmd VimEnter * Alias vu VCSUpdate
+  autocmd VimEnter * Alias vl VCSLog
+  autocmd VimEnter * Alias vs VCSStatus
+  autocmd VimEnter * Alias vi VCSInfo
+  autocmd VimEnter * Alias va VCSAdd
+  autocmd VimEnter * Alias vrm VCSRemove
+  autocmd VimEnter * Alias sw SudoWrite
+  autocmd VimEnter * Alias sr SudoRead
+  autocmd VimEnter * Alias con VimShellPop
+  autocmd VimEnter * Alias ref Ref\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias man Ref\ man\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias up UpdateTypesFileOnly
+  autocmd VimEnter * Alias ss SaveSession!\ default
+augroup END
+" }}}
+" Rooter {{{
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_silent_chdir = 1
+Plug 'umitkablan/vim-rooter'
+" }}}
 Plug 'DirDo.vim', {'on': ['DirDo','DDO','DDD','DirDoDir','DirDoAdd','DDA','DDP','DirDoPattern']}
 " yonchu/accelerated-smooth-scroll {{{
 let g:ac_smooth_scroll_no_default_key_mappings = 1
@@ -183,52 +308,10 @@ let g:airline_section_x = "%{tagbar#currenttag('@%s', '')}"
 Plug 'bling/vim-airline'
 " }}}
 Plug 'ntpeters/vim-airline-colornum'
-Plug 'itchyny/calendar.vim', {'on': 'Calendar'}
-Plug 'SyntaxMotion.vim'
-Plug 'camelcasemotion'
-" justinmk/vim-sneak {{{
-nmap gs <Plug>Sneak_s
-nmap gS <Plug>Sneak_S
-xmap gs <Plug>Sneak_s
-xmap gS <Plug>Sneak_S
-omap gs <Plug>Sneak_s
-omap gS <Plug>Sneak_S
-
-nmap , <Plug>SneakNext
-nmap ; <Plug>SneakPrevious
-
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
-let g:sneak#streak = 1
-Plug 'justinmk/vim-sneak'
-" }}}
-" 'supasorn/vim-easymotion' rhysd/clever-f.vim
-" sjl/Clam.vim {{{
-nnoremap '! :Clam <Space>
-xnoremap '! :ClamVisual <Space>
-Plug 'sjl/clam.vim', {'on': 'Clam'}
-" }}}
-Plug 'chrisbra/csv.vim', {'for': 'csv'}
-Plug 'vis', {'on': ['B','S']}
-" DBExt {{{
-let g:dbext_default_SQLITE_bin = 'sqlite3'
-nmap <unique> NOTUSEDğsh <Plug>DBHistory
-Plug 'dbext.vim', {'for': 'sql'}
-" }}}
-" junegunn/EasyAlign {{{
+" Alignment Automation {{{
 xnoremap <silent> <Enter> :EasyAlign<CR>
 Plug 'junegunn/vim-easy-align'
+Plug 'godlygeek/tabular'
 " }}}
 " GF-Ext {{{
 augroup Misc_Plugins_Au
@@ -262,7 +345,7 @@ let g:DirDiffExcludes = '.svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai
 let g:DirDiffAddArgs  = '-w'
 Plug 'DirDiff.vim', {'on': 'DirDiff'}
 " }}}
-Plug 'linediff.vim', {'on': 'Linediff'}
+Plug 'linediff.vim',          {'on': 'Linediff'}
 Plug 'rickhowe/diffchar.vim', {'on': ['SDChar','RDChar','TDChar']}
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
@@ -284,10 +367,8 @@ xmap <Space>r       <Plug>MarkRegex
 Plug 'Mark'
 " }}}
 "Plug 't9md/vim-quickhl'
-Plug 'matchit.zip'
-Plug 'mbbill/echofunc'
-Plug 'kana/vim-metarw'
-Plug 'bogado/file-line'
+Plug 'sjl/vitality.vim'
+Plug 'tpope/vim-abolish'
 " Multiselect {{{
 let g:no_multiselect_maps = 1
 Plug 'multiselect'
@@ -338,6 +419,7 @@ let g:no_java_maps = 1
 Plug 'Dinduks/vim-java-get-set', {'for': 'java'}
 "Plug 'nosami/Omnisharp'
 Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
+Plug 'SQLUtilities'
 Plug 'SQLComplete.vim', {'for': 'sql'}
 " davidhalter/Jedi {{{
 let g:jedi#auto_vim_configuration = 0
@@ -541,31 +623,6 @@ let g:signify_mapping_toggle = 'UNUSED_SIGNIGY_MT'
 let g:signify_mapping_toggle_highlight = 'UNUSED_SIGNIGY_HH'
 Plug 'mhinz/vim-signify'
 " }}}
-Plug 'sjl/vitality.vim'
-Plug 'UnconditionalPaste'
-" Smartput & sickill/Pasta {{{
-" smartput's mappings about p/P are deleted in favour of vim-pasta.
-" vim-pasta handles p/P while smartput handles gp/gP. Fair share.
-" Also have non-smart mundane paste's just in case
-let g:pasta_disabled_filetypes = ['coffee', 'markdown']
-" let g:pasta_enabled_filetypes = ['actionscript', 'c', 'cpp', 'javascript', 'python', 'sh', 'vim']
-let g:smartput = 1
-nmap <unique> NOTUSEDğst <Plug>SmartputToggle
-nnoremap ğp p
-nnoremap ĞP P
-Plug 'Smartput'
-Plug 'sickill/vim-pasta'
-" }}}
-" mjbrownie/SwapIt & tpope/SpeedDating {{{
-let g:speeddating_no_mappings = 1
-" Use SwapIt to interface C-X/A rather than speeddating. Speeddating is
-" called from SwapIt as a fallback method.
-nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
-nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
-Plug 'mjbrownie/swapit'
-Plug 'tpope/vim-speeddating'
-" }}}
-Plug 'SQLUtilities'
 " xolox/vim-Session {{{
 let g:session_autoload = 'no'
 Plug 'xolox/vim-session'
@@ -595,14 +652,6 @@ let g:startify_custom_footer = [
             \ ]
 Plug 'mhinz/vim-startify'
 "}}}
-Plug 'tpope/vim-surround'
-" jiangmiao/Auto-Pairs {{{
-let g:AutoPairsMapSpace = 1
-let g:AutoPairsMapCR    = 1
-let g:AutoPairsFlyMode  = 0
-let g:AutoPairsShortcutBackInsert = '_-<M-b>'
-Plug 'jiangmiao/auto-pairs'
-"}}}
 " scrooloose/Syntastic {{{
 let g:syntastic_javascript_jshint_conf = '~/.vim/jshint.rc'
 let g:syntastic_c_compiler_options = '-std=gnu99
@@ -631,7 +680,6 @@ let g:auf_retab      = 0
 let g:auf_remove_trailing_spaces = 0
 Plug 'umitkablan/vim-auf'
 "}}}
-Plug 'godlygeek/tabular'
 " majutsushi/TagBar {{{
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 Plug 'majutsushi/tagbar' "We need it for Startify {'on': ['TagbarOpenAutoClose', 'TagbarToggle', 'TagbarOpen']}
@@ -677,7 +725,6 @@ augroup Misc_Plugins_Au
 augroup END
 Plug 'tomtom/tinykeymap_vim'
 " }}}
-Plug 'tpope/vim-unimpaired'
 " t9md/TextManip {{{
 xmap <Up>    <Plug>(textmanip-move-up)
 xmap <Down>  <Plug>(textmanip-move-down)
@@ -687,9 +734,6 @@ xmap D       <Plug>(textmanip-duplicate-down)
 xmap DD      <Plug>(textmanip-duplicate-up)
 Plug 't9md/vim-textmanip'
 " }}}
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_silent_chdir = 1
-Plug 'umitkablan/vim-rooter'
 " ctrlpvim/CtrlP {{{
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_map = '<C-p>'
@@ -828,82 +872,8 @@ augroup VCSCommand
 augroup END
 Plug 'vcscommand.vim', {'on': ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
 " }}}
-Plug 'thinca/vim-ref', {'on': 'Ref'} "viewdoc, ManPageView, viki
-Plug 'Vimball', {'for': 'vim'}
-Plug 'VisIncr', {'on': ['I','II']}
-" Repeat.Vim {{{
-let g:repeat_load_via_plugin = 1
-let g:repeat_dot_mapping  = '<Bar>'
-let g:repeat_undo_mapping = 'U'
-Plug 'umitkablan/vim-repeat' "visualrepeat
-" }}}
 Plug 'bronson/vim-visual-star-search'
 Plug 'embear/vim-foldsearch'
-Plug 'epeli/slimux' "vimux
-Plug 'mattn/webapi-vim'
-Plug 'diepm/vim-rest-console'
-Plug 'gerw/vim-HiLinkTrace'
-Plug 'hexman.vim', {'on': 'HexManager'}
-Plug 'CmdlineComplete'
-" Command Aliases {{{
-Plug 'Konfekt/vim-alias' "'cmdalias.vim'
-func EatChar(pat)
-  let c = nr2char(getchar(0))
-  return (c =~ a:pat) ? '' : c
-endfunc
-augroup Misc_Plugins_Au
-  autocmd VimEnter * Alias m make
-  autocmd VimEnter * Alias te tabedit
-  autocmd VimEnter * Alias tee tabedit\ ~/<C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias spp sp\ ~/<C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias tec tabedit\ %<C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias dd diffthis
-  autocmd VimEnter * Alias do diffoff
-  autocmd VimEnter * Alias did DirDiff
-  autocmd VimEnter * Alias ie InlineEdit
-  autocmd VimEnter * Alias E e
-  autocmd VimEnter * Alias er Errors
-  autocmd VimEnter * Alias Er Errors
-  autocmd VimEnter * Alias un Underline
-  autocmd VimEnter * Alias git  Git
-  autocmd VimEnter * Alias gl   Glog
-  autocmd VimEnter * Alias gt   Git
-  autocmd VimEnter * Alias gs   Gstatus
-  autocmd VimEnter * Alias ge   Gedit
-  autocmd VimEnter * Alias gvsp Gvsplit
-  autocmd VimEnter * Alias ac  LAck!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias Ac  LAck!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias acc LAckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias Acc LAckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias ag  Ack!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias Ag  Ack!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias agg AckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias Agg AckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias gr  Grep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias Gr  Grep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias rg  Rgrep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias Rg  Rgrep\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias grr GrepAdd\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias vc VCSCommit
-  autocmd VimEnter * Alias vd VCSDiff
-  autocmd VimEnter * Alias vr VCSRevert
-  autocmd VimEnter * Alias vb VCSBlame
-  autocmd VimEnter * Alias vu VCSUpdate
-  autocmd VimEnter * Alias vl VCSLog
-  autocmd VimEnter * Alias vs VCSStatus
-  autocmd VimEnter * Alias vi VCSInfo
-  autocmd VimEnter * Alias va VCSAdd
-  autocmd VimEnter * Alias vrm VCSRemove
-  autocmd VimEnter * Alias sw SudoWrite
-  autocmd VimEnter * Alias sr SudoRead
-  autocmd VimEnter * Alias con VimShellPop
-  autocmd VimEnter * Alias ref Ref\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias man Ref\ man\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias up UpdateTypesFileOnly
-  autocmd VimEnter * Alias ss SaveSession!\ default
-augroup END
-" }}}
-Plug 'tpope/vim-abolish'
 " incsearch.vim & vim-indexed-search {{{
 let g:incsearch#separate_highlight = 1
 let g:incsearch#vim_cmdline_keymap = 0
@@ -998,6 +968,35 @@ onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 Plug 'umitkablan/umisc'
 " }}}
+" sjl/Clam.vim {{{
+nnoremap '! :Clam <Space>
+xnoremap '! :ClamVisual <Space>
+Plug 'sjl/clam.vim', {'on': 'Clam'}
+" }}}
+" DBExt {{{
+let g:dbext_default_SQLITE_bin = 'sqlite3'
+nmap <unique> NOTUSEDğsh <Plug>DBHistory
+Plug 'dbext.vim', {'for': 'sql'}
+" }}}
+Plug 'epeli/slimux' "vimux
+Plug 'mattn/webapi-vim'
+Plug 'thinca/vim-ref',        {'on': 'Ref'} "viewdoc, ManPageView, viki
+Plug 'VisIncr',               {'on': ['I','II']}
+Plug 'AnsiEsc.vim',           {'on': 'AnsiEsc'}
+Plug 'chrisbra/SudoEdit.vim', {'on': 'SudoWrite'}
+Plug 'danro/rename.vim',      {'on': 'Rename'}
+Plug 'qpkorr/vim-renamer',    {'on': 'Renamer'}
+Plug 'vis',                   {'on': ['B','S']}
+Plug 'foldutil.vim',          {'on': 'FoldShowLines'}
+Plug 'nelstrom/vim-qargs',    {'on': 'Qargs'}
+Plug 'gerw/vim-HiLinkTrace',  {'on': ['HLT', 'HLTm']}
+Plug 'hexman.vim',            {'on': 'HexManager'}
+Plug 'itchyny/calendar.vim',  {'on': 'Calendar'}
+Plug 'VimSpy', {'on': ['Messages','Map','Command','CommandOutput','Syntax','Highlight','Function','Autocmd']}
+Plug 'chrisbra/csv.vim',       {'for': 'csv'}
+Plug 'Colorizer--Brabandt',    {'for': ['css','html']} "ColorSchemeMenuMaker lilydjwg/colorizer
+Plug 'diepm/vim-rest-console', {'for': 'rest'}
+Plug 'Vimball',                {'for': 'vim'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'rkitover/vimpager', {
   \ 'do' : 'make',
