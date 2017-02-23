@@ -406,7 +406,7 @@ let g:neocomplete#temporary_dir  = $HOME . '/.vim/var/neocomplete_tmp'
 let g:neocomplete#data_directory = $HOME . '/.vim/var/neocomplete_cache'
 " inoremap <expr> <C-y> neocomplete#close_popup()
 " inoremap <expr> <C-e> neocomplete#cancel_popup()
-inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<C-c>O" : "\<CR>"
+inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <C-h>       neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <Backspace> neocomplete#smart_close_popup()."\<Backspace>"
 inoremap <expr> <Left>  pumvisible() ? neocomplete#smart_close_popup() : "\<Left>"
@@ -597,8 +597,8 @@ Plug 'mhinz/vim-startify'
 "}}}
 Plug 'tpope/vim-surround'
 " jiangmiao/Auto-Pairs {{{
-let g:AutoPairsMapSpace = 0
-let g:AutoPairsMapCR    = 0
+let g:AutoPairsMapSpace = 1
+let g:AutoPairsMapCR    = 1
 let g:AutoPairsFlyMode  = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 Plug 'jiangmiao/auto-pairs'
