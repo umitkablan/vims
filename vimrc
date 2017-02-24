@@ -124,7 +124,9 @@ Plug 'tpope/vim-surround'
 " jiangmiao/Auto-Pairs {{{
 let g:AutoPairsMapSpace = 1
 let g:AutoPairsMapCR    = 1
+let g:AutoPairsMapBS    = 1
 let g:AutoPairsFlyMode  = 0
+let g:AutoPairsMapCh    = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 Plug 'jiangmiao/auto-pairs'
 "}}}
@@ -369,32 +371,21 @@ Plug 'Mark'
 "Plug 't9md/vim-quickhl'
 Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-abolish'
-" Multiselect {{{
-let g:no_multiselect_maps = 1
-Plug 'multiselect'
-" }}}
 " LANGUAGE PACKS {{{
-Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
-Plug 'solarnz/thrift.vim', {'for': 'thrift'}
-Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
 Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
-Plug 'syngan/vim-vimlint', {'for': 'vim'}
-Plug 'sukima/xmledit', {'for': 'xml'} "othree/xml.vim
-Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
-Plug 'elzr/vim-json',   {'for': 'json'}
-Plug 'tpope/vim-git',   {'for': 'git'}
-Plug 'zaiste/tmux.vim', {'for': 'tmux'}
-Plug 'hdima/python-syntax',     {'for': 'python'}
+Plug 'syngan/vim-vimlint',    {'for': 'vim'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'} "bigfish/vim-js-context-coloring
 let g:vim_markdown_initial_foldlevel       = 1
 let g:vim_markdown_no_default_key_mappings = 1
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 " cpp-vim for better @Spell @NoSpell support
 let g:c_no_curly_error = 1
-Plug 'vim-jp/cpp-vim', {'for': 'cpp'}
+Plug 'vim-jp/cpp-vim',                   {'for': 'cpp'}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'} "Mizuchi/STL-Syntax
-Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
-Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
+" DerekWyatt/vim-ProtoDef {{{
+let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
+Plug 'derekwyatt/vim-protodef',          {'for': 'cpp'}
+" }}}
 " OmniCppComplete {{{
 let g:OmniCpp_MayCompleteDot   = 0
 let g:OmniCpp_MayCompleteArrow = 0
@@ -419,9 +410,8 @@ let g:no_java_maps = 1
 Plug 'Dinduks/vim-java-get-set', {'for': 'java'}
 "Plug 'nosami/Omnisharp'
 Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
-Plug 'SQLUtilities'
-Plug 'SQLComplete.vim', {'for': 'sql'}
-" davidhalter/Jedi {{{
+Plug 'hdima/python-syntax',  {'for': 'python'}
+" Python: davidhalter/Jedi {{{
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled    = 1
 let g:jedi#popup_on_dot = 0
@@ -430,10 +420,21 @@ let g:jedi#show_call_signatures = 0
 augroup Misc_Plugins_Au
   au FileType python nnoremap <buffer> <silent> <C-]> :call jedi#goto()<CR>
 augroup END
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
+Plug 'davidhalter/jedi-vim', {'for': 'python'} "python-mode/python-mode
 "}}}
-"Plug 'klen/python-mode', {'for': 'python'}
-Plug 'derekwyatt/vim-scala'
+Plug 'sukima/xmledit', {'for': 'xml'} "othree/xml.vim
+Plug 'elzr/vim-json',  {'for': 'json'}
+Plug 'derekwyatt/vim-scala',      {'for': 'scala'}
+Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
+Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
+Plug 'ujihisa/ft-cmake',          {'for': 'cmake'}
+Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
+Plug 'SQLUtilities'
+Plug 'SQLComplete.vim', {'for': 'sql'}
+Plug 'tpope/vim-git',   {'for': 'git'}
+Plug 'zaiste/tmux.vim', {'for': 'tmux'}
+Plug 'solarnz/thrift.vim',      {'for': 'thrift'}
+Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
 " fatih/Go {{{
 " let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 1
@@ -592,10 +593,6 @@ let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 Plug 'Notes' ", {'on': ['Note','NoteAsNew']}
 "}}}
-" DerekWyatt/vim-ProtoDef {{{
-let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
-Plug 'derekwyatt/vim-protodef', {'for': 'cpp'}
-" }}}
 " yssl/QFEnter {{{
 let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
 let g:qfenter_vopen_map = ['<C-V>']
@@ -710,11 +707,8 @@ xmap ix <Plug>(textobj-comment-i)
 omap ix <Plug>(textobj-comment-i)
 Plug 'glts/vim-textobj-comment'
 " }}}
-"NeoBundle 'vim-textobj-quoted'
-"NeoBundle 'killphi/vim-textobj-signify-hunk' "Deprecated, this functionality is in Signify itself
-"NeoBundle 'kana/vim-textobj-fold'
-"NeoBundle 'kana/vim-textobj-indent'
-"NeoBundle 'textobj-line-vim-scripts'
+" vim-textobj-quoted, kana/vim-textobj-fold, kana/vim-textobj-indent, textobj-line-vim-scripts
+" killphi/vim-textobj-signify-hunk "Deprecated, this functionality is in Signify itself
 " }}}
 " tomtom/TinyKeyMap {{{
 let g:tinykeymap#map#windows#map = 'gw'
@@ -724,6 +718,10 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * call tinykeymap#Map('changelocs', ';', 'norm! g;')
 augroup END
 Plug 'tomtom/tinykeymap_vim'
+" }}}
+" Multiselect {{{
+let g:no_multiselect_maps = 1
+Plug 'multiselect'
 " }}}
 " t9md/TextManip {{{
 xmap <Up>    <Plug>(textmanip-move-up)
@@ -858,7 +856,6 @@ augroup Misc_Plugins_Au
 augroup END
 Plug 'tpope/vim-fugitive' ", {'on': ['Git','Gstatus']}
 " }}}
-" NeoBundleLazy 'https://bitbucket.org/ZyX_I/aurum'
 " VCSCommand {{{
 let g:VCSCommandMapPrefix = '<LocalLeader>c'
 let g:VCSCommandVCSTypePreference = 'git'
@@ -928,16 +925,6 @@ nnoremap <silent> ğX :CoremoSearchRemove<CR>
 xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
 Plug 'CoremoSearch'
 " }}}
-" mbbill/FencView {{{
-let g:autofenc_enable     = 1
-let g:fencview_autodetect = 0
-Plug 'mbbill/fencview', {'on': 'FencView'}
-" }}}
-" edkolev/TmuxLine.vim {{{
-let g:tmuxline_powerline_separators = 0
-let g:tmuxline_preset = 'full'
-Plug 'edkolev/tmuxline.vim'
-" }}}
 Plug 'umitkablan/vim-zeroth-colorscheme', {'on': 'ZerothCS'}
 " umitkablan/umisc {{{
 augroup Misc_Plugins_Au
@@ -968,6 +955,11 @@ onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 Plug 'umitkablan/umisc'
 " }}}
+" mbbill/FencView {{{
+let g:autofenc_enable     = 1
+let g:fencview_autodetect = 0
+Plug 'mbbill/fencview', {'on': 'FencView'}
+" }}}
 " sjl/Clam.vim {{{
 nnoremap '! :Clam <Space>
 xnoremap '! :ClamVisual <Space>
@@ -977,6 +969,11 @@ Plug 'sjl/clam.vim', {'on': 'Clam'}
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 nmap <unique> NOTUSEDğsh <Plug>DBHistory
 Plug 'dbext.vim', {'for': 'sql'}
+" }}}
+" edkolev/TmuxLine.vim {{{
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = 'full'
+Plug 'edkolev/tmuxline.vim'
 " }}}
 Plug 'epeli/slimux' "vimux
 Plug 'mattn/webapi-vim'
