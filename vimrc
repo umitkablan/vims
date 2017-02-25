@@ -53,6 +53,7 @@ Plug 'matchit.zip'
 Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
 let g:cscope_ignored_dir = 'node_modules$\|dist$\|build$\|\..\+$'
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
+Plug 'CCTree', {'on': ['CCTreeLoadDB', 'CCTreeLoadDB', 'CCTreeShowLoadedDBs', 'CCTreeAppendDB']} "hari-rangarajan/CCTree
 Plug 'mbbill/echofunc'
 Plug 'kana/vim-metarw'
 Plug 'bogado/file-line'
