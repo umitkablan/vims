@@ -44,8 +44,6 @@ Plug 'genutils'
 Plug 'lh-vim-lib'
 Plug 'ingo-library'
 Plug 'let-modeline.vim'
-Plug 'yaifa.vim' "ciaranm/detectindent
-Plug 'dietsche/vim-lastplace'
 Plug 'myusuf3/numbers.vim' "jeffkreeftmeijer/vim-numbertoggle
 let g:LargeFile=2 " megabytes
 Plug 'LargeFile'
@@ -57,11 +55,6 @@ Plug 'CCTree', {'on': ['CCTreeLoadDB', 'CCTreeLoadDB', 'CCTreeShowLoadedDBs', 'C
 Plug 'mbbill/echofunc'
 Plug 'kana/vim-metarw'
 Plug 'bogado/file-line'
-Plug 'godlygeek/csapprox'
-" zhaocai/GoldenView {{{
-let g:goldenview__enable_default_mapping = 0
-Plug 'zhaocai/GoldenView.Vim'
-"}}}
 " a.vim alternate {{{
 nnoremap <silent> ğa :A<CR>
 Plug 'a.vim'
@@ -73,6 +66,13 @@ xmap gr  <Plug>ReplaceVisual
 Plug 'ReplaceWithRegister'
 " }}}
 Plug 'tpope/vim-unimpaired'
+Plug 'yaifa.vim' "ciaranm/detectindent
+" vim-auf {{{
+let g:auf_autoindent = 0
+let g:auf_retab      = 0
+let g:auf_remove_trailing_spaces = 0
+Plug 'umitkablan/vim-auf'
+"}}}
 " IndentConsistencyCop / AutoCmds {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
@@ -233,11 +233,6 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias ss SaveSession!\ default
 augroup END
 " }}}
-" Rooter {{{
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_silent_chdir = 1
-Plug 'umitkablan/vim-rooter'
-" }}}
 Plug 'DirDo.vim', {'on': ['DirDo','DDO','DDD','DirDoDir','DirDoAdd','DDA','DDP','DirDoPattern']}
 " yonchu/accelerated-smooth-scroll {{{
 let g:ac_smooth_scroll_no_default_key_mappings = 1
@@ -372,6 +367,41 @@ Plug 'Mark'
 "Plug 't9md/vim-quickhl'
 Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-abolish'
+Plug 'dietsche/vim-lastplace'
+" Rooter {{{
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_silent_chdir = 1
+Plug 'umitkablan/vim-rooter'
+" }}}
+" xolox/vim-Session {{{
+let g:session_autoload = 'no'
+Plug 'xolox/vim-session'
+" }}}
+" mhinz/Startify {{{
+augroup Misc_Plugins_Au
+  au FileType startify setlocal nospell
+  au User Startified setlocal cursorline
+augroup END
+let g:startify_session_dir = '~/.vim/var/session'
+let g:session_directory    = '~/.vim/var/session'
+let g:startify_files_number  = 19
+let g:startify_change_to_dir = 0
+let g:startify_bookmarks  = ['~/projects', '~/.vim']
+let g:startify_list_order = [
+  \ [' Recently opened files:'], 'files',
+  \ [' Sessions:'], 'sessions',
+  \ [' Bookmarks:'], 'bookmarks',
+  \ ]
+  " \ [' Recently modified files in the current directory:'], 'dir',
+let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
+let g:startify_custom_footer = [
+            \ ' _  _  ____  __  __',
+            \ '( \/ )(_  _)(  \/  )',
+            \ ' \  /  _)(_  )    (',
+            \ '  \/  (____)(_/\/\_)',
+            \ ]
+Plug 'mhinz/vim-startify'
+"}}}
 " LANGUAGE PACKS {{{
 Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
 Plug 'syngan/vim-vimlint',    {'for': 'vim'}
@@ -621,34 +651,9 @@ let g:signify_mapping_toggle = 'UNUSED_SIGNIGY_MT'
 let g:signify_mapping_toggle_highlight = 'UNUSED_SIGNIGY_HH'
 Plug 'mhinz/vim-signify'
 " }}}
-" xolox/vim-Session {{{
-let g:session_autoload = 'no'
-Plug 'xolox/vim-session'
-" }}}
-" mhinz/Startify {{{
-augroup Misc_Plugins_Au
-  au FileType startify setlocal nospell
-  au User Startified setlocal cursorline
-augroup END
-let g:startify_session_dir = '~/.vim/var/session'
-let g:session_directory    = '~/.vim/var/session'
-let g:startify_files_number  = 19
-let g:startify_change_to_dir = 0
-let g:startify_bookmarks  = ['~/projects', '~/.vim']
-let g:startify_list_order = [
-  \ [' Recently opened files:'], 'files',
-  \ [' Sessions:'], 'sessions',
-  \ [' Bookmarks:'], 'bookmarks',
-  \ ]
-  " \ [' Recently modified files in the current directory:'], 'dir',
-let g:startify_custom_header = map(split(system('fortune'), '\n'), '"   ". v:val') + ['',''] "fortune | cowsay
-let g:startify_custom_footer = [
-            \ ' _  _  ____  __  __',
-            \ '( \/ )(_  _)(  \/  )',
-            \ ' \  /  _)(_  )    (',
-            \ '  \/  (____)(_/\/\_)',
-            \ ]
-Plug 'mhinz/vim-startify'
+" zhaocai/GoldenView {{{
+let g:goldenview__enable_default_mapping = 0
+Plug 'zhaocai/GoldenView.Vim'
 "}}}
 " scrooloose/Syntastic {{{
 let g:syntastic_javascript_jshint_conf = '~/.vim/jshint.rc'
@@ -672,12 +677,6 @@ let g:syntastic_c_check_header = 1
 "let g:syntastic_*_checkers=['Xxx', 'Yyy']
 Plug 'scrooloose/syntastic'
 " }}}
-" vim-auf {{{
-let g:auf_autoindent = 0
-let g:auf_retab      = 0
-let g:auf_remove_trailing_spaces = 0
-Plug 'umitkablan/vim-auf'
-"}}}
 " majutsushi/TagBar {{{
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 Plug 'majutsushi/tagbar' "We need it for Startify {'on': ['TagbarOpenAutoClose', 'TagbarToggle', 'TagbarOpen']}
@@ -689,7 +688,7 @@ nnoremap <silent> __ :TComment<CR>
 xnoremap <silent> __ :TCommentMaybeInline<CR>
 Plug 'tomtom/tcomment_vim'
 "}}}
-" TextObj's {{{
+" Text Objects {{{
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-datetime'
 Plug 'kana/vim-textobj-entire'
@@ -995,6 +994,7 @@ Plug 'chrisbra/csv.vim',       {'for': 'csv'}
 Plug 'Colorizer--Brabandt',    {'for': ['css','html']} "ColorSchemeMenuMaker lilydjwg/colorizer
 Plug 'diepm/vim-rest-console', {'for': 'rest'}
 Plug 'Vimball',                {'for': 'vim'}
+Plug 'godlygeek/csapprox'
 Plug 'ryanoasis/vim-devicons'
 Plug 'rkitover/vimpager', {
   \ 'do' : 'make',
