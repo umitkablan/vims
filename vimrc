@@ -73,6 +73,14 @@ let g:auf_retab      = 0
 let g:auf_remove_trailing_spaces = 0
 Plug 'umitkablan/vim-auf'
 "}}}
+" Indent-Guides {{{
+let g:indent_guides_color_change_percent  = 20
+let g:indent_guides_enable_on_vim_startup = 0
+augroup Misc_Plugins_Au
+  autocmd VimEnter * IndentGuidesDisable
+augroup END
+Plug 'nathanaelkane/vim-indent-guides' "Yggdroot/indentLine
+" }}}
 " IndentConsistencyCop / AutoCmds {{{
 let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
 let g:indentconsistencycop_CheckAfterWrite = 1
@@ -131,20 +139,6 @@ let g:AutoPairsMapCh    = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 Plug 'jiangmiao/auto-pairs'
 "}}}
-" xuhdev/SingleCompile {{{
-let g:SingleCompile_asyncrunmode = 'python'
-let g:SingleCompile_usequickfix = 0
-let g:SingleCompile_showquickfixiferror = 0
-let g:SingleCompile_showresultafterrun = 0
-nnoremap <silent> ğsc :SingleCompile<CR>
-nnoremap <silent> ĞSC :SingleCompileRun<CR>
-Plug 'xuhdev/SingleCompile', {'on': ['SCCompile','SingleCompile','SCCompileRun','SingleCompileRun']}
-" }}}
-" wesleyche/SrcExpl {{{
-let g:SrcExpl_refreshTime = 400
-let g:SrcExpl_isUpdateTags = 0
-Plug 'wesleyche/SrcExpl', {'on': ['SrcExpl','SrcExplToggle']}
-" }}}
 Plug 'UnconditionalPaste'
 " Smartput & sickill/Pasta {{{
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
@@ -324,14 +318,6 @@ augroup END
 Plug 'dpwright/vim-gf-ext' "kana/vim-gf-user
 " }}}
 Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
-" Indent-Guides {{{
-let g:indent_guides_color_change_percent  = 20
-let g:indent_guides_enable_on_vim_startup = 0
-augroup Misc_Plugins_Au
-  autocmd VimEnter * IndentGuidesDisable
-augroup END
-Plug 'nathanaelkane/vim-indent-guides' "Yggdroot/indentLine
-" }}}
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
 nnoremap <silent> <F2> :InlineEdit<CR>
@@ -677,10 +663,24 @@ let g:syntastic_c_check_header = 1
 "let g:syntastic_*_checkers=['Xxx', 'Yyy']
 Plug 'scrooloose/syntastic'
 " }}}
+" xuhdev/SingleCompile {{{
+let g:SingleCompile_asyncrunmode = 'python'
+let g:SingleCompile_usequickfix = 0
+let g:SingleCompile_showquickfixiferror = 0
+let g:SingleCompile_showresultafterrun = 0
+nnoremap <silent> ğsc :SingleCompile<CR>
+nnoremap <silent> ĞSC :SingleCompileRun<CR>
+Plug 'xuhdev/SingleCompile', {'on': ['SCCompile','SingleCompile','SCCompileRun','SingleCompileRun']}
+" }}}
 " majutsushi/TagBar {{{
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 Plug 'majutsushi/tagbar' "We need it for Startify {'on': ['TagbarOpenAutoClose', 'TagbarToggle', 'TagbarOpen']}
 "}}}
+" wesleyche/SrcExpl {{{
+let g:SrcExpl_refreshTime = 400
+let g:SrcExpl_isUpdateTags = 0
+Plug 'wesleyche/SrcExpl', {'on': ['SrcExpl','SrcExplToggle']}
+" }}}
 " tomtom/TComment {{{
 let g:tcommentMapLeader1 = ''
 let g:tcommentMapLeader2 = ''
