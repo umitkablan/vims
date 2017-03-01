@@ -223,6 +223,8 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias con VimShellPop
   autocmd VimEnter * Alias ref Ref\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias man Ref\ man\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias ob  OpenBrowser\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias obb OpenBrowserSearch\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias up UpdateTypesFileOnly
   autocmd VimEnter * Alias ss SaveSession!\ default
 augroup END
@@ -925,6 +927,7 @@ nnoremap <silent> ğX :CoremoSearchRemove<CR>
 xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
 Plug 'CoremoSearch'
 " }}}
+Plug 'tyru/open-browser.vim'
 Plug 'umitkablan/vim-zeroth-colorscheme', {'on': 'ZerothCS'}
 " umitkablan/umisc {{{
 augroup Misc_Plugins_Au
