@@ -835,7 +835,7 @@ nnoremap <silent> MRU    :UniteWithCurrentDir -no-split -start-insert file_mru d
 nnoremap <silent> MRUU   :Unite -no-split -start-insert directory_mru file_mru<CR>
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 
-Plug 'Shougo/tabpagebuffer.vim', {'on': 'Unite'}
+Plug 'Shougo/tabpagebuffer.vim' "jeetsukumaran/vim-buffergator jlanzarotta/bufexplorer
 Plug 'Shougo/neomru.vim',        {'on': ['Unite', 'UniteWithCurrentDir', 'UniteWithBufferDir']}
 Plug 'unite-locate',             {'on': 'Unite'}
 Plug 'tsukkee/unite-tag',        {'on': 'Unite'}
