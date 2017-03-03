@@ -1311,10 +1311,9 @@ nnoremap <silent> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \
 augroup tag_langs
   au!
   " Adjust maps according to tags status: some filetypes are tags-driven.
-  " Other Ideas: TSelect.vim, TS (exPlugin), Unite
-  " <CR>        --:> :TS <C-R><C-W><CR>
-  " <Backspace> --:> :PopTagStack<CR>
-  " <CR>        --:> :UniteWithCursorWord -immediately tag<CR>
+  " TSelect.vim, TS (exPlugin), or Unite
+  " :TS <C-R><C-W><CR> / :PopTagStack<CR>
+  " :UniteWithCursorWord -immediately tag<CR>
   au FileType java,javascript,actionscript,sh
           \ nnoremap <silent> <buffer> <CR> :Tselect <C-R><C-W><CR>
 augroup END
