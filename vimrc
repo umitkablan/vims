@@ -359,6 +359,7 @@ Plug 'tpope/vim-abolish'
 Plug 'dietsche/vim-lastplace'
 " Rooter {{{
 let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 let g:rooter_silent_chdir = 1
 Plug 'umitkablan/vim-rooter'
 " }}}
