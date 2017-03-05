@@ -830,7 +830,8 @@ nnoremap <silent> <C-f>f :Unite -start-insert register history/yank<CR>
 nnoremap <silent> ğb     :Unite -start-insert -auto-preview bookmark<CR>
 nnoremap <silent> ĞB     :UniteBookmarkAdd <CR>
 " -quick-match
-nnoremap <silent> <C-B>  :Unite -start-insert buffer_tab file_rec/async<CR>
+nnoremap <silent> <C-b>     :Unite -start-insert buffer_tab file_rec/async<CR>
+nnoremap <silent> <C-b><C-b> :Unite -start-insert buffer<CR>
 nnoremap <silent> ĞS     :Unite grep:.<CR>
 nnoremap <silent> MRU    :UniteWithCurrentDir -no-split -start-insert file_mru directory_mru<CR>
 nnoremap <silent> MRUU   :Unite -no-split -start-insert directory_mru file_mru<CR>
