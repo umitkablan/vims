@@ -70,7 +70,6 @@ Plug 'yaifa.vim' "ciaranm/detectindent
 " vim-auf {{{
 let g:auf_autoindent = 0
 let g:auf_retab      = 0
-let g:auf_remove_trailing_spaces = 0
 Plug 'umitkablan/vim-auf'
 "}}}
 Plug 'dodie/vim-disapprove-deep-indentation'
@@ -91,11 +90,6 @@ Plug 'IndentConsistencyCop'
 Plug 'IndentConsistencyCopAutoCmds'
 " }}}
 Plug 'ShowTrailingWhitespace' "ntpeters/vim-better-whitespace
-" DeleteTrailingWhitespace {{{
-let g:DeleteTrailingWhitespace = 1
-let g:DeleteTrailingWhitespace_Action = 'ask'
-Plug 'DeleteTrailingWhitespace'
-" }}}
 Plug 'CursorLineCurrentWindow'
 Plug 'pboettch/HiCursorWords'
 Plug 'SyntaxMotion.vim'
