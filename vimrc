@@ -66,6 +66,7 @@ xmap gr  <Plug>ReplaceVisual
 Plug 'ReplaceWithRegister'
 " }}}
 Plug 'tpope/vim-unimpaired'
+xnoremap <silent> <Enter> :EasyAlign<CR>
 Plug 'yaifa.vim' "ciaranm/detectindent
 " vim-auf {{{
 let g:auf_autoindent = 0
@@ -90,6 +91,8 @@ Plug 'IndentConsistencyCop'
 Plug 'IndentConsistencyCopAutoCmds'
 " }}}
 Plug 'ShowTrailingWhitespace' "ntpeters/vim-better-whitespace
+Plug 'junegunn/vim-easy-align'
+Plug 'godlygeek/tabular'
 Plug 'CursorLineCurrentWindow'
 Plug 'pboettch/HiCursorWords'
 Plug 'SyntaxMotion.vim'
@@ -298,11 +301,6 @@ let g:airline_section_x = "%{tagbar#currenttag('@%s', '')}"
 Plug 'bling/vim-airline'
 " }}}
 Plug 'ntpeters/vim-airline-colornum'
-" Alignment Automation {{{
-xnoremap <silent> <Enter> :EasyAlign<CR>
-Plug 'junegunn/vim-easy-align'
-Plug 'godlygeek/tabular'
-" }}}
 " GF-Ext {{{
 augroup Misc_Plugins_Au
   autocmd VimEnter * call gf_ext#add_handler('\.jpg$', '!firefox -new-window')
@@ -618,22 +616,19 @@ Plug 'yssl/QFEnter'
 " }}}
 " mhinz/Signify {{{
 let g:signify_vcs_list = [ 'git', 'svn' ]
-let g:signify_sign_overwrite = 0
 let g:signify_line_highlight = 0
 let g:signify_update_on_bufenter = 0
-let g:signify_update_on_focusgained = 0
+let g:signify_update_on_focusgained = 1
 let g:signify_cursorhold_normal = 0
 let g:signify_cursorhold_insert = 0
-let g:signify_mapping_next_hunk = ']c'
-let g:signify_mapping_prev_hunk = '[c'
-nmap <Leader>]c <Plug>(signify-next-hunk)
-nmap <Leader>[c <Plug>(signify-prev-hunk)
+nmap ]h <Plug>(signify-next-hunk)
+nmap [h <Plug>(signify-prev-hunk)
+nmap ]H 9999]h
+nmap [H 9999[h
 omap ih <Plug>(signify-motion-inner-pending)
 xmap ih <Plug>(signify-motion-inner-visual)
 omap ah <Plug>(signify-motion-outer-pending)
 xmap ah <Plug>(signify-motion-outer-visual)
-let g:signify_mapping_toggle = 'UNUSED_SIGNIGY_MT'
-let g:signify_mapping_toggle_highlight = 'UNUSED_SIGNIGY_HH'
 Plug 'mhinz/vim-signify'
 " }}}
 " zhaocai/GoldenView {{{
