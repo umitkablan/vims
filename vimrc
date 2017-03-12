@@ -93,7 +93,7 @@ Plug 'IndentConsistencyCopAutoCmds'
 Plug 'ShowTrailingWhitespace' "ntpeters/vim-better-whitespace
 Plug 'junegunn/vim-easy-align'
 Plug 'godlygeek/tabular'
-Plug 'CursorLineCurrentWindow'
+Plug 'blueyed/vim-diminactive'
 Plug 'pboettch/HiCursorWords'
 Plug 'SyntaxMotion.vim'
 Plug 'camelcasemotion'
@@ -683,6 +683,7 @@ xnoremap <silent> __ :TCommentMaybeInline<CR>
 Plug 'tomtom/tcomment_vim'
 "}}}
 " Text Objects {{{
+Plug 'wellle/targets.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-datetime'
 Plug 'kana/vim-textobj-entire'
@@ -939,16 +940,6 @@ nmap     <silent> <Tab><Space><Space> :call umisc#ToggleIndGuides_RC()<CR>
 nnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(0)<CR>
 onoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
 xnoremap <silent> ĞG :<C-U>call umisc#GotoLine_WithoutInitials(1)<CR>
-" All/Inner Next
-onoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
-xnoremap <silent> an :<C-U>call umisc#NextTextObject('a', 'f')<CR>
-onoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
-xnoremap <silent> in :<C-U>call umisc#NextTextObject('i', 'f')<CR>
-" All/Inner Last
-onoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
-xnoremap <silent> al :<C-U>call umisc#NextTextObject('a', 'F')<CR>
-onoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
-xnoremap <silent> il :<C-U>call umisc#NextTextObject('i', 'F')<CR>
 Plug 'umitkablan/umisc'
 " }}}
 " mbbill/FencView {{{
@@ -985,7 +976,8 @@ Plug 'nelstrom/vim-qargs',    {'on': 'Qargs'}
 Plug 'gerw/vim-HiLinkTrace',  {'on': ['HLT', 'HLTm']}
 Plug 'hexman.vim',            {'on': 'HexManager'}
 Plug 'itchyny/calendar.vim',  {'on': 'Calendar'}
-Plug 'VimSpy', {'on': ['Messages','Map','Command','CommandOutput','Syntax','Highlight','Function','Autocmd']}
+Plug 'junkblocker/VimSpy', {'on':
+      \ ['Messages','Map','Command','CommandOutput','Syntax','Highlight','Function','Autocmd']}
 Plug 'chrisbra/csv.vim',       {'for': 'csv'}
 Plug 'Colorizer--Brabandt',    {'for': ['css','html']} "ColorSchemeMenuMaker lilydjwg/colorizer
 Plug 'diepm/vim-rest-console', {'for': 'rest'}
