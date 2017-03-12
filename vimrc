@@ -391,6 +391,7 @@ Plug 'pangloss/vim-javascript', {'for': 'javascript'} "bigfish/vim-js-context-co
 let g:vim_markdown_initial_foldlevel       = 1
 let g:vim_markdown_no_default_key_mappings = 1
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'Rykka/riv.vim',           {'for': 'rst'}
 " cpp-vim for better @Spell @NoSpell support
 let g:c_no_curly_error = 1
 Plug 'vim-jp/cpp-vim',                   {'for': 'cpp'}
