@@ -69,8 +69,7 @@ Plug 'tpope/vim-unimpaired'
 xnoremap <silent> <Enter> :EasyAlign<CR>
 Plug 'yaifa.vim' "ciaranm/detectindent
 " vim-auf {{{
-let g:auf_autoindent = 0
-let g:auf_retab      = 0
+let g:auf_retab = 0
 Plug 'umitkablan/vim-auf'
 "}}}
 Plug 'dodie/vim-disapprove-deep-indentation'
@@ -813,7 +812,7 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
         \}
 endfunction
 " }}}
-Plug 'Shougo/unite.vim', {'on': ['Unite', 'UniteWithCurrentDir', 'UniteWithBufferDir']}
+Plug 'Shougo/unite.vim'
 nnoremap <silent> ğee    :UniteWithBufferDir -start-insert file<CR>
 nnoremap <silent> ğe     :Unite -start-insert file<CR>
 nnoremap <silent> <C-f>  :Unite -start-insert source<CR>
@@ -829,15 +828,10 @@ nnoremap <silent> MRUU   :Unite -no-split -start-insert directory_mru file_mru<C
 nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:<CR>
 
 Plug 'Shougo/tabpagebuffer.vim' "jeetsukumaran/vim-buffergator jlanzarotta/bufexplorer
-Plug 'Shougo/neomru.vim',        {'on': ['Unite', 'UniteWithCurrentDir', 'UniteWithBufferDir']}
+Plug 'Shougo/neomru.vim'
 Plug 'unite-locate',             {'on': 'Unite'}
 Plug 'tsukkee/unite-tag',        {'on': 'Unite'}
-"NeoBundle 'unite-colorscheme-1.3'
-"NeoBundle 'unite-grep-Sixeight'
-"NeoBundle 'tsukkee/unite-help'
-"NeoBundle 'thinca/vim-unite-history'
-"NeoBundle 'h1mesuke/unite-outline'
-"NeoBundle 'hakobe/unite-script'
+" unite-colorscheme-1.3 unite-grep-Sixeight tsukkee/unite-help thinca/vim-unite-history h1mesuke/unite-outline hakobe/unite-script
 "}}}
 " Shougo/VimShell {{{
 nnoremap <silent> ğsh  :VimShellPop<CR>
