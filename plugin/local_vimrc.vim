@@ -79,7 +79,7 @@
 "=============================================================================
 " Avoid global reinclusion {{{1
 let s:k_version = 109
-if exists("g:loaded_local_vimrc")
+if exists('g:loaded_local_vimrc')
 \ && (g:loaded_local_vimrc >= s:k_version)
 \ && !exists('g:force_reload_local_vimrc')
     finish
@@ -106,15 +106,15 @@ let s:home = substitute($HOME, '/\|\\', '[/\\\\]', 'g')
 " Regex used to determine when we must stop looking for local-vimrc's {{{2
 " Sometimes paths appears as Z:\\ ....
 let s:re_last_path = '^/\=$\|^[A-Za-z]:[/\\]\+$\|^//$\|^\\\\$'.
-\ ((s:home != '') ? ('\|^'.s:home.'$') : '')
+\ ((s:home !=# '') ? ('\|^'.s:home.'$') : '')
 
 let s:sCd = 0
 " The main function {{{2
 function! s:SourceLocal(path)
     let up_path = fnamemodify(a:path,':h')
-    if up_path == '.' " likelly a non existant path
+    if up_path ==# '.' " likelly a non existant path
         if ! isdirectory(a:path)
-            call lh#common#WarningMsg("[local_vimrc] The current file '".expand('%:p:')."' seems to be in a non-existant directory: '".a:path."'")
+            call lh#common#WarningMsg('[local_vimrc] The current file ''' . expand('%:p') . ''' seems to be in a non-existant directory: ''' . a:path . '''')
         endif
         let up_path = getcwd()
     endif
@@ -132,7 +132,7 @@ function! s:SourceLocal(path)
             endif
             let g:local_vimrc_path = up_path
             " if filereadable(up_path.'/'.s:local_vimrc)
-            if up_path != "/"
+            if up_path !=# '/'
                 exe 'source '.escape(up_path.'/'.s:local_vimrc, ' \$,')
             endif
             if l:sCd < 1
@@ -160,7 +160,7 @@ function! s:SourceLocal(path)
 endfunction
 
 function! s:CheckForbiddenPath(path)
-    let ok = a:path !~ '^\(s\=ftp:\|s\=http:\|scp:\|^$\)'
+    let ok = a:path !~# '^\(s\=ftp:\|s\=http:\|scp:\|^$\)'
     return ok
 endfunction
 
@@ -176,10 +176,10 @@ function! s:Main(path)
 endfunction
 
 " Auto-command {{{2
-" => automate the loading of local-vimrc's every time we change buffers
+" => automate the loading of local-vimrc's every time we start a buffer
 aug LocalVimrc
     au!
-    au BufEnter * :call s:Main(expand('<afile>:p:h'))
+    au BufReadPost * :call s:Main(expand('<afile>:p:h'))
 aug END
 
 " Functions }}}1
