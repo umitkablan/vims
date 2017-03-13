@@ -66,12 +66,17 @@ xmap gr  <Plug>ReplaceVisual
 Plug 'ReplaceWithRegister'
 " }}}
 Plug 'tpope/vim-unimpaired'
-xnoremap <silent> <Enter> :EasyAlign<CR>
 Plug 'yaifa.vim' "ciaranm/detectindent
 " vim-auf {{{
 let g:auf_retab = 0
+let g:auf_fallback_func = 'Misc_Plugins_VimAuf_Fallback'
+function! Misc_Plugins_VimAuf_Fallback()
+  IndentConsistencyCop
+  return 0
+endfunction
 Plug 'umitkablan/vim-auf'
 "}}}
+Plug 'IndentConsistencyCop'
 Plug 'dodie/vim-disapprove-deep-indentation'
 " Indent-Guides {{{
 let g:indent_guides_color_change_percent  = 20
@@ -81,15 +86,8 @@ augroup Misc_Plugins_Au
 augroup END
 Plug 'nathanaelkane/vim-indent-guides' "Yggdroot/indentLine
 " }}}
-" IndentConsistencyCop / AutoCmds {{{
-let g:indentconsistencycop_AutoRunCmd = 'IndentRangeConsistencyCop'
-let g:indentconsistencycop_CheckAfterWrite = 1
-let g:indentconsistencycop_CheckOnLoad = 0
-let g:indentconsistencycop_CheckAfterWriteMaxLinesForImmediateCheck = 400
-Plug 'IndentConsistencyCop'
-Plug 'IndentConsistencyCopAutoCmds'
-" }}}
 Plug 'ShowTrailingWhitespace' "ntpeters/vim-better-whitespace
+xnoremap <silent> <Enter> :EasyAlign<CR>
 Plug 'junegunn/vim-easy-align'
 Plug 'godlygeek/tabular'
 Plug 'blueyed/vim-diminactive'
