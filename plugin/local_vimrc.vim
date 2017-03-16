@@ -130,7 +130,7 @@ function! s:SourceLocal(path)
             if &verbose >= 2
                 echo 'Check '.up_path.' for '.s:local_vimrc.' ... found!'
             endif
-            let g:local_vimrc_path = up_path
+            let b:local_vimrc_path = up_path
             " if filereadable(up_path.'/'.s:local_vimrc)
             if up_path !=# '/'
                 exe 'source '.escape(up_path.'/'.s:local_vimrc, ' \$,')
@@ -151,7 +151,7 @@ function! s:SourceLocal(path)
         if &verbose >= 2
             echo 'Check '.a:path.' for '.s:local_vimrc.' ... found!'
         endif
-        let g:local_vimrc_path = a:path
+        let b:local_vimrc_path = a:path
         exe 'source '.escape(a:path.'/'.s:local_vimrc, ' \$,')
         exe 'silent! cd '.a:path
     elseif &verbose >= 2
