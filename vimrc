@@ -175,6 +175,7 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias te tabedit
   autocmd VimEnter * Alias tee tabedit\ ~/<C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias spp sp\ ~/<C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias vss vsp\ ~/<C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias tec tabedit\ %<C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias dd diffthis
   autocmd VimEnter * Alias do diffoff
@@ -190,6 +191,9 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias gs   Gstatus
   autocmd VimEnter * Alias ge   Gedit
   autocmd VimEnter * Alias gvsp Gvsplit
+  autocmd VimEnter * Alias auf  Auf
+  autocmd VimEnter * Alias auff Auf!
+  autocmd VimEnter * Alias aufc AufClearHi
   autocmd VimEnter * Alias ac  LAck!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias Ac  LAck!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias acc LAckAdd!\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
@@ -220,8 +224,8 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias man Ref\ man\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias ob  OpenBrowser\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias obb OpenBrowserSearch\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias tt   TSelect\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias tts  TSelect\ /<C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias tt  Tselect\ <C-r><C-w><C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias tts Tselect\ /<C-r><C-w><C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias ss SaveSession!\ default
 augroup END
 " }}}
