@@ -441,7 +441,8 @@ Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
 Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
 Plug 'ujihisa/ft-cmake',          {'for': 'cmake'}
 Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
-Plug 'SQLUtilities'
+Plug 'SQLUtilities', {'on': [ 'SQLUFormatStmts', 'SQLUFormatter', 'SQLUCreateColumnList',
+      \'SQLUGetColumnDef', 'SQLUGetColumnDataType', 'SQLUCreateProcedure', 'SQLUToggleValue']}
 Plug 'SQLComplete.vim', {'for': 'sql'}
 Plug 'tpope/vim-git',   {'for': 'git'}
 Plug 'zaiste/tmux.vim', {'for': 'tmux'}
@@ -846,7 +847,7 @@ augroup END
 Plug 'tpope/vim-fugitive' ", {'on': ['Git','Gstatus']}
 " }}}
 " VCSCommand {{{
-let g:VCSCommandMapPrefix = '<LocalLeader>c'
+let g:VCSCommandMapPrefix = '<LocalLeader>_UNUSED_c'
 let g:VCSCommandVCSTypePreference = 'git'
 "let VCSCommandSVNDiffOpt = '-ignore-all-space'
 augroup Misc_Plugins_Au
@@ -1308,8 +1309,6 @@ augroup END
 " }}}
 
 inoremap <expr> <C-K> BDG_GetDigraph()
-nnoremap <silent> ğğu :Utl<CR>
-xnoremap <silent> ğğu :Utl<CR>
 nnoremap <silent> GL :call EchoLocationPath()<CR>
 nnoremap <silent> [d :call ShowBlockName('[d')<CR>
 nnoremap <silent> [i :call ShowBlockName('[i')<CR>
