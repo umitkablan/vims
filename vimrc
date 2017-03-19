@@ -452,6 +452,7 @@ Plug 'tpope/vim-git',   {'for': 'git'}
 Plug 'zaiste/tmux.vim', {'for': 'tmux'}
 Plug 'solarnz/thrift.vim',      {'for': 'thrift'}
 Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
+Plug 'chase/vim-ansible-yaml',  {'for': 'yaml'}
 " fatih/Go {{{
 " let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 1
