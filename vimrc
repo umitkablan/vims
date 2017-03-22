@@ -230,11 +230,11 @@ augroup Misc_Plugins_Au
 augroup END
 " }}}
 Plug 'DirDo.vim', {'on': ['DirDo','DDO','DDD','DirDoDir','DirDoAdd','DDA','DDP','DirDoPattern']}
-" yonchu/accelerated-smooth-scroll {{{
-let g:ac_smooth_scroll_no_default_key_mappings = 1
-nmap <silent> <C-d> <Plug>(ac-smooth-scroll-c-d)
-nmap <silent> <C-u> <Plug>(ac-smooth-scroll-c-u)
-Plug 'yonchu/accelerated-smooth-scroll'
+" Smooth Scrolling {{{
+let g:comfortable_motion_no_default_key_mappings = 1
+nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
+Plug 'yuttie/comfortable-motion.vim' "yonchu/accelerated-smooth-scroll
 " }}}
 " grep.vim {{{
 let g:Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
@@ -256,7 +256,7 @@ endif
 Plug 'mileszs/ack.vim', {'on': ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckAdd', 'AckFile', 'AckHelp', 'LAckHelp', 'AckWindow', 'LAckWindow']}
 " }}}
 Plug 'mhinz/vim-grepper'
-" bling/Airline {{{
+" Airline {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_splits  = 1
@@ -299,20 +299,9 @@ let g:airline_mode_map = {
       \ }
 let g:airline_section_b = '%{airline#util#shorten(airline#extensions#branch#get_head(),7,0)}'
 let g:airline_section_x = "%{tagbar#currenttag('@%s', '')}"
-Plug 'bling/vim-airline'
-" }}}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-airline-colornum'
-" GF-Ext {{{
-augroup Misc_Plugins_Au
-  autocmd VimEnter * call gf_ext#add_handler('\.jpg$', '!firefox -new-window')
-  autocmd VimEnter * call gf_ext#add_handler('\.avi$', '!mplayer -really-quiet')
-  autocmd VimEnter * call gf_ext#add_handler('\.flv$', '!mplayer -really-quiet')
-  autocmd VimEnter * call gf_ext#add_handler('\.mp4$', '!mplayer -really-quiet')
-  autocmd VimEnter * call gf_ext#add_handler('\.mov$', '!mplayer -really-quiet')
-  autocmd VimEnter * call gf_ext#add_handler('\.mkv$', '!mplayer -really-quiet')
-  autocmd VimEnter * call gf_ext#add_handler('http://\S*$', '!firefox -new-window')
-augroup END
-Plug 'dpwright/vim-gf-ext' "kana/vim-gf-user
 " }}}
 Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
 " AndrewRadev/Inline_Edit {{{
@@ -345,9 +334,8 @@ nmap <Space>nn      <Plug>MarkAllClear
 nmap <Space>n       <Plug>MarkClear
 nmap <Space>r       <Plug>MarkRegex
 xmap <Space>r       <Plug>MarkRegex
-Plug 'Mark'
+Plug 'Mark' "t9md/vim-quickhl
 " }}}
-"Plug 't9md/vim-quickhl'
 Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-abolish'
 Plug 'dietsche/vim-lastplace'
@@ -448,11 +436,11 @@ Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
 Plug 'SQLUtilities', {'on': [ 'SQLUFormatStmts', 'SQLUFormatter', 'SQLUCreateColumnList',
       \'SQLUGetColumnDef', 'SQLUGetColumnDataType', 'SQLUCreateProcedure', 'SQLUToggleValue']}
 Plug 'SQLComplete.vim', {'for': 'sql'}
-Plug 'tpope/vim-git',   {'for': 'git'}
+Plug 'tpope/vim-git',   {'for': ['git', 'gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail']}
 Plug 'zaiste/tmux.vim', {'for': 'tmux'}
 Plug 'solarnz/thrift.vim',      {'for': 'thrift'}
 Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
-Plug 'chase/vim-ansible-yaml',  {'for': 'yaml'}
+Plug 'chase/vim-ansible-yaml',  {'for': 'ansible'}
 " fatih/Go {{{
 " let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 1
@@ -986,16 +974,12 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'rkitover/vimpager', {
   \ 'do' : 'make',
   \ }
-" 'jszakmeister/vim-togglecursor' 'pafcu/Vimsplain' 'thinca/vim-prettyprint' 'Headlights' 'drmikehenry/vim-fixkey'
-" 'junkblocker/patchreview-vim' 'kshenoy/vim-signature' 'tacahiroy/ctrlp-funky' 'terryma/vim-multiple-cursors'
-" 'https://bitbucket.org/abudden/taghighlight' 'bufkill.vim' 'EasyGrep' 'surfer.vim' 'yate'
-" tomtom/quickfixsigns_vim {{{
-" " let loaded_quickfixsigns = 1
+" dpwright/vim-gf-ext kana/vim-gf-user jszakmeister/vim-togglecursor pafcu/Vimsplain thinca/vim-prettyprint Headlights gist-vim
+" drmikehenry/vim-fixkey junkblocker/patchreview-vim kshenoy/vim-signature tacahiroy/ctrlp-funky terryma/vim-multiple-cursors
+" https://bitbucket.org/abudden/taghighlight bufkill.vim EasyGrep surfer.vim yate
 " let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'marks'] "'breakpoints', 'rel', 'cursor'
 " au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
 " Plug 'tomtom/quickfixsigns_vim'
-" }}}
-"Plug 'gist-vim'
 call plug#end()
 " }}}
 
