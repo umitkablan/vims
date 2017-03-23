@@ -833,11 +833,12 @@ nnoremap <silent> ğp3  :VimShellInteractive --split='split' python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive --split='split' python2<CR>
 Plug 'Shougo/vimshell', {'on': ['VimShellPop', 'VimShellInteractive']}
 " }}}
-" tpope/Fugitive {{{
+" Fugitive & Git {{{
 augroup Misc_Plugins_Au
   au BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
-Plug 'tpope/vim-fugitive' ", {'on': ['Git','Gstatus']}
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 " }}}
 " VCSCommand {{{
 let g:VCSCommandMapPrefix = '<LocalLeader>_UNUSED_c'
