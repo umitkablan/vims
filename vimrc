@@ -833,6 +833,8 @@ nnoremap <silent> ğp3  :VimShellInteractive --split='split' python3<CR>
 nnoremap <silent> ğp12 :VimShellInteractive --split='split' python2<CR>
 Plug 'Shougo/vimshell', {'on': ['VimShellPop', 'VimShellInteractive']}
 " }}}
+Plug 'janko-m/vim-test'
+Plug 'sk1418/QFGrep'
 " Fugitive & Git {{{
 augroup Misc_Plugins_Au
   au BufReadPost fugitive://* setlocal bufhidden=delete
