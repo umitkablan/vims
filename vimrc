@@ -806,6 +806,8 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
 endfunction
 " }}}
 Plug 'Shougo/unite.vim'
+nnoremap <silent> gf     :execute 'Unite -input=' . umisc#fpathFilterRelStrs(expand('<cfile>')) . ' file_rec'<CR>
+nnoremap <silent> gff    :normal! gf<CR>
 nnoremap <silent> ğee    :UniteWithBufferDir -start-insert file<CR>
 nnoremap <silent> ğe     :Unite -start-insert file<CR>
 nnoremap <silent> <C-f>  :Unite -start-insert source<CR>
