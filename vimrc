@@ -1191,6 +1191,7 @@ xnoremap > >gv
 " nnoremap ğ> >i} AND ğ< <i}
 " easier %s/%g
 nnoremap ğs :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
+nnoremap ğss :%s/<C-r><C-w>//gI<Left><Left><Left>
 nnoremap ğg :%g/<C-r><C-w>/
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
