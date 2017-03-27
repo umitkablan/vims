@@ -375,17 +375,15 @@ let g:startify_custom_footer = [
 Plug 'mhinz/vim-startify'
 "}}}
 " LANGUAGE PACKS {{{
+Plug 'sheerun/vim-polyglot'
 Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
 Plug 'syngan/vim-vimlint',    {'for': 'vim'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'} "bigfish/vim-js-context-coloring
-let g:vim_markdown_initial_foldlevel       = 1
-let g:vim_markdown_no_default_key_mappings = 1
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'sukima/xmledit',    {'for': 'xml'} "othree/xml.vim
 Plug 'Rykka/riv.vim',           {'for': 'rst'}
-" cpp-vim for better @Spell @NoSpell support
-let g:c_no_curly_error = 1
-Plug 'vim-jp/cpp-vim',                   {'for': 'cpp'}
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'} "Mizuchi/STL-Syntax
+Plug 'chase/vim-ansible-yaml',  {'for': 'ansible'}
+Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
+Plug 'ujihisa/ft-cmake',          {'for': 'cmake'}
+Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
 " DerekWyatt/vim-ProtoDef {{{
 let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
 Plug 'derekwyatt/vim-protodef',          {'for': 'cpp'}
@@ -408,13 +406,12 @@ augroup Misc_Plugins_Au
 augroup END
 Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp', 'objc', 'objcpp']}
 "}}}
+" Java {{{
 let g:JavaComplete_EnableDefaultMappings = 0
-Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
 let g:no_java_maps = 1
-Plug 'Dinduks/vim-java-get-set', {'for': 'java'}
-"Plug 'nosami/Omnisharp'
-Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
-Plug 'hdima/python-syntax',  {'for': 'python'}
+Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
+Plug 'Dinduks/vim-java-get-set',      {'for': 'java'}
+" }}}
 " Python: davidhalter/Jedi {{{
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#completions_enabled    = 1
@@ -426,21 +423,10 @@ augroup Misc_Plugins_Au
 augroup END
 Plug 'davidhalter/jedi-vim', {'for': 'python'} "python-mode/python-mode
 "}}}
-Plug 'sukima/xmledit', {'for': 'xml'} "othree/xml.vim
-Plug 'elzr/vim-json',  {'for': 'json'}
-Plug 'derekwyatt/vim-scala',      {'for': 'scala'}
-Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
-Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
-Plug 'ujihisa/ft-cmake',          {'for': 'cmake'}
-Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
+Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
 Plug 'SQLUtilities', {'on': [ 'SQLUFormatStmts', 'SQLUFormatter', 'SQLUCreateColumnList',
       \'SQLUGetColumnDef', 'SQLUGetColumnDataType', 'SQLUCreateProcedure', 'SQLUToggleValue']}
 Plug 'SQLComplete.vim', {'for': 'sql'}
-Plug 'tpope/vim-git',   {'for': ['git', 'gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail']}
-Plug 'zaiste/tmux.vim', {'for': 'tmux'}
-Plug 'solarnz/thrift.vim',      {'for': 'thrift'}
-Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
-Plug 'chase/vim-ansible-yaml',  {'for': 'ansible'}
 " fatih/Go {{{
 " let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 1
