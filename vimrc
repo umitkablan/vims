@@ -944,6 +944,7 @@ Plug 'epeli/slimux' "vimux
 Plug 'mattn/webapi-vim'
 Plug 'thinca/vim-ref',        {'on': 'Ref'} "viewdoc, ManPageView, viki
 Plug 'VisIncr',               {'on': ['I','II']}
+let g:DrChipTopLvlMenu = 'Plugin.'
 Plug 'AnsiEsc.vim',           {'on': 'AnsiEsc'}
 Plug 'chrisbra/SudoEdit.vim', {'on': 'SudoWrite'}
 Plug 'danro/rename.vim',      {'on': 'Rename'}
@@ -1022,7 +1023,7 @@ set directory=~/.vim/var/tmp
 set updatetime=5000
 "make a little max-delay between keypad *touches*
 set timeout timeoutlen=440 ttimeout ttimeoutlen=50
-set cursorline cursorcolumn
+set cursorline nocursorcolumn
 set wrap linebreak
 if has('multi_byte')
   let &showbreak = '↳ '
