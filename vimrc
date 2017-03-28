@@ -45,7 +45,6 @@ Plug 'lh-vim-lib'
 Plug 'ingo-library'
 Plug 'let-modeline.vim'
 Plug 'myusuf3/numbers.vim' "jeffkreeftmeijer/vim-numbertoggle
-let g:LargeFile=2 " megabytes
 Plug 'LargeFile'
 Plug 'matchit.zip'
 Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
