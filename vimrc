@@ -378,8 +378,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
 Plug 'syngan/vim-vimlint',    {'for': 'vim'}
 Plug 'sukima/xmledit',    {'for': 'xml'} "othree/xml.vim
-Plug 'Rykka/riv.vim',           {'for': 'rst'}
-Plug 'chase/vim-ansible-yaml',  {'for': 'ansible'}
+Plug 'Rykka/riv.vim',     {'for': 'rst'}
 Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
 Plug 'ujihisa/ft-cmake',          {'for': 'cmake'}
 Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
