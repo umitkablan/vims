@@ -1039,11 +1039,8 @@ set spell spelllang=en
 augroup Misc_Au_For_Filetypes
   autocmd!
   au FileType text setlocal wrap linebreak
-  au FileType help setlocal nonumber
   au FileType qf,tagselect,diff  setlocal nospell
   au FilterWritePre * if &diff | setlocal nospell | endif
-  au InsertEnter * set nocursorline
-  au InsertLeave * set cursorline
   au TabLeave    * stopinsert
   au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
   " delete swap file if the swapped file is 'nomodified'
