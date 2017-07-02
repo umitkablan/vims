@@ -642,7 +642,9 @@ let g:SingleCompile_showquickfixiferror = 0
 let g:SingleCompile_showresultafterrun = 0
 nnoremap <silent> ğsc :SingleCompile<CR>
 nnoremap <silent> ĞSC :SingleCompileRun<CR>
-Plug 'xuhdev/SingleCompile', {'on': ['SCCompile','SingleCompile','SCCompileRun','SingleCompileRun']}
+Plug 'xuhdev/SingleCompile', { 'on': [
+  \  'SCCompile','SingleCompile','SCCompileRun','SingleCompileRun','SCCompileRunAF'
+  \]}
 " }}}
 " majutsushi/TagBar {{{
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
