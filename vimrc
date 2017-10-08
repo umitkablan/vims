@@ -45,7 +45,7 @@ Plug 'lh-vim-lib'
 Plug 'ingo-library'
 Plug 'let-modeline.vim'
 Plug 'myusuf3/numbers.vim' "jeffkreeftmeijer/vim-numbertoggle
-Plug 'LargeFile'
+" Plug 'LargeFile' "This plugin is bad bad bad - makes syntax disappear regularly
 Plug 'matchit.zip'
 Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
 let g:cscope_ignored_dir = 'node_modules$\|dist$\|build$\|\..\+$'
@@ -123,6 +123,7 @@ Plug 'justinmk/vim-sneak' " supasorn/vim-easymotion rhysd/clever-f.vim
 Plug 'ZoomWin' "szw/vim-maximizer
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
 Plug 'mikewest/vimroom', {'on': ['VimroomToggle']}
+Plug 'umitkablan/logavim'
 Plug 'tpope/vim-surround'
 " jiangmiao/Auto-Pairs {{{
 let g:AutoPairsMapSpace = 1
@@ -258,12 +259,12 @@ Plug 'mileszs/ack.vim', {'on': ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckA
 Plug 'mhinz/vim-grepper'
 " Airline {{{
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#show_splits  = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_splits  = 0
 let g:airline#extensions#tabline#excludes = []
 let g:airline#extensions#tabline#tab_nr_type   = 1 " tab number
 let g:airline#extensions#tabline#show_tab_nr   = 1
-let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#branch#enabled     = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#whitespace#show_message = 0
@@ -380,8 +381,7 @@ Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
 Plug 'syngan/vim-vimlint',    {'for': 'vim'}
 Plug 'sukima/xmledit',    {'for': 'xml'} "othree/xml.vim
 Plug 'Rykka/riv.vim',     {'for': 'rst'}
-Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
-Plug 'ujihisa/ft-cmake',          {'for': 'cmake'}
+Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
 Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
 " DerekWyatt/vim-ProtoDef {{{
 let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
@@ -861,6 +861,7 @@ let g:incsearch#highlight = {
   \   }
   \ }
 let g:indexed_search_mappings = 0
+let g:indexed_search_line_info = 1
 Plug 'henrik/vim-indexed-search'
 let g:incsearch#consistent_n_direction = 1
 let g:incsearch#magic = ''
