@@ -1312,7 +1312,8 @@ let g:loaded_fonts = 1
 
 try
   source ~/.vimrc.local
-catch //
+catch /.*/
+  echoerr '.vimrc.local ERROR: ' . v:exception
 endtry
 
 " vim:fdm=marker
