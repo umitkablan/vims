@@ -123,7 +123,7 @@ Plug 'justinmk/vim-sneak' " supasorn/vim-easymotion rhysd/clever-f.vim
 Plug 'vim-scripts/ZoomWin' "szw/vim-maximizer
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
 Plug 'mikewest/vimroom', {'on': ['VimroomToggle']}
-Plug 'umitkablan/logavim'
+Plug 'umitkablan/logavim', {'on': ['Logalize']}
 Plug 'tpope/vim-surround'
 " jiangmiao/Auto-Pairs {{{
 let g:AutoPairsMapSpace = 1
