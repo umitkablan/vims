@@ -149,11 +149,8 @@ Plug 'vim-scripts/Smartput'
 Plug 'sickill/vim-pasta'
 " }}}
 " mjbrownie/SwapIt & tpope/SpeedDating {{{
-let g:speeddating_no_mappings = 1
-" Use SwapIt to interface C-X/A rather than speeddating. Speeddating is
-" called from SwapIt as a fallback method.
-nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
-nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
+nmap <Plug>SpeedDatingFallbackUp   <Plug>SwapIncrement
+nmap <Plug>SpeedDatingFallbackDown <Plug>SwapDecrement
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-speeddating'
 " }}}
@@ -305,7 +302,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-airline-colornum'
 " }}}
-Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
+Plug 'simnalamburt/vim-mundo', {'on': ['GundoShow','GundoToggle', 'MundoShow', 'MundoToggle']}
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
 nnoremap <silent> <F2> :InlineEdit<CR>
