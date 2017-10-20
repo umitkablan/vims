@@ -958,7 +958,6 @@ Plug 'junkblocker/VimSpy', {'on':
 Plug 'chrisbra/csv.vim',       {'for': 'csv'}
 Plug 'vim-scripts/Colorizer--Brabandt', {'for': ['css','html']} "ColorSchemeMenuMaker lilydjwg/colorizer
 Plug 'diepm/vim-rest-console', {'for': 'rest'}
-Plug 'vim-scripts/Vimball',    {'for': 'vim'}
 Plug 'godlygeek/csapprox'
 Plug 'ryanoasis/vim-devicons'
 Plug 'rkitover/vimpager', {
