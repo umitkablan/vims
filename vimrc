@@ -36,37 +36,36 @@ Plug 'Shougo/vimproc', {
 Plug 'tpope/vim-dispatch'
 Plug 'idbrii/AsyncCommand' "skywind3000/asyncrun.vim
 Plug 'xolox/vim-misc'
-Plug 'cecutil'
+Plug 'vim-scripts/cecutil'
 nnoremap <silent> ğ1 :TScratch<CR>
 Plug 'tomtom/tlib_vim'
 " Plug https://bitbucket.org: ZyX_I/frawor ns9tks/vim-l9
-Plug 'genutils'
-Plug 'lh-vim-lib'
-Plug 'ingo-library'
-Plug 'let-modeline.vim'
+Plug 'vim-scripts/genutils'
+Plug 'vim-scripts/lh-vim-lib'
+Plug 'vim-scripts/ingo-library'
+Plug 'vim-scripts/let-modeline.vim'
 Plug 'myusuf3/numbers.vim' "jeffkreeftmeijer/vim-numbertoggle
-let g:LargeFile=2 " megabytes
-Plug 'LargeFile'
-Plug 'matchit.zip'
+" Plug 'LargeFile' "This plugin is bad bad bad - makes syntax disappear regularly
+Plug 'vim-scripts/matchit.zip'
 Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
 let g:cscope_ignored_dir = 'node_modules$\|dist$\|build$\|\..\+$'
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
-Plug 'CCTree', {'on': ['CCTreeLoadDB', 'CCTreeLoadDB', 'CCTreeShowLoadedDBs', 'CCTreeAppendDB']} "hari-rangarajan/CCTree
+Plug 'vim-scripts/CCTree', {'on': ['CCTreeLoadDB', 'CCTreeLoadDB', 'CCTreeShowLoadedDBs', 'CCTreeAppendDB']} "hari-rangarajan/CCTree
 Plug 'mbbill/echofunc'
 Plug 'kana/vim-metarw'
 Plug 'bogado/file-line'
 " a.vim alternate {{{
 nnoremap <silent> ğa :A<CR>
-Plug 'a.vim'
+Plug 'vim-scripts/a.vim'
 " }}}
 " ReplaceWithRegister {{{
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
 xmap gr  <Plug>ReplaceVisual
-Plug 'ReplaceWithRegister'
+Plug 'vim-scripts/ReplaceWithRegister'
 " }}}
 Plug 'tpope/vim-unimpaired'
-Plug 'yaifa.vim' "ciaranm/detectindent
+Plug 'vim-scripts/yaifa.vim' "ciaranm/detectindent
 " vim-auf {{{
 let g:auf_retab = 0
 let g:auf_fallback_func = 'Misc_Plugins_VimAuf_Fallback'
@@ -76,7 +75,7 @@ function! Misc_Plugins_VimAuf_Fallback()
 endfunction
 Plug 'umitkablan/vim-auf'
 "}}}
-Plug 'IndentConsistencyCop'
+Plug 'vim-scripts/IndentConsistencyCop'
 Plug 'dodie/vim-disapprove-deep-indentation'
 " Indent-Guides {{{
 let g:indent_guides_color_change_percent  = 20
@@ -86,14 +85,14 @@ augroup Misc_Plugins_Au
 augroup END
 Plug 'nathanaelkane/vim-indent-guides' "Yggdroot/indentLine
 " }}}
-Plug 'ShowTrailingWhitespace' "ntpeters/vim-better-whitespace
+Plug 'vim-scripts/ShowTrailingWhitespace' "ntpeters/vim-better-whitespace
 xnoremap <silent> <Enter> :EasyAlign<CR>
 Plug 'junegunn/vim-easy-align'
 Plug 'godlygeek/tabular'
 Plug 'blueyed/vim-diminactive'
 Plug 'pboettch/HiCursorWords'
-Plug 'SyntaxMotion.vim'
-Plug 'camelcasemotion'
+Plug 'vim-scripts/SyntaxMotion.vim'
+Plug 'vim-scripts/camelcasemotion'
 " Sneak Motions {{{
 nmap gs <Plug>Sneak_s
 nmap gS <Plug>Sneak_S
@@ -121,9 +120,10 @@ omap T <Plug>Sneak_T
 let g:sneak#streak = 1
 Plug 'justinmk/vim-sneak' " supasorn/vim-easymotion rhysd/clever-f.vim
 " }}}
-Plug 'ZoomWin' "szw/vim-maximizer
+Plug 'vim-scripts/ZoomWin' "szw/vim-maximizer
 Plug 'chrisbra/NrrwRgn' "We need it for Startify , {'on': ['NR','NW','NRV']}
 Plug 'mikewest/vimroom', {'on': ['VimroomToggle']}
+Plug 'umitkablan/logavim', {'on': ['Logalize']}
 Plug 'tpope/vim-surround'
 " jiangmiao/Auto-Pairs {{{
 let g:AutoPairsMapSpace = 1
@@ -134,7 +134,7 @@ let g:AutoPairsMapCh    = 0
 let g:AutoPairsShortcutBackInsert = '_-<M-b>'
 Plug 'jiangmiao/auto-pairs'
 "}}}
-Plug 'UnconditionalPaste'
+Plug 'vim-scripts/UnconditionalPaste'
 " Smartput & sickill/Pasta {{{
 " smartput's mappings about p/P are deleted in favour of vim-pasta.
 " vim-pasta handles p/P while smartput handles gp/gP. Fair share.
@@ -145,15 +145,12 @@ let g:smartput = 1
 nmap <unique> NOTUSEDğst <Plug>SmartputToggle
 nnoremap ğp p
 nnoremap ĞP P
-Plug 'Smartput'
+Plug 'vim-scripts/Smartput'
 Plug 'sickill/vim-pasta'
 " }}}
 " mjbrownie/SwapIt & tpope/SpeedDating {{{
-let g:speeddating_no_mappings = 1
-" Use SwapIt to interface C-X/A rather than speeddating. Speeddating is
-" called from SwapIt as a fallback method.
-nmap <Plug>SwapItFallbackIncrement <Plug>SpeedDatingUp
-nmap <Plug>SwapItFallbackDecrement <Plug>SpeedDatingDown
+nmap <Plug>SpeedDatingFallbackUp   <Plug>SwapIncrement
+nmap <Plug>SpeedDatingFallbackDown <Plug>SwapDecrement
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-speeddating'
 " }}}
@@ -163,7 +160,7 @@ let g:repeat_dot_mapping  = '<Bar>'
 let g:repeat_undo_mapping = 'U'
 Plug 'umitkablan/vim-repeat' "visualrepeat
 " }}}
-Plug 'CmdlineComplete'
+Plug 'vim-scripts/CmdlineComplete'
 " Command Aliases {{{
 Plug 'Konfekt/vim-alias' "'cmdalias.vim'
 func EatChar(pat)
@@ -182,6 +179,7 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias did DirDiff
   autocmd VimEnter * Alias ie InlineEdit
   autocmd VimEnter * Alias E e
+  autocmd VimEnter * Alias ee e\ <C-r>=expand('#:p')<CR>
   autocmd VimEnter * Alias er Errors
   autocmd VimEnter * Alias Er Errors
   autocmd VimEnter * Alias un Underline
@@ -229,7 +227,7 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias ss SaveSession!\ default
 augroup END
 " }}}
-Plug 'DirDo.vim', {'on': ['DirDo','DDO','DDD','DirDoDir','DirDoAdd','DDA','DDP','DirDoPattern']}
+Plug 'vim-scripts/DirDo.vim', {'on': ['DirDo','DDO','DDD','DirDoDir','DirDoAdd','DDA','DDP','DirDoPattern']}
 " Smooth Scrolling {{{
 let g:comfortable_motion_no_default_key_mappings = 1
 nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
@@ -239,7 +237,7 @@ Plug 'yuttie/comfortable-motion.vim' "yonchu/accelerated-smooth-scroll
 " grep.vim {{{
 let g:Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
 let g:Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
-Plug 'grep.vim', {'on': 'Grep'}
+Plug 'vim-scripts/grep.vim', {'on': 'Grep'}
 " }}}
 " milesz/ack.vim {{{
 if executable('ag')
@@ -256,14 +254,15 @@ endif
 Plug 'mileszs/ack.vim', {'on': ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckAdd', 'AckFile', 'AckHelp', 'LAckHelp', 'AckWindow', 'LAckWindow']}
 " }}}
 Plug 'mhinz/vim-grepper'
+Plug 'brooth/far.vim'
 " Airline {{{
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#show_splits  = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_splits  = 0
 let g:airline#extensions#tabline#excludes = []
 let g:airline#extensions#tabline#tab_nr_type   = 1 " tab number
 let g:airline#extensions#tabline#show_tab_nr   = 1
-let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#branch#enabled     = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#whitespace#show_message = 0
@@ -303,7 +302,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-airline-colornum'
 " }}}
-Plug 'sjl/gundo.vim', {'on': ['GundoShow','GundoToggle']}
+Plug 'simnalamburt/vim-mundo', {'on': ['GundoShow','GundoToggle', 'MundoShow', 'MundoToggle']}
 " AndrewRadev/Inline_Edit {{{
 let g:inline_edit_autowrite=1
 nnoremap <silent> <F2> :InlineEdit<CR>
@@ -313,9 +312,9 @@ Plug 'AndrewRadev/inline_edit.vim', {'on': 'InlineEdit'}
 " DirDiff {{{
 let g:DirDiffExcludes = '.svn,CVS,*.class,*.exe,*.Plo,*.o,*.swp,*.swo,*.la,*.lai,*.so,*.ko'
 let g:DirDiffAddArgs  = '-w'
-Plug 'DirDiff.vim', {'on': 'DirDiff'}
+Plug 'vim-scripts/DirDiff.vim', {'on': 'DirDiff'}
 " }}}
-Plug 'linediff.vim',          {'on': 'Linediff'}
+Plug 'vim-scripts/linediff.vim', {'on': 'Linediff'}
 Plug 'rickhowe/diffchar.vim', {'on': ['SDChar','RDChar','TDChar']}
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
@@ -334,7 +333,7 @@ nmap <Space>nn      <Plug>MarkAllClear
 nmap <Space>n       <Plug>MarkClear
 nmap <Space>r       <Plug>MarkRegex
 xmap <Space>r       <Plug>MarkRegex
-Plug 'Mark' "t9md/vim-quickhl
+Plug 'vim-scripts/Mark' "t9md/vim-quickhl
 " }}}
 Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-abolish'
@@ -379,10 +378,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
 Plug 'syngan/vim-vimlint',    {'for': 'vim'}
 Plug 'sukima/xmledit',    {'for': 'xml'} "othree/xml.vim
-Plug 'Rykka/riv.vim',           {'for': 'rst'}
-Plug 'chase/vim-ansible-yaml',  {'for': 'ansible'}
-Plug 'pboettch/vim-cmake-syntax', {'for': 'cmake'}
-Plug 'ujihisa/ft-cmake',          {'for': 'cmake'}
+Plug 'ujihisa/ft-cmake', {'for': 'cmake'}
 Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
 " DerekWyatt/vim-ProtoDef {{{
 let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
@@ -393,7 +389,7 @@ let g:OmniCpp_MayCompleteDot   = 0
 let g:OmniCpp_MayCompleteArrow = 0
 let g:OmniCpp_MayCompleteScope = 0
 let g:OmniCpp_SelectFirstItem  = 0
-Plug 'OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
+Plug 'vim-scripts/OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
 "}}}
 " Clang_Complete {{{
 let g:clang_complete_auto = 0
@@ -424,9 +420,9 @@ augroup END
 Plug 'davidhalter/jedi-vim', {'for': 'python'} "python-mode/python-mode
 "}}}
 Plug 'marijnh/tern_for_vim', {'for': 'javascript'}
-Plug 'SQLUtilities', {'on': [ 'SQLUFormatStmts', 'SQLUFormatter', 'SQLUCreateColumnList',
+Plug 'vim-scripts/SQLUtilities', {'on': [ 'SQLUFormatStmts', 'SQLUFormatter', 'SQLUCreateColumnList',
       \'SQLUGetColumnDef', 'SQLUGetColumnDataType', 'SQLUCreateProcedure', 'SQLUToggleValue']}
-Plug 'SQLComplete.vim', {'for': 'sql'}
+Plug 'vim-scripts/SQLComplete.vim', {'for': 'sql'}
 " fatih/Go {{{
 " let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 1
@@ -583,7 +579,7 @@ let g:netrw_bufsettings = 'nomodifiable nomodified nobuflisted nowrap readonly' 
 " Notes {{{
 let g:notesRoot = expand('$HOME/.vim/var/notes')
 let g:notes_directories = [expand('$HOME/.vim/var/notes')]
-Plug 'Notes' ", {'on': ['Note','NoteAsNew']}
+Plug 'vim-scripts/Notes' ", {'on': ['Note','NoteAsNew']}
 "}}}
 " yssl/QFEnter {{{
 let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
@@ -595,7 +591,7 @@ Plug 'yssl/QFEnter'
 " mhinz/Signify {{{
 let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:signify_line_highlight = 0
-let g:signify_update_on_bufenter = 0
+let g:signify_update_on_bufenter = 1
 let g:signify_update_on_focusgained = 1
 let g:signify_cursorhold_normal = 0
 let g:signify_cursorhold_insert = 0
@@ -696,7 +692,7 @@ Plug 'tomtom/tinykeymap_vim'
 " }}}
 " Multiselect {{{
 let g:no_multiselect_maps = 1
-Plug 'multiselect'
+Plug 'vim-scripts/multiselect'
 " }}}
 " t9md/TextManip {{{
 xmap <Up>    <Plug>(textmanip-move-up)
@@ -812,7 +808,7 @@ nnoremap <silent> <C-->  :Unite -no-split vimgrep:%:\\CTODO\:\\|FIXME\:\\|NOTE\:
 
 Plug 'Shougo/tabpagebuffer.vim' "jeetsukumaran/vim-buffergator jlanzarotta/bufexplorer
 Plug 'Shougo/neomru.vim'
-Plug 'unite-locate',             {'on': 'Unite'}
+Plug 'vim-scripts/unite-locate', {'on': 'Unite'}
 Plug 'tsukkee/unite-tag',        {'on': 'Unite'}
 " unite-colorscheme-1.3 unite-grep-Sixeight tsukkee/unite-help thinca/vim-unite-history h1mesuke/unite-outline hakobe/unite-script
 "}}}
@@ -843,7 +839,8 @@ augroup END
 augroup VCSCommand
   au VCSCommand User VCSBufferCreated setlocal bufhidden=delete
 augroup END
-Plug 'vcscommand.vim', {'on': ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
+Plug 'vim-scripts/vcscommand.vim', {'on':
+      \ ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
 " }}}
 Plug 'bronson/vim-visual-star-search'
 Plug 'embear/vim-foldsearch'
@@ -864,6 +861,7 @@ let g:incsearch#highlight = {
   \   }
   \ }
 let g:indexed_search_mappings = 0
+let g:indexed_search_line_info = 1
 Plug 'henrik/vim-indexed-search'
 let g:incsearch#consistent_n_direction = 1
 let g:incsearch#magic = ''
@@ -899,7 +897,7 @@ nnoremap <silent> X  :CoremoSearchAdd<CR>
 xnoremap <silent> X  :CoremoSearchAddV<CR>
 nnoremap <silent> ğX :CoremoSearchRemove<CR>
 xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
-Plug 'CoremoSearch'
+Plug 'vim-scripts/CoremoSearch'
 " }}}
 Plug 'tyru/open-browser.vim'
 Plug 'umitkablan/vim-zeroth-colorscheme', {'on': 'ZerothCS'}
@@ -935,7 +933,7 @@ Plug 'sjl/clam.vim', {'on': 'Clam'}
 " DBExt {{{
 let g:dbext_default_SQLITE_bin = 'sqlite3'
 nmap <unique> NOTUSEDğsh <Plug>DBHistory
-Plug 'dbext.vim', {'for': 'sql'}
+Plug 'vim-scripts/dbext.vim', {'for': 'sql'}
 " }}}
 " edkolev/TmuxLine.vim {{{
 let g:tmuxline_powerline_separators = 0
@@ -945,24 +943,23 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'epeli/slimux' "vimux
 Plug 'mattn/webapi-vim'
 Plug 'thinca/vim-ref',        {'on': 'Ref'} "viewdoc, ManPageView, viki
-Plug 'VisIncr',               {'on': ['I','II']}
+Plug 'vim-scripts/VisIncr',   {'on': ['I','II']}
 let g:DrChipTopLvlMenu = 'Plugin.'
-Plug 'AnsiEsc.vim',           {'on': 'AnsiEsc'}
+Plug 'vim-scripts/AnsiEsc.vim', {'on': 'AnsiEsc'}
 Plug 'chrisbra/SudoEdit.vim', {'on': 'SudoWrite'}
 Plug 'danro/rename.vim',      {'on': 'Rename'}
 Plug 'qpkorr/vim-renamer',    {'on': 'Renamer'}
-Plug 'vis',                   {'on': ['B','S']}
-Plug 'foldutil.vim',          {'on': 'FoldShowLines'}
+Plug 'vim-scripts/vis',          {'on': ['B','S']}
+Plug 'vim-scripts/foldutil.vim', {'on': 'FoldShowLines'}
 Plug 'nelstrom/vim-qargs',    {'on': 'Qargs'}
 Plug 'gerw/vim-HiLinkTrace',  {'on': ['HLT', 'HLTm']}
-Plug 'hexman.vim',            {'on': 'HexManager'}
+Plug 'vim-scripts/hexman.vim',{'on': 'HexManager'}
 Plug 'itchyny/calendar.vim',  {'on': 'Calendar'}
 Plug 'junkblocker/VimSpy', {'on':
       \ ['Messages','Map','Command','CommandOutput','Syntax','Highlight','Function','Autocmd']}
 Plug 'chrisbra/csv.vim',       {'for': 'csv'}
-Plug 'Colorizer--Brabandt',    {'for': ['css','html']} "ColorSchemeMenuMaker lilydjwg/colorizer
+Plug 'vim-scripts/Colorizer--Brabandt', {'for': ['css','html']} "ColorSchemeMenuMaker lilydjwg/colorizer
 Plug 'diepm/vim-rest-console', {'for': 'rest'}
-Plug 'Vimball',                {'for': 'vim'}
 Plug 'godlygeek/csapprox'
 Plug 'ryanoasis/vim-devicons'
 Plug 'rkitover/vimpager', {
@@ -1042,11 +1039,8 @@ set spell spelllang=en
 augroup Misc_Au_For_Filetypes
   autocmd!
   au FileType text setlocal wrap linebreak
-  au FileType help setlocal nonumber
   au FileType qf,tagselect,diff  setlocal nospell
   au FilterWritePre * if &diff | setlocal nospell | endif
-  au InsertEnter * set nocursorline
-  au InsertLeave * set cursorline
   au TabLeave    * stopinsert
   au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/','%','g'), '\','%','g'),  ':','','g').'~'
   " delete swap file if the swapped file is 'nomodified'
@@ -1164,7 +1158,7 @@ nnoremap <silent> <Tab><Tab>l :<C-U>call umisc#TabNextRelatively(v:count1)<CR>
 nnoremap <silent> <Tab><Tab>h :<C-U>call umisc#TabPrevRelatively(v:count1)<CR>
 " half/full redraw
 nnoremap <silent> <C-l> :redraw!\|set cul<CR>
-nnoremap <silent> <C-l><C-l> :let @/=""\|redraw!\|e!\|set nu\|set cul<CR>
+nnoremap <silent> <C-l><C-l> :let @/=''\|redraw!\|e!<CR>
 nnoremap <silent> HH  :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> ğcd :pwd<CR>
@@ -1316,7 +1310,8 @@ let g:loaded_fonts = 1
 
 try
   source ~/.vimrc.local
-catch //
+catch /.*/
+  echoerr '.vimrc.local ERROR: ' . v:exception
 endtry
 
 " vim:fdm=marker
