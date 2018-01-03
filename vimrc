@@ -173,7 +173,9 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias tee tabedit\ ~/<C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias spp sp\ ~/<C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias vss vsp\ ~/<C-r>=EatChar("\ ")<CR>
-  autocmd VimEnter * Alias tec tabedit\ %<C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias te%  tabedit\ %<C-r>=EatChar("\ ")<CR>
+  autocmd VimEnter * Alias te.  tabedit\ <C-r>=expand('%:h:.')<CR>
+  autocmd VimEnter * Alias te.. tabedit\ <C-r>=expand('%:h:h:.')<CR>
   autocmd VimEnter * Alias dd diffthis
   autocmd VimEnter * Alias do diffoff
   autocmd VimEnter * Alias did DirDiff
