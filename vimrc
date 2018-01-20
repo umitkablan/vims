@@ -236,14 +236,11 @@ nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
 nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
 Plug 'yuttie/comfortable-motion.vim' "yonchu/accelerated-smooth-scroll
 " }}}
-" grep.vim {{{
-let g:Grep_Skip_Files = 'tags *~ .lvimrc *.pyc *.min.js types_?*.taghl'
-let g:Grep_Skip_Dirs = 'RCS CVS SCCS .git .vimprj .svn'
-Plug 'vim-scripts/grep.vim', {'on': 'Grep'}
-" }}}
 " milesz/ack.vim {{{
+let [g:ack_apply_qmappings, g:ack_apply_lmappings] = [0, 0]
+let g:ackhighlight = 1
 if executable('ag')
-  let g:ackprg = 'ag --nocolor --nogroup --column --smart-case --skip-vcs-ignores'
+  let g:ackprg = 'ag --vimgrep'
 else
   if executable('ack')
     let g:ackprg = 'ack -H --nocolor --nogroup --column'
@@ -253,7 +250,9 @@ else
     endif
   endif
 endif
-Plug 'mileszs/ack.vim', {'on': ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckAdd', 'AckFile', 'AckHelp', 'LAckHelp', 'AckWindow', 'LAckWindow']}
+Plug 'mileszs/ack.vim', {'on':
+              \ ['Ack', 'AckAdd', 'AckFromSearch', 'LAck', 'LAckAdd',
+              \ 'AckFile', 'AckHelp', 'LAckHelp', 'AckWindow', 'LAckWindow']}
 " }}}
 Plug 'mhinz/vim-grepper'
 Plug 'brooth/far.vim'
@@ -584,10 +583,11 @@ let g:notes_directories = [expand('$HOME/.vim/var/notes')]
 Plug 'vim-scripts/Notes' ", {'on': ['Note','NoteAsNew']}
 "}}}
 " yssl/QFEnter {{{
-let g:qfenter_open_map  = ['<CR>', '<2-LeftMouse>']
-let g:qfenter_vopen_map = ['<C-V>']
-let g:qfenter_hopen_map = ['<C-H>']
-let g:qfenter_topen_map = ['<C-T>', 'T']
+let g:qfenter_keymap = {}
+let g:qfenter_keymap.open = ['<CR>']
+let g:qfenter_keymap.vopen = ['<C-v>']
+let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>', '<C-h>']
+let g:qfenter_keymap.topen = ['<C-t>', 'T']
 Plug 'yssl/QFEnter'
 " }}}
 " mhinz/Signify {{{
