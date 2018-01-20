@@ -229,7 +229,9 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias ss SaveSession!\ default
 augroup END
 " }}}
-Plug 'vim-scripts/DirDo.vim', {'on': ['DirDo','DDO','DDD','DirDoDir','DirDoAdd','DDA','DDP','DirDoPattern']}
+Plug 'vim-scripts/DirDo.vim', {'on':
+                              \ ['DirDo', 'DDO', 'DDD', 'DirDoDir', 'DirDoAdd',
+                              \ 'DDA', 'DDP', 'DirDoPattern']}
 " Smooth Scrolling {{{
 let g:comfortable_motion_no_default_key_mappings = 1
 nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
