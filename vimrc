@@ -708,12 +708,15 @@ xmap DD      <Plug>(textmanip-duplicate-up)
 Plug 't9md/vim-textmanip'
 " }}}
 " ctrlpvim/CtrlP {{{
-let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_working_path_mode = 0
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_mruf_save_on_update = 0
+" let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'"
 nnoremap <silent> ğt :CtrlPBufTag<CR>
 Plug 'ctrlpvim/ctrlp.vim'
 " }}}
