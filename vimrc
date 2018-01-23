@@ -457,10 +457,6 @@ let g:SuperTabCrMapping = 0
 Plug 'ervandew/supertab'
 "}}}
 " Shougo/NeoComplete {{{
-augroup LargeFile_NeoComplete_Lock
-  au!
-  autocmd BufReadPost * if line("$")>1900 | NeoCompleteLock | else | NeoCompleteUnlock | endif
-augroup END
 let g:neocomplete#enable_at_startup  = 1
 let g:neocomplete#enable_ignore_case = 1
 let g:neocomplete#enable_smart_case  = 1
