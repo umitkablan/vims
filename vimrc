@@ -650,6 +650,10 @@ Plug 'xuhdev/SingleCompile', { 'on': [
 nnoremap <silent> TT :TagbarOpenAutoClose<CR>
 Plug 'majutsushi/tagbar' "We need it for Startify {'on': ['TagbarOpenAutoClose', 'TagbarToggle', 'TagbarOpen']}
 "}}}
+" TagSelect {{{
+nnoremap <silent> <C-]> :Tselect <cword><CR>
+Plug 'umitkablan/tagselect'
+"}}}
 " wesleyche/SrcExpl {{{
 let g:SrcExpl_refreshTime = 400
 let g:SrcExpl_isUpdateTags = 0
