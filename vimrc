@@ -1269,7 +1269,7 @@ augroup END
 
 " personal plugin maps {{{
 " Enter/Backspace Behaviour {{{
-nnoremap <silent> <CR> :exec "normal \<lt>C-]>"<CR>
+nmap <silent> <CR> <C-]>
 nnoremap <silent> <Backspace> :if !umisc#QFixCloseAndCheck()<Bar>:exec "normal \<lt>C-t>"<Bar>endif<CR>
 augroup tag_langs
   au!
