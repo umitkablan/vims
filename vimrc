@@ -36,17 +36,27 @@ Plug 'Shougo/vimproc', {
 Plug 'tpope/vim-dispatch'
 Plug 'idbrii/AsyncCommand' "skywind3000/asyncrun.vim
 Plug 'xolox/vim-misc'
-Plug 'vim-scripts/cecutil'
 nnoremap <silent> ğ1 :TScratch<CR>
 Plug 'tomtom/tlib_vim'
 " Plug https://bitbucket.org: ZyX_I/frawor ns9tks/vim-l9
-Plug 'vim-scripts/genutils'
-Plug 'vim-scripts/lh-vim-lib'
 Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/let-modeline.vim'
 Plug 'myusuf3/numbers.vim' "jeffkreeftmeijer/vim-numbertoggle
 " Plug 'LargeFile' "This plugin is bad bad bad - makes syntax disappear regularly
 Plug 'vim-scripts/matchit.zip'
+" majutsushi/TagBar {{{
+nnoremap <silent> TT :TagbarOpenAutoClose<CR>
+Plug 'majutsushi/tagbar' "We need it for Startify {'on': ['TagbarOpenAutoClose', 'TagbarToggle', 'TagbarOpen']}
+"}}}
+" TagSelect {{{
+nnoremap <silent> <C-]> :Tselect <cword><CR>
+Plug 'umitkablan/tagselect'
+"}}}
+" wesleyche/SrcExpl {{{
+let g:SrcExpl_refreshTime = 400
+let g:SrcExpl_isUpdateTags = 0
+Plug 'wesleyche/SrcExpl', {'on': ['SrcExpl','SrcExplToggle']}
+" }}}
 Plug 'umitkablan/vim-autotag' "ludovicchabant/vim-gutentags
 let g:cscope_ignored_dir = 'node_modules$\|dist$\|build$\|\..\+$'
 Plug 'brookhong/cscope.vim', {'on': ['CscopeClear','CscopeList']}
@@ -641,19 +651,6 @@ nnoremap <silent> ĞSC :SingleCompileRun<CR>
 Plug 'xuhdev/SingleCompile', { 'on': [
   \  'SCCompile','SingleCompile','SCCompileRun','SingleCompileRun','SCCompileRunAF'
   \]}
-" }}}
-" majutsushi/TagBar {{{
-nnoremap <silent> TT :TagbarOpenAutoClose<CR>
-Plug 'majutsushi/tagbar' "We need it for Startify {'on': ['TagbarOpenAutoClose', 'TagbarToggle', 'TagbarOpen']}
-"}}}
-" TagSelect {{{
-nnoremap <silent> <C-]> :Tselect <cword><CR>
-Plug 'umitkablan/tagselect'
-"}}}
-" wesleyche/SrcExpl {{{
-let g:SrcExpl_refreshTime = 400
-let g:SrcExpl_isUpdateTags = 0
-Plug 'wesleyche/SrcExpl', {'on': ['SrcExpl','SrcExplToggle']}
 " }}}
 " tomtom/TComment {{{
 let g:tcommentMapLeader1 = ''
