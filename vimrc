@@ -975,7 +975,6 @@ Plug 'rkitover/vimpager', {
 " Plug 'tomtom/quickfixsigns_vim'
 call plug#end()
 " }}}
-" }}}
 
 " global configuration {{{
 set nocompatible
@@ -983,8 +982,7 @@ filetype plugin on
 filetype indent on
 syntax on
 " set regexpengine=1
-let g:mapleader = 'ü'
-let g:maplocalleader = ','
+let [g:mapleader, g:maplocalleader] = ['ü', ',']
 "set term color to 256 for some colorschemes to work.
 set t_Co=256
 "show statusbar all the time
@@ -994,10 +992,9 @@ set noruler noshowmode title
 " highlight the search, don't start from beginning when you reach end.
 set hlsearch incsearch
 set nowrapscan
-set ignorecase
-set smartcase
+set ignorecase smartcase
 set backspace=indent,eol,start
-set number "relativenumber
+set number norelativenumber
 set history=450
 "move the viminfo file to .vim to avoid the vim-related rubbish outside .vim/.
 set viminfo+=n~/.vim/var/viminfo
@@ -1015,8 +1012,7 @@ set wildignore+=*.pyo,*.pyd,*.class,*.lock
 set wildignore+=.git,.svn,.hg
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg
 set suffixes+=.toc,.out,.inx
-" can leave a buffer without saving
-set hidden
+set hidden " can leave a buffer without saving
 " backup and temp dirs
 set backup undofile
 set undodir=~/.vim/var/backup
@@ -1033,9 +1029,6 @@ else
   let &showbreak = '> '
 endif
 set spell spelllang=en
-" Fix some terminals' up/down/right/left arrow keys
-" set t_ku=[1;1A t_kd=[1;1B
-" set t_kr=[1;1C t_kl=[1;1D
 " keep cursor always in the middle
 " set scrolloff=9999
 
@@ -1087,12 +1080,10 @@ nnoremap Q <Nop>
 nnoremap u <Nop>
 nnoremap U u
 nnoremap qQ Q
-nnoremap ğq gqip
 " CTRL-c to leave insert mode,  better not know it.
 nnoremap <silent> <C-c> :echo expand("%:p:~")<CR>
 nnoremap oo o<C-c>o
 nnoremap OO O<C-c>O
-imap <C-BS> <C-W>
 noremap g; g,
 noremap g, g;
 nmap g,, g,g,
@@ -1194,18 +1185,12 @@ nmap <silent> Ğ;; :set paste\|exe 'norm "+p'\|set nopaste<CR>GV=
 nnoremap ğc "+yiw
 nnoremap ĞC gv"+y
 xnoremap ğc "+y
-" Better than just inverting 'paste' is inverting and showing
-" set pastetoggle=<F12>
+" set pastetoggle=<F12> " Better invert paste and show status
 inoremap <F12> <C-O>:set invpaste paste?<CR>
 nnoremap <F12>      :set invpaste paste?<CR>
 " easy completion
 inoremap <C-j> <C-X><C-O>
 " au CmdwinEnter * map <silent> <buffer> <Esc><Esc> <C-c>
-" vnoremap <C-j> @='jojo'<cr>
-" vnoremap <expr> <C-j> 'jo'.v:count1.'jo'
-" vnoremap <C-k> @='koko'<cr>
-" vnoremap <expr> <C-k> 'ko'.v:count1.'ko'
-" swap comma (,) and semicolon (;) because my keyboard is comma-privileged
 " call s:SwapKeys(",", ";")
 " }}}
 
@@ -1298,16 +1283,8 @@ nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 let g:tmuxmake_targets = ''
 let g:locator_disable_mappings = 1
 
-let g:ctags_path  = '/usr/bin/ctags'
-let g:ctags_args  = '-I __declspec+'
-let g:ctags_title = 1
-let g:ctags_statusline   = 1
-let g:generate_tags      = 1
 let g:valgrind_arguments = '--leak-check=yes --num-callers=5000'
-let g:yankring_history_dir = expand('$HOME/.vim')
 let g:local_vimrc = '.lvimrc'
-let g:hybrid_use_Xresources = 0
-let g:github_user  = 'umitkablan'
 let g:loaded_fonts = 1
 " }}}
 
