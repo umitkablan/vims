@@ -590,11 +590,6 @@ Plug 'yssl/QFEnter'
 " }}}
 " mhinz/Signify {{{
 let g:signify_vcs_list = [ 'git', 'svn' ]
-let g:signify_line_highlight = 0
-let g:signify_update_on_bufenter = 1
-let g:signify_update_on_focusgained = 1
-let g:signify_cursorhold_normal = 0
-let g:signify_cursorhold_insert = 0
 nmap ]h <Plug>(signify-next-hunk)
 nmap [h <Plug>(signify-prev-hunk)
 nmap ]H 9999]h
@@ -979,6 +974,7 @@ Plug 'rkitover/vimpager', {
 " au FileType conque_term let b:quickfixsigns_ignore = ['rel', 'loc']
 " Plug 'tomtom/quickfixsigns_vim'
 call plug#end()
+" }}}
 " }}}
 
 " global configuration {{{
