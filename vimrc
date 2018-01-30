@@ -329,25 +329,6 @@ Plug 'vim-scripts/DirDiff.vim', {'on': 'DirDiff'}
 " }}}
 Plug 'vim-scripts/linediff.vim', {'on': 'Linediff'}
 Plug 'rickhowe/diffchar.vim', {'on': ['SDChar','RDChar','TDChar']}
-" Mark {{{
-let g:mwDefaultHighlightingPalette = 'maximum'
-let g:mwHistAdd = '' "'/@'
-let g:mwAutoSaveMarks = 0
-let g:mwIgnoreCase    = 0
-xmap <Space><Space> <Plug>MarkSet
-nmap <Space><Space> <Plug>MarkSet
-nmap <Space>*       <Plug>MarkSearchNext
-nmap <Space>#       <Plug>MarkSearchPrev
-nmap <Space>ğ*      <Plug>MarkSearchCurrentNext
-nmap <Space>ğ#      <Plug>MarkSearchCurrentPrev
-nmap <S-Space>?     <Plug>MarkSearchAnyPrev
-nmap <S-Space>/     <Plug>MarkSearchAnyNext
-nmap <Space>nn      <Plug>MarkAllClear
-nmap <Space>n       <Plug>MarkClear
-nmap <Space>r       <Plug>MarkRegex
-xmap <Space>r       <Plug>MarkRegex
-Plug 'vim-scripts/Mark' "t9md/vim-quickhl
-" }}}
 Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-abolish'
 Plug 'dietsche/vim-lastplace'
@@ -849,42 +830,54 @@ augroup END
 Plug 'vim-scripts/vcscommand.vim', {'on':
       \ ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
 " }}}
-Plug 'bronson/vim-visual-star-search'
-Plug 'embear/vim-foldsearch'
-" incsearch.vim & vim-indexed-search {{{
-let g:incsearch#separate_highlight = 1
+" Mark {{{
+let g:mwDefaultHighlightingPalette = 'maximum'
+let g:mwHistAdd = '' "'/@'
+let g:mwAutoSaveMarks = 0
+let g:mwIgnoreCase    = 0
+xmap <Space><Space> <Plug>MarkSet
+nmap <Space><Space> <Plug>MarkSet
+nmap <Space>*       <Plug>MarkSearchNext
+nmap <Space>#       <Plug>MarkSearchPrev
+nmap <Space>ğ*      <Plug>MarkSearchCurrentNext
+nmap <Space>ğ#      <Plug>MarkSearchCurrentPrev
+nmap <S-Space>?     <Plug>MarkSearchAnyPrev
+nmap <S-Space>/     <Plug>MarkSearchAnyNext
+nmap <Space>nn      <Plug>MarkAllClear
+nmap <Space>n       <Plug>MarkClear
+nmap <Space>r       <Plug>MarkRegex
+xmap <Space>r       <Plug>MarkRegex
+Plug 'vim-scripts/Mark' "t9md/vim-quickhl
+" }}}
+" SEARCH {{{
 let g:incsearch#vim_cmdline_keymap = 0
-let g:incsearch#highlight = {
-  \   'match' : {
-  \     'group' : 'IncSearchMatch',
-  \     'priority' : '10'
-  \   },
-  \   'on_cursor' : {
-  \     'priority' : '100'
-  \   },
-  \   'cursor' : {
-  \     'group' : 'ErrorMsg',
-  \     'priority' : '1000'
-  \   }
-  \ }
+let g:incsearch#consistent_n_direction = 1
+let g:incsearch#auto_nohlsearch = 0
 let g:indexed_search_mappings = 0
 let g:indexed_search_line_info = 1
-Plug 'henrik/vim-indexed-search'
-let g:incsearch#consistent_n_direction = 1
-let g:incsearch#magic = ''
+let g:asterisk#keeppos = 1
+let g:vim_search_pulse_disable_auto_mappings = 1
+let g:vim_search_pulse_mode = 'pattern'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-map <silent> n  <Plug>(_incsearch-n)zv:ShowSearchIndex<CR>
-map <silent> N  <Plug>(_incsearch-N)zv:ShowSearchIndex<CR>
-map <silent> *  <Plug>(_incsearch-*)
-map <silent> #  <Plug>(_incsearch-#)
-map <silent> g* <Plug>(_incsearch-g*)
-map <silent> g# <Plug>(_incsearch-g#)
+map <silent> n <Plug>(incsearch-nohl-n)<Plug>Pulsezv:ShowSearchIndex<CR>
+map <silent> N <Plug>(incsearch-nohl-N)<Plug>Pulsezv:ShowSearchIndex<CR>
+augroup Misc_Plugins_Au " We need to do this way since Mark is mapping */#
+  autocmd VimEnter * map <silent> * <Plug>(asterisk-z*)zv:ShowSearchIndex<CR>
+  autocmd VimEnter * map <silent> # <Plug>(asterisk-z#)zv:ShowSearchIndex<CR>
+  autocmd VimEnter * map <silent> g* <Plug>(asterisk-gz*)zv:ShowSearchIndex<CR>
+  autocmd VimEnter * map <silent> g# <Plug>(asterisk-gz#)zv:ShowSearchIndex<CR>
+augroup END
+Plug 'henrik/vim-indexed-search'
 Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/vim-asterisk' "'bronson/vim-visual-star-search'
+Plug 'inside/vim-search-pulse'
+" Plug 'embear/vim-foldsearch'
 augroup incsearch_indexed
 autocmd!
   autocmd User IncSearchLeave ShowSearchIndex
+  autocmd User IncSearchExecute :call search_pulse#Pulse()
 augroup END
 augroup incsearch_cmdlinecomplete
   autocmd!
