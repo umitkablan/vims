@@ -789,14 +789,15 @@ function g:unite_source_menu_menus.vimshell.map(key, value)
 endfunction
 " }}}
 Plug 'Shougo/unite.vim'
-function! s:gfOrUnite(path) abort
-  if a:path[0] ==# '/'
-    execute 'edit ' . a:path
+function! GfOrUnite(cfile) abort
+  let path = expand(a:cfile)
+  if path[0] ==# '/'
+    execute 'sp ' . path
   else
-    execute 'Unite -input=' . umisc#FpathFilterRelStrs(a:path) . ' file_rec'
+    execute 'Unite -input=' . umisc#FpathFilterRelStrs(path) . ' file_rec'
   endif
 endfunction
-nnoremap <silent> gf     :call s:gfOrUnite(expand('<cfile>'))<CR>
+nnoremap <silent> gf     :call GfOrUnite(expand('<cfile>'))<CR>
 nnoremap <silent> gff    :normal! gf<CR>
 nnoremap <silent> ğee    :UniteWithBufferDir -start-insert file<CR>
 nnoremap <silent> ğe     :Unite -start-insert file<CR>
