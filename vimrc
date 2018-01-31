@@ -433,10 +433,8 @@ Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
-augroup Misc_Plugins_Au
-  au FileType html,css EmmetInstall
-augroup END
-Plug 'mattn/emmet-vim', {'for': 'html'}
+Plug 'mattn/emmet-vim', {'for': ['html', 'css']}
+autocmd! User emmet-vim EmmetInstall
 " }}}
 " }}}
 " SuperTab {{{
