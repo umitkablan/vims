@@ -434,7 +434,10 @@ Plug 'fatih/vim-go', {'for': 'go'}
 " mattn/Emmet {{{
 let g:user_emmet_install_global = 0
 Plug 'mattn/emmet-vim', {'for': ['html', 'css']}
-autocmd! User emmet-vim EmmetInstall
+augroup emmet_loaded_vimrc
+  autocmd!
+  autocmd! User emmet-vim EmmetInstall
+augroup END
 " }}}
 " }}}
 " SuperTab {{{
@@ -861,34 +864,27 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 map <silent> n <Plug>(incsearch-nohl-n)<Plug>Pulsezv:ShowSearchIndex<CR>
 map <silent> N <Plug>(incsearch-nohl-N)<Plug>Pulsezv:ShowSearchIndex<CR>
-augroup Misc_Plugins_Au " We need to do this way since Mark is mapping */#
-  autocmd VimEnter * map <silent> * <Plug>(asterisk-z*)zv:ShowSearchIndex<CR>
-  autocmd VimEnter * map <silent> # <Plug>(asterisk-z#)zv:ShowSearchIndex<CR>
+augroup search_plugins_loaded_vimrc " We need to do this way since Mark is mapping */#
+  autocmd!
+  autocmd VimEnter * map <silent> *  <Plug>(asterisk-z*)zv:ShowSearchIndex<CR>
+  autocmd VimEnter * map <silent> #  <Plug>(asterisk-z#)zv:ShowSearchIndex<CR>
   autocmd VimEnter * map <silent> g* <Plug>(asterisk-gz*)zv:ShowSearchIndex<CR>
   autocmd VimEnter * map <silent> g# <Plug>(asterisk-gz#)zv:ShowSearchIndex<CR>
+
+  autocmd VimEnter * IncSearchNoreMap <C-n> <Over>(buffer-complete)
+  autocmd VimEnter * IncSearchNoreMap <C-p> <Over>(buffer-complete-prev)
+  " autocmd VimEnter * IncSearchNoreMap <C-p> <Plug>CmdlineCompleteBackward "not working
+  autocmd VimEnter * IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
+  autocmd VimEnter * IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
+
+  autocmd User IncSearchLeave   ShowSearchIndex
+  autocmd User IncSearchExecute call search_pulse#Pulse()
 augroup END
 Plug 'henrik/vim-indexed-search'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/vim-asterisk' "'bronson/vim-visual-star-search'
 Plug 'inside/vim-search-pulse'
 " Plug 'embear/vim-foldsearch'
-augroup incsearch_indexed
-autocmd!
-  autocmd User IncSearchLeave ShowSearchIndex
-  autocmd User IncSearchExecute :call search_pulse#Pulse()
-augroup END
-augroup incsearch_cmdlinecomplete
-  autocmd!
-  autocmd VimEnter * call s:incsearch_cmdlinecomplete_keymap()
-augroup END
-function! s:incsearch_cmdlinecomplete_keymap()
-  IncSearchNoreMap <C-n> <Over>(buffer-complete)
-  IncSearchNoreMap <C-p> <Over>(buffer-complete-prev)
-  "IncSearchNoreMap <C-p> <Plug>CmdlineCompleteBackward "not working
-  IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
-  IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
-endfunction
-" }}}
 " CoremoSearch {{{
 let g:CoremoSearch_setDefaultMap = 0
 nnoremap <silent> X  :CoremoSearchAdd<CR>
@@ -896,6 +892,7 @@ xnoremap <silent> X  :CoremoSearchAddV<CR>
 nnoremap <silent> ğX :CoremoSearchRemove<CR>
 xnoremap <silent> ğX :CoremoSearchRemoveV<CR>
 Plug 'vim-scripts/CoremoSearch'
+" }}}
 " }}}
 Plug 'tyru/open-browser.vim'
 Plug 'umitkablan/vim-zeroth-colorscheme', {'on': 'ZerothCS'}
