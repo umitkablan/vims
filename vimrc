@@ -1151,7 +1151,7 @@ nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE  :call umisc#OpenExplore()<CR>
 nnoremap <silent> ĞV  :call umisc#OpenExplore('vertical')<CR>
 nnoremap <silent> ĞRC :tabe ~/.vim/<CR>
-nnoremap <silent> ĞT  :sp .<CR><C-W>T
+nnoremap <silent> ĞT  :sp <C-R>=expand('%:p:h')<CR><CR><C-W>T
 " de facto visual block indent mappings
 vnoremap < <gv
 xnoremap > >gv
