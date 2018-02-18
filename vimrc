@@ -892,7 +892,7 @@ Plug 'vim-scripts/CoremoSearch'
 " }}}
 " }}}
 Plug 'tyru/open-browser.vim'
-Plug 'umitkablan/vim-zeroth-colorscheme', {'on': 'ZerothCS'}
+Plug 'umitkablan/vim-zeroth-colorscheme'
 " umitkablan/umisc {{{
 augroup Misc_Plugins_Au
   autocmd FileType vim  vnoremap <silent><buffer> <F2> :Source<CR>
