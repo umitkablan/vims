@@ -23,6 +23,7 @@ if has('vim_starting')
 endif
 
 set completeopt-=preview
+set completeopt+=noselect
 
 " Plugins {{{
 augroup Misc_Plugins_Au
