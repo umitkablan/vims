@@ -179,7 +179,7 @@ endfunction
 " => automate the loading of local-vimrc's every time we start a buffer
 aug LocalVimrc
     au!
-    au BufReadPost * :call s:Main(expand('<afile>:p:h'))
+    au FileType * :call s:Main(expand('<afile>:p:h'))
 aug END
 
 " Functions }}}1
