@@ -89,6 +89,11 @@ let s:cpo_save=&cpo
 set cpo&vim
 " Avoid global reinclusion }}}1
 "------------------------------------------------------------------------
+" Global Settings {{{1
+if !exists('g:local_vimrc_disabled_filetypes')
+    let g:local_vimrc_disabled_filetypes = '|netrw|'
+endif
+" Global Settings }}}1
 " Commands {{{1
 command! -nargs=0 SourceLocalVimrc call s:Main(expand('%:p'))
 
@@ -164,8 +169,16 @@ function! s:CheckForbiddenPath(path)
     return ok
 endfunction
 
+function! s:CheckForbiddenFiletype(file_type) abort
+    return g:local_vimrc_disabled_filetypes =~# '|' . a:file_type . '|'
+endfunction
+
 function! s:Main(path)
     let s:sCd = 0
+    if s:CheckForbiddenFiletype(&l:filetype)
+        return
+    endif
+
     " echomsg 'Sourcing: '.a:path
     if !s:CheckForbiddenPath(a:path)
         return
