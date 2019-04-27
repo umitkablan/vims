@@ -1265,9 +1265,6 @@ augroup END
 " }}}
 
 inoremap <expr> <C-K> BDG_GetDigraph()
-nnoremap <silent> GL :call EchoLocationPath()<CR>
-nnoremap <silent> [d :call ShowBlockName('[d')<CR>
-nnoremap <silent> [i :call ShowBlockName('[i')<CR>
 " }}}
 " plugin configuration {{{
 let g:tmuxmake_targets = ''
