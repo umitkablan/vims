@@ -190,8 +190,9 @@ augroup Misc_Plugins_Au
   autocmd VimEnter * Alias do diffoff
   autocmd VimEnter * Alias did DirDiff
   autocmd VimEnter * Alias ie InlineEdit
-  autocmd VimEnter * Alias E e
+  autocmd VimEnter * Alias E e!
   autocmd VimEnter * Alias ee e\ <C-r>=expand('#:p')<CR>
+  autocmd VimEnter * Alias e. e\ <C-r>=expand('%:h:.')<CR><C-r>=EatChar("\ ")<CR>/<C-r>=EatChar("\ ")<CR>
   autocmd VimEnter * Alias er Errors
   autocmd VimEnter * Alias Er Errors
   autocmd VimEnter * Alias un Underline
