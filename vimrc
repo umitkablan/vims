@@ -310,8 +310,8 @@ let g:airline_mode_map = {
       \ 'S'  : 'S',
       \ '' : '^s',
       \ }
-let g:airline_section_b = '%{airline#util#shorten(airline#extensions#branch#get_head(),7,0)}'
-let g:airline_section_x = "%{tagbar#currenttag('@%s', '')}"
+let g:airline_section_b = '%-0.10{airline#extensions#branch#get_head()}'
+let g:airline_section_x = "%-0.13{tagbar#currenttag('@%s', '')}"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-airline-colornum'
@@ -370,6 +370,7 @@ Plug 'mhinz/vim-startify'
 "}}}
 " LANGUAGE PACKS {{{
 Plug 'sheerun/vim-polyglot'
+Plug 'pedrohdz/vim-yaml-folds'
 Plug 'ynkdir/vim-vimlparser', {'for': 'vim'}
 Plug 'syngan/vim-vimlint',    {'for': 'vim'}
 Plug 'sukima/xmledit',    {'for': 'xml'} "othree/xml.vim
@@ -814,6 +815,7 @@ augroup Misc_Plugins_Au
 augroup END
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
+Plug 'idanarye/vim-merginal'
 " }}}
 " VCSCommand {{{
 let g:VCSCommandMapPrefix = '<LocalLeader>_UNUSED_c'
@@ -828,6 +830,9 @@ augroup VCSCommand
 augroup END
 Plug 'vim-scripts/vcscommand.vim', {'on':
       \ ['VCSDiff','VCSStatus','VCSCommit','VCSBlame','VCSRevert','VCSAdd','VCSUpdate','VCSLog','VCSInfo']}
+" }}}
+" conflict-marker.vim {{{
+Plug 'rhysd/conflict-marker.vim'
 " }}}
 " Mark {{{
 let g:mwDefaultHighlightingPalette = 'maximum'
@@ -862,6 +867,7 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 map <silent> n <Plug>(incsearch-nohl-n)<Plug>Pulsezv:ShowSearchIndex<CR>
 map <silent> N <Plug>(incsearch-nohl-N)<Plug>Pulsezv:ShowSearchIndex<CR>
+nnoremap <silent> (( :ShowSearchIndex<CR>
 augroup search_plugins_loaded_vimrc " We need to do this way since Mark is mapping */#
   autocmd!
   autocmd VimEnter * map <silent> *  <Plug>(asterisk-z*)zv:ShowSearchIndex<CR>
