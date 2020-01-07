@@ -504,6 +504,7 @@ augroup Omnifuncs_Filetypes_Au
   autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
   autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
+  autocmd Filetype go            setlocal omnifunc=go#complete#GocodeComplete
   autocmd Filetype c,cpp,objc,objcpp setlocal omnifunc=ClangComplete
 augroup END
 if !exists('g:neocomplete#force_omni_input_patterns')
