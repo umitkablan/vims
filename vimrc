@@ -388,15 +388,44 @@ let g:OmniCpp_SelectFirstItem  = 0
 Plug 'vim-scripts/OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
 "}}}
 " Clang_Complete {{{
-let g:clang_complete_auto = 0
-let g:clang_auto_select   = 0
-let g:clang_omnicppcomplete_compliance = 1
-let g:clang_make_default_keymappings   = 0
-let g:clang_library_path = '/usr/local/Cellar/llvm/3.9.0/lib'
-augroup Misc_Plugins_Au
-  au FileType c,cpp,objc,objcpp nnoremap <buffer> <silent> <C-]> :call ClangGotoDeclaration()<CR>
+" let g:clang_complete_auto = 0
+" let g:clang_auto_select   = 0
+" let g:clang_omnicppcomplete_compliance = 1
+" let g:clang_make_default_keymappings   = 0
+" let g:clang_library_path = '/usr/local/Cellar/llvm/3.9.0/lib'
+" augroup Misc_Plugins_Au
+"   au FileType c,cpp,objc,objcpp nnoremap <buffer> <silent> <C-]> :call ClangGotoDeclaration()<CR>
+" augroup END
+" Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp', 'objc', 'objcpp']}
+"}}}
+" LSP Language Server Protocol {{{
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
+let g:lsp_signs_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 0
+
+" let this plugin set things nicely than we manually
+Plug 'mattn/vim-lsp-settings'
+" if executable('clangd')
+"   au User lsp_setup call lsp#register_server({
+"         \ 'name': 'clangd',
+"         \ 'cmd': {server_info->['clangd', '-background-index']},
+"         \ 'whitelist': ['c', 'cpp', ...
+" if executable('pyls') ...
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd    <Plug>(lsp-definition)
+  nmap <buffer> <C-]> <Plug>(lsp-definition)
+  nmap <buffer> ğs    <Plug>(lsp-rename)
+endfunction
+
+augroup LSP_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp', 'objc', 'objcpp']}
 "}}}
 " Java {{{
 let g:JavaComplete_EnableDefaultMappings = 0
@@ -495,17 +524,17 @@ let g:neocomplete#dictionary_filetype_lists = {
   \ 'txt'          : '/usr/share/dict/words',
   \ 'text'         : '/usr/share/dict/words',
   \ }
-augroup Omnifuncs_Filetypes_Au
-  autocmd!
-  "autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript    setlocal omnifunc=tern#Complete     "javascriptcomplete#CompleteJS
-  autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
-  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
-  autocmd Filetype c,cpp,objc,objcpp setlocal omnifunc=ClangComplete
-augroup END
+"augroup Omnifuncs_Filetypes_Au {{{
+  " autocmd!
+  " autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+  " autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  " autocmd FileType javascript    setlocal omnifunc=tern#Complete     "javascriptcomplete#CompleteJS
+  " autocmd FileType python        setlocal omnifunc=jedi#completions  "pythoncomplete#Complete
+  " autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  " autocmd Filetype java          setlocal omnifunc=javacomplete#Complete
+  " autocmd Filetype c,cpp,objc,objcpp setlocal omnifunc=ClangComplete
+"augroup END }}}
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
