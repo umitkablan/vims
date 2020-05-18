@@ -662,8 +662,8 @@ Plug 'xuhdev/SingleCompile', { 'on': [
   \]}
 " }}}
 " tomtom/TComment {{{
-let g:tcommentMapLeader1 = ''
-let g:tcommentMapLeader2 = ''
+let g:tcomment_mapleader1 = ''
+let g:tcomment_mapleader2 = ''
 nnoremap <silent> __ :TComment<CR>
 xnoremap <silent> __ :TCommentMaybeInline<CR>
 Plug 'tomtom/tcomment_vim'
