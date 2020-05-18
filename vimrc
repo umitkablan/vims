@@ -416,6 +416,9 @@ Plug 'mattn/vim-lsp-settings'
 " if executable('pyls') ...
 
 function! s:on_lsp_buffer_enabled() abort
+  if stridx(',cpp,c,', ','.&ft.',') == -1
+    return
+  endif
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
   nmap <buffer> gd    <Plug>(lsp-definition)
