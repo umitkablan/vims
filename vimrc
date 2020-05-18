@@ -460,7 +460,7 @@ let g:go#use_vimproc = 1
 " let g:go_bin_path = expand('~/SRC/Go')
 let g:go_snippet_engine = 'neosnippet'
 let g:go_list_type = 'quickfix'
-let g:go_def_mode  = 'godef'
+" let g:go_def_mode  = 'godef'
 augroup Misc_Plugins_Au
   au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
 augroup END
