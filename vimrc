@@ -1098,11 +1098,13 @@ endif
 " endif
 " }}}
 " personal maps: maps that do not need plugins {{{
+" closing without colon {{{
 nnoremap <silent> ZZ  :hide<CR>
 nnoremap <silent> ZZA :qa<CR>
 nnoremap <silent> ZZE :lcd %:h\|sp .\|wincmd p\|bd<CR>
 nnoremap <silent> ZA  :bd<CR>
-" disable all _accidental touches_
+" }}}
+" disable all _accidental touches_ {{{
 nnoremap QQ <Nop>
 nnoremap Qq gQ
 nnoremap qq <Nop>
@@ -1110,28 +1112,32 @@ nnoremap Q <Nop>
 nnoremap u <Nop>
 nnoremap U u
 nnoremap qQ Q
-" CTRL-c to leave insert mode,  better not know it.
+" }}}
+" CTRL-c defaults to leave insert mode,  better not know it {{{
 nnoremap <silent> <C-c> :echo expand("%:p:~")<CR>
 nnoremap oo o<C-c>o
 nnoremap OO O<C-c>O
 noremap g; g,
 noremap g, g;
 nmap g,, g,g,
-" not to press shift key
+" }}}
+" no shift key $/^ {{{
 noremap gl $
 noremap gh ^
 inoremap <silent> <C-E> <C-O>:normal! "g$"<CR>
 inoremap <silent> <C-A> <C-O>:exe "normal! \<C-O>g^"<CR>
+" }}}
 " behave like C and D counterparts (default is yy, which yanks line(s))
 noremap Y y$
 " Needed the 'dot' at reverse side of comma/n, which is mainly used for
 " search-replace (<comma_or_n><dot>)
 nnoremap <silent> <Bar> :normal .<CR>
-" do not use shift-* for colon, make it one shot
+" no shift key colon : {{{
 nnoremap ç :
 xnoremap ç :
 nmap . ç
 xmap . ç
+" }}}
 " nnoremap / q/i
 " nnoremap : q:i
 " nnoremap ? q?i
