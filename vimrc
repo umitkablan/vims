@@ -461,6 +461,7 @@ let g:go#use_vimproc = 1
 let g:go_snippet_engine = 'neosnippet'
 let g:go_list_type = 'quickfix'
 " let g:go_def_mode  = 'godef'
+let g:go_imports_autosave = 1
 augroup Misc_Plugins_Au
   au FileType go nnoremap <silent> <buffer> ğa :GoAlternate<CR>
 augroup END
