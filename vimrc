@@ -1072,6 +1072,7 @@ augroup Misc_Au_For_Filetypes
   " delete swap file if the swapped file is 'nomodified'
   au SwapExists  * if !&mod | let v:swapchoice = 'd' | endif
   au VimLeave    * if v:dying | wall | endif
+  au CompleteDone * silent! pclose
 augroup END
 
 " Colorscheme Selection {{{
