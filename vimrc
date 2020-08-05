@@ -170,6 +170,7 @@ let g:repeat_dot_mapping  = '<Bar>'
 let g:repeat_undo_mapping = 'U'
 Plug 'umitkablan/vim-repeat' "visualrepeat
 " }}}
+Plug 'ryvnf/readline.vim'
 Plug 'vim-scripts/CmdlineComplete'
 " Command Aliases {{{
 Plug 'Konfekt/vim-alias' "'cmdalias.vim'
