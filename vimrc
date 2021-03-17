@@ -536,6 +536,10 @@ let g:goldenview__enable_default_mapping = 0
 Plug 'zhaocai/GoldenView.Vim'
 "}}}
 " scrooloose/Syntastic {{{
+let g:syntastic_mode_map = {
+      \ "mode": "active",
+      \ "active_filetypes": ["c", "cpp"],
+      \ "passive_filetypes": ["go", "python"] }
 let g:syntastic_javascript_jshint_conf = '~/.vim/jshint.rc'
 let g:syntastic_c_compiler_options = '-std=gnu99
                                   \  -Wall -Wextra -Wshadow -Wpointer-arith
