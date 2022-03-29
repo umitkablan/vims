@@ -382,14 +382,11 @@ Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
 let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
 Plug 'derekwyatt/vim-protodef',          {'for': 'cpp'}
 " }}}
-" OmniCppComplete {{{
-let g:OmniCpp_MayCompleteDot   = 0
-let g:OmniCpp_MayCompleteArrow = 0
-let g:OmniCpp_MayCompleteScope = 0
-let g:OmniCpp_SelectFirstItem  = 0
-Plug 'vim-scripts/OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
-"}}}
-" Clang_Complete {{{
+"" OmniCppComplete {{{
+" g:OmniCpp_MayCompleteDot = g:OmniCpp_MayCompleteArrow = g:OmniCpp_MayCompleteScope = g:OmniCpp_SelectFirstItem = 0
+" Plug 'vim-scripts/OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
+""}}}
+"" Clang_Complete {{{
 " let g:clang_complete_auto = 0
 " let g:clang_auto_select   = 0
 " let g:clang_omnicppcomplete_compliance = 1
@@ -399,22 +396,41 @@ Plug 'vim-scripts/OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
 "   au FileType c,cpp,objc,objcpp nnoremap <buffer> <silent> <C-]> :call ClangGotoDeclaration()<CR>
 " augroup END
 " Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp', 'objc', 'objcpp']}
-"}}}
+""}}}
 " LSP Language Server Protocol {{{
-Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+let g:asyncomplete_auto_completeopt = 0
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/.vim/packs/vim-snippets/snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
+
+" inoremap <expr> <CR> (pumvisible() ? "\<C-y>" : "\<CR>")
+imap <expr><TAB> umisc#HasNonspaceBeforeCursor() ?
+      \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+          \ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" :
+              \ pumvisible() ? "\<C-n>" : "\<C-p>" :
+      \ "\<TAB>"
+smap <expr><TAB> umisc#HasNonspaceBeforeCursor() ?
+      \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+          \ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" :
+              \ pumvisible() ? "\<C-n>" : "\<C-p>" :
+      \ "\<TAB>"
+xmap <expr><TAB> umisc#HasNonspaceBeforeCursor() ?
+      \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+          \ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" :
+              \ pumvisible() ? "\<C-n>" : "\<C-p>" :
+      \ "\<TAB>"
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
 
 let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 0
 
-" let this plugin set things nicely than we manually
 Plug 'mattn/vim-lsp-settings'
-" if executable('clangd')
-"   au User lsp_setup call lsp#register_server({
-"         \ 'name': 'clangd',
-"         \ 'cmd': {server_info->['clangd', '-background-index']},
-"         \ 'whitelist': ['c', 'cpp', ...
-" if executable('pyls') ...
 
 function! s:on_lsp_buffer_enabled() abort
   if stridx(',cpp,c,', ','.&ft.',') == -1
@@ -425,6 +441,9 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> gd    <Plug>(lsp-definition)
   nmap <buffer> <C-]> <Plug>(lsp-definition)
   nmap <buffer> ğs    <Plug>(lsp-rename)
+  nmap <buffer> ğr    <Plug>(lsp-references)
+  nmap <buffer> ği    <Plug>(lsp-implementation)
+  nmap <buffer> K     <Plug>(lsp-hover)
 endfunction
 
 augroup LSP_install
@@ -477,14 +496,6 @@ augroup emmet_loaded_vimrc
 augroup END
 " }}}
 " }}}
-" SuperTab {{{
-let g:SuperTabMappingForward = '<C-Space>'
-let g:SuperTabMappingBackward = '<S-C-Space>'
-let g:SuperTabDefaultCompletionType = 'context' "<C-X><C-O>
-let g:SuperTabLongestEnhanced = 0
-let g:SuperTabCrMapping = 0
-Plug 'ervandew/supertab'
-"}}}
 " NetRW {{{
 nmap <unique> NOTUSED_NETRW_HIDELISTEDIT <Plug>NetrwHideEdit
 let g:tar_nomax = 1
@@ -651,25 +662,7 @@ augroup Misc_Plugins_Au
   " autocmd BufLeave \[unite\]* set bufhidden=wipe
 augroup END
 function! s:cust_unite_maps() "{{{
-  let b:SuperTabDisabled=1
-  " Overwrite settings.
-  " nmap <buffer> <ESC>      <Plug>(unite_exit)
-  " imap <buffer> jk         <Plug>(unite_insert_leave)
-  " imap <buffer><expr> j unite#smart_map('j', '')
-  " imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>   <Plug>(unite_delete_backward_path)
-  " imap <buffer> '       <Plug>(unite_quick_match_default_action)
-  " nmap <buffer> '       <Plug>(unite_quick_match_default_action)
-  " imap <buffer> <expr> x unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-  " nmap <buffer> x        <Plug>(unite_quick_match_choose_action)
-  " nmap <buffer> <C-z>    <Plug>(unite_toggle_transpose_window)
-  " imap <buffer> <C-z>    <Plug>(unite_toggle_transpose_window)
-  " imap <buffer> <C-y>    <Plug>(unite_narrowing_path)
-  " nmap <buffer> <C-y>    <Plug>(unite_narrowing_path)
-  " nmap <buffer> <C-j>    <Plug>(unite_toggle_auto_preview)
-  " nmap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
-  " imap <buffer> <C-r>    <Plug>(unite_narrowing_input_history)
-  " nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
   imap <silent><buffer><expr> <C-T> unite#do_action('tabdrop')
   imap <silent><buffer><expr> <C-o> unite#do_action('split')
   let unite = unite#get_current_unite()
@@ -1104,7 +1097,7 @@ nnoremap <silent> <C-l><C-l> :let @/=''\|redraw!\|e!<CR>
 nnoremap <silent> HH  :hide<CR>
 nnoremap <silent> ĞCD :cd %:p:h<CR>
 nnoremap <silent> ğcd :pwd<CR>
-nnoremap <silent> ğrc :sp .lvimrc<CR>
+nnoremap <silent> ĞRL :sp .lvimrc<CR>
 nnoremap <silent> ĞĞE :Explore<CR>
 nnoremap <silent> ĞE  :call umisc#OpenExplore()<CR>
 nnoremap <silent> ĞV  :call umisc#OpenExplore('vertical')<CR>
@@ -1166,17 +1159,17 @@ nnoremap <silent> <Space><Esc> :update<CR>
 " }}}
 " j/k/Space Behaviour {{{
 inoremap <expr><silent> jk
-      \ pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+      \ pumvisible() ? asyncomplete#close_popup()."\<Esc>" : "\<Esc>"
 inoremap <expr><silent> kj
-      \ pumvisible() ? neocomplete#close_popup()."\<Esc>" : "\<Esc>"
+      \ pumvisible() ? asyncomplete#close_popup()."\<Esc>" : "\<Esc>"
 inoremap <expr><silent> jk<Space>
-      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+      \ pumvisible() ? asyncomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 inoremap <expr><silent> j<Space>k
-      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+      \ pumvisible() ? asyncomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 inoremap <expr><silent> kj<Space>
-      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+      \ pumvisible() ? asyncomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 inoremap <expr><silent> k<Space>j
-      \ pumvisible() ? neocomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
+      \ pumvisible() ? asyncomplete#close_popup()."\<Esc>:update\<CR>" : "\<Esc>:update\<CR>"
 " Adjust maps according to language: some languages are semicolon driven.
 augroup semicolon_langs
   au!
@@ -1193,7 +1186,9 @@ augroup semicolon_langs
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> k<Space>j
       \ umisc#YieldSemicolonIfAppropriate()."\<Esc>:update\<CR>"
   au FileType c,cpp,java,javascript,css,actionscript inoremap <expr><silent><buffer> <CR>
-      \ pumvisible() ? neocomplete#close_popup() : umisc#IsSemicolonAppropriateHere() ? ";\<CR>" : getline(".")[col('.')-1] == '}' ? "\<CR>\<C-c>O" : "\<CR>"
+      \ pumvisible() ? asyncomplete#close_popup() :
+          \ umisc#IsSemicolonAppropriateHere() ? ";\<CR>" :
+              \ getline(".")[col('.')-1] == '}' ? "\<CR>\<C-c>O" : "\<CR>"
 augroup END
 " }}}
 
