@@ -382,21 +382,6 @@ Plug 'jamestomasino/actionscript-vim-bundle', {'for': 'actionscript'}
 let g:protodefprotogetter=expand('$HOME/.vim/bundle/protodef-vim-derekwyatt/pullproto.pl')
 Plug 'derekwyatt/vim-protodef',          {'for': 'cpp'}
 " }}}
-"" OmniCppComplete {{{
-" g:OmniCpp_MayCompleteDot = g:OmniCpp_MayCompleteArrow = g:OmniCpp_MayCompleteScope = g:OmniCpp_SelectFirstItem = 0
-" Plug 'vim-scripts/OmniCppComplete', {'on': 'OmniCppCompleteLoad'}
-""}}}
-"" Clang_Complete {{{
-" let g:clang_complete_auto = 0
-" let g:clang_auto_select   = 0
-" let g:clang_omnicppcomplete_compliance = 1
-" let g:clang_make_default_keymappings   = 0
-" let g:clang_library_path = '/usr/local/Cellar/llvm/3.9.0/lib'
-" augroup Misc_Plugins_Au
-"   au FileType c,cpp,objc,objcpp nnoremap <buffer> <silent> <C-]> :call ClangGotoDeclaration()<CR>
-" augroup END
-" Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp', 'objc', 'objcpp']}
-""}}}
 " LSP Language Server Protocol {{{
 Plug 'prabirshrestha/vim-lsp'
 let g:asyncomplete_auto_completeopt = 0
