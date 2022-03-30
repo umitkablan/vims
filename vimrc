@@ -314,6 +314,11 @@ let g:airline_section_b = '%-0.10{airline#extensions#branch#get_head()}'
 let g:airline_section_x = "%-0.13{tagbar#currenttag('@%s', '')}"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+let g:airline_colornum_enabled = 0
+augroup Airline_To_Colornum
+  au!
+  au User AirlineAfterInit EnableAirlineColorNum "let g:airline_colornum_enabled = 1
+augroup END
 Plug 'ntpeters/vim-airline-colornum'
 " }}}
 Plug 'simnalamburt/vim-mundo', {'on': ['GundoShow','GundoToggle', 'MundoShow', 'MundoToggle']}
