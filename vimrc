@@ -35,7 +35,7 @@ Plug 'Shougo/vimproc', {
   \ 'do' : 'make -f make_mingw32.mak',
   \ }
 Plug 'tpope/vim-dispatch'
-Plug 'idbrii/AsyncCommand' "skywind3000/asyncrun.vim
+Plug 'skywind3000/asyncrun.vim' "'idbrii/AsyncCommand'
 Plug 'xolox/vim-misc'
 nnoremap <silent> ğ1 :TScratch<CR>
 Plug 'tomtom/tlib_vim'
@@ -65,10 +65,8 @@ Plug 'vim-scripts/CCTree', {'on': ['CCTreeLoadDB', 'CCTreeLoadDB', 'CCTreeShowLo
 Plug 'mbbill/echofunc'
 Plug 'kana/vim-metarw'
 Plug 'bogado/file-line'
-" a.vim alternate {{{
 nnoremap <silent> ğa :A<CR>
 Plug 'vim-scripts/a.vim'
-" }}}
 " ReplaceWithRegister {{{
 nmap gr  <Plug>ReplaceMotion
 nmap grr <Plug>ReplaceLine
