@@ -1,6 +1,7 @@
 
 set hlsearch incsearch
 set ignorecase smartcase
+set number relativenumber
 
 nnoremap <silent> <Space><Tab> :w<CR>
 nnoremap <silent> <Tab><Space> :w<CR>
