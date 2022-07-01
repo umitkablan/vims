@@ -1,12 +1,13 @@
-
 set hlsearch incsearch
 set ignorecase smartcase
 set number relativenumber
+set nowrapscan
 
-nnoremap <silent> <Space><Tab> :w<CR>
-nnoremap <silent> <Tab><Space> :w<CR>
-nnoremap gl $
-nnoremap gh ^^
+nnoremap \ :let @/=""<CR>
+nnoremap <silent> <Space><Tab> :update<CR>
+nnoremap <silent> <Tab><Space> :update<CR>h
+noremap gl $
+noremap gh ^^
 inoremap <C-e> <C-o>$<Right>
 inoremap <C-a> <C-o>0
 noremap Y y$
@@ -14,7 +15,8 @@ nnoremap oo o<Esc>o
 nnoremap OO O<Esc>O
 nmap <Up>   5<C-Y>
 nmap <Down> 5<C-E>
-nmap ğ<Space> za
+
+nnoremap <space><space> za
 nmap . :
 nnoremap | .
 nnoremap , ;
@@ -37,6 +39,9 @@ nnoremap <silent> ğ<Enter>  :vsc Edit.GoToDeclaration<CR>
 vnoremap <silent> S :vsc Edit.SurroundWith<CR>
 " vnoremap <silent> S :vsc ReSharper.ReSharper_SurroundWith<CR>
 
+vnoremap * "/y/<CR>/<CR>
+vnoremap # "/y?<CR>/<CR>
+
 nnoremap <silent> mm :vsc Edit.ToggleBookmark<CR>
 
 nnoremap <silent> <F5> :vsc Build.BuildOnlyProject<CR>
@@ -53,6 +58,7 @@ nnoremap <silent> ĞE :vsc File.OpenContainingFolder<CR>
 
 nnoremap <silent> <Tab><Tab>l :vsc Window.NextTab<CR>
 nnoremap <silent> <Tab><Tab>h :vsc Window.PreviousTab<CR>
+nnoremap <silent> ZZ          :vsc Window.Close<CR>
 
 " Depends on EasyMotion extension
 nnoremap <silent> <Tab>f :vsc EasyMotion.Navigate<CR>
@@ -74,6 +80,7 @@ nnoremap <silent> gcc :vsc Edit.CommentSelection<CR>
 "onoremap <silent> ae :vsc Edit.SelectAll<CR>
 "nnoremap <silent> MRU :vsc RecentlyUsedFiles.Connect.RecentlyUsedFiles<CR>
 
+"inoremap <silent> <C-n> <C-O>:edit.CompleteWord<CR>
 nnoremap <silent> <C-l> :e<CR>
 "nnoremap <silent> <C-q> :vsc Window.QuickLaunch<CR>
 nnoremap <silent> <C-p> :vsc Edit.NavigateTo<CR>
